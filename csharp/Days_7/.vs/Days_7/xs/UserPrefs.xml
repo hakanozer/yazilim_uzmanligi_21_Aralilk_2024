@@ -1,4 +1,26 @@
 ﻿<Properties StartupConfiguration="{77B4831E-6400-4669-BD3F-41C878AAEEE7}|Default">
-  <MonoDevelop.Ide.ItemProperties.Days__7 FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Days_7/Program.cs">
+    <Files>
+      <File FileName="Days_7/Program.cs" Line="88" Column="1" />
+      <File FileName="Days_7/Action.cs" Line="49" Column="19" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Days_7" expanded="True">
+            <Node name="Days_7">
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Days__7 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>
