@@ -20,14 +20,49 @@ namespace Days_10
             db.close();
 
             // İstisnalar
-            string stNum1 = "12";
-            string stNum2 = "77";
+            for (; ;)
+            {
+                Console.WriteLine("1. Sayıyı giriniz!");
+                string stNum1 = Console.ReadLine();
+                Console.WriteLine("2. Sayıyı giriniz!");
+                string stNum2 = Console.ReadLine();
 
-            int num1 = Convert.ToInt32(stNum1);
-            int num2 = Convert.ToInt32(stNum2);
+                try
+                {
+                    int num1 = Convert.ToInt32(stNum1);
+                    int num2 = Convert.ToInt32(stNum2);
+                    int sm = num1 + num2;
+                    Console.WriteLine($"Sum: {sm}");
+                    break;
+                }catch( Exception ex )
+                {
+                    Console.WriteLine("Lütfen tam sayı ifadeleri giriniz!");
+                    Console.WriteLine("Lütfen tekrar deneyiniz!");
+                }
+            }
 
-            int sm = num1 + num2;
-            Console.WriteLine($"Sum: {sm}");
+
+            // try - catch
+            try
+            {
+                // hata olma olasığı olan kodlar
+                int a = 1;
+                int b = 0;
+                int i = a / b;
+            }
+            catch( Exception ex )
+            {
+                // hata olduğunda çalışacak kodlar
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("lütfen bölme için 0 dışında bir değer giriniz!");
+            }
+
+
+            Customer customer = new Customer();
+            customer.ProfileImageCrop(100, 100);
+
+            Console.WriteLine("This line call");
+
         
         }
     }

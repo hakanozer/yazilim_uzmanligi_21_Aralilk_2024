@@ -9,6 +9,18 @@ namespace Days_10
 			Console.WriteLine($"{email} - {password}");
 		}
 
+		public void ProfileImageCrop(int width, int height)
+		{
+			try
+			{
+                Console.WriteLine($"{width} - {height}");
+            }catch(Exception ex)
+			{
+				throw new Exception();
+			}
+			
+        }
+
 	}
 }
 
