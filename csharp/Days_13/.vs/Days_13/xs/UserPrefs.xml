@@ -1,4 +1,32 @@
 ﻿<Properties StartupConfiguration="{8C0AAC4B-3056-45A1-8DAC-490530D7520F}|Default">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Days__13 FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Days__13 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Days_13/users/Modarator.cs">
+    <Files>
+      <File FileName="Days_13/Program.cs" Line="44" Column="10" />
+      <File FileName="Days_13/users/Person.cs" Line="9" Column="29" />
+      <File FileName="Days_13/users/User.cs" Line="20" Column="10" />
+      <File FileName="Days_13/users/Customer.cs" Line="26" Column="61" />
+      <File FileName="Days_13/users/Admin.cs" Line="8" Column="29" />
+      <File FileName="Days_13/users/Modarator.cs" Line="16" Column="33" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Days_13" expanded="True">
+            <Node name="Days_13">
+              <Node name="users">
+                <Node name="Modarator.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
 </Properties>
