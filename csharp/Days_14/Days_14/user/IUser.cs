@@ -13,6 +13,7 @@ namespace Days_14.user
 		public UserModel UserLogin(string email, string password);
 		public string UserName(int uid);
 		public void UserReport(int uid);
+		public UserModel UserUpdate(UserModel userModel);
 
 	}
 }
