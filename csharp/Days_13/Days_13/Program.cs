@@ -42,5 +42,6 @@ namespace Days_13
                 Console.WriteLine($"c -> {c.GetHashCode()}");
             }
         }
+
     }
 }
