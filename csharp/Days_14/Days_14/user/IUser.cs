@@ -10,11 +10,10 @@ namespace Days_14.user
 		// bir sınıfa mutlaka implement edilmelidir.
 
 		public bool UserRegister(UserModel userModel);
-		public UserModel UserLogin(string email, string password);
+		public UserModel? UserLogin(string email, string password);
 		public string UserName(int uid);
 		public void UserReport(int uid);
-		public UserModel UserUpdate(UserModel userModel);
+		public UserModel? UserUpdate(UserModel userModel);
 
 	}
 }
-
