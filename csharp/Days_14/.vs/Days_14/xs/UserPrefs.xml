@@ -1,4 +1,32 @@
 ﻿<Properties StartupConfiguration="{45D8CD24-57F8-4944-A63D-11267232689C}|Default">
-  <MonoDevelop.Ide.ItemProperties.Days__14 FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Days_14/Program.cs">
+    <Files>
+      <File FileName="Days_14/Program.cs" Line="33" Column="1" />
+      <File FileName="Days_14/models/UserModel.cs" Line="11" Column="6" />
+      <File FileName="Days_14/user/IUser.cs" Line="12" Column="14" />
+      <File FileName="Days_14/services/UserService.cs" Line="7" Column="29" />
+      <File FileName="Days_14/user/IProfile.cs" Line="9" Column="28" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Days_14">
+            <Node name="Days_14" expanded="True">
+              <Node name="models" expanded="True" />
+              <Node name="services" expanded="True" />
+              <Node name="user" expanded="True" />
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Days__14 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
 </Properties>
