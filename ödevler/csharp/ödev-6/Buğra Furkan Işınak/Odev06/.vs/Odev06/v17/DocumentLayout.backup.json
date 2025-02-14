@@ -1,0 +1,90 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|c:\\users\\raemn\\desktop\\e-commerce\\.vs\\odev06\\odev06\\movable\\cars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|solutionrelative:odev06\\movable\\cars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|c:\\users\\raemn\\desktop\\e-commerce\\.vs\\odev06\\odev06\\movable\\robot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|solutionrelative:odev06\\movable\\robot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|c:\\users\\raemn\\desktop\\e-commerce\\.vs\\odev06\\odev06\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|solutionrelative:odev06\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|c:\\users\\raemn\\desktop\\e-commerce\\.vs\\odev06\\odev06\\movable\\imovable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8153A9C5-D5D1-4A09-B990-9092189C46C0}|Odev06\\Odev06.csproj|solutionrelative:odev06\\movable\\imovable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\Program.cs",
+              "RelativeDocumentMoniker": "Odev06\\Program.cs",
+              "ToolTip": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\Program.cs",
+              "RelativeToolTip": "Odev06\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-10T11:36:00.888Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IMovable.cs",
+              "DocumentMoniker": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\movable\\IMovable.cs",
+              "RelativeDocumentMoniker": "Odev06\\movable\\IMovable.cs",
+              "ToolTip": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\movable\\IMovable.cs",
+              "RelativeToolTip": "Odev06\\movable\\IMovable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T00:01:51.156Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Robot.cs",
+              "DocumentMoniker": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\movable\\Robot.cs",
+              "RelativeDocumentMoniker": "Odev06\\movable\\Robot.cs",
+              "ToolTip": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\movable\\Robot.cs",
+              "RelativeToolTip": "Odev06\\movable\\Robot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T00:04:53.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cars.cs",
+              "DocumentMoniker": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\movable\\Cars.cs",
+              "RelativeDocumentMoniker": "Odev06\\movable\\Cars.cs",
+              "ToolTip": "C:\\Users\\raemn\\Desktop\\e-commerce\\.vs\\Odev06\\Odev06\\movable\\Cars.cs",
+              "RelativeToolTip": "Odev06\\movable\\Cars.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T00:04:12.561Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,7 +1,20 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\\u00D6mer Kafkas\\Projects\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\raemn\\Documents\\GitHub\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6A48042B-949A-4343-BE7F-C7711B78013F}|Days_15\\Days_15.csproj|c:\\users\\raemn\\documents\\github\\yazilim_uzmanligi_21_aralilk_2024\\csharp\\days_15\\days_15\\properties\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A48042B-949A-4343-BE7F-C7711B78013F}|Days_15\\Days_15.csproj|solutionrelative:days_15\\properties\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A48042B-949A-4343-BE7F-C7711B78013F}|Days_15\\Days_15.csproj|c:\\users\\raemn\\documents\\github\\yazilim_uzmanligi_21_aralilk_2024\\csharp\\days_15\\days_15\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A48042B-949A-4343-BE7F-C7711B78013F}|Days_15\\Days_15.csproj|solutionrelative:days_15\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A48042B-949A-4343-BE7F-C7711B78013F}|Days_15\\Days_15.csproj|c:\\users\\raemn\\documents\\github\\yazilim_uzmanligi_21_aralilk_2024\\csharp\\days_15\\days_15\\properties\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A48042B-949A-4343-BE7F-C7711B78013F}|Days_15\\Days_15.csproj|solutionrelative:days_15\\properties\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +22,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\raemn\\Documents\\GitHub\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\Days_15\\Program.cs",
+              "RelativeDocumentMoniker": "Days_15\\Program.cs",
+              "ToolTip": "C:\\Users\\raemn\\Documents\\GitHub\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\Days_15\\Program.cs",
+              "RelativeToolTip": "Days_15\\Program.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCEAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T23:51:37.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductModel.cs",
+              "DocumentMoniker": "C:\\Users\\raemn\\Documents\\GitHub\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\Days_15\\properties\\ProductModel.cs",
+              "RelativeDocumentMoniker": "Days_15\\properties\\ProductModel.cs",
+              "ToolTip": "C:\\Users\\raemn\\Documents\\GitHub\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\Days_15\\properties\\ProductModel.cs",
+              "RelativeToolTip": "Days_15\\properties\\ProductModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T23:51:35.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Product.cs",
+              "DocumentMoniker": "C:\\Users\\raemn\\Documents\\GitHub\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\Days_15\\properties\\Product.cs",
+              "RelativeDocumentMoniker": "Days_15\\properties\\Product.cs",
+              "ToolTip": "C:\\Users\\raemn\\Documents\\GitHub\\yazilim_uzmanligi_21_Aralilk_2024\\csharp\\Days_15\\Days_15\\properties\\Product.cs",
+              "RelativeToolTip": "Days_15\\properties\\Product.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-13T23:51:34.085Z",
+              "EditorCaption": ""
             }
           ]
         }
