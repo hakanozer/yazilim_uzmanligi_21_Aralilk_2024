@@ -13,10 +13,10 @@ namespace Ödev_6
         {
             get { return _salary; }
             set {
-                if (value < 0) _salary = 0;
+                if (value < 0) throw new Exception("You cannot assign negative values.");
                 else
                 {
-                    throw new Exception("You cannot assign negative values.");
+                    _salary = value;
                 }
             } 
         }
