@@ -73,7 +73,7 @@ namespace Days_16
 				p.status = true;
 				products.Add(p);
 
-                Console.WriteLine("Durdurmak için X Giriniz");
+                Console.WriteLine("Durdurmak için 'X' Giriniz");
 				string status = Console.ReadLine();
 				if (status.Equals("X"))
 				{
@@ -82,12 +82,48 @@ namespace Days_16
             }
 
             Console.WriteLine("===============");
-            // sil - for
+			// sil - for
+			Console.WriteLine("Silme için 'X'");
+			string deleteStatus = Console.ReadLine();
+			if (deleteStatus.Equals("X"))
+			{
+				for(; ;)
+				{
+					Console.WriteLine($"Silmek istediğiniz sırayı giriniz, 1 - {products.Count} ");
+					string stIndex = Console.ReadLine();
+					try{
+                        int index = Convert.ToInt32(stIndex);
+						if (index > 0)
+						{
+							index = index - 1;
+							if (index < products.Count)
+							{
+								products.RemoveAt(index);
+								Console.WriteLine("Silme işlemi devam etsin mi?, 'D'");
+								string delete = Console.ReadLine();
+								if (!delete.Equals("D"))
+								{
+									break;
+								}
+							}else
+							{
+								Console.WriteLine("Silmek istediğiniz ürün bulunumadı!");
+							}
+						}else
+						{
+							Console.WriteLine("Lüfen sadece pozitif değerler giriniz!");
+						}
+                    }
+                    catch (Exception ex){
+						Console.WriteLine("Lütfen sadece sayısal değer giriniz!");
+					}
+				}
+			}
 
             Console.WriteLine("===============");
 			foreach( Product item in products )
 			{
-				Console.WriteLine(item.title);
+				Console.WriteLine(item);
 			}
 
         }
