@@ -3,17 +3,23 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Days__17 PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Days__17 PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Days_17/Program.cs">
     <Files>
-      <File FileName="Days_17/Program.cs" Line="8" Column="42" />
+      <File FileName="Days_17/Program.cs" Line="51" Column="2" />
+      <File FileName="Days_17/UseLinkedList.cs" Line="13" Column="1" />
+      <File FileName="Days_17/UseQueue.cs" Line="21" Column="4" />
+      <File FileName="Days_17/UserStack.cs" Line="30" Column="14" />
+      <File FileName="Days_17/UseHashSet.cs" Line="71" Column="20" />
+      <File FileName="Days_17/models/User.cs" Line="38" Column="10" />
+      <File FileName="Days_17/models/Product.cs" Line="7" Column="23" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Days_17" expanded="True">
-            <Node name="Days_17">
-              <Node name="models" selected="True" />
+            <Node name="Days_17" expanded="True">
+              <Node name="models" expanded="True" />
             </Node>
           </Node>
         </State>
