@@ -1,4 +1,6 @@
-﻿namespace Days_17
+﻿using System.Collections.Generic;
+
+namespace Days_17
 {
     public class Program
     {
@@ -31,6 +33,15 @@
             // büyüklüğüne göre yapılır.
             // benzersiz değerleri kendisinde saklar.
 
+            // SortedSet<T>
+            // Benzersiz öğeleri depolamak için vardır.
+            // Sıralanmış düzende verileri depolar.
+
+            // Dictionary<TKey, TValue>
+            // Anahtar - Değer çifti ile çalışır.
+            // index algorirtması yok.
+
+
             UseLinkedList useLinkedList = new UseLinkedList();
             useLinkedList.Call();
 
@@ -45,6 +56,14 @@
             Console.WriteLine("============================");
             UseHashSet useHashSet = new UseHashSet();
             useHashSet.Call();
+
+            Console.WriteLine("============================");
+            UseSortedSet sortedSet = new UseSortedSet();
+            sortedSet.Call();
+
+            Console.WriteLine("============================");
+            UseDictionary useDictionary = new UseDictionary();
+            useDictionary.Call();
 
         }
     }
