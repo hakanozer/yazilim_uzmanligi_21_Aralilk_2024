@@ -1,20 +1,24 @@
-﻿<Properties StartupConfiguration="{7B1CC639-E457-4BFC-9EB2-EC9AA520E2A8}|Default">
+﻿<Properties StartupConfiguration="{369645C0-FD82-4A38-ABAC-14596BB9C945}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.Tekrar PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Tekrar/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tekrar_2/Program.cs">
     <Files>
-      <File FileName="Tekrar/Program.cs" Line="44" Column="1" />
+      <File FileName="Tekrar_2/Program.cs" Line="89" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Tekrar" expanded="True" selected="True" />
+          <Node name="Tekrar">
+            <Node name="Tekrar_2" selected="True" />
+          </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Tekrar__2 FirstBuild="True" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.ItemProperties.Tekrar__2 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
