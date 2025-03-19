@@ -1,28 +1,30 @@
-﻿<Properties StartupConfiguration="{6537BD86-8C5B-48A0-8578-DE05AC4B18D8}|Default">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+﻿<Properties StartupConfiguration="{A68DC1BF-A8C0-49E3-A344-6004A367F976}|Default">
   <MonoDevelop.Ide.ItemProperties.Tekrar__3 PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.ItemProperties.Tekrar PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Tekrar_3/Action.cs">
+  <MonoDevelop.Ide.ItemProperties.Tekrar PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.Tekrar__4 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Tekrar__2 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Tekrar_4/Program.cs">
     <Files>
-      <File FileName="Tekrar_3/Program.cs" Line="17" Column="27" />
-      <File FileName="Tekrar_3/Action.cs" Line="18" Column="28" />
+      <File FileName="Tekrar_4/Program.cs" Line="16" Column="42" />
+      <File FileName="Tekrar_4/A.cs" Line="6" Column="1" />
+      <File FileName="Tekrar_4/B.cs" Line="1" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Tekrar">
-            <Node name="Tekrar_3">
-              <Node name="Action.cs" selected="True" />
+            <Node name="Tekrar_4">
+              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Tekrar__2 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
