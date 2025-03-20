@@ -1,4 +1,5 @@
 namespace MOnMOff
+//açıklama1
 {
 class Book
 {
@@ -12,3 +13,4 @@ class Book
     }
 }
 }
+//açıklama2
