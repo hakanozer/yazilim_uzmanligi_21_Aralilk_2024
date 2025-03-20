@@ -1,7 +1,7 @@
 namespace MOnMOff
-//açıklama1
+//açıklama-bu bolum master branchinde eklendi
 {
-class Book
+    class Book
 {
     public string Title { get; }
     public string Author { get; set; }
