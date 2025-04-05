@@ -1,7 +1,7 @@
 using Microsoft.Data.SqlClient;
 
-namespace Days_19
-{
+namespace Days_19;
+
     public class DB
     {
         static string _connectionString = "Server=localhost,1433; Database=contacts; User Id=SA; Password=StrongPassword123!; TrustServerCertificate=True;";
@@ -41,4 +41,3 @@ namespace Days_19
         }
 
     }
-}
