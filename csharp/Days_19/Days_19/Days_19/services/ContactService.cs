@@ -180,6 +180,79 @@ namespace Days_19.Services
             return contacts;
         }
 
+        public List<Contact> GetTop10View() {
+            List<Contact> contacts = new List<Contact>();
+            try 
+            {
+                string query = "SELECT * from Top10View";
+                SqlCommand command = new SqlCommand(query, _dB.GetConnection());
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Contact contact = new Contact();
+                    contact.Cid = Convert.ToInt32(reader["cid"]);
+                    contact.Name = reader["name"].ToString();
+                    contact.Surname = reader["surname"].ToString();
+                    contact.Email = reader["email"].ToString();
+                    contact.Phone = reader["phone"].ToString();
+                    contact.Address = reader["address"].ToString();
+                    contacts.Add(contact);
+                }
+            }catch (SqlException ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                _dB.CloseConnection();
+            }
+            return contacts;
+        }
+
+
+        public List<Contact> GetProd(int page) {
+            List<Contact> contacts = new List<Contact>();
+            try 
+            {
+                SqlCommand command = new SqlCommand() { 
+                    CommandText = "proContact", 
+                    CommandType = CommandType.StoredProcedure, 
+                    Connection = _dB.GetConnection() 
+                };
+                
+                SqlParameter pageParam = new SqlParameter() { 
+                    ParameterName = "@page", 
+                    SqlDbType = SqlDbType.Int, 
+                    Direction = ParameterDirection.Input, 
+                    Value = page 
+                };
+                command.Parameters.Add(pageParam);
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Contact contact = new Contact();
+                    contact.Cid = Convert.ToInt32(reader["cid"]);
+                    contact.Name = reader["name"].ToString();
+                    contact.Surname = reader["surname"].ToString();
+                    contact.Email = reader["email"].ToString();
+                    contact.Phone = reader["phone"].ToString();
+                    contact.Address = reader["address"].ToString();
+                    contacts.Add(contact);
+                }
+            }catch (SqlException ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                _dB.CloseConnection();
+            }
+            return contacts;
+        }
+
+
+
     }
 }
 

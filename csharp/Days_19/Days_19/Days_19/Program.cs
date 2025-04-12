@@ -73,8 +73,22 @@ namespace Days_19;
         {
             Console.WriteLine(item.Cid + " " + item.Name + " " + item.Surname + " " + item.Email + " " + item.Phone + " " + item.Address);
         }
-        Console.WriteLine("------------------");
+        Console.WriteLine("---------Top 10 View---------");
 
+
+        List<Contact> top10ViewResults = contactService.GetTop10View();
+        foreach (var item in top10ViewResults)
+        {
+            Console.WriteLine(item.Cid + " " + item.Name + " " + item.Surname + " " + item.Email + " " + item.Phone + " " + item.Address);
+        }
+        Console.WriteLine("--------Procedure----------");
+
+        List<Contact> proContacts = contactService.GetProd(10);
+        foreach (var item in proContacts)
+        {
+            Console.WriteLine(item.Cid + " " + item.Name + " " + item.Surname + " " + item.Email + " " + item.Phone + " " + item.Address);
+        }
+        Console.WriteLine("------------------");
 
     }
 
