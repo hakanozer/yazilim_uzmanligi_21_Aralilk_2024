@@ -1,6 +1,6 @@
 using Microsoft.Data.SqlClient;
 
-namespace Days_19;
+namespace Days_19.Utils;
 
     public class DB
     {

@@ -1,8 +1,9 @@
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Days_19.Models;
+using Days_19.Utils;
 
-namespace Days_19
+namespace Days_19.Services
 {
     public class ContactService
     {
@@ -181,3 +182,4 @@ namespace Days_19
 
     }
 }
+
