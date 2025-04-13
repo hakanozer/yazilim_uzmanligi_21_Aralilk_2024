@@ -88,7 +88,13 @@ namespace Days_19;
         {
             Console.WriteLine(item.Cid + " " + item.Name + " " + item.Surname + " " + item.Email + " " + item.Phone + " " + item.Address);
         }
-        Console.WriteLine("------------------");
+        Console.WriteLine("---------Inner Join---------");
+
+        List<CityContact> getCityContact = contactService.GetCityContact();
+        foreach (var item in getCityContact)
+        {
+            Console.WriteLine(item.Cid + " " + item.Name + " " + item.Surname + " " + item.Email + " " + item.Phone + " " + item.SehirAdi + " " + item.Yuzolcumu + " " + item.Bolge + " " + item.Nufus);
+        }
 
     }
 
