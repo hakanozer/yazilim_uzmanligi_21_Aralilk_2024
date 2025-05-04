@@ -2,7 +2,6 @@
 using Days_20.Models;
 using Days_20.Services;
 using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace Days_20
 {
