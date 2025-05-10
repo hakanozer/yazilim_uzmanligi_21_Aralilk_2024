@@ -67,6 +67,69 @@ namespace Days_20
             }
             Console.WriteLine("-------------------------------------------------");
 
+            // Yaşı 30'dan büyük ve ip adresi belirli aralıkta olan kullanıcıları listele
+            List<User> users = userService.AgeIP(30, "249");
+            foreach (var user in users)
+            {
+                Console.WriteLine($"ID: {user.Id},  UserID: {user.UId}, Name: {user.Name}, Surname: {user.Surname}, Email: {user.Email}, Age: {user.Age}, IP Address: {user.Ip_address}");
+            }
+            Console.WriteLine("-------------------------------------------------");
+
+            // Son bir ayda kaydedilen kullanıcıları listele
+            List<User> usersDate = userService.UserDateReport();
+            foreach (var user in usersDate)
+            {
+                Console.WriteLine($"ID: {user.Id},  UserID: {user.UId}, Name: {user.Name}, Surname: {user.Surname}, Email: {user.Email}, Age: {user.Age}, Date: {user.Date}");
+            }
+            Console.WriteLine("-------------------------------------------------");
+
+            // Cinsiyete göre gruplama
+            var genderStatus = userService.GrupByGender();
+            genderStatus.ToList().ForEach(x =>
+            {
+                Console.WriteLine($"{x.Gender} : {x.Count}");
+            });
+
+            Console.WriteLine("-------------------------------------------------");
+            // yaş ortalaması hesaplama
+            double averageAge = userService.AverageAge();
+            Console.WriteLine($"Average Age: {averageAge}");
+            Console.WriteLine("-------------------------------------------------");
+
+            // en yaşlı 5 kullanıcıyı listele
+            List<User> top5OldestUsers = userService.GetTop5OldestUsers();
+            foreach (var user in top5OldestUsers)
+            {
+                Console.WriteLine($"ID: {user.Id},  UserID: {user.UId}, Name: {user.Name}, Surname: {user.Surname}, Email: {user.Email}, Age: {user.Age}");
+            }
+            Console.WriteLine("-------------------------------------------------");
+
+            // email null veya boş olan kullanıcıları listele
+            List<User> usersWithNullEmail = userService.GetEmailNullOrEmpty();
+            foreach (var user in usersWithNullEmail)
+            {
+                Console.WriteLine($"ID: {user.Id},  UserID: {user.UId}, Name: {user.Name}, Surname: {user.Surname}, Email: {user.Email}, Age: {user.Age}");
+            }
+            Console.WriteLine("-------------------------------------------------");
+
+            // yaşı 20 ile 50 arasında olan ve ad ve soyadını getiren ve küçük harf ile yazdıran kullanıcıları listele
+            List<User> getUsersAgeNames = userService.GetUsersByAgeAndName();
+            foreach (var user in getUsersAgeNames)
+            {
+                Console.WriteLine($"ID: {user.Id},  UserID: {user.UId}, Name: {user.Name.ToLower()}, Surname: {user.Surname.ToLower()}, Email: {user.Email}, Age: {user.Age}");
+            }
+            Console.WriteLine($"{getUsersAgeNames.Count} Users Found");
+            Console.WriteLine("-------------------------------------------------");
+
+            // name ve surname alanlarının ilk harfi aynı olanlar kullanıcıları listele
+            List<User> getUsersNameSurname = userService.GetUsersNameSurnameFirstCharEquals();
+            foreach (var user in getUsersNameSurname)
+            {
+                Console.WriteLine($"ID: {user.Id},  UserID: {user.UId}, Name: {user.Name}, Surname: {user.Surname}, Email: {user.Email}, Age: {user.Age}");
+            }
+            Console.WriteLine("-------------------------------------------------");
+
+
         }
     }
 }
