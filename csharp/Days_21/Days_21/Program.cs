@@ -7,8 +7,9 @@ namespace Days_21
     {
         static void Main(string[] args)
         {
-            FileControl fileControl = new FileControl();
-            fileControl.WriteToFile("Yeni Satır-3");
+            FileControl fileControl = new ("data");
+            fileControl.WriteToFile("Line-1");
+            //fileControl.DeleteFile();
         }
     }
 }
