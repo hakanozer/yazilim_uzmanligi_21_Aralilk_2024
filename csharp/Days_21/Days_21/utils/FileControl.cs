@@ -37,5 +37,30 @@ namespace Days_21.Utils
             }
         }
 
+        public List<string> ReadFile() {
+            List<string> list = [];
+            if (File.Exists(_FilePath)) {
+                using var reader = new StreamReader(_FilePath);
+                string line;
+                while( ( line = reader.ReadLine()) != null ) {
+                    list.Add(line);
+                }
+            }
+            return list;
+        }
+
+        public List<string> ListFile() {
+            List<string> filesList = [];
+            if (Directory.Exists(_FolderPath)) {
+                var files = Directory.GetFiles(_FolderPath);
+                foreach (var file in files) {
+                    filesList.Add(Path.GetFileName(file));
+                }
+            }
+            filesList.Sort();
+            //filesList.Reverse();
+            return filesList;
+        }
+
     }
 }
