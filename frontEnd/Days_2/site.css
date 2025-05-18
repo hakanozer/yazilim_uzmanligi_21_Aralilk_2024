@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, td, th {
+    border: 1px solid;
+}
+
+tbody > tr:hover {
+    background-color: rgb(187, 187, 187);
+    color: brown;
+}
+
+dt {
+    font-weight: bold;
+}
+
