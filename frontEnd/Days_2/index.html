@@ -84,6 +84,50 @@
     </a>
     <img src="img/2.jpg" />
     <img src="img/3.jpg" />
+
+    <hr/>
+    <video width="600" controls>
+        <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+        Tarayıcınız video etiketini desteklemiyor!
+    </video>
+
+    <hr/>
+    <audio controls>
+        <source src="https://cdn.pixabay.com/download/audio/2024/05/29/audio_f3a1d24f19.mp3" />
+        Tarayıcınız audio etiketini desteklemiyor!
+    </audio>
+
+    <hr/>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/e1vx5k41YvU?si=Fzw7typ1qjDRbURI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <hr/>
+    <iframe width="560" height="315" src="https://www.mynet.com/"></iframe>
+    <hr/>
+    <iframe width="560" height="315" src="../Days_1/sample.pdf"></iframe>
     
+    <hr/>
+    <form>
+        <div class="inputSpace">
+            <label for="name">Adınız</label>
+            <input required maxlength="100" minlength="2" type="text" class="inputControl" name="name" id="name" placeholder="Adınız" />
+        </div>
+        <div class="inputSpace">
+            <label for="surname">Soyadınız</label>
+            <input required type="text" class="inputControl" name="surname" id="surname" placeholder="Soyadınız" />
+        </div>
+        <div class="inputSpace">
+            <label for="email">Email</label>
+            <input required type="email" class="inputControl" name="email" id="email" placeholder="E-Mail" />
+        </div>
+        <div class="inputSpace">
+            <label for="password">Password</label>
+            <input required type="password" class="inputControl" name="password" id="password" placeholder="Password" />
+        </div>
+        <div class="inputSpace">
+            <label for="age">Age</label>
+            <input required min="18" max="60" type="number" class="inputControl" name="age" id="age" placeholder="Age" />
+        </div>
+        <button class="formButton">Send</button>
+    </form>
+
 </body>
 </html>
