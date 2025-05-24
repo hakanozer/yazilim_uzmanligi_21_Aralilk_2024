@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
@@ -12,11 +13,17 @@
 
         <div class="formSpace">
             <label for="name">Adınız</label>
-            <input class="formInput" name="name" id="name" placeholder="Adınız" />
+            <input value="Erkan" readonly class="formInput" name="name" id="name" placeholder="Adınız" />
         </div>
         <div class="formSpace">
             <label for="surname">Soyadınız</label>
-            <input class="formInput" name="surname" id="surname" placeholder="Soyadınız" />
+            <input list="surnames" autofocus maxlength="10" value="Bilmem" class="formInput" name="surname" id="surname" placeholder="Soyadınız" />
+            <datalist id="surnames">
+                <option value="Bil"></option>
+                <option value="Bilsin"></option>
+                <option value="Bilir"></option>
+                <option value="Bilim"></option>
+            </datalist>
         </div>
         <div class="formSpace">
             <label for="city">İl Seçiniz</label>
@@ -42,12 +49,55 @@
              <label for="kabul" class="checkboxLabel">Kabul</label> <input name="anlasma" type="radio" id="kabul" />
              <label for="red" class="checkboxLabel">Red</label> <input name="anlasma" type="radio" id="red" />
         </div>
+        
         <div class="formSpace">
-            <label>Durum</label>
-            <button type="submit">Send</button>
-            <button type="reset">Reset</button>
+            <label>Renk</label>
+            <input type="color" value="#ff0000" />
         </div>
 
+        <div class="formSpace">
+            <label for="dogumTarihi">Doğum Tarihi</label>
+            <input id="dogumTarihi" class="formInput" name="date" value="2025-05-24 11:46" min="2025-01-01 00:00" max="2026-01-01 00:00" type="datetime-local" />
+        </div>
+
+        <div class="formSpace">
+            <label for="profile">Profile</label>
+            <input class="formInput inputFile" type="file" multiple />
+        </div>
+
+        <input type="hidden" name="token" value="234234jk23jk24hkjhk" />
+
+        <div class="formSpace">
+            <label for="tarih">Tarih(Ay)</label>
+            <input value="2025-05" class="formInput" type="time" />
+        </div>
+
+        <div class="formSpace">
+            <label for="miktar">Miktar</label>
+            <input id="miktar" step="1" value="35" min="0" max="100" class="formInput" style="padding: 0px;" type="range" />
+        </div>
+
+        <div class="formSpace">
+            <label for="arama">Arama</label>
+            <input id="arama" class="formInput" type="search" placeholder="Arama.." />
+        </div>
+
+        <div class="formSpace">
+            <label for="telefon">Telefon</label>
+            <input id="telefon" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" class="formInput" type="tel" placeholder="555-655-99-88" />
+        </div>
+ 
+        <div class="formSpace">
+            <label for="posta">Posta Kodu</label>
+            <input required id="posta" pattern="[0-9]{5}" class="formInput" type="text" placeholder="34000" />
+        </div>
+
+
+        <div class="formSpace">
+            <label>Durum</label>
+            <button type="submit"><i class="bi bi-send"></i> Send</button>
+            <button type="reset" style="background-color: brown;"><i class="bi bi-x-lg"></i> Reset</button>
+        </div>
         
     </form>
     
