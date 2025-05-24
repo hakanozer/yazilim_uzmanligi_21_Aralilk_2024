@@ -8,7 +8,48 @@
 </head>
 <body>
 
-    
+    <form>
+
+        <div class="formSpace">
+            <label for="name">Adınız</label>
+            <input class="formInput" name="name" id="name" placeholder="Adınız" />
+        </div>
+        <div class="formSpace">
+            <label for="surname">Soyadınız</label>
+            <input class="formInput" name="surname" id="surname" placeholder="Soyadınız" />
+        </div>
+        <div class="formSpace">
+            <label for="city">İl Seçiniz</label>
+            <select id="city" class="formInput">
+                <option value="istanbul">İstanbul</option>
+                <option value="izmir">İzmir</option>
+                <option selected value="ankara">Ankara</option>
+                <option value="bursa">Bursa</option>
+            </select>
+        </div>
+        <div class="formSpace">
+            <label for="detail">Açıklama</label>
+            <textarea rows="3" class="formInput" id="detail"></textarea>
+        </div>
+        <div class="formSpace">
+            <label>Spor Dalı</label>
+            <label for="kosu" class="checkboxLabel">Koşu</label> <input id="kosu" type="checkbox" value="kosu"/>
+            <label for="yuzme" class="checkboxLabel">Yüzme</label> <input id="yuzme" type="checkbox" value="yuzme"/>
+            <label for="gures" class="checkboxLabel">Güreş</label> <input id="gures" type="checkbox" value="gures"/>
+        </div>
+        <div class="formSpace">
+             <label>Anlaşma</label>
+             <label for="kabul" class="checkboxLabel">Kabul</label> <input name="anlasma" type="radio" id="kabul" />
+             <label for="red" class="checkboxLabel">Red</label> <input name="anlasma" type="radio" id="red" />
+        </div>
+        <div class="formSpace">
+            <label>Durum</label>
+            <button type="submit">Send</button>
+            <button type="reset">Reset</button>
+        </div>
+
+        
+    </form>
     
 </body>
 </html>
