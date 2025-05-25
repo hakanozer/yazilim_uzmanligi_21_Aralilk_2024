@@ -1,0 +1,33 @@
+/*
+    açıklama satırını
+*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+body {
+    margin: 0px;
+    font-family: "Roboto";
+}
+
+.container {
+    margin-left: 4%;
+    margin-right: 4%;
+    border: 0.5px solid #dadada;
+}
+
+.headerBox {
+    background-color: coral;
+    height: 50px;
+}
+
+.box {
+    width: 90px;
+    line-height: 90px;
+    background-color: rgb(68, 180, 241);
+    padding: 5px;
+    text-align: center;
+    float: left;
+}
+
+.clearBoth {
+    clear: both;
+}
