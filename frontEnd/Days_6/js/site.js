@@ -37,3 +37,14 @@ function getNameVal() {
     const titleVal = title.innerText
     console.log(nameVal, titleVal)
 }
+function pullList(){
+    var html = ''
+    const citiesArr = ['Ankara', 'İstanbul', 'İzmir', 'Bursa', 'Antalya', 'Adana']
+    for (let i = 0; i < citiesArr.length; i++) 
+    {
+        const item = citiesArr [i]
+        html += '<option value="'+i+'">'+item+'</option>'
+    }
+    const citiesObj = document.getElementById ('cities');
+    citiesObj.innerHTML = html
+}
