@@ -37,3 +37,20 @@ function getNameVal() {
     const titleVal = title.innerText
     console.log(nameVal, titleVal)
 }
+
+function pullList() {
+    var html = ''
+    var liHtml = ''
+    const citiesArr = ['Ankara', 'İstanbul', 'İzmir', 'Bursa', 'Antalya', 'Adana']
+    for (let i = 0; i < citiesArr.length; i++) {
+        const item = citiesArr[i];
+        const selected = item == 'İstanbul' ? 'selected': ''
+        const active = item == 'İstanbul' ? 'active': ''
+        html += '<option '+selected+' value="'+i+'">'+item+'</option>'
+        liHtml += '<li class="list-group-item '+active+'">'+item+'</li>'
+    }
+    const citiesObj = document.getElementById('cities');
+    const ulCitiesObj = document.getElementById('ulCities')
+    citiesObj.innerHTML = html
+    ulCitiesObj.innerHTML = liHtml
+}
