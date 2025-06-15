@@ -19,9 +19,8 @@ function cardData(arr) {
     var html = ''
     for (let i = 0; i < arr.length; i++) {
         const item = arr[i];
-        console.log(item.post_id, item.id, item.name, item.email, item.body)
         html += `
-            <div class="col-sm-4 mb-3">
+            <div onclick='selectComment(${JSON.stringify(item)})' class="col-sm-4 mb-3" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">`+commentSubString(item.name, 10)+`</h5>
@@ -39,6 +38,15 @@ function cardData(arr) {
 function commentSubString(data, count) {
     const newData = data.substring(0, count)
     return newData
+}
+
+function selectComment({post_id, id, name, email, body}) {
+    const titleObj = document.getElementById('exampleModalLabel')
+    const commentBodyObj = document.getElementById('commentBody')
+    const commnetEmailObj = document.getElementById('commnetEmail')
+    titleObj.innerText = name
+    commentBodyObj.innerText = body
+    commnetEmailObj.innerText = email
 }
 
 getData()
