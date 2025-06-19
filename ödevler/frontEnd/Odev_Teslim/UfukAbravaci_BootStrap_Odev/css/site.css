@@ -1,0 +1,570 @@
+:root {
+    /*Yeşil Tonları */
+    --primary-green-dark: #006400; /* Sign Up butonu arka planı */
+    --primary-green-hover: #2e8b57; /* Hover için biraz daha koyu yeşil */
+    --primary-green: #36a76c; /* Genel yeşil rengimiz (Sign Up butonu, nav link hover) */
+    --primary-green-light-hover: #d0efda; /* Açık yeşil butonun hover arka planı */
+    --primary-green-light: #dcf7e7; /* Açık yeşil (Log In butonu arka planı) */
+    
+
+    /* Mor Tonları */
+    --primary-purple-dark: #6A3AB2; /* Koyu mor (primary-purple'ın daha koyu tonu) */
+    --primary-purple-hover: #8B6CE5; /* primary-purple'ın hover hali (biraz daha açık veya farklı bir ton) */
+    --primary-purple: #9D85F0; /* Mor ana rengi */
+    --primary-purple-light-hover: #D7CFFF; /* Açık morun hover hali (biraz daha koyu) */
+    --primary-purple-light: #EBE5FA; /* Açık mor (kart arka planları) */
+    
+
+    /* Genel Metin Renkleri */
+    --text-dark: #333; /* Koyu metin rengi (Wallet., nav linkler) */
+    --text-light: #fff; /* Açık metin rengi (nadiren kullanılır) */
+
+    /* Gri Tonları (background için, bg-light'a benzer) */
+    --bg-light-gray: #f8f9fa; /* Bootstrap'in bg-light'ına yakın bir gri */
+
+
+    --navbar-height-desktop: 106px; 
+    --navbar-height-mobile: 138px;
+
+    --purple-icon-bg: #EBE5FA;
+    --green-icon-bg: #dcf7e7;
+    --icon-color: #6A3AB2;
+    --icon-green-color: #006400;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+}
+* {
+    box-sizing: border-box;
+}
+
+/* Navbar Logosunun Yüksekliği */
+.navbar-logo {
+    height: 5rem;
+    width: 7rem;
+}
+
+/* Log In butonu için özel renkler */
+.btn-light-green {
+    background-color: var(--primary-green-light);
+    color: var(--primary-green);
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.btn-light-green:hover {
+    background-color: var(--primary-green-dark); 
+    color: var(--primary-green-light-hover); 
+    color: var(--text-light); 
+}
+
+.btn-green {
+    background-color: var(--primary-green-dark) !important;
+    color: var(--text-light) !important;
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.btn-green:hover {
+    background-color: var(--primary-green-light) !important; 
+    color: var(--primary-green-dark) !important; 
+    border: none;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-dark);
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-green);
+}
+
+
+.dropdown-menu .dropdown-item {
+    color: var(--text-dark);
+    text-align: left;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: var(--bg-light-gray);
+    color: var(--primary-green);
+}
+
+.navbar .btn { 
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+    text-align: center;
+    width: 8rem;
+    
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .navbar-brand,
+    .navbar-toggler {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        text-align: center;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .dropdown-menu .dropdown-item {
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        color: var(--text-dark);
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: transparent;
+        font-weight: 500;
+        color: var(--primary-green);
+    }
+
+    .navbar-collapse .d-flex {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .navbar-collapse .d-flex .btn {
+        width: 80%;
+        margin: 0.75rem auto !important;
+        padding: 15px 0;
+        border-radius: 30px;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+}
+
+/* =============================================================================
+
+============================================================================= */
+
+/* Hero-Section Stilleri */
+.hero-section {
+    min-height: calc(100vh - var(--navbar-height-desktop));
+    background-color: var(--bg-light-gray);
+}
+
+.hero-title {
+    color: var(--text-dark);
+    line-height: 1.2;
+    margin-right: 5rem;
+}
+
+.hero-description {
+    color: var(--text-dark); 
+    font-size: 1.3rem; 
+    margin-bottom: 3rem;
+    margin-right: 5rem;
+}
+
+.hero-button {
+    min-width: 150px;
+    border-radius: 30px; 
+    padding: 12px 25px;
+    font-weight: 600; 
+    background-color: var(--primary-green);
+    color: var(--text-dark);
+}
+.hero-button:hover {
+    background-color: var(--primary-green-hover);
+    color: var(--text-light);
+}
+
+.hero-image-container { 
+    height: 40rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    overflow: hidden;
+    
+}
+.hero-image {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+@media (max-width: 992px) {
+    .hero-section {
+        min-height: calc(100vh - var(--navbar-height-mobile));
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: 2rem !important;
+    }
+
+     .hero-image-container {
+        height: auto; 
+        margin-top: 30px;
+    }
+
+    
+    .hero-section .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-section .d-flex .hero-button {
+        width: 80%;
+        margin-bottom: 15px;
+        margin-right: 0 !important; 
+    }
+}
+
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-section .d-flex .hero-button {
+        width: 90%;
+    }
+}
+
+
+/* =============================================================================
+   Our Services Section Stilleri
+============================================================================= */
+
+.our-services-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background-color: white;
+}
+
+.our-services-content .text-green-accent {
+    color: var(--text-green-accent);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.our-services-content h2 {
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+}
+
+.our-services-content p {
+    color: var(--text-dark);
+}
+
+.service-card {
+    border: none;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    height: 100%;
+}
+
+.service-card .service-icon {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.service-card .purple-bg {
+    background-color: var(--primary-purple-light);
+    color: var(--primary-purple-dark);
+}
+
+.service-card .green-bg {
+    background-color: var(--primary-green-light);
+    color: var(--primary-green-dark);
+}
+
+.service-card .card-title {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-card .card-text {
+    font-size: 0.95rem;
+}
+
+
+@media (max-width: 768px) {
+    .our-services-section {
+        min-height: auto;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    .our-services-content {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .service-card {
+        margin-bottom: 1rem;
+    }
+    .service-card .service-icon {
+        margin: 0 auto 1rem;
+    }
+}
+
+/* ================================================================= */
+
+.fast-funding-section {
+    background-color: var(--bg-light-gray);
+}
+
+.fast-funding-content .text-green-accent {
+    color: var(--primary-green);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.fast-funding-content h2 {
+    color: var(--text-dark);
+}
+
+.fast-funding-content p {
+    color: var(--text-dark);
+}
+
+.custom-btn-green {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-btn-green:hover {
+    background-color: var(--primary-green-dark);
+    color: var(--text-light);
+}
+
+.fast-funding-image-container img {
+    max-height: 500px;
+    width: auto;
+    object-fit: contain;
+}
+
+
+@media (max-width: 992px) {
+    .fast-funding-content {
+        margin-bottom: 3rem;
+    }
+    .fast-funding-content h2 {
+        font-size: 2.5rem;
+    }
+    .fast-funding-image-container {
+        max-height: 400px;
+        margin-top: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .fast-funding-content {
+        text-align: center;
+    }
+    .fast-funding-content h2 {
+        font-size: 2rem;
+    }
+    .fast-funding-content .d-flex {
+        justify-content: center !important;
+    }
+    .fast-funding-image-container {
+        margin-top: 2rem;
+    }
+}
+
+/* =============================================================== */
+.difference-section {
+    background-color: white;
+}
+
+.difference-content .text-green-accent {
+    color: var(--primary-green);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.difference-content h2 {
+    color: var(--text-dark);
+}
+
+.difference-content p {
+    color: var(--text-dark)
+}
+
+.difference-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background-color: white;
+}
+
+.difference-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.difference-icon.purple-bg-light {
+    background-color: var(--purple-icon-bg);
+    color: var(--icon-color);
+}
+
+.difference-icon.green-bg-light {
+    background-color: var(--green-icon-bg);
+    color: var(--icon-green-color);
+}
+
+.difference-card .card-title {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+}
+
+.difference-card .card-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+}
+
+
+
+@media (max-width: 992px) { 
+    .difference-content {
+        margin-bottom: 3rem;
+    }
+    .difference-content h2 {
+        font-size: 2.5rem; 
+    }
+}
+
+@media (max-width: 768px) {
+    .difference-content {
+        text-align: center; 
+    }
+    .difference-content h2 {
+        font-size: 2rem; 
+    }
+}
+
+/* ================================================================= */
+.trusted-section {
+    background-color: var(--bg-light-gray); 
+}
+
+.trusted-section .text-green-accent {
+    color: var(--primary-green);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.trusted-section h2 {
+    color: var(--text-dark);
+}
+
+.trusted-section p.lead {
+    color: var(--text-dark);
+}
+
+.trusted-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background-color: white;
+}
+
+.trusted-avatar {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.trusted-card h6 {
+    color: var(--text-dark);
+}
+
+.trusted-card p.text-muted {
+    color: var(--text-dark);
+    font-size: 0.95rem; 
+    line-height: 1.6;
+}
+
+/* Responsive Ayarlamalar */
+@media (max-width: 992px) {
+    .trusted-section .col-lg-8 {
+        margin-bottom: 2rem; 
+    }
+}
+
+@media (max-width: 768px) { 
+    .trusted-section .col-lg-8 {
+        text-align: center; 
+    }
+}
