@@ -32,6 +32,45 @@ $(document).ready(function(){
         console.log(email, password, remember, city)
     });
 
+    // change - değişim olduğunda bir sefer çalış
+    $('#email').change(function (e) { 
+        console.log("değişti")
+    });
+
+    const emails = [
+        "alice.smith@gmail.com",
+        "bob.johnson@yahoo.com",
+        "carol.williams@hotmail.com",
+        "david.brown@outlook.com",
+        "ali@mail.com",
+        "frank.miller@yahoo.com",
+        "grace.davis@icloud.com",
+        "henry.wilson@gmail.com",
+        "irene.moore@hotmail.com",
+        "jack.taylor@outlook.com"
+    ];
+    // değişim olduğunda her harf ile birlikte çalış
+    $('#email').keyup(function (e) { 
+        //console.log(e.target.value)
+        if (e.originalEvent.key == 'Enter') {
+            console.log('Enter Tıklanıldı')
+        }
+        const email = $(this).val()
+        // var emailStatus = -1
+        /*
+        for (let i = 0; i < emails.length; i++) {
+            const item = emails[i];
+            if (item == email) {
+                emailStatus = true
+            }
+        }
+        */
+        const emailStatus = emails.findIndex((item) => item == email)
+        const answer = emailStatus > -1 ? 'Valid' : 'InValid'
+        $('#emailHelp').text(answer);
+
+    });
+
 })
 
 // seçici (.) yetenek (.) function(){  }
