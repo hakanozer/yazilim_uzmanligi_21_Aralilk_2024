@@ -21,23 +21,54 @@
     <body>
         <div class="container">
             <div class="row">
+                <div id="box" class="col bg-secondary">1</div>
+                <div id="box" class="col bg-secondary">2</div>
+                <div id="box" class="col bg-secondary">3</div>
+                <div id="box" class="col bg-secondary">4</div>
+                <div id="box" class="col bg-secondary">5</div>
+                <div id="box" class="col bg-secondary">6</div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-3 bg-primary">1</div>
+                <div class="col-sm-3 bg-secondary">2</div>
+                <div class="col-sm-3 bg-danger">3</div>
+                <div class="col-sm-3 bg-info">4</div>
+            </div>
+            <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                    
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input required type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">Check me out</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <select
+                                class="form-select"
+                                name=""
+                                id="city"
+                                required
+                            >
+                                <option value="" selected>Select one</option>
+                                <option value="newdelhi">New Delhi</option>
+                                <option value="istanbul">Istanbul</option>
+                                <option value="jakarta">Jakarta</option>
+                            </select>
+                        </div>
+                        
+                        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
                 <div class="col-sm-4"></div>
             </div>
