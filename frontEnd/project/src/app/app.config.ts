@@ -10,3 +10,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes)
   ]
 };
+
+/*
+  app.css
+  app.html
+  app.ts
+  app.spec.ts
+*/
