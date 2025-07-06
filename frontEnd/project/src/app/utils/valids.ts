@@ -15,12 +15,21 @@ export const nameSurnameValid = (name: string) : string => {
                 const item = arr[i];
                 if (item.length > 1) {
                     status = true
-                    words += item + ' '
+                    words += firstCharUpper(item) + ' '
                 }else {
                     status = false
                 }
             }
         }
     }
+    console.log(words)
     return status === true ? words.trim() : ''
+}
+
+export const firstCharUpper = (item:string) : string => {
+    item = item.toLocaleLowerCase('tr')
+    const first = item[0].toLocaleUpperCase('tr')
+    item = item.substring(1, item.length)
+    item = first+item
+    return item
 }
