@@ -3,9 +3,15 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <h2>User Register</h2>
+        @if (error !== '') {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error</strong> {{error}}
+            <button (click)="error = ''" type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+        }
         <form (submit)="userRegister()">
             <div class="mb-3">
-                <label for="userName" class="form-label">User Name</label>
+                <label for="userName" class="form-label">Name / Surname</label>
                 <input [(ngModel)]="name" name="name" type="text" class="form-control" id="userName" />
             </div>
             <div class="mb-3">

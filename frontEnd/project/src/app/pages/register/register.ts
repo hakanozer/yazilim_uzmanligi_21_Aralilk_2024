@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Bar } from '../../components/bar/bar';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { nameSurnameValid } from '../../utils/valids';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ export class Register {
 
   passlock = false
   passType = "password"
+  error = ''
 
   // register values
   name = ''
@@ -22,7 +24,10 @@ export class Register {
 
   // register fnc
   userRegister() {
-    console.log("userRegister call")
+    const nameData = nameSurnameValid(this.name)
+    if (nameData === '') {
+      this.error = 'Name / Surname not valid'
+    }
   }
 
   // password text lock and unlock
