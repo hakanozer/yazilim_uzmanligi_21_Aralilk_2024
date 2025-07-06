@@ -15,6 +15,7 @@ export class Login {
   // user models
   email = ''
   password = ''
+  remember = false
   error = ''
 
   // fonksion
@@ -26,7 +27,7 @@ export class Login {
     }else if ( this.password === '' ) {
       this.error = 'Password Empty!'
     }else {
-      console.log("Form Send :", this.email, this.password)
+      console.log("Form Send :", this.email, this.password, this.remember)
     }
   }
 

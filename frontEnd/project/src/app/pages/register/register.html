@@ -1,2 +1,36 @@
 <app-bar></app-bar>
-<p>register works!</p>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <h2>User Register</h2>
+        <form (submit)="userRegister()">
+            <div class="mb-3">
+                <label for="userName" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="userName" />
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="d-flex">
+                    <input type="password" class="form-control" id="password" />
+                    <a (click)="passwordLockUnLock()" class="btn btn-light">
+                        @if(passlock === false) {
+                            <i class="bi bi-unlock2"></i>
+                        }
+                        @else {
+                            <i class="bi bi-unlock"></i>
+                        }
+                    </a>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="passwordAgain" class="form-label">Password Again</label>
+                <input type="password" class="form-control" id="passwordAgain" />
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
