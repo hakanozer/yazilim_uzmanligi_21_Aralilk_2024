@@ -2,7 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Bar } from '../../components/bar/bar';
 import { FormsModule } from '@angular/forms';
 import { emailValid } from '../../utils/valids';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { Api } from '../../services/api';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './login.css'
 })
 export class Login {
+
+  constructor(private router:Router, private api: Api){ }
 
   @ViewChild("emailRef")
   emailRef:ElementRef | undefined
@@ -35,7 +38,17 @@ export class Login {
       this.error = 'Password Empty!'
       this.passwordRef!.nativeElement.focus()
     }else {
-      console.log("Form Send :", this.email, this.password, this.remember)
+      // this.router.navigate(['/products'], {replaceUrl: true})
+      // next, error
+      this.api.userLogin(this.email, this.password).subscribe({
+        next(res) {
+          console.log("success :", res)
+        },
+        error(err) {
+          console.log("err :", err.message)
+        },
+      })
+      
     }
   }
 

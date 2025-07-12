@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Bar } from '../../components/bar/bar';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { emailValid, nameSurnameValid } from '../../utils/valids';
 
 @Component({
@@ -11,6 +11,10 @@ import { emailValid, nameSurnameValid } from '../../utils/valids';
   styleUrl: './register.css'
 })
 export class Register {
+
+  constructor(private router: Router){
+    console.log("Register Call")
+  }
 
   @ViewChild("nameRef")
   nameRef:ElementRef | undefined
@@ -49,8 +53,13 @@ export class Register {
       this.passwordAgainRef!.nativeElement.focus()
     }else {
       this.name = nameData
-      console.log("Form Send!")
-      console.log(this.name, this.email, this.password)
+      // 1. javascript
+      //window.location.href = '/'
+      // 2. bir önceki ekrana dönüşü engelle
+      //window.location.replace('/')
+      // 3. Router ile geçiş - tavsiye
+      //this.router.navigate(['/'], {replaceUrl: true, queryParams: {id: 10}})
+      this.router.navigate(['/'], {replaceUrl: true})
     }
   }
 
