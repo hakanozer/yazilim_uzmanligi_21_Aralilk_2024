@@ -4,7 +4,7 @@
     <div class="col-sm-4">
         <h2 class="text-center">User Register</h2>
         @if (error !== '') {
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Error</strong> {{error}}
             <button (click)="error = ''" type="button" class="btn-close" aria-label="Close"></button>
             </div>
@@ -12,16 +12,16 @@
         <form (submit)="userRegister()">
             <div class="mb-3">
                 <label for="userName" class="form-label">Name / Surname</label>
-                <input [(ngModel)]="name" name="name" type="text" class="form-control" id="userName" />
+                <input #nameRef [(ngModel)]="name" name="name" type="text" class="form-control" id="userName" />
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" />
+                <input #emailRef [(ngModel)]="email" name="email" type="email" class="form-control" id="email" />
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <div class="d-flex">
-                    <input [(ngModel)]="password" name="password" type="{{passType}}" class="form-control" id="password" />
+                    <input #passwordRef [(ngModel)]="password" name="password" type="{{passType}}" class="form-control" id="password" />
                     <a (click)="passwordLockUnLock()" class="btn btn-light">
                         @if(passlock === false) {
                             <i class="bi bi-unlock2"></i>
@@ -34,7 +34,7 @@
             </div>
             <div class="mb-3">
                 <label for="passwordAgain" class="form-label">Password Again</label>
-                <input [(ngModel)]="passwordAgain" name="passwordAgain" type="{{passType}}" class="form-control" id="passwordAgain" />
+                <input #passwordAgainRef [(ngModel)]="passwordAgain" name="passwordAgain" type="{{passType}}" class="form-control" id="passwordAgain" />
             </div>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Submit</button>

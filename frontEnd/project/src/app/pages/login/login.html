@@ -11,11 +11,11 @@
         <form (submit)="userLogin()">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input [(ngModel)]="email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input #emailRef [(ngModel)]="email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input [(ngModel)]="password" name="password" type="password" class="form-control" id="exampleInputPassword1">
+                <input #passwordRef [(ngModel)]="password" name="password" type="password" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3 form-check">
                 <input [(ngModel)]="remember" name="remember" type="checkbox" class="form-check-input" id="exampleCheck1">
