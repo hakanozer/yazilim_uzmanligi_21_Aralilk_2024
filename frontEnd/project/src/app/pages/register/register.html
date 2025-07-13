@@ -3,6 +3,11 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <h2 class="text-center">User Register</h2>
+        @if (success !== '') {
+            <div class="alert alert-success" role="alert">
+                {{success}}
+            </div>
+        }
         @if (error !== '') {
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Error</strong> {{error}}
