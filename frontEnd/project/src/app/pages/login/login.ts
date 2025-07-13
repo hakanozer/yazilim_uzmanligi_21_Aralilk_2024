@@ -41,13 +41,15 @@ export class Login {
       // this.router.navigate(['/products'], {replaceUrl: true})
       // next, error
       this.api.userLogin(this.email, this.password).subscribe({
-        next(res) {
-          console.log("success :", res)
+        next(value) {
+          console.log(value.data.access_token)
+          console.log(value.data.user.name)
         },
         error(err) {
           console.log("err :", err.message)
         },
       })
+
       
     }
   }
