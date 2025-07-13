@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Bar } from '../../components/bar/bar';
 import { FormsModule } from '@angular/forms';
 import { emailValid } from '../../utils/valids';
@@ -9,11 +9,12 @@ import { Api } from '../../services/api';
   selector: 'app-login',
   imports: [Bar, FormsModule, RouterModule],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrl: './login.css',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class Login {
 
-  constructor(private router:Router, private api: Api){ }
+  constructor(private router:Router, private api: Api, private cdr: ChangeDetectorRef){ }
 
   @ViewChild("emailRef")
   emailRef:ElementRef | undefined
@@ -41,13 +42,13 @@ export class Login {
       // this.router.navigate(['/products'], {replaceUrl: true})
       // next, error
       this.api.userLogin(this.email, this.password).subscribe({
-        next(value) {
-          console.log(value.data.access_token)
-          console.log(value.data.user.name)
+        next: (val) => {
+          console.log(val.data.user.name)
         },
-        error(err) {
-          console.log("err :", err.message)
-        },
+        error: (err) => {
+          this.error = 'E-Mail or Password Fail'
+          this.cdr.detectChanges()
+        }
       })
 
       
