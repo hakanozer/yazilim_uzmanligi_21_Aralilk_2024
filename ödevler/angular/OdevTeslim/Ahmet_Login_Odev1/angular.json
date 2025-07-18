@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "project": {
+    "Ahmet_Login_Odev1": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -22,8 +22,14 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
-            ]
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -53,10 +59,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "project:build:production"
+              "buildTarget": "Ahmet_Login_Odev1:build:production"
             },
             "development": {
-              "buildTarget": "project:build:development"
+              "buildTarget": "Ahmet_Login_Odev1:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,6 +81,7 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ]
           }
@@ -83,6 +90,6 @@
     }
   },
   "cli": {
-    "analytics": "d688f30a-9b07-4bdd-9bf2-3d8602d45faf"
+    "analytics": "9e1983d0-7b75-4c5a-82b0-1ba273683b2e"
   }
 }
