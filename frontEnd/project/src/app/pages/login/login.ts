@@ -43,7 +43,8 @@ export class Login {
       // next, error
       this.api.userLogin(this.email, this.password).subscribe({
         next: (val) => {
-          console.log(val.data.user.name)
+          localStorage.setItem("token", val.data.access_token)
+          window.location.replace('/products')
         },
         error: (err) => {
           this.error = 'E-Mail or Password Fail'
