@@ -1,30 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Api } from '../../services/api';
+import { Product } from '../../models/IProducts';
 
 @Component({
   selector: 'app-products',
   imports: [],
   templateUrl: './products.html',
-  styleUrl: './products.css'
+  styleUrl: './products.css',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class Products implements OnInit {
 
-  constructor( private api: Api ){
+  productArr: Product[] = []
+
+  constructor( private api: Api, private cdr: ChangeDetectorRef ){
     const stToken = localStorage.getItem('token')
     if (!stToken) {
       window.location.replace('/')
     }
-    console.log("call -1")
   }
 
   ngOnInit(): void {
     this.api.allProducts(1, 10).subscribe({
-      next(value) {
-        console.log(value.data[0].title)
+      next: (value) => {
+        this.productArr = value.data
+        this.cdr.detectChanges()
       },
-      error(err) {
-        
-      },
+      error: (error) => {
+
+      }
     })
   }
 
