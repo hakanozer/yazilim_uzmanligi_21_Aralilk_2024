@@ -1,0 +1,38 @@
+  <!--<app-bar></app-bar> --> 
+<div class="bg-dark min-vh-100 d-flex align-items-center justify-content-center">
+  <div class="row bg-dark text-light p-4 rounded shadow">
+    <div class="col-12 text-center mb-4">
+      <h2>User Login</h2>
+    </div>
+
+    <form (submit)="userLogin()">
+      <div class="mb-3">
+        <label for="exampleInputUsername1" class="form-label fw-bold">Username</label>
+        <input #usernameRef [(ngModel)]="username" type="text" name="username" id="exampleInputUsername1" class="form-control bg-dark text-light border-secondary"  />
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label fw-bold">Password</label>
+        <div class="input-group">
+          <input #passwordRef [(ngModel)]="password" type="password" name="password" id="exampleInputPassword1" class="form-control bg-dark text-light border-secondary" />
+          <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="error" class="alert alert-danger mb-3" role="alert">
+        {{ error }}
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success mb-3" role="alert">
+        {{ successMessage }}
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </div>
+    </form>
+  </div>
+
+</div>
