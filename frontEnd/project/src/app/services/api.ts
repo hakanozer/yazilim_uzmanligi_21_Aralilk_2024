@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { productUrl, userUrl } from '../utils/apiUrl';
 import { IUser } from '../models/IUser';
-import { IProducts } from '../models/IProducts';
+import { IProducts, ISingleProduct } from '../models/IProducts';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,13 @@ export class Api {
       per_page: per_page
     }
     return this.http.get<IProducts>(productUrl.products, {params: sendObj})
+  }
+
+
+  // path variable -> https://jsonbulut.com/api/products/1
+  productById(id: number) {
+    const url = `${productUrl.products}/${id}`
+    return this.http.get<ISingleProduct>(url)
   }
 
 }
