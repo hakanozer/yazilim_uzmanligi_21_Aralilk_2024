@@ -14,10 +14,6 @@ export class Products implements OnInit {
   productArr: Product[] = []
 
   constructor( private api: Api, private cdr: ChangeDetectorRef ){
-    const stToken = localStorage.getItem('token')
-    if (!stToken) {
-      window.location.replace('/')
-    }
   }
 
   ngOnInit(): void {

@@ -1,14 +1,14 @@
 <h2>Products</h2>
 <div class="row">
 @for (item of productArr; track $index) {
-    <div class="card col-sm-4">
-  <img src={{item.images[0]}} class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{item.title}}</h5>
-    <p class="card-text">{{item.price}} ₺</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="card col-sm-4">
+    <img src={{item.images[0]}} class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{item.title}}</h5>
+      <p class="card-text">{{item.price}} ₺</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
   </div>
-</div>
 }
 
 </div>
