@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Api } from '../../services/api';
 import { Product } from '../../models/IProducts';
+import { ProductItem } from '../../components/product-item/product-item';
 
 @Component({
   selector: 'app-products',
-  imports: [],
+  imports: [ProductItem],
   templateUrl: './products.html',
   styleUrl: './products.css',
   changeDetection: ChangeDetectionStrategy.Default
