@@ -30,8 +30,12 @@ export class Products implements OnInit {
   }
 
   plus10Price() {
-    this.productArr.forEach(item => {
-      item.price = Number((item.price + 10).toFixed(2))
+    this.productArr.forEach((item, index) => {
+      setTimeout(() => {
+        item.price = Number((item.price + 10).toFixed(2))
+        this.cdr.detectChanges();
+      }, index * 1500);
+
     })
   }
 
