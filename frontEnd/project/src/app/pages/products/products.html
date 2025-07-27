@@ -1,4 +1,8 @@
-<h2>Products</h2>
+<div class="d-flex">
+  <h2>Products</h2>
+  <button (click)="plus10Price()" class="btn btn-light btn-sm" style="margin-left: 5px;">+10</button>
+</div>
+
 <div class="row">
 @for (item of productArr; track $index) {
   <app-product-item [item]="item" class="col-sm-4"></app-product-item>

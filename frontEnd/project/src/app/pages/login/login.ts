@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Bar } from '../../components/bar/bar';
 import { FormsModule } from '@angular/forms';
 import { emailValid } from '../../utils/valids';
@@ -14,12 +14,21 @@ import { Api } from '../../services/api';
 })
 export class Login {
 
-  constructor(private router:Router, private api: Api, private cdr: ChangeDetectorRef){ }
-
   @ViewChild("emailRef")
   emailRef:ElementRef | undefined
   @ViewChild("passwordRef")
   passwordRef:ElementRef | undefined
+
+  ngAfterViewInit() {
+    if (this.emailRef !== undefined) {
+      this.emailRef.nativeElement.addEventListener("keyup", (ev:KeyboardEvent) => {
+        console.log("Email Call - 2", this.email)
+      })
+    }
+  }
+
+  constructor(private router:Router, private api: Api, private cdr: ChangeDetectorRef){
+  }
 
 
   // user models
@@ -27,6 +36,7 @@ export class Login {
   password = ''
   remember = false
   error = ''
+
 
   // fonksion
   userLogin() {
@@ -54,6 +64,10 @@ export class Login {
 
       
     }
+  }
+
+  validEmail() {
+    console.log("Email Call", this.email)
   }
 
 
