@@ -12,12 +12,21 @@ export interface Data {
 
 export interface User {
     id:             number;
-    name:           string;
-    email:          string;
-    role:           string;
-    remember_token: null;
-    created_at:     Date;
-    updated_at:     Date;
+    name?:          string;  // optional because new model uses firstName and lastName
+    username:       string;
+    role?:          string;  // optional, not present in new model
+    remember_token?: null;   // optional, not present in new model
+    created_at?:    Date;    // optional, not present in new model
+    updated_at?:    Date;    // optional, not present in new model
+
+    // New fields from the new model
+    email?:         string;
+    firstName?:     string;
+    lastName?:      string;
+    gender?:        string;
+    image?:         string;
+    accessToken?:   string;  // JWT accessToken for backward compatibility
+    refreshToken?:  string;
 }
 
 export interface Meta {
