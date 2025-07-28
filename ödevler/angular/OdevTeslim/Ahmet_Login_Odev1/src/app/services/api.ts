@@ -10,20 +10,22 @@ export class Api {
 
   constructor(private http: HttpClient) { }
 
-  userLogin(email: string, password: string) {
+  userLogin(username: string, password: string) {
     const sendObj = {
-      email: email,
-      password: password
+      username: username,
+      password: password,
     }
-    return this.http.post<IUser>(userUrl.login, sendObj)
-  }
-  userRegister(name: string, email: string, password: string) {
-    const sendObj = {
-      name: name,
-      email: email,
-      password: password
-    }
-    return this.http.post(userUrl.register, sendObj)
+    // Remove withCredentials: true
+    return this.http.post<IUser>('https://dummyjson.com/auth/login', sendObj);
   }
 
+  userRegister(name: string, username: string, password: string) {
+    const sendObj = {
+      name: name,
+      username: username,
+      password: password
+    }
+    // Use the correct endpoint for registration
+    return this.http.post('https://dummyjson.com/users/add', sendObj);
+  }
 }
