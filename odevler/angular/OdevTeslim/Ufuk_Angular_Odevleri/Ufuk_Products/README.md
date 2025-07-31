@@ -6,7 +6,7 @@
 ![Ana Sayfa](screenshots/anasayfa.png)
 
 ### Ana Sayfa - 2
-![Ana Sayfa 2](screenshots/anasayfa2.png)
+![Ana Sayfa 2](screenshots/anasayfa-2.png)
 
 ### Ürün Detay Sayfası
 ![Ürün Detay](screenshots/urundetay.png)
