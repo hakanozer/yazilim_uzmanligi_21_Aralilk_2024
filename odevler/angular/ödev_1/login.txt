@@ -1,3 +1,0 @@
-Baştan bir angular projesi oluşturarak bir login ekranı yapılması beklenmektedir.
-
-Servis olarak: https://dummyjson.com/docs/auth servisi ziyaret yapıldıktan sonra login ile gelen yanıtları consolda yazdıran uygulama yapınız.

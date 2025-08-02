@@ -1,9 +1,0 @@
-Ürünleri listeleyen ve ürün detayına giden bir uygulama yapmanız beklenmektedir.
-
-Tasarımda özgürsünüz.
-
-Product listelenirken resim, ürün başlığı, fiyat.
-Product ayrıntısında ise 1 resim ve diğer ürüne ait tüm bilgiler yer alacaktır.
-
-Ürün listesi: https://dummyjson.com/products
-Ürün Detayı: https://dummyjson.com/products/1
