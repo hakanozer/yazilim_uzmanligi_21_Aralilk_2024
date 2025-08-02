@@ -22,7 +22,6 @@ export class ProductDetail {
         api.productById(id).subscribe({
           next: (value) => {
             this.product = value.data
-            console.log(value)
           },
           error: (err) => {
             alert("Not found product: " + id)
