@@ -4,6 +4,7 @@ const baseURL = "https://jsonbulut.com/api/"
 export const userUrl = {
     login: `${baseURL}auth/login`,
     register: `${baseURL}auth/signup`,
+    profile: `${baseURL}profile/me`,
 }
 
 // products
