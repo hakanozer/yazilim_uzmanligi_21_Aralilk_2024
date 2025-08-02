@@ -4,10 +4,11 @@ import { Register } from './pages/register/register';
 import { Products } from './pages/products/products';
 import { authGuard } from './auth-guard';
 import { ProductDetail } from './pages/product-detail/product-detail';
+import { notauthGuard } from './notauth-guard';
 
 export const routes: Routes = [
-    { path: "", component: Login },
-    { path: "register", component: Register },
+    { path: "", component: Login, canActivate: [notauthGuard] },
+    { path: "register", component: Register, canActivate: [notauthGuard] },
     { path: "products", component: Products, canActivate: [authGuard] },
     { path: "product-detail/:id", component: ProductDetail, canActivate: [authGuard] },
 ];

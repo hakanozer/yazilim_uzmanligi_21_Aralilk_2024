@@ -34,6 +34,12 @@ export class Api {
     return this.http.get<IUser>(userUrl.profile, { headers });
   }
 
+  userProfileSync() {
+    const jwt = localStorage.getItem('token') ?? '';
+    const headers = { 'Authorization': `Bearer ${jwt}` };
+    return this.http.get<IUser>(userUrl.profile, { headers }).toPromise();
+  }
+
   allProducts(page: number, per_page: number) {
     const sendObj = {
       page: page,
