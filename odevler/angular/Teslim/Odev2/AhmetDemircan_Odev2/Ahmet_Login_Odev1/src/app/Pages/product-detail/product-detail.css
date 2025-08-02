@@ -1,0 +1,25 @@
+.navbar, .navbar a, .navbar-brand, .navbar-nav .nav-link {
+  color: #212529 !important;
+}
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .dropdown-toggle,
+.navbar .dropdown-item {
+  color: #fff !important;
+}
+.navbar .dropdown-menu {
+  background-color: #343a40 !important;
+}
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+  background-color: #495057 !important;
+  color: #fff !important;
+}
+.navbar .btn-outline-light {
+  color: #fff;
+  border-color: #fff;
+}
+.navbar .btn-outline-light:hover {
+  background-color: #fff;
+  color: #212529;
+}
