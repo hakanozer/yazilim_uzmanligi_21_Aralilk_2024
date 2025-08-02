@@ -1,0 +1,47 @@
+<app-bar></app-bar>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <h2>User Login</h2>
+        @if (error !== '') {
+            <div class="alert alert-danger" role="alert">
+                <strong>Hata</strong> {{error}}
+            </div>
+        }
+        <form (submit)="userLogin()">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Kullanıcı Adı</label>
+            <input [(ngModel)]="username" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <div class="d-flex">
+                @if (passlock === false) {
+                    <input [(ngModel)]="password" name="password" type="password" class="form-control" id="exampleInputPassword1">
+                }
+                @else {
+                       <input [(ngModel)]="password" name="password" type="text" class="form-control" id="exampleInputPassword1">
+                }
+                <a (click)="passwordEye()" class="btn btn-light">
+                   @if (passlock === false) {
+                    <i class="bi bi-lock"></i>
+                   }
+                   @else {
+                    <i class="bi bi-unlock"></i>
+                   }
+                </a>
+            </div>
+        </div>
+        <div class="mb-3 form-check">
+            <input [(ngModel)]="remember" name="remember" type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+         <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a (click)="loginReset()" class="btn btn-danger">Reset</a>
+        </div>
+        </form>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
