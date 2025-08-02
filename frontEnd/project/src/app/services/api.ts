@@ -37,7 +37,7 @@ export class Api {
   userProfileSync() {
     const jwt = localStorage.getItem('token') ?? '';
     const headers = { 'Authorization': `Bearer ${jwt}` };
-    return this.http.get<IUser>(userUrl.profile, { headers }).toPromise();
+    return this.http.get<IUser>(userUrl.profile, { headers }).pipe()
   }
 
   allProducts(page: number, per_page: number) {
