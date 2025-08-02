@@ -1,3 +1,4 @@
+-
 Ürünleri listeleyen ve ürün detayına giden bir uygulama yapmanız beklenmektedir.
 
 Tasarımda özgürsünüz.
