@@ -1,0 +1,78 @@
+<div class="row justify-content-center my-4">
+  <div class="col-md-8">
+    <h2 class="my-4 text-center text-white">Ürün Detayı</h2>
+
+    @if (isLoading()) {
+      <div class="text-center my-5">
+        <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">Yükleniyor...</span>
+        </div>
+        <p class="text-success">Ürün detayları yükleniyor...</p>
+      </div>
+    } @else if (hasError()) {
+      <div class="alert alert-danger text-center my-5">
+        Ürün detayları yüklenirken bir hata oluştu veya ürün bulunamadı.
+        <button class="btn btn-outline-secondary mt-3" (click)="goBackToProducts()">Tüm Ürünlere Dön</button>
+      </div>
+    } @else if (product()) {
+      <div class="card shadow-lg mb-5">
+        <div class="row g-0">
+          <div class="col-md-5 product-image-wrapper">
+            <div class="image-aspect-ratio-box"> <img 
+                [src]="product()!.images[0] || product()!.thumbnail" 
+                class="product-main-image"  alt="{{ product()!.title }}"
+              >
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <h1 class="card-title display-5 text-success">{{ product()!.title }}</h1>
+              <h2 class="text-success display-6 mb-3">{{ product()!.price | currency:'USD':'symbol':'1.2-2' }}</h2>
+              <p class="card-text text-white-50">{{ product()!.description }}</p>
+
+              <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item text-white"><strong>Kategori:</strong> {{ product()!.category }}</li>
+                <li class="list-group-item text-white"><strong>Marka:</strong> {{ product()!.brand }}</li>
+                <li class="list-group-item text-white"><strong>Değerlendirme:</strong> {{ product()!.rating }} / 5</li>
+                <li class="list-group-item text-white"><strong>Stok:</strong> {{ product()!.stock }} adet</li>
+                <li class="list-group-item text-white"><strong>Ağırlık:</strong> {{ product()!.weight }} kg</li>
+                @if (product()!.tags && product()!.tags.length > 0) {
+                  <li class="list-group-item text-white"><strong>Etiketler:</strong>
+                    @for (tag of product()!.tags; track $index) {
+                      <span class="badge bg-secondary me-1 text-white">{{ tag }}</span>
+                    }
+                  </li>
+                }
+                @if (product()!.dimensions) {
+                  <li class="list-group-item text-white">
+                      <strong>Boyutlar:</strong>
+                      G: {{ product()!.dimensions.width }} cm, Y: {{ product()!.dimensions.height }} cm, D: {{ product()!.dimensions.depth }} cm
+                  </li>
+                }
+              </ul>
+
+              @if (product()!.images && product()!.images.length > 1) {
+                <h4 class="mt-4 mb-3 text-white">Diğer Görseller</h4>
+                <div class="d-flex flex-wrap gap-2">
+                  @for (image of product()!.images; track $index) {
+                    <img [src]="image" class="img-thumbnail other-product-image-small" alt="Ürün Görseli"> 
+                  }
+                </div>
+              }
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                <button class="btn btn-outline-secondary text-white" (click)="goBackToProducts()">Tüm Ürünlere Dön</button>
+                <button class="btn btn-success">Sepete Ekle</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="alert alert-info text-center my-5">
+        Ürün bilgileri yüklenemedi. Lütfen daha sonra tekrar deneyin.
+        <button class="btn btn-outline-secondary mt-3" (click)="goBackToProducts()">Tüm Ürünlere Dön</button>
+      </div>
+    }
+  </div>
+</div>
