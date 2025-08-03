@@ -31,7 +31,25 @@
         
     </div>
     <div class="col-sm-6">
-        <img src={{bigImage}} class="img-fluid" />
+        <img data-bs-toggle="modal" data-bs-target="#imgModal" role="button" src={{bigImage}} class="img-fluid" />
+        @for (img of product.images; track $index) {
+            <img role="button" (click)="changeImage(img)" src={{img}} class="img-thumbnail" width="120" />
+        }
     </div>
 </div>
+
+<div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src={{bigImage}} class="img-fluid" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
 }

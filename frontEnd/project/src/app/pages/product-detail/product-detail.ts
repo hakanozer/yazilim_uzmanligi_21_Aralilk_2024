@@ -62,4 +62,8 @@ export class ProductDetail {
     this.stars = arr
   }
 
+  changeImage(img: string) {
+    this.bigImage = img
+  }
+
 }
