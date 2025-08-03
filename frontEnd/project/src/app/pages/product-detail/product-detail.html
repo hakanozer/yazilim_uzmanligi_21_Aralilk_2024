@@ -1,1 +1,13 @@
-<p>product-detail works!</p>
+@if (product) {
+<div class="row">
+    <div class="col-sm-6">
+        <h2>{{product.title}}</h2>
+        <div class="d-flex">
+            <h3><span class="badge text-bg-warning">{{product.price}}₺</span></h3>
+            <h5 style="margin-left: 5px;"><span class="badge text-bg-dark"><del>{{globalPrice}}₺</del></span></h5>
+        </div>
+        <label class="text-danger bi bi-star-fill fs-4"></label>
+    </div>
+    <div class="col-sm-6"></div>
+</div>
+}

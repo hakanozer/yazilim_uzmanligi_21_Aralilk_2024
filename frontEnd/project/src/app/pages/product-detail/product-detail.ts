@@ -13,6 +13,7 @@ import { Product } from '../../models/IProducts';
 export class ProductDetail {
 
   product: Product | null = null
+  globalPrice = ''
 
   constructor(private route: ActivatedRoute, private api: Api, private router: Router, private cdr: ChangeDetectorRef){
     this.route.params.subscribe(params => {
@@ -22,6 +23,7 @@ export class ProductDetail {
         api.productById(id).subscribe({
           next: (value) => {
             this.product = value.data
+            this.globalPrice = (value.data.price + ((value.data.price * value.data.discountPercentage) / 100)).toFixed(2)
           },
           error: (err) => {
             alert("Not found product: " + id)
