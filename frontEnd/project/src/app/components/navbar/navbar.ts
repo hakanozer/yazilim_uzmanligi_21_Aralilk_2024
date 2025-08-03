@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit  } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Util } from '../../utils/util';
+import { Api } from '../../services/api';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ import { Util } from '../../utils/util';
 export class Navbar implements OnInit {
 
   navbarUserName = ''
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private api: Api, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -22,5 +23,20 @@ export class Navbar implements OnInit {
     }, 1000);
   }
 
+
+  logout() {
+    const answer = confirm('Are you sure logout?')
+    if(answer) {
+      this.api.userLogout().subscribe({
+        next: (value) => {
+          localStorage.removeItem('token')
+          window.location.replace('/')
+        },
+        error: (error) => {
+
+        }
+      })
+    }
+  }
 
 }
