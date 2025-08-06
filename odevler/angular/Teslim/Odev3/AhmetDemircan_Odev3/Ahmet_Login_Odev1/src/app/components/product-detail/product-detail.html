@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+<div class="container mt-5" style="padding-top: 70px;">
+  @if (product) {
+    <div class="card mb-4">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img [src]="product.thumbnail" class="img-fluid rounded-start" alt="{{product.title}} thumbnail">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+        <div>
+        </div>
+            <h3 class="card-title">{{product.title}}</h3>
+            <h5 class="card-subtitle mb-2 text-muted">{{product.brand}} | {{product.category}}</h5>
+            <p class="card-text">{{product.description}}</p>
+            <div>
+            <li class="list-group-item"><strong>Rating:</strong> {{product.rating}}</li>
+            @for (i of stars; track $index) {
+            @if(i == 1) {
+                <label class="text-danger bi bi-star-fill fs-4"></label>
+            }
+            @if(i == 0.5) {
+                <label class="text-danger bi bi-star-half fs-4"></label>
+            }
+            @if(i == 0) {
+                <label class="text-danger bi bi-star fs-4"></label>
+            }
+          }
+            
+        </div>
+            <ul class="list-group list-group-flush mb-3">
+              <li class="list-group-item"><strong>Price:</strong> ${{product.price}}</li>
+              <li class="list-group-item"><strong>Discount:</strong> {{product.discountPercentage}}%</li>
+              <li class="list-group-item"><strong>Stock:</strong> {{product.stock}}</li>
+              
+              <div>
+             <h3>Comments</h3>
+             </div>
+            </ul>
+          </div>
+          @for (review of product.reviews; track review) {
+           <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item"><strong>Reviewer Name:</strong>{{review.reviewerName}}</li>
+            <li class="list-group-item"><strong>Reviewer Email:</strong>{{review.reviewerEmail}}</li>
+            <li class="list-group-item"><strong>Comments:</strong>{{review.comment}}</li>
+            <li class="list-group-item"><strong>Rating:</strong>{{review.rating}}</li>
+           </ul>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
