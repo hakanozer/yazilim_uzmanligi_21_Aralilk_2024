@@ -4,6 +4,8 @@ const baseURL = "https://dummyjson.com/users"
 export const userUrl = {
     login: `${baseURL}auth/login`,
     register: `${baseURL}auth/signup`,
+    profile: `${baseURL}/me`,
+    auth: `${baseURL}/auth/me`
 }
 
 // products

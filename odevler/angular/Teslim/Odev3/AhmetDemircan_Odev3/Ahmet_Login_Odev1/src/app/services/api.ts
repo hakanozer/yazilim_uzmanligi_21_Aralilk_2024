@@ -47,6 +47,25 @@ export class Api {
     return this.http.get<Review>(`https://dummyjson.com/products/${id}/reviews`);
   }
 
+userProfile() {
+  const jwt = localStorage.getItem('token') ?? '';
+  const headers = { 'Authorization': `Bearer ${jwt}` };
+
+  this.http.get<IUser>('https://dummyjson.com/auth/me', { headers }).subscribe({
+    next: (data) => {
+      console.log('Kullanıcı profili:', data);
+    },
+    error: (err) => {
+      console.error('Hata oluştu:', err);
+    }
+  });
+}
+
+    userProfileSync() {
+    const jwt = localStorage.getItem('token') ?? '';
+    const headers = { 'Authorization': `Bearer ${jwt}` };
+    return this.http.get<IUser>('https://dummyjson.com/auth/me', { headers}).pipe()
+  }
 
 
 }
