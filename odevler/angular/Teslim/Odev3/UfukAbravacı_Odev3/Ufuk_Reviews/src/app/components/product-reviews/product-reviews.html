@@ -1,0 +1,27 @@
+<div class="reviews-container">
+  @if (reviews().length > 0) { @for (review of reviews(); track
+  review.reviewerEmail) {
+  <div class="card review-card mb-3 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h5 class="card-title">{{ review.reviewerName }}</h5>
+          <div class="mb-2">
+            @for (star of [1, 2, 3, 4, 5]; track star) { @if (star <=
+            review.rating) {
+            <i class="bi bi-star-fill text-warning me-1"></i>
+            } @else {
+            <i class="bi bi-star text-warning me-1"></i>
+            } }
+            <span class="text-white-50 ms-2">({{ review.rating }} / 5)</span>
+          </div>
+          <p class="card-text">{{ review.comment }}</p>
+        </div>
+        <span class="text-white-50 fst-italic">{{ review.date | date }}</span>
+      </div>
+    </div>
+  </div>
+  } } @else {
+  <div class="alert alert-info">Bu ürün için henüz bir yorum yapılmamış.</div>
+  }
+</div>
