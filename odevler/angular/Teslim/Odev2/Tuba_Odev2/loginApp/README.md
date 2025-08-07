@@ -1,59 +1,90 @@
-# LoginApp
+# Angular Product Catalog App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.4.
+Bu proje, Angular kullanılarak geliştirilmiş bir ürün katalog uygulamasıdır. [DummyJSON API](https://dummyjson.com/products) üzerinden alınan verilerle ürünler listelenmekte ve her ürünün detay sayfası görüntülenebilmektedir.
 
-## Development server
+## 🎯 Proje Amacı
 
-To start a local development server, run:
+- Ürünleri listeleyen bir sayfa oluşturmak,
+- Her ürün kartında **resim**, **başlık** ve **fiyat** göstermek,
+- Seçilen ürünün detay sayfasında tüm bilgilerini sunmak,
+- Angular ile API tüketimi ve routing işlemlerini uygulamak.
 
-```bash
-ng serve
-```
+## 🔧 Kullanılan Teknolojiler
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular 20.1.0 9
+- TypeScript
+- HTML & CSS (isteğe bağlı stil çerçeveleri: Tailwind, Bootstrap vs.)
+- DummyJSON API
 
-## Code scaffolding
+## 🔗 API Kaynakları
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Ürün Listesi: `https://dummyjson.com/products`
+- Ürün Detayı: `https://dummyjson.com/products/{id}`
 
-```bash
-ng generate component component-name
-```
+## 📸 Ekran Görüntüleri
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+PRODUCT DETAİL:
 
-```bash
-ng generate --help
-```
+<img width="958" height="512" alt="image" src="https://github.com/user-attachments/assets/f37bd9e4-881c-423f-b94d-489346b0c01e" />
 
-## Building
+<img width="333" height="721" alt="product-detail" src="https://github.com/user-attachments/assets/ff660823-97cf-4041-bc1a-33b3ce477fb5" />
 
-To build the project run:
+PRODUCTS:
 
-```bash
-ng build
-```
+[products-detail.webm](https://github.com/user-attachments/assets/3d9ff8d0-c6d6-4123-a872-5b74a12142bb)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+## 🧭 Uygulama Özellikleri
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+🔹 Ürün Listesi Sayfası
+API'den alınan ürünler gösterilir.
 
-```bash
-ng test
-```
+Her ürün kartında:
+Ürün görseli
+Ürün başlığı
+Fiyat
 
-## Running end-to-end tests
+🔹 Ürün Detay Sayfası
+Seçilen ürünün detayları gösterilir.
 
-For end-to-end (e2e) testing, run:
+🔹 Detay sayfasında yer alan bilgiler:
+Resim
+Başlık
+Açıklama
+Fiyat
+Marka
+Kategori
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🗂️ Proje Yapısı (Özet)
+src/
+│
+├── app/
+│   ├── components/
+│   │   ├── product-item/        → Ürün bileşeni
+│   │   └── product-detail/      → Ürün detay bileşeni
+│   ├── services/
+│   │   └── api.ts       → API iletişimi
+│   ├── models/
+│   │   └── IProducts.ts         → Ürün modelleri
+│   └── app-routing.ts    → Sayfalar arası yönlendirme
+│
+├── assets/
+└── index.html
 
-## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🧪 Örnek API Yanıtı
+{
+  "id": 1,
+  "title": "iPhone 13",
+  "description": "An apple mobile which is nothing like apple",
+  "price": 549,
+  "discountPercentage": 12.96,
+  "rating": 4.69,
+  "stock": 94,
+  "brand": "Apple",
+  "category": "smartphones",
+  "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
+  ...
+}
+
