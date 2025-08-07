@@ -1,59 +1,34 @@
-# LoginApp
+# Angular Login App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.4.
+Bu proje, **Angular** kullanılarak geliştirilmiş basit bir login uygulamasıdır. Ödev kapsamında, [DummyJSON Auth API](https://dummyjson.com/docs/auth) kullanılarak bir kullanıcı giriş ekranı oluşturulmuştur.
 
-## Development server
+## 🔧 Kullanılan Teknolojiler
 
-To start a local development server, run:
+- Angular 20.1.0 9
+- TypeScript
+- HTML & CSS
+- DummyJSON API (https://dummyjson.com)
 
-```bash
-ng serve
-```
+## 🎯 Proje Amacı
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular ile sıfırdan bir proje oluşturmak,
+- Kullanıcıdan alınan giriş bilgilerini `https://dummyjson.com/auth/login` servisine göndermek,
+- API'den dönen yanıtı konsola yazdırmak.
 
-## Code scaffolding
+## 📸 Ekran Görüntüsü
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+<img width="683" height="384" alt="Ekran görüntüsü 2025-07-26 002547" src="https://github.com/user-attachments/assets/ec0839e3-2f31-401b-bd1a-924e82cd8ea8" />
 
-```bash
-ng generate component component-name
-```
+<img width="960" height="514" alt="login konsol" src="https://github.com/user-attachments/assets/0aba6f0e-cf9c-4629-8390-9cb0c042e246" />
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+<img width="680" height="370" alt="login function" src="https://github.com/user-attachments/assets/bd7c4ffb-9295-4a7b-bd8b-bfc08ab20bf9" />
 
-```bash
-ng generate --help
-```
+<img width="960" height="538" alt="Ekran görüntüsü 2025-07-26 003754" src="https://github.com/user-attachments/assets/617eadde-8836-410a-8036-feb73c6a004c" />
 
-## Building
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🧪 Test Kullanıcısı
+ ```bash
+{
+  "username": "emilys",
+  "password": "emilyspass"
+}
