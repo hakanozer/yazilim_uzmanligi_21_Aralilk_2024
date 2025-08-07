@@ -34,8 +34,14 @@ Bu proje, Angular kullanılarak geliştirilmiş bir ürün katalog uygulamasıd�
 ### 🖼️ Product Detail
 
 <img width="958" height="512" alt="image" src="https://github.com/user-attachments/assets/f37bd9e4-881c-423f-b94d-489346b0c01e" />
+
+---
+
+<img width="958" height="515" alt="image" src="https://github.com/user-attachments/assets/02b93453-e89e-41ae-862c-77b66e023b75" />
+
 ---
 <img width="333" height="721" alt="product-detail" src="https://github.com/user-attachments/assets/ff660823-97cf-4041-bc1a-33b3ce477fb5" />
+
 ---
 
 ### 🎥 Products (Video)
