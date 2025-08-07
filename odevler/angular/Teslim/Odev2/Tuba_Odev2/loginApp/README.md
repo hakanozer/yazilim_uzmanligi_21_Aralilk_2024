@@ -13,7 +13,7 @@ Bu proje, Angular kullanılarak geliştirilmiş bir ürün katalog uygulamasıd�
 
 - Angular 20.1.0 9
 - TypeScript
-- HTML & CSS (isteğe bağlı stil çerçeveleri: Tailwind, Bootstrap vs.)
+- HTML & CSS 
 - DummyJSON API
 
 ## 🔗 API Kaynakları
@@ -23,20 +23,20 @@ Bu proje, Angular kullanılarak geliştirilmiş bir ürün katalog uygulamasıd�
 
 ## 📸 Ekran Görüntüleri
 
-PRODUCT DETAİL:
+### 🖼️ Product Detail
 
 <img width="958" height="512" alt="image" src="https://github.com/user-attachments/assets/f37bd9e4-881c-423f-b94d-489346b0c01e" />
 
 <img width="333" height="721" alt="product-detail" src="https://github.com/user-attachments/assets/ff660823-97cf-4041-bc1a-33b3ce477fb5" />
 
-PRODUCTS:
+### 🎥 Products (Video)
 
 [products-detail.webm](https://github.com/user-attachments/assets/3d9ff8d0-c6d6-4123-a872-5b74a12142bb)
 
 
 ## 🧭 Uygulama Özellikleri
 
-🔹 Ürün Listesi Sayfası
+### 🔹 Ürün Listesi Sayfası
 API'den alınan ürünler gösterilir.
 
 Her ürün kartında:
@@ -44,10 +44,10 @@ Her ürün kartında:
 Ürün başlığı
 Fiyat
 
-🔹 Ürün Detay Sayfası
+### 🔹 Ürün Detay Sayfası
 Seçilen ürünün detayları gösterilir.
 
-🔹 Detay sayfasında yer alan bilgiler:
+###🔹 Detay sayfasında yer alan bilgiler:
 Resim
 Başlık
 Açıklama
@@ -55,9 +55,11 @@ Fiyat
 Marka
 Kategori
 
+---
 
 ## 🗂️ Proje Yapısı (Özet)
 src/
+---
 │
 ├── app/
 │   ├── components/
@@ -71,9 +73,13 @@ src/
 │
 ├── assets/
 └── index.html
+---
 
 
+---
 ## 🧪 Örnek API Yanıtı
+
+```json
 {
   "id": 1,
   "title": "iPhone 13",
@@ -84,7 +90,7 @@ src/
   "stock": 94,
   "brand": "Apple",
   "category": "smartphones",
-  "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg",
-  ...
+  "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
 }
+
 
