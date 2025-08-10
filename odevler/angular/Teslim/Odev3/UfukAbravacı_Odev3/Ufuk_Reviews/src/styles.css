@@ -1,0 +1,77 @@
+/* Temel renk değişkenlerini doğrudan karanlık mod değerleriyle ayarlayın */
+:root {
+  --primary-bg: #212529; /* Koyu gri/siyah ana arka plan */
+  --secondary-bg: #343a40; /* Daha açık koyu gri ikincil arka plan (kartlar, navbar vb.) */
+  --text-color: #f8f9fa;   /* Açık metin rengi */
+  --link-color: #6da7f8;   /* Parlak mavi link rengi */
+  --border-color: #495057; /* Koyu kenarlık rengi */
+}
+
+/* Uygulamadaki tüm elementlere bu değişkenleri uygulayın */
+body {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+}
+
+.navbar.bg-dark { 
+  background-color: var(--secondary-bg) !important; /* !important gerekebilir */
+  color: var(--text-color);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--text-color) !important;
+}
+
+.nav-link:hover {
+  color: var(--link-color) !important;
+}
+
+/* Kartlar ve diğer elementler için */
+.card {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.card-text {
+  color: var(--text-color) !important;
+}
+
+.list-group-item {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.btn-outline-secondary {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+.btn-outline-secondary:hover {
+    background-color: var(--border-color);
+    color: var(--primary-bg);
+}
+
+/* Spinner rengi (isteğe bağlı) */
+.spinner-border {
+  border-color: var(--text-color);
+  border-right-color: transparent;
+}
+
+/* Alert kutuları (isteğe bağlı) */
+.alert {
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+.alert-warning {
+  background-color: #ffc10720; 
+  color: #ffc107;
+  border-color: #ffc107;
+}
+.alert-danger {
+  background-color: #dc354520;
+  color: #dc3545;
+  border-color: #dc3545;
+}

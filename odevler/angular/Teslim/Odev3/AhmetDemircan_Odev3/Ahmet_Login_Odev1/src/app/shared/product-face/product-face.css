@@ -1,0 +1,50 @@
+/* product-face.component.css */
+
+.card {
+  /* Kartın minimum genişliğini belirleyin. 
+     Bu, kartın belirli bir boyutun altına düşmesini engeller.
+     Değeri, kartlarınızın ideal genişliğine göre ayarlayın. */
+  min-width: 250px; /* Örnek değer, test ederek en uygununu bulun */
+  
+  /* Kartların esnekliğini kontrol edin.
+     flex-grow: 1; kartın boş alanı doldurmasını sağlar.
+     flex-shrink: 0; kartın küçülmesini engeller.
+     flex-basis: auto; varsayılan boyutu kullanır.
+     Veya sadece flex-shrink: 0; kullanabilirsiniz. */
+  flex-shrink: 0; 
+  flex-grow: 1; 
+
+  /* Kartların eşit yükseklikte olmasını sağlamak için */
+  height: 100%; 
+  display: flex; /* İçeriğin dikeyde hizalanması için */
+  flex-direction: column; /* İçeriğin dikey olarak sıralanması için */
+}
+
+.card-img-top {
+  max-width: 100%;
+  height: auto; /* Oranını koruyarak yüksekliğini ayarlar */
+  object-fit: contain; /* Resmi kutuya sığdırır, içeriği kesmez */
+  padding: 10px; /* Resim etrafına biraz boşluk ekler */
+}
+
+.card-body {
+  /* İçerik alanına minimum yükseklik vererek boş kartların çok ufak görünmesini engeller */
+  min-height: 120px; /* Örnek değer, içeriğinizin uzunluğuna göre ayarlayın */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* İçeriği dikeyde yayar */
+  flex-grow: 1; /* Boş alanı doldurmasını sağlar */
+}
+
+.card-title {
+  margin-bottom: 0.5rem; /* Başlık ile fiyat arasına boşluk */
+}
+
+.card-text {
+  margin-bottom: 1rem; /* Fiyat ile buton arasına boşluk */
+  font-weight: bold; /* Fiyatı daha belirgin yapar */
+}
+
+.btn {
+  margin-top: auto; /* Butonu her zaman alta hizalar */
+}
