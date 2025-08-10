@@ -2,10 +2,11 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
 import { ActivatedRoute, Router } from '@angular/router';
 import { Api } from '../../services/api';
 import { Product } from '../../models/IProducts';
+import { Comments } from '../../components/comments/comments';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [],
+  imports: [Comments],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
   changeDetection: ChangeDetectionStrategy.Default

@@ -3,7 +3,7 @@ export interface IComments {
     data: Comment[];
 }
 
-export interface Commnet {
+export interface Comment {
     post_id: number;
     id:      number;
     name:    string;
