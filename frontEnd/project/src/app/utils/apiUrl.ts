@@ -13,3 +13,8 @@ export const productUrl = {
     products: `${baseURL}products`
 }
 
+// comment
+export const commentUrl = {
+    comments: `${baseURL}comments`
+}
+

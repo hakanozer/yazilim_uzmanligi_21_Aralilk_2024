@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { productUrl, userUrl } from '../utils/apiUrl';
+import { commentUrl, productUrl, userUrl } from '../utils/apiUrl';
 import { IUser } from '../models/IUser';
 import { IProducts, ISingleProduct } from '../models/IProducts';
+import { IComments } from '../models/IComments';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,7 @@ export class Api {
     return this.http.post(userUrl.logout, {}, {headers: headers});
   }
 
+  // Query String
   allProducts(page: number, per_page: number) {
     const sendObj = {
       page: page,
@@ -54,10 +56,19 @@ export class Api {
     return this.http.get<IProducts>(productUrl.products, {params: sendObj})
   }
 
-
+  // Path Variable 
   productById(id: number) {
     const url = `${productUrl.products}/${id}`
     return this.http.get<ISingleProduct>(url)
+  }
+
+  // comment
+  productComment(page: number, per_page: number) {
+    const sendObj = {
+      page: page,
+      per_page: per_page
+    }
+    return this.http.get<IComments>(commentUrl.comments, {params: sendObj})
   }
 
 }
