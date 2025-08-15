@@ -5,12 +5,13 @@ import { Product } from './Pages/products/products';
 import { ProductDetail } from './components/product-detail/product-detail';
 import { NotFound } from './Pages/not-found/not-found';
 import { pompeyGuard } from './pompey-guard';
+import { fascesGuard } from './fasces-guard';
 
 
 export const routes: Routes = [
   { path: "", component: Login, canActivate: [pompeyGuard] },
-  { path: "products", component: Product, canActivate: [pompeyGuard] },
-  { path: "product-detail/:id", component: ProductDetail, canActivate: [pompeyGuard] },
+  { path: "products", component: Product, canActivate: [fascesGuard] },
+  { path: "product-detail/:id", component: ProductDetail, canActivate: [fascesGuard] },
   { path: 'not-found', component: NotFound },
   { path: '**', redirectTo: 'not-found' }
 ];

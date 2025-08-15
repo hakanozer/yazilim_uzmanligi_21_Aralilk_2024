@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Api } from '../../services/api';
 import { IProduct } from '../../models/IProducts';
-import { Navbar } from '../../shared/navbar/navbar';
+import { Navbar } from '../navbar/navbar';
 
 @Component({
   selector: 'app-product-detail',

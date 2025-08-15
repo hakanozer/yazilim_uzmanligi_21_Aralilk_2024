@@ -1,0 +1,101 @@
+/* Footer Stil */
+.footer {
+  background-color: #212529; /* Nav bar ile aynı, temiz beyaz arka plan */
+  color: #ca1919;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  padding: 40px 20px;
+  border-top: 1px solid #ca1919; /* Sayfa içeriğinden ayırmak için ince çizgi */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-column p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #fff;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: #ca1919; /* Vurgu için siyah */
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-links a {
+  color: #ca1919; /* İkon rengi */
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #ca1919; /* Vurgu için siyah */
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ca1919;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 12px;
+  color: #ca1919;
+}
+
+/* Duyarlı Tasarım (Responsive) */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-column {
+    margin-bottom: 20px;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}

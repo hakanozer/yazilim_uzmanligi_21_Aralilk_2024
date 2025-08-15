@@ -3,8 +3,9 @@ import { Bar } from '../../components/bar/bar';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Api } from '../../services/api';
-import { CommonModule } from '@angular/common';
-import { pompeyGuard } from '../../pompey-guard';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { App } from '../../app';
+
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class Login {
   @ViewChild("passwordRef")
   passwordRef: ElementRef | undefined;
 
-  constructor(private router: Router, private api: Api, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private api: Api, private cdr: ChangeDetectorRef, private app: App) { }
 
 userLogin() {
   if(this.username == ''){
@@ -46,6 +47,7 @@ userLogin() {
         localStorage.setItem("token", res.accessToken)
         console.log('token', res.accessToken)
         this.router.navigate(['/products'])
+        this.app.authControl();
       },
       error: (err) => {
         this.error = 'Login failed';

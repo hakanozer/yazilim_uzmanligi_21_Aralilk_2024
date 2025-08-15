@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg fixed-top portfolio-navbar gradient navbar-dark">
+  <div class="container">
+    <a class="navbar-brand logo" [routerLink]="['/products']">RUBİCON</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="visually-hidden">Toggle navigation</span>
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+<a class="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false" tabindex="0">Menu</a>
+<div class="dropdown-menu">
+  <a class="dropdown-item" [routerLink]="['/not-found']">Sepet</a>
+  <a class="dropdown-item" [routerLink]="['/not-found']">Hakkımızda</a>
+  <a class="dropdown-item" [routerLink]="['/not-found']">Ürünler</a>
+</div>
+
+        </li>
+      </ul>
+      <!-- Search form added -->
+      <form class="d-flex ms-3" role="search">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Ara" aria-label="Search">
+        <button class="btn btn-outline-light btn-sm" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

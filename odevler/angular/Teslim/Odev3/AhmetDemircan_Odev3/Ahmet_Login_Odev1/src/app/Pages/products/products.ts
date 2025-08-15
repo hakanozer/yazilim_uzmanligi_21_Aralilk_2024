@@ -1,15 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Api } from '../../services/api';
-import { ProductFace } from '../../shared/product-face/product-face';
-import { Navbar } from '../../shared/navbar/navbar';
+import { ProductFace } from '../../components/product-face/product-face';
 
 @Component({
   selector: 'app-products',
-  imports: [CommonModule, ProductFace, Navbar],
+  imports: [CommonModule, ProductFace],
   templateUrl: './products.html',
   styleUrl: './products.css',
-  changeDetection: ChangeDetectionStrategy.Default // angular ile ilgili en garip özellik
+
 })
 export class Product implements OnInit {
   products: any[] = [];
