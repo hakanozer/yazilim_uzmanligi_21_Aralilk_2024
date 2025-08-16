@@ -15,6 +15,7 @@ export class Footer {
   email = ''
   currentYear = 0
   error = ''
+  success = ''
 
   constructor(private api: Api, private cdr: ChangeDetectorRef) {
     const date = new Date()
@@ -31,18 +32,38 @@ export class Footer {
           const arr = value as any[]
           if(arr.length == 0) {
             // kayıt yapabilir
+            this.fncNewslatterAdd()
           }else {
             this.error = this.email + ' this email in use!'
           }
         },
         error: (error) => {
-          this.error = 'Server Error!'
+          this.error = 'Api Problem, Try Again!'
         },
         complete: () => {
           this.cdr.detectChanges()
         }
       })
     }
+  }
+
+  fncNewslatterAdd() {
+    this.api.newslatterAdd(this.email).subscribe({
+      next: (value) => {
+        this.success = this.email + ' Added Success'
+        setTimeout(() => {
+          this.success = ''
+          this.email = ''
+          this.cdr.detectChanges()
+        }, 3000);
+      },
+      error: (error) => {
+        this.error = 'Api Problem, Try Again!'
+      },
+      complete: () => {
+        this.cdr.detectChanges()
+      }
+    })
   }
 
 }

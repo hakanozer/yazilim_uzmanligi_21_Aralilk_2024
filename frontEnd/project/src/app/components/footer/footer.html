@@ -39,6 +39,11 @@
                         {{error}}
                     </div>
                 }
+                @if (success) {
+                    <div class="alert alert-success" role="alert">
+                        {{success}}
+                    </div>
+                }
                 <form (submit)="fncEmailSend()">
                     <div class="d-flex flex-column flex-sm-row w-100 gap-2">
                         <input [(ngModel)]="email" name="email" id="newsletter1" class="form-control" placeholder="Email address" />

@@ -78,4 +78,11 @@ export class Api {
     return this.http.get(newslatterUrl.news, {params: sendObj})
   }
 
+  newslatterAdd(email: string) {
+    const sendObj = {
+      email: email
+    }
+    return this.http.post(newslatterUrl.news, sendObj)
+  }
+
 }
