@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { commentUrl, productUrl, userUrl } from '../utils/apiUrl';
+import { commentUrl, newslatterUrl, productUrl, userUrl } from '../utils/apiUrl';
 import { IUser } from '../models/IUser';
 import { IProducts, ISingleProduct } from '../models/IProducts';
 import { IComments } from '../models/IComments';
@@ -69,6 +69,13 @@ export class Api {
       per_page: per_page
     }
     return this.http.get<IComments>(commentUrl.comments, {params: sendObj})
+  }
+
+  newsletterControl(email: string) {
+    const sendObj = {
+      email: email
+    }
+    return this.http.get(newslatterUrl.news, {params: sendObj})
   }
 
 }

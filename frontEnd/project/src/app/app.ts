@@ -3,15 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { Navbar } from './components/navbar/navbar';
 import { Api } from './services/api';
 import { lastValueFrom } from 'rxjs';
+import { Footer } from './components/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar],
+  imports: [RouterOutlet, Navbar, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class App {
+  
   protected title = 'project';
   tokenStatus = false
   constructor(private api: Api, private cdr: ChangeDetectorRef) {
