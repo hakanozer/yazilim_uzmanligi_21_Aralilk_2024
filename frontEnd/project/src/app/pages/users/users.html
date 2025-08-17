@@ -12,15 +12,96 @@
   </thead>
   <tbody>
 
-    <tr>
-      <th scope="row">1</th>
-      <td><img width="88" height="88" src="https://jsonbulut.com/assets/img/users/1.jpg"/></td>
-      <td>Ayşe Demir</td>
-      <td>ayse.demirmail.com</td>
-      <td>+905061234567</td>
-    </tr>
-    
-    
+    @for (item of userArr; track $index) {
+        <tr (click)="fncSelectUser(item)" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <th scope="row">{{item.id}}</th>
+            <td><img class="img-thumbnail rounded-circle" width="66" height="66" src={{item.profile}} /></td>
+            <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.phone}}</td>
+        </tr>
+    }
     
   </tbody>
 </table>
+
+@if(selectUser) {
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{selectUser.name}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                    <img class="img-thumbnail rounded-circle" src={{selectUser.profile}} />
+                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{selectUser.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>{{selectUser.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{{selectUser.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>{{selectUser.password}}</td>
+                        </tr>
+                        <tr>
+                            <td>Role</td>
+                            <td>{{selectUser.role}}</td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td>{{selectUser.phone}}</td>
+                        </tr>
+                        <tr>
+                            <td>Website</td>
+                            <td>{{selectUser.website}}</td>
+                        </tr>
+                        <tr>
+                            <td>Company</td>
+                            <td>
+                                <div>{{selectUser.company.name}}</div>
+                                <div>{{selectUser.company.catchPhrase}}</div>
+                                <div>{{selectUser.company.bs}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5>Address</h5>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Street</td>
+                            <td>{{selectUser.address.street}}</td>
+                        </tr>
+                        <tr>
+                            <td>Suite</td>
+                            <td>{{selectUser.address.suite}}</td>
+                        </tr>
+                        <tr>
+                            <td>City</td>
+                            <td>{{selectUser.address.city}}</td>
+                        </tr>
+                        <tr>
+                            <td>ZipCode</td>
+                            <td>{{selectUser.address.zipcode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            </div>
+        </div>
+    </div>
+}

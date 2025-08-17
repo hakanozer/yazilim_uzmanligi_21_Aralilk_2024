@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { commentUrl, newslatterUrl, productUrl, userUrl } from '../utils/apiUrl';
+import { commentUrl, newslatterUrl, productUrl, usersUrl, userUrl } from '../utils/apiUrl';
 import { IUser } from '../models/IUser';
 import { IProducts, ISingleProduct } from '../models/IProducts';
 import { IComments } from '../models/IComments';
+import { IUsers } from '../models/IUsers';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +84,16 @@ export class Api {
       email: email
     }
     return this.http.post(newslatterUrl.news, sendObj)
+  }
+
+  users(page: number, per_page: number){
+    const sendObj = {
+      page: page,
+      per_page: per_page
+    }
+    const jwt = localStorage.getItem('token') ?? '';
+    const headers = { 'Authorization': `Bearer ${jwt}` };
+    return this.http.get<IUsers>(usersUrl.users, {headers: headers, params: sendObj})
   }
 
 }
