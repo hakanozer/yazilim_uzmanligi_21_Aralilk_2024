@@ -6,11 +6,13 @@ import { authGuard } from './auth-guard';
 import { ProductDetail } from './pages/product-detail/product-detail';
 import { notauthGuard } from './notauth-guard';
 import { Notfound } from './pages/notfound/notfound';
+import { Users } from './pages/users/users';
 
 export const routes: Routes = [
     { path: "", component: Login, canActivate: [notauthGuard] },
     { path: "register", component: Register, canActivate: [notauthGuard] },
     { path: "products", component: Products, canActivate: [authGuard] },
     { path: "product-detail/:id", component: ProductDetail, canActivate: [authGuard] },
+    { path: "users", component: Users, canActivate: [authGuard] },
     { path: "**", component: Notfound}
 ];
