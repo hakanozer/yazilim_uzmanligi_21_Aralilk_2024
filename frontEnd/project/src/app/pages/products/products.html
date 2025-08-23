@@ -6,7 +6,11 @@
 <nav>
   <ul class="pagination pagination-sm justify-content-end">
     @for (item of pages; track $index) {
-      <li class="page-item"><a class="page-link" href="#">{{item}}</a></li>
+      @if(item == current_page) {
+        <li class="page-item active"><a [routerLink]="['/products']" [queryParams]="{page: item}" class="page-link">{{item}}</a></li>
+      }@else {
+        <li class="page-item"><a [routerLink]="['/products']" [queryParams]="{page: item}" class="page-link">{{item}}</a></li>
+      }
     }
   </ul>
 </nav>
