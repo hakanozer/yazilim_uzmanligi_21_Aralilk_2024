@@ -1,19 +1,24 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit  } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Util } from '../../utils/util';
 import { Api } from '../../services/api';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class Navbar implements OnInit {
 
+  q = ''
   navbarUserName = ''
-  constructor(private api: Api, private cdr: ChangeDetectorRef) {
+  constructor(private api: Api, 
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -37,6 +42,11 @@ export class Navbar implements OnInit {
         }
       })
     }
+  }
+
+
+  sendSearch() {
+    this.router.navigate(['search'], {queryParams: {q: this.q}})
   }
 
 }

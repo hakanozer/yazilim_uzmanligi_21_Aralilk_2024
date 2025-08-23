@@ -13,6 +13,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 })
 export class Products implements OnInit {
 
+  isLoading = true
   productArr: Product[] = []
   pageInfo: Pagination = {
     page: 0,
@@ -28,9 +29,6 @@ export class Products implements OnInit {
     private activeRouter: ActivatedRoute)
     {}
 
-
-
-
   ngOnInit(): void {
     this.activeRouter.queryParams.forEach((params) => {
       const page = params['page']
@@ -43,6 +41,8 @@ export class Products implements OnInit {
   }
 
   pullData() {
+      this.isLoading = true
+      this.productArr = []
       this.api.allProducts(this.current_page, 10).subscribe({
       next: (value) => {
         this.productArr = value.data
@@ -51,10 +51,13 @@ export class Products implements OnInit {
         for (let i = 0; i < value.meta.pagination.total_pages; i++) {
           this.pages.push(i+1)
         }
-        this.cdr.detectChanges();
       },
       error: (error) => {
 
+      },
+      complete: () => {
+        this.isLoading = false
+        this.cdr.detectChanges();
       }
     })
   }
