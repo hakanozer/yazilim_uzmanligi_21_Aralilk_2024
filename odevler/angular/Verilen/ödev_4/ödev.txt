@@ -1,0 +1,32 @@
+Yapılacak Proje:
+Mevcut çalışmamız üzerinde gidilercek, yapılan projeler githubtaki ödev_3 altındaki grup numarasına göre atacanacaktır.
+
+Arama: https://jsonbulut.com/api/products/search?query=ip&page=1&per_page=10 apisine parametre gönderilecek ve dönen bilgiler ekranda sunulacaktır.
+
+Kurallar:
+1 - Gelen datalar "product-item" componenti ile gösterilecektir.
+2- sayfalama yapılacaktır
+3- Sayfada toplam kaç sonuç bulunduğu yazılacak
+4- Sayfada ne arandığı yazılacak
+5- Aranan ifadede hiç sorunuç yok ise "Sonuç Bulunamadı" gibi bir ifade iconla birlikte sunabilir.
+
+Projee Başalama saati: 90:00 - 17:00
+
+1. Grup(4 Kişi)  	     	  
+Ufuk -> Google Meets 
+Haktan
+İsmail?
+Mustafa
+
+
+2. Grup(3 Kişi)
+Ahmet
+Mümine
+Tuğba
+Serhat?
+
+
+3. Grup(3 Kişi)
+Çağlar
+Furkan
+Ömer?
