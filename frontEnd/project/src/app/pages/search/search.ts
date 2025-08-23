@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { SearchItemComponent } from "../../components/search-item/search-item";
 
 @Component({
   selector: 'app-search',
-  imports: [],
+  imports: [SearchItemComponent],
   templateUrl: './search.html',
   styleUrl: './search.css'
 })

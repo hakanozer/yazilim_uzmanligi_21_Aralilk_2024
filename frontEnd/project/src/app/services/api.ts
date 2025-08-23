@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { commentUrl, newslatterUrl, productUrl, usersUrl, userUrl } from '../utils/apiUrl';
+import { commentUrl, newslatterUrl, productUrl, searchUrl, usersUrl, userUrl } from '../utils/apiUrl';
 import { IUser } from '../models/IUser';
 import { IProducts, ISingleProduct } from '../models/IProducts';
 import { IComments } from '../models/IComments';
 import { IUsers } from '../models/IUsers';
+import { Observable } from 'rxjs';
+import { ISearch } from '../models/ISearch';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +97,13 @@ export class Api {
     const headers = { 'Authorization': `Bearer ${jwt}` };
     return this.http.get<IUsers>(usersUrl.users, {headers: headers, params: sendObj})
   }
+  SearchProducts(query: string, page:number, per_page: number){
+    const sendObj = {
+      page: page,
+      per_page: per_page
+    }
+    return this.http.get<ISearch>(searchUrl.search, {params: sendObj})
+  }
+  
 
 }

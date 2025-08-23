@@ -1,3 +1,5 @@
+import { Search } from "../pages/search/search"
+
 const baseURL = "https://jsonbulut.com/api/"
 
 // user
@@ -26,5 +28,9 @@ export const newslatterUrl = {
 // users
 export const usersUrl = {
     users: `${baseURL}users`
+}
+
+export const searchUrl = {
+    search: `${baseURL}products/search`
 }
 

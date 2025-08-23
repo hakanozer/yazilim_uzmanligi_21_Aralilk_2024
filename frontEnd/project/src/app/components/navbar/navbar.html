@@ -34,6 +34,7 @@
       <form (submit)="sendSearch()" class="d-flex" role="search">
         <input [(ngModel)]="q" name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
+        <app-search-item></app-search-item>
       </form>
     </div>
   </div>
