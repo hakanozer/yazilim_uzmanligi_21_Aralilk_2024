@@ -3,6 +3,14 @@
   <button (click)="plus10Price()" class="btn btn-light btn-sm" style="margin-left: 5px;">+10</button>
 </div>
 
+<nav>
+  <ul class="pagination pagination-sm justify-content-end">
+    @for (item of pages; track $index) {
+      <li class="page-item"><a class="page-link" href="#">{{item}}</a></li>
+    }
+  </ul>
+</nav>
+
 <div class="row">
 @for (item of productArr; track $index) {
   <app-product-item [item]="item" class="col-sm-4"></app-product-item>

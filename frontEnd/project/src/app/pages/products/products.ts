@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Api } from '../../services/api';
-import { Product } from '../../models/IProducts';
+import { Pagination, Product } from '../../models/IProducts';
 import { ProductItem } from '../../components/product-item/product-item';
 
 @Component({
@@ -13,6 +13,13 @@ import { ProductItem } from '../../components/product-item/product-item';
 export class Products implements OnInit {
 
   productArr: Product[] = []
+  pageInfo: Pagination = {
+    page: 0,
+    per_page: 0,
+    total_items: 0,
+    total_pages: 0
+  }
+  pages: number[] = []
 
   constructor( private api: Api, private cdr: ChangeDetectorRef ){
   }
@@ -21,6 +28,10 @@ export class Products implements OnInit {
     this.api.allProducts(1, 10).subscribe({
       next: (value) => {
         this.productArr = value.data
+        this.pageInfo = value.meta.pagination
+        for (let i = 0; i < value.meta.pagination.total_pages; i++) {
+          this.pages.push(i+1)
+        }
         this.cdr.detectChanges();
       },
       error: (error) => {
