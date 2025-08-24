@@ -1,0 +1,48 @@
+@if (isLoading === true) {
+  <!-- LOADING SPINNER -->
+  <div class="spinner-border mt-4" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+} @else {
+    <!-- WITH RESULT -->
+  @if (productArr.length > 0) {
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Search Results for "{{query}}"</h2>
+      <span class="text-muted small">
+        <em>{{pageInfo.total_items}} ürün bulundu</em>
+      </span>
+    </div>
+    <!-- PAGINATION -->
+    <nav>
+      <ul class="pagination pagination-sm justify-content-end">
+        @for (item of pages; track $index) {
+          @if(item == current_page) {
+            <li class="page-item active">
+              <a [routerLink]="['/search']"
+                 [queryParams]="{q: query, page: item}"
+                 class="page-link">{{item}}</a>
+            </li>
+          } @else {
+            <li class="page-item">
+              <a [routerLink]="['/search']"
+                 [queryParams]="{q: query, page: item}"
+                 class="page-link">{{item}}</a>
+            </li>
+          }
+        }
+      </ul>
+    </nav>
+    <!-- PRODUCT LIST -->
+    <div class="row">
+      @for (item of productArr; track $index) {
+        <app-product-item [item]="item" class="col-sm-4 mb-3"></app-product-item>
+      }
+    </div>
+  } @else {
+    <!-- NO RESULT -->
+    <div class="text-muted fst-italic mt-4 text-center">
+      "{{query}}" için sonuç bulunamadı.
+    </div>
+  }
+}

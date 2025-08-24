@@ -5,13 +5,13 @@ import { ProductItem } from '../../components/product-item/product-item';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-products',
   imports: [ProductItem, RouterModule],
-  templateUrl: './search.html',
-  styleUrl: './search.css',
+  templateUrl: './products.html',
+  styleUrl: './products.css',
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class Search implements OnInit {
+export class Products implements OnInit {
 
   isLoading = true
   productArr: Product[] = []
@@ -22,37 +22,28 @@ export class Search implements OnInit {
     total_pages: 0
   }
   pages: number[] = []
-  originalProductArr: Product[] = [];
   current_page = 1
-  searchQuery = ''
-   totalResults: number = 0;
 
-  constructor(
-    private api: Api, 
+  constructor( private api: Api, 
     private cdr: ChangeDetectorRef, 
-    private activeRouter: ActivatedRoute
-  ) {}
+    private activeRouter: ActivatedRoute)
+    {}
 
   ngOnInit(): void {
     this.activeRouter.queryParams.forEach((params) => {
-      const q = params['q']
       const page = params['page']
-      
-      if (q) {
-        this.searchQuery = q
-        if (page) {
-          this.current_page = page
-        }
-        this.pullSearchData()
+      if (page) {
+        this.current_page = page
+        this.pullData()
       }
     })
+    this.pullData()
   }
 
-  pullSearchData() {
-    this.isLoading = true
-    this.productArr = []
-    
-    this.api.searchProducts(this.searchQuery, this.current_page, 10).subscribe({
+  pullData() {
+      this.isLoading = true
+      this.productArr = []
+      this.api.allProducts(this.current_page, 10).subscribe({
       next: (value) => {
         this.productArr = value.data
         this.pageInfo = value.meta.pagination
@@ -62,7 +53,7 @@ export class Search implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Search error:', error)
+
       },
       complete: () => {
         this.isLoading = false
@@ -71,19 +62,16 @@ export class Search implements OnInit {
     })
   }
 
+  plus10Price() {
+    this.productArr.forEach((item, index) => {
+      setTimeout(() => {
+        item.price = Number((item.price + 10).toFixed(2))
+        this.cdr.detectChanges();
+      }, index * 1500);
 
-  // Arama çubuğuna girilen metinle listeyi filtreleme
-  onSearch() {
-    if (this.searchQuery.trim() === '') {
-      this.productArr = []; // Arama terimi yoksa listeyi temizle
-    } else {
-      this.productArr = this.originalProductArr.filter(product => 
-        product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    }
-     this.totalResults = this.productArr.length; // Sonuç sayısını güncelle
+    })
   }
 
+  
+
 }
-
-
