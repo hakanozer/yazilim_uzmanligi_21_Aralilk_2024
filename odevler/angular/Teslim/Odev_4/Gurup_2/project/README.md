@@ -1,59 +1,86 @@
-# Project
+# 🛒 E-Commerce
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.2.
+## 📌 Proje Hakkında
 
-## Development server
+- Bu proje E-Commerce uygulamasının bir parçasıdır.
+- Ekip çalışması kapsamında arama (search) özelliği geliştirilmiştir.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+### Eklenen özellikler:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+✅ Gelen datalar product-item componenti ile listelendi.
 
-## Code scaffolding
+✅ Sayfalama (pagination) özelliği eklendi.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+✅ Sayfada toplam kaç sonuç bulunduğu gösterildi.
 
-```bash
-ng generate component component-name
-```
+✅ Kullanıcının ne aradığı ekrana yazıldı.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+✅ Hiç sonuç bulunmadığında “Sonuç Bulunamadı” ifadesi ikonla birlikte gösterildi.
 
-```bash
-ng generate --help
-```
 
-## Building
+---
 
-To build the project run:
+## 💻 Kullanılan Teknolojiler
 
-```bash
-ng build
-```
+- Angular
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Bootstrap
 
-## Running unit tests
+- JsonBulut API
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+--- 
+
+
+##  ▶️ Projeyi Çalıştırma
+
+Aşağıdaki adımları takip ederek projeyi çalıştırabilirsiniz:
 
 ```bash
-ng test
+npm install
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## 🧱 Katman Yapısı
+
+<img width="1366" height="742" alt="katman yapısı" src="https://github.com/user-attachments/assets/c7842273-b193-4372-a7ca-fbbd86b60315" />
+
+
+---
+
+
+ ## 📸 Ekran Görüntüleri
+
+Ana sayfa görünümü:
+
+<img width="998" height="624" alt="image" src="https://github.com/user-attachments/assets/201fd0e2-e6ec-4e39-954a-65c0a0a00473" />
+
+<img width="1432" height="718" alt="image" src="https://github.com/user-attachments/assets/aceb4c50-8739-408d-ad31-ed964af65f27" />
+
+
+Arama sonuçları:
+
+<img width="998" height="624" alt="image" src="https://github.com/user-attachments/assets/4f730d72-e299-4b0a-a6ed-d22463bdcb76" />
+
+
+Sonuç bulunamadığında:
+
+---
+
+
+## 👥 Katkıda Bulunanlar
+
+[Ahmet Demircan]
+
+[Mü'mine Muroğlu]
+
+[Tuba Şimşek]
+
