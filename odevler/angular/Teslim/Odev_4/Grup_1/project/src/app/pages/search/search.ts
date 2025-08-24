@@ -41,8 +41,8 @@ export class Search implements OnInit  {
         this.productArr = value.data
         this.pageInfo = value.meta.pagination;
         this.pages = [];
-        for(let i = 1; i < value.meta.pagination.total_pages; i++){
-          this.pages.push(i);
+        for(let i = 0; i < value.meta.pagination.total_pages; i++){
+          this.pages.push(i+1);
         }
         this.isLoading = false;
         this.cdr.detectChanges();
