@@ -59,21 +59,28 @@ npm start
 
  ## 📸 Ekran Görüntüleri
 
-Ana sayfa görünümü:
+### Ana sayfa görünümü:
 
 <img width="998" height="624" alt="image" src="https://github.com/user-attachments/assets/201fd0e2-e6ec-4e39-954a-65c0a0a00473" />
 
-<img width="1432" height="718" alt="image" src="https://github.com/user-attachments/assets/aceb4c50-8739-408d-ad31-ed964af65f27" />
+
+---
 
 
-Arama sonuçları:
+### Arama sonuçları:
 
 <img width="998" height="624" alt="image" src="https://github.com/user-attachments/assets/4f730d72-e299-4b0a-a6ed-d22463bdcb76" />
 
+---
 
-Sonuç bulunamadığında:
+### Sonuç bulunamadığında:
+
+<img width="2940" height="1912" alt="image" src="https://github.com/user-attachments/assets/42137df4-e17c-4dee-ae10-eb74d1e62da1" />
+
+
 
 ---
+
 
 
 ## 👥 Katkıda Bulunanlar
