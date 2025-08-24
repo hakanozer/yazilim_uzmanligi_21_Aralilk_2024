@@ -64,7 +64,7 @@ export class Search implements OnInit {
       error: (error) => {
         //console.error('Search error:', error)
       if(error.error.message == 'No products found') {
-          this.isLoading = true
+          this.isLoading = false
           this.cdr.detectChanges()
         }
       },
