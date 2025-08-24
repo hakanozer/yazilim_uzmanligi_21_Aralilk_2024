@@ -85,9 +85,9 @@ npm start
 
 ## 👥 Katkıda Bulunanlar
 
-[Ahmet Demircan]
+- Ahmet Demircan
 
-[Mü'mine Muroğlu]
+- Mü'mine Muroğlu
 
-[Tuba Şimşek]
+- Tuba Şimşek
 
