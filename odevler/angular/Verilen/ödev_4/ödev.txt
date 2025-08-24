@@ -12,13 +12,6 @@ Kurallar:
 
 Projee Başalama saati: 90:00 - 17:00
 
-1. Grup(4 Kişi)  	     	  
-Ufuk -> Google Meets 
-Haktan
-İsmail?
-Mustafa
-
-
 2. Grup(3 Kişi)
 Ahmet
 Mümine
@@ -26,7 +19,43 @@ Tuğba
 Serhat?
 
 
-3. Grup(3 Kişi)
-Çağlar
-Furkan
-Ömer?
+## 🔴 KRİTİK ÖNEM (Önce Tamamlanması Gereken)
+1. API Servisine Search Endpoint'i Ekleme
+
+- Dosyalar: apiUrl.ts ve api.ts
+- Görev: searchProducts metodunu oluşturma
+- Neden Kritik: Diğer tüm görevler bu API'ye bağımlı. Bu olmadan hiçbir şey çalışmaz.
+- Tahmini Süre: 15-20 dakika
+## 🟡 ÖNEMLİ (İkinci Öncelik)
+2. Search Sayfası TypeScript Logic'ini Geliştirme
+
+- Dosya: search.ts
+- Görev: API entegrasyonu, pagination ve arama mantığını ekleme
+- Neden Önemli: Sayfanın çalışması için gerekli, ancak API'den sonra yapılabilir.
+- Tahmini Süre: 25-30 dakika
+3. Search Sayfası HTML Template'ini Oluşturma
+
+- Dosya: search.html
+- Görev: Arama sonuçları, pagination ve boş sonuç durumu için HTML yapısı
+- Neden Önemli: Kullanıcının göreceği arayüz, ancak TypeScript logic'ten sonra yapılabilir.
+- Tahmini Süre: 20-25 dakika
+## 🟢 ÖNEMSIZ (Son Öncelik - İsteğe Bağlı)
+4. CSS Styling ve Responsive Tasarım
+
+- Dosya: search.css
+- Görev: Görsel tasarımı tamamlama
+- Neden Önemsiz: Fonksiyonellik çalıştıktan sonra güzelleştirme amaçlı.
+- Tahmini Süre: 15-20 dakika
+## 📋 Önerilen Çalışma Sırası:
+1. 1.
+   İlk: API endpoint (Kritik)
+2. 2.
+   İkinci: TypeScript logic (Önemli)
+3. 3.
+   Üçüncü: HTML template (Önemli)
+4. 4.
+   Son: CSS styling (Önemsiz)
+Not: İlk üç görev tamamlandığında arama sayfası tamamen çalışır hale gelir. CSS sadece görsel iyileştirme içindir.
+
+
+
