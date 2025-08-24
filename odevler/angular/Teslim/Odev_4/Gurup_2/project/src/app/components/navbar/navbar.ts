@@ -46,7 +46,11 @@ export class Navbar implements OnInit {
 
 
   sendSearch() {
-    this.router.navigate(['search'], {queryParams: {q: this.q}})
+    if(this.q.trim() == '') {
+      return
+    }else {
+      this.router.navigate(['search'], {queryParams: {q: this.q}})
+    }
   }
 
 }

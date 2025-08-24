@@ -13,7 +13,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 })
 export class Search implements OnInit {
 
-  isLoading = true
+  isLoading = false
   productArr: Product[] = []
   pageInfo: Pagination = {
     page: 0,
@@ -62,7 +62,11 @@ export class Search implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Search error:', error)
+        //console.error('Search error:', error)
+      if(error.error.message == 'No products found') {
+          this.isLoading = true
+          this.cdr.detectChanges()
+        }
       },
       complete: () => {
         this.isLoading = false
