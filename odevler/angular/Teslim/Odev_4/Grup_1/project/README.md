@@ -8,10 +8,10 @@ Projede arama kısmı boş bırakılarak arama yapıldığında, products sayfas
 
 #### Ürün Bulunamadı Durumu
 
-![Ürün bulunamadı](screenshots/Ürün bulunamadı durumu.png)
+![Ürün bulunamadı](screenshots/urun bulunamadi.png)
 
 ---
 
 #### Ürün Bulundu Durumu
 
-![Ürün bulundu](screenshots/Ürün bulundu durumu.png)
+![Ürün bulundu](screenshots/urun bulundu.png)
