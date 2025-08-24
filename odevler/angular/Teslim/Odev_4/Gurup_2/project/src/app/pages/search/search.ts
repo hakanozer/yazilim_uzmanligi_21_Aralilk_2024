@@ -22,8 +22,10 @@ export class Search implements OnInit {
     total_pages: 0
   }
   pages: number[] = []
+  originalProductArr: Product[] = [];
   current_page = 1
   searchQuery = ''
+   totalResults: number = 0;
 
   constructor(
     private api: Api, 
@@ -68,4 +70,20 @@ export class Search implements OnInit {
       }
     })
   }
+
+
+  // Arama çubuğuna girilen metinle listeyi filtreleme
+  onSearch() {
+    if (this.searchQuery.trim() === '') {
+      this.productArr = []; // Arama terimi yoksa listeyi temizle
+    } else {
+      this.productArr = this.originalProductArr.filter(product => 
+        product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    }
+     this.totalResults = this.productArr.length; // Sonuç sayısını güncelle
+  }
+
 }
+
+
