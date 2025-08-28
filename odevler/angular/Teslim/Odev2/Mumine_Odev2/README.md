@@ -29,12 +29,12 @@ Her ürün için **detay sayfası** da görüntülenebilir.
 * Ürün Listesi:
 
   ```url
-  https://dummyjson.com/products
+  https://dummyjson.com/product
   ```
 * Ürün Detayı:
 
   ```url
-  https://dummyjson.com/products/{id}
+  https://dummyjson.com/product-detail/{id}
   ```
 
 ---
@@ -55,7 +55,7 @@ Her ürün için **detay sayfası** da görüntülenebilir.
 
 ### 🖼️ Proje Dosya Yapısı
 
-<img width="958" alt="product-detail" src="screenshots/project-file-structure-.png" />
+<img width="958" alt="product-detail" src="screenshots/project-file-structure.png" />
 
 
 
