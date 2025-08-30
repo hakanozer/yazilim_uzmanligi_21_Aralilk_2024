@@ -130,3 +130,9 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+node_modules
+build
+npm-debug.log
+.env
+.DS_Store
