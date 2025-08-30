@@ -7,5 +7,24 @@
 </head>
 <body>
     <h2>Welcome Login</h2>
+    <h3><%=title%></h3>
+    <h4><%=title %></h4>
+    <h5><%=cat%></h5>
+    <% if (user) { %>
+        <p><%=user.id%></p>
+        <p><%=user.name%></p>
+        <p><%=user.surname%></p>
+    <% } %>
+
+    <% for( let i = 0; i < cities.length; i++ ) { %>
+        <div><%= cities[i] %></div>
+    <% } %>
+    
+    <hr/>
+    <% cities.forEach(item => { %>
+     <div><%= item %></div>
+    <% }) %>
+     
+
 </body>
 </html>
