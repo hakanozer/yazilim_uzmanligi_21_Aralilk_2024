@@ -2,10 +2,9 @@
     "name": "nodejs",
     "version": "1.0.0",
     "main": "dist/app.js",
-    "type": "module",
     "scripts": {
         "build": "tsc",
-        "start": "nodemon dist/app.js",
+        "start": "nodemon src/app.ts",
         "dev": "ts-node src/app.ts",
         "test": "jest"
     },

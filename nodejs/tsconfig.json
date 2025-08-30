@@ -1,28 +1,14 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
-  "compilerOptions": {
-  "rootDir": "./src",
-  "outDir": "./dist",
-
-  "module": "nodenext",      // ES Modules için doğru
-  "target": "esnext",        // modern JS çıktısı
-  "lib": ["esnext"],         // Node.js için modern API'ler
-  "types": ["node"],         // Node türleri için
-
-  "sourceMap": true,
-  "declaration": true,
-  "declarationMap": true,
-
-  "strict": true,
-  "jsx": "react-jsx",
-  "isolatedModules": true,
-  "verbatimModuleSyntax": true,
-  "moduleDetection": "force",
-  "skipLibCheck": true,
-  "noUncheckedIndexedAccess": true,
-  "exactOptionalPropertyTypes": true
-},
-  "include": [
-    "src/**/*"
-  ]
-}
+    "compilerOptions": {
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "target": "es6",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "outDir": "dist"
+    },
+    "lib": ["es2015"],
+    "include": [
+        "src/**/*"
+    ]
+  }
