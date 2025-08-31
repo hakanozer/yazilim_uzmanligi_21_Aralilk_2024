@@ -12,8 +12,9 @@ userController.get("/", (req, res) => {
 userController.post('/login', (req, res) => {
     const user:ILogin = req.body
     const isValid = userLogin(user)
-    if (!isValid) {
-        res.render('login', { error: "Invalid email or password" })
+    if (isValid === true) {
+        res.redirect('/dashboard')
+    } else {
+        res.render('login', { error: isValid })
     }
-    //res.redirect('/dashboard')
 })
