@@ -15,10 +15,13 @@ app.use(bodyParser.json())
 
 // imports controllers
 import { userController } from './controllers/userController'
+import { dashboardController } from './controllers/dashboardController'
 
 
-// Controllera
+// Controllers
 app.use("/", userController)
+app.use("/dashboard", dashboardController)
+
 
 app.listen(PORT, () => {
   console.log(`Server running: http://localhost:${PORT}`)
