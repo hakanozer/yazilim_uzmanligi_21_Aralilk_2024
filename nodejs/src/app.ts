@@ -11,7 +11,7 @@ app.set("view engine", "ejs")
 // imports controllers
 import { userController } from './controllers/userController'
 
-// user controller
+// Controllera
 app.use("/", userController)
 
 app.listen(PORT, () => {
