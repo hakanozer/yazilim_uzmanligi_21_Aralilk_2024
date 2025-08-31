@@ -9,10 +9,16 @@
 <body>
     
     <div class="container mt-3">
+        <% if (typeof error != "undefined") { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= error %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
         <div class="row">
             <div class="col-sm-6">
                 <h3>User Login</h3>
-                <form action="/login" method="POST">
+                <form action="/login" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" name="email">
