@@ -1,6 +1,7 @@
 import express  from "express"
 import { ILogin } from "../models/ILogin"
-import { userLogin } from "../services/userService"
+import { userLogin, userRegister } from "../services/userService"
+import { IUser } from "../models/userModel"
 
 export const userController = express.Router()
 
@@ -18,3 +19,19 @@ userController.post('/login', (req, res) => {
         res.render('login', { error: isValid })
     }
 })
+
+//userRegister
+userController.get("/register", (req, res) => {
+    res.render("register");
+});
+
+
+userController.post("/register", (req, res) => {
+    const user: IUser = req.body;
+    const isValid = userRegister(user);
+    if (isValid === true) {
+        res.redirect("/");
+    } else {
+        res.render("register", { error: isValid });
+    }
+});

@@ -1,4 +1,5 @@
 import { ILogin } from "../models/ILogin";
+import { IUser } from "../models/userModel";
 
 export const userLogin = (user: ILogin) : string | boolean => {
     if (!emailValid(user.email)) {
@@ -31,3 +32,17 @@ export const passwordValid = (password: string) => {
     const regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z]).{6,10}$/;
     return regex.test(password);
 }
+
+
+export const userRegister = (user: IUser): string | boolean => {
+    if (user.name != '' && user.name.length < 3) {
+        return "Full name must be at least 3 characters.";
+    }
+    if (!emailValid(user.email)) {
+        return "Invalid email format.";
+    }
+    if (!passwordValid(user.password)) {
+        return "Password must be 3-15 characters long, include at least one uppercase letter, one number, and one special character.";
+    }
+    return true;
+};
