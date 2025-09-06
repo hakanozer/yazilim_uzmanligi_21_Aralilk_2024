@@ -15,7 +15,7 @@ export const nameSurnameValid = (name: string) : string => {
                 const item = arr[i];
                 if (item.length > 1) {
                     status = true
-                    words += firstCharUpper(item) + ' '
+                    words += firstCharUpper(item) + ' ' 
                 }else {
                     status = false
                 }
