@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    // Proje Dosya Yapısı
+    "rootDir": "./src",
+    "outDir": "./dist",
+    
+    // Ortam ve Modül Ayarları
+    "target": "ES2022",
+    "module": "ES2015",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    
+    // Gelişmiş Type-Checking ve Tutarlılık
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    // Diğer Ayarlar
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
