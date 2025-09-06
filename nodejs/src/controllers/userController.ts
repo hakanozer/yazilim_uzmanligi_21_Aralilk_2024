@@ -1,6 +1,6 @@
 import express  from "express"
 import { ILogin } from "../models/ILogin"
-import { userLogin, userRegister } from "../services/userService"
+import { userLogin, userRegister, userRegisterDb } from "../services/userService"
 import { IUser } from "../models/userModel"
 
 export const userController = express.Router()
@@ -26,11 +26,16 @@ userController.get("/register", (req, res) => {
 });
 
 
-userController.post("/register", (req, res) => {
+userController.post("/register", async (req, res) => {
     const user: IUser = req.body;
     const isValid = userRegister(user);
-    if ( typeof isValid !== "string") {
-        res.redirect("/");
+    if ( isValid === true ) {
+        const registerDB = await userRegisterDb(user)
+        if (registerDB === true) {
+            res.redirect("/");
+        } else {
+            res.render("register", { error: registerDB });
+        }
     } else {
         res.render("register", { error: isValid });
     }

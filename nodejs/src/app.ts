@@ -1,9 +1,13 @@
 import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
+import { connectDB } from './utils/db'
 
 const app = express()
 const PORT = process.env.PORT || 3000
+
+// DB Config
+connectDB()
 
 // EJS Configuration
 app.set("views", path.join(__dirname, "views"))
@@ -18,6 +22,7 @@ import { userController } from './controllers/userController'
 import { dashboardController } from './controllers/dashboardController'
 
 
+
 // Controllers
 app.use("/", userController)
 app.use("/dashboard", dashboardController)
@@ -26,3 +31,4 @@ app.use("/dashboard", dashboardController)
 app.listen(PORT, () => {
   console.log(`Server running: http://localhost:${PORT}`)
 })
+

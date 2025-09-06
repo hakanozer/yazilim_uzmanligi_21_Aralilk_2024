@@ -21,7 +21,7 @@ export const emailValid = (email: string) => {
 // 1 sayısal karakter
 // 1 büyük karakter
 /*
-Abc1!d
+Abc1d!
 Xyz9#Q
 Qwert7*
 Java8@A
@@ -34,7 +34,7 @@ export const passwordValid = (password: string) => {
 }
 
 
-export const userRegister =  async (user: IUser) => {
+export const userRegister = (user: IUser) : string | boolean => {
     if (user.name != '' && user.name.length < 3) {
         return "Full name must be at least 3 characters.";
     }else if (!emailValid(user.email)) {
@@ -42,6 +42,21 @@ export const userRegister =  async (user: IUser) => {
     }else if (!passwordValid(user.password)) {
         return "Password must be 3-15 characters long, include at least one uppercase letter, one number, and one special character.";
     }
-    await UserDB.insertOne(user)
     return true
 };
+
+export const userRegisterDb = async (user: IUser) => {
+    try {
+        const newUser = new UserDB(user);
+        await newUser.save();
+        return true;
+    } catch (error) {
+        if (error instanceof Error) {
+            if (error.message.includes("duplicate key error")) {
+                return "Email already exists.";
+            }
+            return error.message;
+        }
+        return "An unknown error occurred.";
+    }
+}
