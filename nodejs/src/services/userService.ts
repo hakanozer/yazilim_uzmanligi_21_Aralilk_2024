@@ -1,5 +1,5 @@
 import { ILogin } from "../models/ILogin";
-import { IUser } from "../models/userModel";
+import UserDB, { IUser } from "../models/userModel";
 
 export const userLogin = (user: ILogin) : string | boolean => {
     if (!emailValid(user.email)) {
@@ -34,15 +34,14 @@ export const passwordValid = (password: string) => {
 }
 
 
-export const userRegister = (user: IUser): string | boolean => {
+export const userRegister =  async (user: IUser) => {
     if (user.name != '' && user.name.length < 3) {
         return "Full name must be at least 3 characters.";
-    }
-    if (!emailValid(user.email)) {
+    }else if (!emailValid(user.email)) {
         return "Invalid email format.";
-    }
-    if (!passwordValid(user.password)) {
+    }else if (!passwordValid(user.password)) {
         return "Password must be 3-15 characters long, include at least one uppercase letter, one number, and one special character.";
     }
-    return true;
+    await UserDB.insertOne(user)
+    return true
 };

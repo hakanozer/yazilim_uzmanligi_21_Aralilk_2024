@@ -29,7 +29,7 @@ userController.get("/register", (req, res) => {
 userController.post("/register", (req, res) => {
     const user: IUser = req.body;
     const isValid = userRegister(user);
-    if (isValid === true) {
+    if ( typeof isValid !== "string") {
         res.redirect("/");
     } else {
         res.render("register", { error: isValid });
