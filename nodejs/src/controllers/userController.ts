@@ -1,5 +1,4 @@
 import express  from "express"
-import { ILogin } from "../models/ILogin"
 import { userLogin, userRegister, userRegisterDb } from "../services/userService"
 import { IUser } from "../models/userModel"
 
@@ -11,7 +10,7 @@ userController.get("/", (req, res) => {
 })
 
 userController.post('/login', (req, res) => {
-    const user:ILogin = req.body
+    const user:IUser = req.body
     const isValid = userLogin(user)
     if (isValid === true) {
         res.redirect('/dashboard')

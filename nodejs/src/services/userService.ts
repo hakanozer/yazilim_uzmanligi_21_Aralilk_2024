@@ -1,7 +1,7 @@
-import { ILogin } from "../models/ILogin";
 import UserDB, { IUser } from "../models/userModel";
+import { encrypt } from "../utils/cryptoJS";
 
-export const userLogin = (user: ILogin) : string | boolean => {
+export const userLogin = (user: IUser) : string | boolean => {
     if (!emailValid(user.email)) {
         return "Invalid email format";
     }
@@ -47,6 +47,7 @@ export const userRegister = (user: IUser) : string | boolean => {
 
 export const userRegisterDb = async (user: IUser) => {
     try {
+        user.password = encrypt(user.password)
         const newUser = new UserDB(user);
         await newUser.save();
         return true;

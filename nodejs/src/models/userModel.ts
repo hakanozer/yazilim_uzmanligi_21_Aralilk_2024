@@ -6,12 +6,17 @@ export interface IUser extends Document {
     password: string,
     date?: Date
 }
-
 const UserSchema: Schema<IUser> = new Schema({
     name: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    date: {type: Date, default: Date.now}
+    date: {
+        type: Date,
+        default: () => {
+            const now = new Date();
+            return now.setHours(now.getHours() + 3)
+        }
+    }
 })
 
 const UserDB = mongoose.model<IUser>('User', UserSchema)
