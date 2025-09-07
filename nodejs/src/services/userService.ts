@@ -1,5 +1,7 @@
 import UserDB, { IUser } from "../models/userModel";
-import { encrypt } from "../utils/cryptoJS";
+import { decrypt, encrypt } from "../utils/cryptoJS";
+import { Request } from "express";
+
 
 export const userLogin = (user: IUser) : string | boolean => {
     if (!emailValid(user.email)) {
@@ -10,6 +12,26 @@ export const userLogin = (user: IUser) : string | boolean => {
     }
     return true;
 }
+
+export const userLoginDb = async (user: IUser, req: Request) => {
+    try {
+      const dbUser = await UserDB.findOne({email: user.email })
+      if (dbUser) {
+        const plainPassword = decrypt(dbUser.password)
+        if (plainPassword == user.password) {
+            req.session.item = dbUser
+            return true
+        }else {
+            return "Email or Password Fail"
+        }
+      }else {
+        return "Email or Password Fail"
+      }
+    } catch (error) {
+        console.error("userLoginDb error", error)
+    }
+}
+
 
 export const emailValid = (email: string) => {
     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;

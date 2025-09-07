@@ -1,5 +1,5 @@
 import express  from "express"
-import { userLogin, userRegister, userRegisterDb } from "../services/userService"
+import { userLogin, userLoginDb, userRegister, userRegisterDb } from "../services/userService"
 import { IUser } from "../models/userModel"
 
 export const userController = express.Router()
@@ -9,11 +9,16 @@ userController.get("/", (req, res) => {
     res.render('login')
 })
 
-userController.post('/login', (req, res) => {
+userController.post('/login', async (req, res) => {
     const user:IUser = req.body
     const isValid = userLogin(user)
     if (isValid === true) {
-        res.redirect('/dashboard')
+        const userLogin = await userLoginDb(user, req)
+        if (userLogin === true) {
+            res.redirect('/dashboard')
+        }else {
+            res.render('login', { error: userLogin })
+        }
     } else {
         res.render('login', { error: isValid })
     }
