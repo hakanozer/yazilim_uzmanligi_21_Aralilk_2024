@@ -6,7 +6,7 @@ const options = {
     dbName: 'project'
 }
 
-export const connectDB = async () => {
+export const connectDB = async () => {
     try {
         await mongoose.connect(url, options)
         console.log("Connection Success")
