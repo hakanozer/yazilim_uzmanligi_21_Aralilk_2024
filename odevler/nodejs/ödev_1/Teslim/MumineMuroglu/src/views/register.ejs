@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayıt Ol</title>
+  <%- include('template/bootstrap') %>
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <% if (typeof error != "undefined") { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= error %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Kayıt Ol</h3>
+
+            <form action="/register" method="POST">
+              <div class="mb-3">
+                <label for="nameSurname" class="form-label">Ad-Soyad</label>
+                <input type="text" class="form-control" id="nameSurname" name="nameSurname">
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">E-posta</label>
+                <input type="email" class="form-control" id="email" name="email">
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Şifre</label>
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100">Kayıt Ol</button>
+            </form>
+
+            <p class="text-center mt-3">
+              Zaten hesabınız var mı? <a href="/">Giriş Yapın</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
