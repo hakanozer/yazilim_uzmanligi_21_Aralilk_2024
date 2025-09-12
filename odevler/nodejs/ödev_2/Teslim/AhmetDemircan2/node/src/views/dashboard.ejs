@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <%- include('template/bootstrap') %>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Dashboard</h2>
+            <div>
+                <span class="me-3">Welcome, <%= user.name %>!</span>
+                <a href="/" class="btn btn-outline-secondary btn-sm">Logout</a>
+            </div>
+        </div>
+        
+        <% if (typeof error !== 'undefined' && error !== '') { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        The current link item
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                    <a href="#" class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled link item</a>
+                </div>
+                
+                <div class="list-group mt-3">
+                    <li class="list-group-item list-group-item-secondary d-flex justify-content-between align-items-center">
+                        Notes
+                        <span class="badge bg-primary rounded-pill"><%= notes.length %></span>
+                    </li>
+                    <% if (notes && notes.length > 0) { %>
+                        <% notes.forEach(function(note) { %>
+                            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong><%= note.title %></strong>
+                                    <small class="text-muted d-block"><%= new Date(note.date).toLocaleDateString('tr-TR') %></small>
+                                </div>
+                                <form method="POST" action="/dashboard/delete-note/<%= note._id %>" style="display: inline;">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Bu notu silmek istediğinizden emin misiniz?')">
+                                        ×
+                                    </button>
+                                </form>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="list-group-item text-muted text-center">
+                            Henüz not eklenmemiş
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <h4>Note Add</h4>
+                <form method="POST" action="/dashboard/add-note">
+                    <div class="mb-3">
+                        <input name="title" class="form-control" placeholder="Title" required/>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="detail" class="form-control" placeholder="Detail" rows="5" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="datetime-local" placeholder="gg.aa.yyyy --:--" disabled/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="color" disabled/>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">Add</button>
+                        <form method="POST" action="/dashboard/reset-notes" style="display: inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Tüm notları silmek istediğinizden emin misiniz?')">Reset</button>
+                        </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

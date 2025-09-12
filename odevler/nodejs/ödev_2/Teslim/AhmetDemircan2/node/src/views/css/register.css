@@ -1,0 +1,173 @@
+.position-relative {
+  padding-top: 100px !important;
+  background-color: #000000;
+  min-height: 100vh;
+}
+
+h2 {
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #000000 !important;
+  border: 1px solid #262626 !important;
+  border-radius: 1px !important;
+  box-shadow: none !important;
+}
+
+.form-label {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.form-control, .form-select {
+  background-color: #262626 !important;
+  border: 1px solid #404040 !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #262626 !important;
+  border-color: #0095f6 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 149, 246, 0.25) !important;
+}
+
+.form-control::placeholder {
+  color: #8e8e8e !important;
+}
+
+.form-select option {
+  background-color: #262626 !important;
+  color: #ffffff !important;
+}
+
+.btn-primary {
+  background-color: #0095f6 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  padding: 12px 16px !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+  background-color: #1877f2 !important;
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+  background-color: #404040 !important;
+  cursor: not-allowed;
+}
+
+.text-muted {
+  color: #8e8e8e !important;
+  font-size: 0.875rem;
+}
+
+.text-primary {
+  color: #0095f6 !important;
+}
+
+.text-primary:hover {
+  color: #1877f2 !important;
+  text-decoration: underline !important;
+}
+
+.alert {
+  border-radius: 8px !important;
+  border: none !important;
+}
+
+.alert-danger {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+  color: #dc3545 !important;
+  border: 1px solid rgba(220, 53, 69, 0.3) !important;
+}
+
+.alert-success {
+  background-color: rgba(25, 135, 84, 0.1) !important;
+  color: #198754 !important;
+  border: 1px solid rgba(25, 135, 84, 0.3) !important;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .position-relative {
+    padding-top: 80px !important;
+  }
+  
+  .card {
+    margin: 0 15px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .position-relative {
+    padding-top: 60px !important;
+  }
+  
+  .btn-primary {
+    padding: 10px 16px !important;
+  }
+}
+
+
+/* Password section styling */
+.form-label.fw-bold {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.form-label + small {
+  color: #8e8e8e !important;
+  font-size: 0.8rem !important;
+  font-style: italic;
+}
+
+/* Enhanced spacing between form groups */
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Password input focus effects */
+.form-control[type="password"]:focus {
+  border-color: #0095f6 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 149, 246, 0.25) !important;
+  background-color: #262626 !important;
+}
+
+/* Password strength indicator (opsiyonel) */
+.password-strength {
+  height: 3px;
+  margin-top: 5px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.password-strength.weak {
+  background-color: #dc3545;
+  width: 33%;
+}
+
+.password-strength.medium {
+  background-color: #ffc107;
+  width: 66%;
+}
+
+.password-strength.strong {
+  background-color: #28a745;
+  width: 100%;
+}
