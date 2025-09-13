@@ -4,6 +4,7 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import { connectDB } from './utils/db'
 import { IUser } from './models/userModel'
+import { globalFilter } from './utils/globalFilter'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -37,7 +38,8 @@ import { userController } from './controllers/userController'
 import { dashboardController } from './controllers/dashboardController'
 
 
-
+// Global Filter
+app.use(globalFilter)
 
 // Controllers
 app.use("/", userController)
