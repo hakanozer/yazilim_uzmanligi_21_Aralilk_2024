@@ -12,3 +12,15 @@ export const noteAdd = async (note: INoteModel, req: Request) => {
         return "Note Add Fail";
     }
 }
+
+// son yüklenmiş 5 noteyi getir
+export const getLastFiveNotes = async (req: Request) => {
+    try {
+        const notes = await NoteDB.find({ userID: req.session.item._id })
+            .sort({date: -1})
+            .limit(5);
+        return notes;
+    } catch (error) {
+        return null
+    }
+};

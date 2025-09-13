@@ -20,6 +20,11 @@
                         <strong>Success</strong> Note Add Success
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
+                    <script>
+                        setTimeout(() => {
+                            window.location.href = '/dashboard'
+                        }, 3000);
+                    </script>
                     <% }else { %>
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Error!</strong> <%= status %>

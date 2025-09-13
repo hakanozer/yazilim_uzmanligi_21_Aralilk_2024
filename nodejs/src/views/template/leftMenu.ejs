@@ -8,10 +8,11 @@
     
     <div class="list-group mt-3">
         <li class="list-group-item list-group-item-secondary">Notes</li>
-        <a href="#" class="list-group-item list-group-item-action">Note - 1</a>
-        <a href="#" class="list-group-item list-group-item-action">Note - 2</a>
-        <a href="#" class="list-group-item list-group-item-action">Note - 3</a>
-        <a href="#" class="list-group-item list-group-item-action">Note - 4</a>
-        <a href="#" class="list-group-item list-group-item-action">Note - 5</a>
+        <% if (typeof notesFive != 'undefined') { %>
+         <% notesFive.forEach(item => { %>
+          <a href="#" class="list-group-item list-group-item-action"><%= item.title %></a>
+         <% }) %>
+        <% } %>
     </div>
+
 </div>
