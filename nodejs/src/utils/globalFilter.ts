@@ -11,6 +11,12 @@ export const globalFilter = (req: Request, res: Response, next: NextFunction) =>
   })
   if (loginStatus) {
     // oturum denetimi yap
+    const session = req.session.item
+    if (session) {
+        next()
+    }else {
+        res.redirect('/')
+    }
   }else {
     // oturum denetimi yapma
     next() // alması gereken hizmeti alsın
