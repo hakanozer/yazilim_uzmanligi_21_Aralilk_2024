@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <%- include('template/bootstrap') %>
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+
+<section class="position-relative py-4 py-xl-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <% if (typeof error !== 'undefined' && error !== '') { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= error %>
+                    </div>
+                <% } %>
+                <% if (typeof success !== 'undefined' && success !== '') { %>
+                    <div class="alert alert-success" role="alert">
+                        <%= success %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-5">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <p class="text-muted mb-4">Create an account</p>
+                        <form action="/register" method="post" class="text-center w-100">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full name</label>
+                                <input 
+                                    name="name" 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="name"
+                                    placeholder="Ahmet Demircan"
+                                    value="<%= typeof formData !== 'undefined' ? formData.name || '' : '' %>"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input 
+                                    name="email" 
+                                    type="email" 
+                                    class="form-control" 
+                                    id="email"
+                                    placeholder="ornek@ludusmagnus.com"
+                                    value="<%= typeof formData !== 'undefined' ? formData.email || '' : '' %>"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input 
+                                    name="password" 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="password"
+                                    placeholder="select your password atleast 6 characters"
+                                    minlength="6"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <input 
+                                    name="confirmPassword" 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="confirmPassword"
+                                    placeholder="Retype your password"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-primary w-100">
+                                    Create account
+                                </button>
+                            </div>
+                            <p class="text-muted mt-3">
+                                Already have an account? 
+                                <a href="/" class="text-primary text-decoration-none">Log in here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
