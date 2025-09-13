@@ -13,6 +13,7 @@ export const globalFilter = (req: Request, res: Response, next: NextFunction) =>
     // oturum denetimi yap
     const session = req.session.item
     if (session) {
+        res.locals.user = session
         next()
     }else {
         res.redirect('/')

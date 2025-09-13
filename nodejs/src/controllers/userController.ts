@@ -24,6 +24,14 @@ userController.post('/login', async (req, res) => {
     }
 })
 
+userController.get('/logout', (req, res) => {
+    req.session.destroy((err) => { // session nesnesi öldürüldü
+        if (!err) {
+            res.redirect('/')
+        }
+    })
+})
+
 //userRegister
 userController.get("/register", (req, res) => {
     res.render("register");
