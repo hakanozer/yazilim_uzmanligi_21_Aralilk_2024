@@ -17,11 +17,11 @@ const DashboardSchema: Schema<IDashboard> = new Schema({
     type: Date,
     default: () => {
       const now = new Date();
-      return now.setHours(now.getHours() + 3);
+      return now.setHours(now.getHours() + 3)
     }
   },
   color: { type: String }
 });
 
-const DashboardDB = mongoose.model<IDashboard>("Dashboard", DashboardSchema);
+const DashboardDB = mongoose.model<IDashboard>("Dashboard", DashboardSchema)
 export default DashboardDB;
