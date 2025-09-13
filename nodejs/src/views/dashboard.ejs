@@ -13,25 +13,40 @@
         <div class="row">
             <%- include('template/leftMenu') %>
             <div class="col-sm-9">
+                <% if (typeof status != 'undefined') { %>
+                 
+                    <% if (status === true) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Success</strong> Note Add Success
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <% }else { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> <%= status %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <%}%>
+
+                <% } %>
+                 
                 <h4>Note Add</h4>
-                <form>
+                <form action="/dashboard/noteAdd" method="post">
                     <div class="mb-3">
-                        <input class="form-control" placeholder="Title"/>
+                        <input name="title" class="form-control" placeholder="Title"/>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" placeholder="Detail"></textarea>
+                        <textarea name="detail" class="form-control" placeholder="Detail"></textarea>
                     </div>
                     <div class="mb-3">
-                        <input class="form-control" type="datetime-local" />
+                        <input name="date" class="form-control" type="datetime-local" />
                     </div>
                     <div class="mb-3">
-                        <input type="color" />
+                        <input name="color" type="color" />
                     </div>
                     <div class="d-flex justify-content-between">
                         <button type="submit" class="btn btn-success">Add</button>
                         <button type="reset" class="btn btn-danger">Resst</button>
                     </div>
-
                 </form>
             </div>
         </div>
