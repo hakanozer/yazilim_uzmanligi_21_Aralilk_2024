@@ -10,7 +10,7 @@
         <li class="list-group-item list-group-item-secondary">Notes</li>
         <% if (typeof notesFive != 'undefined') { %>
          <% notesFive.forEach(item => { %>
-          <a href="#" class="list-group-item list-group-item-action"><%= item.title %></a>
+          <a href='/dashboard/noteEdit/<%= item._id %>' class='list-group-item list-group-item-action'><i class="bi bi-stickies-fill" style='color: <%= item.color %>;'></i> <%= item.title %></a>
          <% }) %>
         <% } %>
     </div>
