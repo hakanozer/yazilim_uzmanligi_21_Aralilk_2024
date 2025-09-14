@@ -36,6 +36,7 @@ app.use(bodyParser.json())
 // imports controllers
 import { userController } from './controllers/userController'
 import { dashboardController } from './controllers/dashboardController'
+import { profileController } from './controllers/profileController'
 
 
 // Global Filter
@@ -44,7 +45,7 @@ app.use(globalFilter)
 // Controllers
 app.use("/", userController)
 app.use("/dashboard", dashboardController)
-
+app.use("/profile", profileController)
 
 app.listen(PORT, () => {
   console.log(`Server running: http://localhost:${PORT}`)
