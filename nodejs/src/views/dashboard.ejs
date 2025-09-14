@@ -53,9 +53,36 @@
                         <button type="reset" class="btn btn-danger">Resst</button>
                     </div>
                 </form>
+                <table class="table table-hover mt-4">
+                <thead>
+                    <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Detail</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% if (typeof notes != 'undefined') { %>
+                    <% notes.forEach(note => { %>
+                        <tr>
+                            <td><%= note.title %></td>
+                            <td><%= note.detail %></td>
+                            <td><div style="width: 30px; height: 30px; background-color:<%= note.color %>"></div></td>
+                            <td><%= new Date(note.date).toLocaleDateString('tr-TR') %></td>
+                            <td>
+                                <a href="/dashboard/noteDelete/<%= note._id %>" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                                <a href="/dashboard/noteEdit/<%= note._id %>" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i></a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } %>
+                </tbody>
+                </table>
+
             </div>
         </div>
     </div>
-
 </body>
 </html>

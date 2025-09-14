@@ -24,3 +24,13 @@ export const getLastFiveNotes = async (req: Request) => {
         return null
     }
 };
+
+export const getAllNotes = async (req: Request) => {
+    try {
+        const notes = await NoteDB.find({ userID: req.session.item._id })
+            .sort({date: -1});
+        return notes;
+    } catch (error) {
+        return null
+    }
+};

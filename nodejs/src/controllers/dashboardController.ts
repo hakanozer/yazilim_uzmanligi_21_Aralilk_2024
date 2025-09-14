@@ -1,11 +1,13 @@
 import express  from "express"
 import { INoteModel } from "../models/noteModel"
-import { noteAdd } from "../services/noteService"
+import { getAllNotes, noteAdd } from "../services/noteService"
 
 export const dashboardController = express.Router()
 
-dashboardController.get("/", (req, res) => {
-    res.render('dashboard')
+dashboardController.get("/", async (req, res) => {
+    const notes = await getAllNotes(req)
+    const arr = notes != null ? notes : []
+    res.render('dashboard', {notes: arr})
 })
 
 dashboardController.post('/noteAdd', async (req, res) => {
