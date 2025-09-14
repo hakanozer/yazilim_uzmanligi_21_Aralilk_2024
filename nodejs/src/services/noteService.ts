@@ -34,3 +34,21 @@ export const getAllNotes = async (req: Request) => {
         return null
     }
 };
+
+export const deleteNote = async (req: Request, noteID: string) => {
+        try {
+        const deleteStatus = await NoteDB.deleteOne({ _id: noteID, userID: req.session.item._id})
+        return true
+    } catch (error) {
+        return false
+    }
+}
+
+export const getOneNote = async (req: Request, noteID: string) => {
+    try {
+        const oneNote = await NoteDB.findOne({ _id: noteID, userID: req.session.item._id})
+        return oneNote
+    } catch (error) {
+        return null
+    }
+}

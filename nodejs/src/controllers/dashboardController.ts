@@ -1,6 +1,6 @@
 import express  from "express"
 import { INoteModel } from "../models/noteModel"
-import { getAllNotes, noteAdd } from "../services/noteService"
+import { deleteNote, getAllNotes, getOneNote, noteAdd } from "../services/noteService"
 
 export const dashboardController = express.Router()
 
@@ -14,5 +14,18 @@ dashboardController.post('/noteAdd', async (req, res) => {
     const note:INoteModel = req.body
     const status = await noteAdd(note, req)
     res.render('dashboard', {status: status})
+})
+
+dashboardController.get('/noteDelete/:id', async(req, res) => {
+    const noteID = req.params.id
+    await deleteNote(req, noteID)
+    res.redirect('/dashboard')
+})
+
+dashboardController.get('/noteEdit/:id', async(req, res) => {
+    const noteID = req.params.id
+    const note =  await getOneNote(req, noteID)
+    console.log(note)
+    res.render('noteUpdate', {note: note})
 })
 
