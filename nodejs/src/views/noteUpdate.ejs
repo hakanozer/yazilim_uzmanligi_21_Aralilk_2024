@@ -36,6 +36,7 @@
                  
                 <h4>Note Update</h4>
                 <form action="/dashboard/noteUpdate" method="post">
+                    <input type="hidden" name="_id" value="<%= note._id %>"/>
                     <div class="mb-3">
                         <input value="<%= note.title %>" name="title" class="form-control" placeholder="Title"/>
                     </div>

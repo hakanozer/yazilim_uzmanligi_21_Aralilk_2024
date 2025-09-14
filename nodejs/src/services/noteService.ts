@@ -52,3 +52,22 @@ export const getOneNote = async (req: Request, noteID: string) => {
         return null
     }
 }
+
+export const noteUpdate = async (note: INoteModel, req: Request) => {
+    try {
+        const updateStatus = await NoteDB.updateOne(
+            { _id: note._id, userID: req.session.item._id},
+            {
+                $set: {
+                    title: note.title,
+                    detail: note.detail,
+                    date: note.date,
+                    color: note.color
+                }
+            }
+        )
+        return true
+    } catch (error) {
+        return "Note Update Fail";
+    }
+}
