@@ -1,0 +1,30 @@
+@if (item) {
+<div class="card mb-2">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h5 class="card-title mb-0">{{ item.reviewerName }}</h5>
+      <small class="text-muted">
+        {{ item.date | date:'dd-MM-yyyy HH:mm' }}
+      </small>
+    </div>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{ item.reviewerEmail }}</h6>
+
+    <!-- Yıldızlar -->
+    <div class="d-flex align-items-center mb-2">
+      @for (i of stars; track $index) {
+        @if (i == 1) {
+          <i class="bi bi-star-fill text-warning me-1"></i>
+        }
+        @if (i == 0.5) {
+          <i class="bi bi-star-half text-warning me-1"></i>
+        }
+        @if (i == 0) {
+          <i class="bi bi-star text-warning me-1"></i>
+        }
+      }
+    </div>
+
+    <p class="card-text">{{ item.comment }}</p>
+  </div>
+</div>
+}

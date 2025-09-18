@@ -1,0 +1,8 @@
+<app-bar></app-bar>
+<h2>Products</h2>
+<div class="row">
+@for (item of productArr; track $index) {
+  <app-product-item [item]="item" class="col-sm-4"></app-product-item>
+}
+
+</div>
