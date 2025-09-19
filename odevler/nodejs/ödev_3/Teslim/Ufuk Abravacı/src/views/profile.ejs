@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <%- include('template/bootstrap') %>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Profile</h2>
+      <div class="row">
+        <%- include('template/leftMenu') %>
+        <div class="col-sm-9">
+          <h4>Profile</h4>
+          <% if (typeof profileErrors !== 'undefined' && profileErrors.length >
+          0) { %>
+          <div class="alert alert-danger">
+            <% profileErrors.forEach(err => { %>
+            <div><%= err %></div>
+            <% }) %>
+          </div>
+          <% } %> <% if (typeof profileSuccess !== 'undefined') { %>
+          <div class="alert alert-success"><%= profileSuccess %></div>
+          <% } %>
+          <form action="/profile" method="post">
+            <div class="mb-3">
+              <input
+                value="<%= user.name %>"
+                name="name"
+                class="form-control"
+                placeholder="Name"
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                value="<%= user.email %>"
+                name="email"
+                class="form-control"
+                placeholder="E-mail"
+              />
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-success">Update</button>
+              <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+
+          <hr />
+
+          <h4>Şifre Yenileme</h4>
+          <% if (typeof passwordErrors !== 'undefined' && passwordErrors.length
+          > 0) { %>
+          <div class="alert alert-danger">
+            <% passwordErrors.forEach(err => { %>
+            <div><%= err %></div>
+            <% }) %>
+          </div>
+          <% } %> <% if (typeof passwordSuccess !== 'undefined') { %>
+          <div class="alert alert-success"><%= passwordSuccess %></div>
+          <% } %>
+          <form action="/profile/password" method="post">
+            <div class="mb-3">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Yeni şifre"
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                name="repassword"
+                class="form-control"
+                placeholder="Yeni şifre tekrar"
+              />
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-success">
+                Change Password
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
