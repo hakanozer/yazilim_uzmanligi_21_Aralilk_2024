@@ -39,24 +39,24 @@ export const profileUpdate = async (req: Request) : Promise<string | boolean> =>
 // şifre güncelleme fonksiyonu
 export const passwordUpdate = async (req: Request): Promise<string | boolean> => {
     const newPassword = req.body.newPassword?.trim();
-    const confirmPassword = req.body.confirmPassword?.trim();
+    const confirmPassword = req.body.confirmPassword?.trim()
 
     if (!newPassword || !confirmPassword) {
-        return "Password fields cannot be empty.";
+        return "Password fields cannot be empty."
     }
     if (newPassword.length < 6) {
-        return "Password must be at least 6 characters.";
+        return "Password must be at least 6 characters."
     }
     if (!/[A-Za-z]/.test(newPassword) || !/[0-9]/.test(newPassword)) {
-        return "Password must contain both letters and numbers.";
+        return "Password must contain both letters and numbers."
     }
     if (newPassword !== confirmPassword) {
-        return "Passwords do not match.";
+        return "Passwords do not match."
     }
 
     try {
         const oldUser = req.session.item;
-        const hashed = await bcrypt.hash(newPassword, 10);
+        const hashed = await bcrypt.hash(newPassword, 10)
 
         await UserDB.updateOne(
             { _id: oldUser._id },
@@ -65,6 +65,6 @@ export const passwordUpdate = async (req: Request): Promise<string | boolean> =>
 
         return true;
     } catch (error) {
-        return "Password update failed.";
+        return "Password update failed."
     }
 };
