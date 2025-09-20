@@ -53,6 +53,11 @@
                         <button type="reset" class="btn btn-danger">Resst</button>
                     </div>
                 </form>
+                <hr/>
+                <form action="/dashboard" method="get" class="d-flex col-sm-6">
+                    <input name="q" class="form-control me-2 form-control-sm" type="search" placeholder="Title, Detail" aria-label="Search" value="<%= typeof search != 'undefined' ? search : '' %>">
+                    <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+                </form>
                 <table class="table table-hover mt-4">
                 <thead>
                     <tr>
