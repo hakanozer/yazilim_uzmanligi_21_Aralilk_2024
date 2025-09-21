@@ -19,6 +19,7 @@ export const globalFilter = async (req: Request, res: Response, next: NextFuncti
           res.locals.notesFive = notesFive
         }
         res.locals.user = session
+        res.locals.page_name = url.replace('/', '')
         next()
     }else {
         res.redirect('/')

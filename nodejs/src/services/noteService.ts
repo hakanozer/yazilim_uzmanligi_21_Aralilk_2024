@@ -38,8 +38,7 @@ export const getAllNotes = async (req: Request) => {
                 ]
             }
         }
-        const notes = await NoteDB.find(query)
-            .sort({date: -1});
+        const notes = await NoteDB.find(query).sort({date: -1});
         return notes;
     } catch (error) {
         return null

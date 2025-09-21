@@ -5,6 +5,10 @@ import bodyParser from 'body-parser'
 import { connectDB } from './utils/db'
 import { IUser } from './models/userModel'
 import { globalFilter } from './utils/globalFilter'
+import dotenv from 'dotenv'
+
+// .env Config - .env file loading
+dotenv.config({path: path.resolve(__dirname, '../.env')});
 
 const app = express()
 const PORT = process.env.PORT || 3000
