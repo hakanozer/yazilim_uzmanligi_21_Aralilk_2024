@@ -27,7 +27,18 @@ export const getLastFiveNotes = async (req: Request) => {
 
 export const getAllNotes = async (req: Request) => {
     try {
-        const notes = await NoteDB.find({ userID: req.session.item._id })
+        const q = req.query.q as string
+        let query:any = { userID: req.session.item._id }
+        if (q && q.length > 1) {
+            query = { 
+                userID: req.session.item._id, 
+                $or: [
+                    { title: { $regex: '.*' + q + '.*', $options: "i" } }, 
+                    { detail: { $regex: '.*' + q + '.*', $options: "i" } } 
+                ]
+            }
+        }
+        const notes = await NoteDB.find(query)
             .sort({date: -1});
         return notes;
     } catch (error) {
