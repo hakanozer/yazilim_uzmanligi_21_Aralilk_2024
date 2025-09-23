@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <%- include('template/bootstrap') %>
+</head>
+<body>
+    
+    <div class="container">
+        <h2>Profile</h2>
+        <div class="row">
+            <%- include('template/leftMenu') %>
+            <div class="col-sm-9">
+                
+                <h4>Profile</h4>
+                
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Hata:</strong> <%= error %>
+                    </div>
+                <% } %>
+                
+                <% if (typeof success !== 'undefined' && success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <strong>Başarılı:</strong> <%= success %>
+                    </div>
+                <% } %>
+                
+                <form action="/profile" method="post">
+                    <div class="mb-3">
+                        <input value="<%= user.name %>" name="name" class="form-control" placeholder="Name"/>
+                    </div>
+                    <div class="mb-3">
+                        <input value="<%= user.email %>" name="email" class="form-control" placeholder="E-mail"/>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                         <input value="<%= user.Password %>" name="Password" class="form-control" placeholder="Password"/>
+                    </div>
+                    <div class="mb-3">
+                         <input value="<%= user.Password %>" name="RetypePassword" class="form-control" placeholder="RetypePassword"/>
+                    </div>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
