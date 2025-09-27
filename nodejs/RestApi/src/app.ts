@@ -22,7 +22,7 @@ import userRestController from './restcontrollers/userRestController';
 
 
 // Routers Config
-app.use('/api/users', userRestController)
+app.use('/api/v1/users', userRestController)
 
 
 app.listen(PORT, () => {
