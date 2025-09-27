@@ -1,0 +1,59 @@
+/* Instagram benzeri siyah-beyaz tema */
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding-top: 70px;
+}
+
+/* Genel kart stilleri */
+.card {
+  background-color: #262626 !important;
+  border: 1px solid #363636 !important;
+  color: #ffffff !important;
+}
+
+/* Form kontrolleri */
+.form-control {
+  background-color: #262626 !important;
+  border: 1px solid #363636 !important;
+  color: #ffffff !important;
+}
+
+.form-control:focus {
+  background-color: #262626 !important;
+  border-color: #0095f6 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 149, 246, 0.25) !important;
+  color: #ffffff !important;
+}
+
+.form-control::placeholder {
+  color: #8e8e8e !important;
+}
+
+/* Buton stilleri */
+.btn-primary {
+  background-color: #0095f6 !important;
+  border-color: #0095f6 !important;
+}
+
+.btn-primary:hover {
+  background-color: #1877f2 !important;
+  border-color: #1877f2 !important;
+}
+
+/* Link stilleri */
+a {
+  color: #0095f6 !important;
+}
+
+a:hover {
+  color: #1877f2 !important;
+}
+
+/* Alert stilleri */
+.alert-danger {
+  background-color: #ed4956 !important;
+  border-color: #ed4956 !important;
+  color: #ffffff !important;
+}

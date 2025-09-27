@@ -1,0 +1,432 @@
+{
+  "users": [
+    {
+      "id": "1283",
+      "name": "Admin User",
+      "email": "admin@ludusmagnus.com",
+      "password": "admin1283",
+      "role": "admin",
+      "courseIds": [
+        "1",
+        "2",
+        "3"
+      ],
+      "savedCourses": [
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Teacher user",
+      "email": "teacher@ludusmagnus.com",
+      "password": "teacher123",
+      "role": "teacher",
+      "courseIds": [
+        "1",
+        "2",
+        "3",
+        "a170",
+        "7"
+      ],
+      "savedCourses": [],
+      "phone": "",
+      "bio": ""
+    },
+    {
+      "id": "3",
+      "name": "Student User",
+      "email": "student@ludusmagnus.com",
+      "password": "student123",
+      "role": "student",
+      "courseIds": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "savedCourses": [
+        "10",
+        "5",
+        "7"
+      ]
+    },
+    {
+      "id": "128",
+      "name": "Şifre deneme hesabı",
+      "email": "sifre@deneme.mail.com",
+      "password": "matxi8-duDrid-jehkew",
+      "role": "student"
+    },
+    {
+      "id": "u0",
+      "name": "deneme2",
+      "email": "has@hast.mail.com",
+      "password": "sirje9-nImjum-mygbit",
+      "role": "student"
+    },
+    {
+      "id": "74ec",
+      "name": "Deneme Kullanıcısı",
+      "email": "john@example.com",
+      "password": "nUswi6-nyfzox-netryb",
+      "role": "student",
+      "createdAt": "2025-09-14T15:43:32.529Z",
+      "isActive": true,
+      "courseIds": [
+        "2"
+      ],
+      "savedCourses": []
+    }
+  ],
+  "tokens": [],
+  "courses": [
+    {
+      "id": "1",
+      "createdById": 0,
+      "title": "Angular Temelleri",
+      "description": "Angular framework'ünün temel kavramlarını öğrenin. Component'ler, service'ler, routing ve daha fazlası.",
+      "instructor": "Ahmet Yılmaz",
+      "duration": "8 hafta",
+      "level": "Başlangıç",
+      "category": "Frontend",
+      "price": 299,
+      "rating": 4.5,
+      "studentsCount": 156,
+      "imageUrl": "https://via.placeholder.com/300x200?text=Angular",
+      "createdAt": "2024-01-15T10:00:00Z",
+      "isActive": true
+    },
+    {
+      "id": "2",
+      "createdById": 0,
+      "title": "React ile Modern Web Geliştirme",
+      "description": "React kütüphanesi ile modern, interaktif web uygulamaları geliştirmeyi öğrenin.",
+      "instructor": "Elif Kaya",
+      "duration": "10 hafta",
+      "level": "Orta",
+      "category": "Frontend",
+      "price": 399,
+      "rating": 4.7,
+      "studentsCount": 203,
+      "imageUrl": "https://via.placeholder.com/300x200?text=React",
+      "createdAt": "2024-02-01T10:00:00Z",
+      "isActive": true
+    },
+    {
+      "id": "3",
+      "createdById": 0,
+      "title": "Node.js Backend Geliştirme",
+      "description": "Node.js ile RESTful API'ler, veritabanı entegrasyonu ve backend mimarisi öğrenin.",
+      "instructor": "Mehmet Demir",
+      "duration": "12 hafta",
+      "level": "Orta",
+      "category": "Backend",
+      "price": 449,
+      "rating": 4.6,
+      "studentsCount": 89,
+      "imageUrl": "https://via.placeholder.com/300x200?text=NodeJS",
+      "createdAt": "2024-01-20T10:00:00Z",
+      "isActive": true
+    },
+    {
+      "id": "4",
+      "createdById": 0,
+      "title": "Python ile Veri Bilimi",
+      "description": "Python programlama dili ile veri analizi, makine öğrenmesi ve veri görselleştirme.",
+      "instructor": "Ayşe Özkan",
+      "duration": "14 hafta",
+      "level": "İleri",
+      "category": "Data Science",
+      "price": 599,
+      "rating": 4.8,
+      "studentsCount": 127,
+      "imageUrl": "https://via.placeholder.com/300x200?text=Python",
+      "createdAt": "2024-03-01T10:00:00Z",
+      "isActive": true
+    },
+    {
+      "id": "5",
+      "createdById": 0,
+      "title": "JavaScript ES6+ ve Modern Özellikler",
+      "description": "Modern JavaScript özelliklerini öğrenin: Arrow functions, async/await, destructuring ve daha fazlası.",
+      "instructor": "Can Yıldız",
+      "duration": "6 hafta",
+      "level": "Başlangıç",
+      "category": "Programming",
+      "price": 199,
+      "rating": 4.4,
+      "studentsCount": 234,
+      "imageUrl": "https://via.placeholder.com/300x200?text=JavaScript",
+      "createdAt": "2024-02-15T10:00:00Z",
+      "isActive": true
+    },
+    {
+      "id": "6",
+      "createdById": 0,
+      "title": "Docker ve Konteyner Teknolojileri",
+      "description": "Docker ile uygulama konteynerleştirme, Docker Compose ve Kubernetes temelleri.",
+      "instructor": "Emre Şahin",
+      "duration": "8 hafta",
+      "level": "Orta",
+      "category": "DevOps",
+      "price": 349,
+      "rating": 4.3,
+      "studentsCount": 78,
+      "imageUrl": "https://via.placeholder.com/300x200?text=Docker",
+      "createdAt": "2024-03-10T10:00:00Z",
+      "isActive": true
+    },
+    {
+      "id": "7",
+      "createdById": 0,
+      "title": "Frontend development via Angular",
+      "description": "This is for trying to new curs.ts",
+      "duration": "12 m",
+      "level": "advanced",
+      "instructor": "Hakan Özer",
+      "price": 3000,
+      "category": "Full artı full",
+      "rating": 0,
+      "isActive": true,
+      "createdAt": "2025-09-02T12:19:07.358Z",
+      "enrolledStudents": 0
+    },
+    {
+      "id": "8",
+      "createdById": 0,
+      "title": "Vue.js ile SPA Geliştirme",
+      "description": "Vue.js framework'ü ile Single Page Application geliştirme teknikleri ve best practice'ler.",
+      "instructor": "Zeynep Arslan",
+      "duration": "9 hafta",
+      "level": "Orta",
+      "category": "Frontend",
+      "price": 379,
+      "rating": 4.5,
+      "studentsCount": 142,
+      "imageUrl": "https://via.placeholder.com/300x200?text=VueJS",
+      "createdAt": "2024-03-20T10:00:00Z",
+      "isActive": true,
+      "enrolledStudents": 142
+    },
+    {
+      "id": "9",
+      "createdById": 0,
+      "title": "MongoDB ve NoSQL Veritabanları",
+      "description": "MongoDB ile NoSQL veritabanı tasarımı, aggregation pipeline ve performans optimizasyonu.",
+      "instructor": "Burak Kılıç",
+      "duration": "7 hafta",
+      "level": "Orta",
+      "category": "Database",
+      "price": 329,
+      "rating": 4.4,
+      "studentsCount": 98,
+      "imageUrl": "https://via.placeholder.com/300x200?text=MongoDB",
+      "createdAt": "2024-04-01T10:00:00Z",
+      "isActive": true,
+      "enrolledStudents": 98
+    },
+    {
+      "id": "10",
+      "createdById": 0,
+      "title": "AWS Cloud Computing Temelleri",
+      "description": "Amazon Web Services ile cloud computing, EC2, S3, RDS ve diğer temel servisleri öğrenin.",
+      "instructor": "Fatma Yıldırım",
+      "duration": "11 hafta",
+      "level": "İleri",
+      "category": "Cloud",
+      "price": 549,
+      "rating": 4.7,
+      "studentsCount": 76,
+      "imageUrl": "https://via.placeholder.com/300x200?text=AWS",
+      "createdAt": "2024-04-15T10:00:00Z",
+      "isActive": true,
+      "enrolledStudents": 76
+    },
+    {
+      "id": "a170",
+      "createdById": 0,
+      "title": "sxdcfvgbhnjmkölçş.ighj",
+      "description": "rdctfvygbuhnıjkmolöş",
+      "duration": "12",
+      "level": "advanced",
+      "instructor": "xdrcftvgybhnjmkö",
+      "price": 500,
+      "category": "dfghjklş",
+      "rating": 0,
+      "isActive": true,
+      "createdAt": "2025-09-02T12:23:53.132Z",
+      "enrolledStudents": 0
+    },
+    {
+      "id": "e434",
+      "createdById": "2",
+      "title": "kullanıcı tarafından oluşturulan kurs deneme",
+      "description": "hiç bir işe yaramaz",
+      "duration": "2 m",
+      "level": "beginner",
+      "instructor": "Teacher User",
+      "price": 100,
+      "category": "",
+      "rating": 0,
+      "isActive": true,
+      "createdAt": "2025-09-04T14:17:54.903Z",
+      "enrolledStudents": 0
+    },
+    {
+      "id": "e15b",
+      "title": "try for Cours",
+      "createdById": "2",
+      "description": "just demo",
+      "duration": "1 week",
+      "level": "beginner",
+      "instructor": "Teacher user",
+      "price": 1,
+      "category": "",
+      "rating": 0,
+      "isActive": true,
+      "createdAt": "2025-09-09T10:18:26.193Z",
+      "enrolledStudents": 0
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "1756798278600",
+      "userId": "3",
+      "courseId": "4",
+      "enrolledAt": "2025-09-02T07:31:18.600Z"
+    },
+    {
+      "id": "1756798425382",
+      "userId": "3",
+      "courseId": "1",
+      "enrolledAt": "2025-09-02T07:33:45.382Z"
+    },
+    {
+      "id": "1756886185996",
+      "userId": "3",
+      "courseId": "5",
+      "enrolledAt": "2025-09-03T07:56:25.996Z"
+    },
+    {
+      "id": "1756918729986",
+      "userId": "3",
+      "courseId": "2",
+      "enrolledAt": "2025-09-03T16:58:49.986Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "courseId": "2",
+      "userId": "3",
+      "userName": "Student User",
+      "userEmail": "student@ludusmagnus.com",
+      "rating": 5,
+      "comment": "Harika bir kurs! Angular'ı sıfırdan öğrenmek için mükemmel. Eğitmen çok açıklayıcı ve örnekler gerçekten faydalı.",
+      "createdAt": "2024-03-15T14:30:00Z",
+      "isApproved": true
+    },
+    {
+      "id": "2",
+      "courseId": "1",
+      "userId": null,
+      "userName": "Ahmet Demircan",
+      "userEmail": "john@example.com",
+      "rating": 4,
+      "comment": "Çok iyi bir başlangıç kursu. Sadece biraz daha pratik örnek olabilirdi.",
+      "createdAt": "2024-03-20T10:15:00Z",
+      "isApproved": true
+    },
+    {
+      "id": "3",
+      "courseId": "2",
+      "userId": "3",
+      "userName": "Student User",
+      "userEmail": "student@ludusmagnus.com",
+      "rating": 5,
+      "comment": "React öğrenmek için aldığım en iyi karar! Elif hoca gerçekten çok iyi anlatıyor.",
+      "createdAt": "2024-03-25T16:45:00Z",
+      "isApproved": true
+    },
+    {
+      "id": "4",
+      "courseId": "3",
+      "userId": null,
+      "userName": "Ahmet Demircan",
+      "userEmail": "john@example.com",
+      "rating": 4,
+      "comment": "Node.js backend geliştirme için çok kapsamlı bir kurs. API geliştirme konusunda çok şey öğrendim.",
+      "createdAt": "2024-04-01T12:20:00Z",
+      "isApproved": true
+    },
+    {
+      "id": "5",
+      "courseId": "4",
+      "userId": "3",
+      "userName": "Student User",
+      "userEmail": "student@ludusmagnus.com",
+      "rating": 5,
+      "comment": "Veri bilimi alanında kariyer yapmak isteyenler için mükemmel bir kurs. Python ile makine öğrenmesi konularını çok iyi öğrettiler.",
+      "createdAt": "2024-04-05T09:30:00Z",
+      "isApproved": true
+    },
+    {
+      "id": "6",
+      "courseId": "5",
+      "userId": null,
+      "userName": "Ahmet Demircan",
+      "userEmail": "john@example.com",
+      "rating": 4,
+      "comment": "Modern JavaScript özelliklerini öğrenmek için harika bir kaynak. ES6+ özelliklerini çok iyi açıklıyor.",
+      "createdAt": "2024-04-10T15:00:00Z",
+      "isApproved": true
+    },
+    {
+      "id": "d0",
+      "courseId": "7",
+      "userId": "3",
+      "userName": "Student User",
+      "userEmail": "student@ludusmagnus.com",
+      "rating": 5,
+      "comment": "the best",
+      "createdAt": "2025-09-10T16:11:54.685Z",
+      "isApproved": true
+    },
+    {
+      "id": "d2",
+      "courseId": "7",
+      "userId": "3",
+      "userName": "Student User",
+      "userEmail": "student@ludusmagnus.com",
+      "rating": 5,
+      "comment": "At the top...",
+      "createdAt": "2025-09-10T16:12:43.734Z",
+      "isApproved": true
+    },
+    {
+      "id": "d1",
+      "courseId": "9",
+      "userId": "3",
+      "userName": "Student User",
+      "userEmail": "student@ludusmagnus.com",
+      "rating": 5,
+      "comment": "deneme",
+      "createdAt": "2025-09-10T16:14:31.067Z",
+      "isApproved": true
+    },
+    {
+      "id": "218e",
+      "courseId": "9",
+      "userId": "3",
+      "userName": "Student User",
+      "userEmail": "student@ludusmagnus.com",
+      "rating": 5,
+      "comment": "d",
+      "createdAt": "2025-09-10T17:03:06.313Z",
+      "isApproved": true
+    }
+  ]
+}

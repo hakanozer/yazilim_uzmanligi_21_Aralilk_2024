@@ -1,0 +1,18 @@
+:host { display:block; min-height:100vh; background:#1a1410; color:#fdf4e3; font-family: 'Cinzel', serif; }
+    .wrap { position:relative; min-height:100vh; overflow:hidden; }
+
+    /* Background arena theme */
+    .arena-bg { position:absolute; inset:0; background: radial-gradient(circle at 50% 70%, #2b1a12 0%, #120c09 60%, #0a0604 100%); display:flex; align-items:center; justify-content:center; pointer-events:none; }
+    .arena-bg::before { content:""; position:absolute; inset:0; background: repeating-radial-gradient(circle at center, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 2px, transparent 3px 6px); opacity:.15; }
+    .motto { font-size: clamp(32px, 8vw, 100px); font-weight:900; color:rgba(255,255,255,0.05); text-transform:uppercase; letter-spacing:4px; text-align:center; z-index:1; user-select:none; }
+
+    .content { position:relative; z-index:2; max-width:960px; margin:0 auto; padding: 18vh 20px 10vh; text-align:center; }
+    .title { font-size: clamp(48px, 12vw, 140px); color:#f6d6a6; text-shadow:0 0 18px #8c6239aa, 0 0 40px #5c3b1f88; margin-bottom:20px; }
+    .intro { font-size:1.2rem; margin-bottom:1.5rem; line-height:1.6; }
+    p { margin:1rem 0; line-height:1.7; font-size:1.05rem; }
+
+    .motto-box { margin:2.5rem auto 0; padding:1.5rem 1rem; max-width:600px; border:2px solid #a67c52; border-radius:8px; background:rgba(20,12,8,0.7); box-shadow:0 0 16px #5c3b1f66; font-style:italic; }
+    .motto-box p { margin:0; font-size:1.2rem; color:#f6d6a6; text-shadow:0 0 6px #8c6239; }
+    .motto-box footer { margin-top:.6rem; font-size:.95rem; color:#ddd2c0; font-style:normal; }
+
+    @media (max-width:640px){ .title{ font-size: 64px; } .motto{ font-size: 28px; } }

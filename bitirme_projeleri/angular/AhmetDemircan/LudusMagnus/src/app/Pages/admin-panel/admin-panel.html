@@ -1,0 +1,322 @@
+<div class="admin-panel-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="main-title">Admin Panel</h1>
+    <p class="subtitle">System management and statistics</p>
+  </div>
+
+  <!-- Yükleme durumu -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading data...</p>
+    </div>
+  } @else {
+    
+    <!-- İstatistik kartları -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+          <h3>{{ totalUsers }}</h3>
+           <p>Total Users</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">🎓</div>
+        <div class="stat-content">
+          <h3>{{ totalStudents }}</h3>
+           <p>Students</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">👨‍🏫</div>
+        <div class="stat-content">
+          <h3>{{ totalTeachers }}</h3>
+           <p>Teachers</p>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div class="stat-content">
+          <h3>{{ totalCourses }}</h3>
+           <p>Total Courses</p>
+        </div>
+      </div>
+      
+      <div class="stat-card revenue">
+        <div class="stat-icon">💰</div>
+        <div class="stat-content">
+          <h3>{{ totalRevenue | currency:'USD':'symbol':'1.0-0' }}</h3>
+           <p>Total Revenue</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <button class="tab-btn" [class.active]="activeTab === 'users'" (click)="activeTab = 'users'">Users</button>
+        <button class="tab-btn" [class.active]="activeTab === 'teachers'" (click)="activeTab = 'teachers'">Teachers</button>
+        <button class="tab-btn" [class.active]="activeTab === 'courses'" (click)="activeTab = 'courses'">Courses</button>
+        <button class="tab-btn" [class.active]="activeTab === 'stats'" (click)="activeTab = 'stats'">Statistics</button>
+      </div>
+
+    <!-- Users Tab -->
+     @if (activeTab === 'users') {
+       <div class="section">
+         <div class="section-header">
+           <h2>User Management</h2>
+         </div>
+        
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                 <th>ID</th>
+                 <th>Name</th>
+                 <th>Email</th>
+                 <th>Role</th>
+                 <th>Password</th>
+                 <th>Actions</th>
+               </tr>
+            </thead>
+            <tbody>
+              @for (user of filteredUsers; track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>
+                    <select class="role-select" [value]="user.role" 
+                             (change)="onRoleChange($event, user.id!)">
+                      <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                  </td>
+                  <td class="password-cell">{{ user.password }}</td>
+                  <td class="actions">
+                    <button class="btn-action edit" (click)="EditUser(user)" title="Edit">
+                       ✏️
+                     </button>
+                     <button class="btn-action delete" (click)="DeleteUser(user.id!)" title="Delete">
+                       🗑️
+                     </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+     <!-- Teachers Tab -->
+     @if (activeTab === 'teachers') {
+       <div class="section">
+         <div class="section-header">
+           <h2>Instructors Management</h2>
+         </div>
+         
+         <!-- Search and Filter Controls -->
+         <div class="teacher-controls">
+           <div class="search-container">
+             <input type="text" 
+                    class="search-input" 
+                    placeholder="Search teachers by name or email..."
+                    [(ngModel)]="teacherSearchTerm"
+                    (input)="onTeacherSearch()">
+           </div>
+           <div class="filter-container">
+             <select class="status-filter" 
+                     [(ngModel)]="teacherStatusFilter"
+                     (change)="onTeacherStatusFilter()">
+               <option value="all">All Teachers</option>
+               <option value="active">Active Only</option>
+               <option value="inactive">Inactive Only</option>
+             </select>
+           </div>
+         </div>
+         
+         <div class="table-container">
+           <table class="data-table">
+             <thead>
+               <tr>
+                 <th>ID</th>
+                 <th>Name</th>
+                 <th>Email</th>
+                 <th>Created At</th>
+                 <th>Status</th>
+                 <th>Actions</th>
+               </tr>
+             </thead>
+             <tbody>
+               @for (teacher of filteredTeachers; track teacher.id) {
+                 <tr>
+                   <td>{{ teacher.id }}</td>
+                   <td>{{ teacher.name }}</td>
+                   <td>{{ teacher.email }}</td>
+                   <td>{{ teacher.createdAt | date:'short' }}</td>
+                   <td>
+                     <span class="status-badge" 
+                           [class.active]="teacher.isActive"
+                           [class.inactive]="!teacher.isActive">
+                       {{ teacher.isActive ? 'Active' : 'Inactive' }}
+                     </span>
+                   </td>
+                   <td class="actions">
+                     <button class="btn-action status" 
+                             (click)="toggleTeacherStatus(teacher.id!)" 
+                             [title]="teacher.isActive ? 'Deactivate Teacher' : 'Activate Teacher'">
+                       {{ teacher.isActive ? '🟢' : '🔴' }}
+                     </button>
+                     <button class="btn-action edit" (click)="EditUser(teacher)" title="Edit">
+                       ✏️
+                     </button>
+                     <button class="btn-action delete" (click)="DeleteUser(teacher.id!)" title="Delete">
+                       🗑️
+                     </button>
+                   </td>
+                 </tr>
+               } @empty {
+                 <tr>
+                   <td colspan="6" class="no-data">No teachers found</td>
+                 </tr>
+               }
+             </tbody>
+           </table>
+         </div>
+       </div>
+     }
+
+     <!-- Courses Tab -->
+     @if (activeTab === 'courses') {
+       <div class="section">
+         <div class="section-header">
+           <h2>Course Management</h2>
+         </div>
+        
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                 <th>Course Name</th>
+                 <th>Instructor</th>
+                 <th>Student Count</th>
+                 <th>Price</th>
+                 <th>Revenue</th>
+                 <th>Rating</th>
+                 <th>Status</th>
+                 <th>Actions</th>
+               </tr>
+            </thead>
+            <tbody>
+              @for (course of courseStats; track course.id) {
+                <tr>
+                  <td>{{ course.title }}</td>
+                  <td>{{ course.instructor }}</td>
+                  <td class="student-count">{{ course.enrolledStudents }}</td>
+                  <td>{{ course.price | currency:'USD':'symbol':'1.0-0' }}</td>
+                   <td class="revenue">{{ course.revenue | currency:'USD':'symbol':'1.0-0' }}</td>
+                  <td class="rating">
+                    <span class="stars">{{ '⭐'.repeat(course.rating) }}</span>
+                    ({{ course.rating }})
+                  </td>
+                  <td>
+                    <button class="status-btn" 
+                             [class.active]="getCourseById(course.id)?.isActive"
+                             (click)="toggleCourseStatus(course.id)">
+                       {{ getCourseById(course.id)?.isActive ? 'Active' : 'Inactive' }}
+                     </button>
+                  </td>
+                  <td class="actions">
+                    <button class="btn-action edit" 
+                             (click)="editCourseById(course.id)" 
+                             title="Edit">
+                       ✏️
+                     </button>
+                     <button class="btn-action delete" (click)="deleteCourse(course.id)" title="Delete">
+                       🗑️
+                     </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    <!-- Statistics Tab -->
+     @if (activeTab === 'stats') {
+       <div class="section">
+         <div class="section-header">
+           <h2>Detailed Statistics</h2>
+         </div>
+        
+        <!-- Top Rated Instructors -->
+         <div class="stats-section">
+           <h3>Top Rated Instructors</h3>
+          <div class="instructor-grid">
+            @for (instructor of topInstructors; track instructor.name) {
+              <div class="instructor-card">
+                <div class="instructor-info">
+                  <h4>{{ instructor.name }}</h4>
+                  <div class="instructor-stats">
+                    <p><strong>Course Count:</strong> {{ instructor.totalCourses }}</p>
+                     <p><strong>Total Students:</strong> {{ instructor.totalStudents }}</p>
+                     <p><strong>Total Revenue:</strong> {{ instructor.totalRevenue | currency:'USD':'symbol':'1.0-0' }}</p>
+                     <p><strong>Average Rating:</strong> 
+                      <span class="rating">{{ instructor.averageRating | number:'1.1-1' }} ⭐</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        
+        <!-- Course Performance Table -->
+         <div class="stats-section">
+           <h3>Course Performance Analysis</h3>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                   <th>Course</th>
+                   <th>Student/Revenue Ratio</th>
+                   <th>Success Score</th>
+                   <th>Trend</th>
+                 </tr>
+              </thead>
+              <tbody>
+                @for (course of courseStats; track course.id) {
+                  <tr>
+                    <td>{{ course.title }}</td>
+                    <td>{{ course.enrolledStudents > 0 ? (course.revenue / course.enrolledStudents | currency:'USD':'symbol':'1.0-0') : '$0' }}</td>
+                    <td>
+                      <div class="success-score" [style.width.%]="(course.rating / 5) * 100">
+                        {{ course.rating }}/5
+                      </div>
+                    </td>
+                    <td class="trend">
+                      @if (course.enrolledStudents > 10) {
+                         <span class="trend-up">📈 High</span>
+                       } @else if (course.enrolledStudents > 5) {
+                         <span class="trend-stable">📊 Medium</span>
+                       } @else {
+                         <span class="trend-down">📉 Low</span>
+                       }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
+  }
+</div>

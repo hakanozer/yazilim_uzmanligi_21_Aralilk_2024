@@ -1,0 +1,295 @@
+/* Ana container */
+.search-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 80px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000000;
+  min-height: 100vh;
+}
+
+/* Sayfa başlığı */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #8e8e8e;
+  margin: 0;
+}
+
+/* Sonuç bilgisi */
+.results-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.results-count {
+  color: #8e8e8e;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Loading durumu */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #ffffff;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #262626;
+  border-top: 4px solid #0095f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Kurs kartları grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Kurs kartı */
+.course-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid #262626;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 149, 246, 0.15);
+  border-color: #0095f6;
+}
+
+.inactive-course {
+  opacity: 0.6;
+}
+
+.inactive-course:hover {
+  opacity: 0.8;
+}
+
+/* Kart başlığı */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Seviye badge'i */
+.level-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.level-beginner {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+
+.level-intermediate {
+  background-color: #f59e0b;
+  color: #ffffff;
+}
+
+.level-advanced {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+/* Durum göstergesi */
+.status-indicator {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-indicator.active {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+
+.status-indicator.inactive {
+  background-color: #6b7280;
+  color: #ffffff;
+}
+
+/* Kart gövdesi */
+.card-body {
+  margin-bottom: 15px;
+}
+
+.course-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.course-description {
+  color: #8e8e8e;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Kurs bilgileri */
+.course-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-icon {
+  font-size: 1rem;
+}
+
+.info-text {
+  color: #8e8e8e;
+  font-size: 0.85rem;
+}
+
+/* Kart alt kısmı */
+.card-footer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #262626;
+}
+
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.students-count,
+.course-date {
+  color: #8e8e8e;
+  font-size: 0.8rem;
+}
+
+/* Sonuç bulunamadı durumu */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #ffffff;
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.no-results h3 {
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.no-results p {
+  color: #8e8e8e;
+  margin-bottom: 30px;
+}
+
+.browse-all-btn {
+  background-color: #0095f6;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.browse-all-btn:hover {
+  background-color: #0084d6;
+}
+
+/* İlk durum */
+.initial-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #ffffff;
+}
+
+.search-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.initial-state h3 {
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.initial-state p {
+  color: #8e8e8e;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .search-container {
+    padding: 15px;
+    padding-top: 70px;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .course-info {
+    grid-template-columns: 1fr;
+  }
+}

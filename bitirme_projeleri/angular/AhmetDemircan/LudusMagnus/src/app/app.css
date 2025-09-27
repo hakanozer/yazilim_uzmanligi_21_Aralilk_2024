@@ -1,0 +1,41 @@
+/* Ana uygulama container'ı */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #000000;
+}
+
+/* Ana içerik alanı */
+.main-content {
+  flex: 1;
+  padding-top: 80px; /* Navbar yüksekliği kadar */
+}
+
+/* Global stil sıfırlama */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* Navbar'ın fixed pozisyonu için sayfa içeriğine padding */
+app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Footer'ın sayfanın altında kalması için */
+app-footer {
+  margin-top: auto;
+}

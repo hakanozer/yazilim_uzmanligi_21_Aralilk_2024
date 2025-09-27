@@ -1,0 +1,321 @@
+<div class="user-profile-container">
+  <!-- Geri dönüş butonu -->
+  <div class="back-navigation">
+    <button class="back-btn" routerLink="/">
+      <span class="back-icon">←</span>
+      <span>Back</span>
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>loadCurrentUser...</p>
+    </div>
+  } @else {
+    <div class="profile-layout">
+      <!-- Sol taraf - Menü -->
+      <div class="profile-sidebar">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <div class="avatar-circle">
+              <span class="avatar-text">{{ getUserInitial() }}</span>
+            </div>
+          </div>
+          <h2 class="profile-name">{{ getUserName() }}</h2>
+          <p class="profile-email">{{ getUserEmail() }}</p>
+        </div>
+
+        <nav class="profile-menu">
+          <ul class="menu-list">
+            <li class="menu-item" [class.active]="activeSection === 'profile'" (click)="setActiveSection('profile')">
+              <span class="menu-icon">👤</span>
+              <span class="menu-text">Edit Profile</span>
+            </li>
+            <li class="menu-item" [class.active]="activeSection === 'password'" (click)="setActiveSection('password')">
+              <span class="menu-icon">🔒</span>
+              <span class="menu-text">Change Password</span>
+            </li>
+            <li class="menu-item" [class.active]="activeSection === 'privacy'" (click)="setActiveSection('privacy')">
+              <span class="menu-icon">🛡️</span>
+              <span class="menu-text">Privacy & Security</span>
+            </li>
+            
+            <!-- Rol bazlı kurs sekmesi -->
+            @if (isAdmin()) {
+              <li class="menu-item admin-panel-item" (click)="navigateToAdminPanel()">
+                <span class="menu-icon">⚙️</span>
+                <span class="menu-text">Direct to: Admin Panel →</span>
+              </li>
+            } @else if (isTeacher()) {
+              <li class="menu-item teacher-panel-item" (click)="navigateToTeacherPanel()">
+                <span class="menu-icon">🎓</span>
+                <span class="menu-text">Direct to: Teacher Panel →</span>
+              </li>
+            } @else {
+              <li class="menu-item" [class.active]="activeSection === 'courses'" (click)="setActiveSection('courses')">
+                <span class="menu-icon">📚</span>
+                <span class="menu-text">My Courses</span>
+              </li>
+            }
+            
+            <li class="menu-item" [class.active]="activeSection === 'notifications'" (click)="setActiveSection('notifications')">
+              <span class="menu-icon">🔔</span>
+              <span class="menu-text">Notifications</span>
+            </li>
+
+            <!-- Profil Silme - Sadece Teacher ve Student için ve adminle dalga geçmek için -->
+            @if (currentUser?.role === 'teacher' || currentUser?.role === 'student' || currentUser?.role === 'admin') {
+              <li class="menu-item danger-menu-item" (click)="deleteProfile()">
+                <span class="menu-icon">⚠️</span>
+                <span class="menu-text">Delete Profile</span>
+              </li>
+            }
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Sağ taraf - İçerik -->
+      <div class="profile-content">
+        <!-- Edit Profile Section -->
+        @if (activeSection === 'profile') {
+          <div class="content-section">
+            <div class="section-header">
+              <h3 class="section-title">Edit Profile</h3>
+              <p class="section-description">Update your personal information and preferences</p>
+            </div>
+            
+            <div class="form-container">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" [value]="currentUser?.name || ''" placeholder="Enter your full name" #nameInput>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" [value]="currentUser?.email || ''" placeholder="Enter your email" #emailInput>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" [value]="currentUser?.phone || ''" placeholder="Enter your phone number" #phoneInput>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Bio</label>
+                <textarea class="form-textarea" rows="4" [value]="currentUser?.bio || ''" placeholder="No one cares but you can tell us about yourself" #bioInput></textarea>
+              </div>
+              
+              <div class="form-actions">
+                <button class="btn-primary" (click)="updateProfile({
+                  name: nameInput.value,
+                  email: emailInput.value,
+                  phone: phoneInput.value,
+                  bio: bioInput.value
+                })">Save Changes</button>
+                <button class="btn-secondary" (click)="loadCurrentUser()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Change Password Section -->
+        @if (activeSection === 'password') {
+          <div class="content-section">
+            <div class="section-header">
+              <h3 class="section-title">Change Password</h3>
+              <p class="section-description">Update your password to keep your account secure</p>
+            </div>
+            
+            <div class="form-container">
+              <div class="form-group">
+                <label class="form-label">Current Password</label>
+                <input type="password" class="form-input" placeholder="Enter current password" #currentPasswordInput>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input type="password" class="form-input" placeholder="Enter new password" #newPasswordInput>
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <input type="password" class="form-input" placeholder="Confirm new password" #confirmPasswordInput>
+              </div>
+              
+              <div class="password-requirements">
+                <h4>Password Requirements:</h4>
+                <ul>
+                  <li>At least 8 characters long</li>
+                  <li>Contains uppercase and lowercase letters</li>
+                  <li>Contains at least one number</li>
+                  <li>Contains at least one special character</li>
+                </ul>
+              </div>
+              
+              <div class="form-actions">
+                <button class="btn-primary" (click)="changePassword(currentPasswordInput.value, newPasswordInput.value)">Update Password</button>
+                <button class="btn-secondary">Cancel</button>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Privacy & Security Section -->
+        @if (activeSection === 'privacy') {
+          <div class="content-section">
+            <div class="section-header">
+              <h3 class="section-title">Privacy & Security (soon but not too soon)</h3>
+              <p class="section-description">Manage your privacy settings and account security</p>
+            </div>
+            
+            <div class="settings-container">
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4 class="setting-title">Profile Visibility (soon)</h4>
+                  <p class="setting-description">Control who can see your profile information</p>
+                </div>
+                <div class="setting-control">
+                  <select class="form-select" disabled>
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                    <option value="friends">Friends Only</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4 class="setting-title">Two-Factor Authentication (soon)</h4>
+                  <p class="setting-description">Add an extra layer of security to your account</p>
+                </div>
+                <div class="setting-control" >
+                  <label class="toggle-switch" disabled>
+                    <input type="checkbox">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4 class="setting-title">Login Notifications (soon)</h4>
+                  <p class="setting-description">Get notified when someone logs into your account</p>
+                </div>
+                <div class="setting-control">
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4 class="setting-title">Data Export (soon)</h4>
+                  <p class="setting-description">Download a copy of your data</p>
+                </div>
+                <div class="setting-control">
+                  <button class="btn-outline">Export Data</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- My Courses Section -->
+        @if (activeSection === 'courses') {
+          <div class="content-section">
+            <div class="section-header">
+              <h3 class="section-title">My Courses</h3>
+              <p class="section-description">Manage your enrolled and saved courses</p>
+            </div>
+            
+            <div class="courses-tabs">
+              <button class="tab-btn active">Saved Courses</button>
+              <button class="tab-btn">Enrolled Courses</button>
+              <button class="tab-btn">Completed Courses</button>
+            </div>
+            
+            <div class="courses-grid">
+             @if (savedCourses && savedCourses.length > 0) {
+                @for (course of savedCourses; track course.id) {
+                  <div class="course-card" (click)="navigateToCourseDetail(course.id.toString())" style="cursor: pointer;">
+                    <div class="course-image">📚</div>
+                    <div class="course-info">
+                      <h4 class="course-title">{{ course.title }}</h4>
+                      <p class="course-instructor">{{ course.instructor }}</p>
+                      <p class="course-category">{{ course.category }}</p>
+                      <div class="course-meta">
+                        <span class="course-duration">{{ course.duration }}</span>
+                        <span class="course-level level-{{ course.level }}">{{ course.level | titlecase }}</span>
+                      </div>
+                      <div class="course-progress">
+                        <div class="progress-bar">
+                          <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-text">Saved</span>
+                      </div>
+                    </div>
+                  </div>
+                }
+              } @else {
+                <div class="empty-state">
+                  <p>Henüz kaydedilmiş kursunuz bulunmuyor.</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Notifications Section -->
+        @if (activeSection === 'notifications') {
+          <div class="content-section">
+            <div class="section-header">
+              <h3 class="section-title">Notification Preferences (soon but kinda not)</h3>
+              <p class="section-description">Choose what notifications you want to receive</p>
+            </div>
+            
+            <div class="notification-settings">
+              <div class="notification-group">
+                <h4 class="group-title">Course Updates</h4>
+                <div class="notification-item">
+                  <span class="notification-label">New course announcements</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="notification-item">
+                  <span class="notification-label">Assignment deadlines</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="notification-group">
+                <h4 class="group-title">Account Activity</h4>
+                <div class="notification-item">
+                  <span class="notification-label">Login alerts</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+                <div class="notification-item">
+                  <span class="notification-label">Profile updates</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,77 @@
+.position-relative {
+  padding-top: 100px !important;
+  background-color: #000000;
+  min-height: 100vh;
+}
+
+h2 {
+  color: #ffffff;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #000000 !important;
+  border: 1px solid #262626 !important;
+  border-radius: 1px !important;
+  box-shadow: none !important;
+}
+
+.form-label {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: #0095f6 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  padding: 8px 16px !important;
+}
+
+.btn-primary:hover {
+  background-color: #1877f2 !important;
+}
+
+.text-muted {
+  color: #8e8e8e !important;
+  font-size: 0.875rem;
+}
+
+.form-check-label {
+  color: #ffffff !important;
+  font-size: 0.875rem;
+}
+
+.form-check-input:checked {
+  background-color: #0095f6 !important;
+  border-color: #0095f6 !important;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .position-relative {
+    padding-top: 80px !important;
+  }
+  
+  .card {
+    margin: 0 15px;
+  }
+}
+
+/* Test kullanıcıları alert kutusu için koyu arka plan */
+.alert.alert-dark {
+  background-color: #262626 !important;
+  border-color: #404040 !important;
+  color: #ffffff !important;
+}
+
+/* Alternatif olarak daha spesifik seçici */
+.alert-dark.mt-2 {
+  background-color: #262626 !important;
+  border-color: #404040 !important;
+  color: #ffffff !important;
+}

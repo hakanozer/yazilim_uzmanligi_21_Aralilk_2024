@@ -1,0 +1,31 @@
+:host { display:block; min-height:100vh; background: radial-gradient(1000px 600px at 50% -200px, #150b1d 0%, #0b0610 50%, #05040a 100%); color:#fff; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
+.wrap { position:relative; min-height:100vh; overflow:hidden; }
+
+.spotlight { position:absolute; inset:0; background: radial-gradient(ellipse at center, rgba(255,0,90,.25) 0%, transparent 70%), radial-gradient(circle at 70% 20%, rgba(255,255,255,.05) 0%, transparent 50%); filter: blur(20px); }
+
+.sign { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 18vh 20px 320px; text-align:center; }
+.title { font-size: clamp(64px, 16vw, 180px); font-weight:900; color:#ff2a6d; text-shadow: 0 0 12px #ff2a6d, 0 0 40px #ff2a6d77; }
+.tag { margin-top: 12px; color:#ff9ecf; opacity:.9; letter-spacing: .2em; text-transform: uppercase; font-weight:700; }
+.joke { margin: 18px auto 28px; max-width: 640px; font-size: clamp(14px, 2.7vw, 20px); color:#ffe7f6; opacity:.92; }
+
+.btn { display:inline-block; margin-top:4px; padding: 12px 18px; border-radius: 999px; border: 2px solid #ff2a6d; color:#ffd7f1; text-decoration:none; font-weight:700; box-shadow: 0 0 14px #ff2a6d88, inset 0 0 10px #ff2a6d44; transition: transform .15s ease, box-shadow .15s ease; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 0 24px #ff2a6dcc, inset 0 0 16px #ff2a6d77; }
+.btn:active { transform: translateY(0); }
+
+.scene { position:absolute; inset:auto 0 0 0; height:260px; display:flex; justify-content:center; align-items:flex-end; }
+.club-door { position:relative; width:220px; height:220px; background:#0a0611; border:4px solid #ff2a6d; border-radius:6px; box-shadow: 0 0 20px #ff2a6d88; display:flex; align-items:flex-end; justify-content:center; }
+.door { width:140px; height:180px; background:#1a101d; border:3px solid #2c162c; border-radius:4px; }
+.bouncer { position:absolute; bottom:0; left:50%; transform: translateX(-50%); display:flex; flex-direction:column; align-items:center; animation: pulse 3s infinite; }
+.bouncer .head { width:48px; height:48px; background:#333; border-radius:50%; margin-bottom:6px; }
+.bouncer .body { width:70px; height:90px; background:#222; border-radius:12px; }
+.bouncer .arms { position:absolute; top:42px; display:flex; justify-content:space-between; width:120px; }
+.bouncer .arms::before, .bouncer .arms::after { content:""; width:32px; height:18px; background:#222; border-radius:8px; }
+@keyframes pulse { 0%,100%{ transform:translateX(-50%) scale(1);} 50%{ transform:translateX(-50%) scale(1.05);} }
+
+.neon-sign { position:absolute; top:-40px; left:50%; transform:translateX(-50%); padding:6px 12px; font-weight:800; color:#ff2a6d; font-size:20px; letter-spacing:2px; border:2px solid #ff2a6d; border-radius:6px; text-shadow:0 0 8px #ff2a6d, 0 0 20px #ff2a6d; box-shadow:0 0 18px #ff2a6d77, inset 0 0 12px #ff2a6d44; background:#120b14ee; }
+.neon-sign span { color:#7CFC00; text-shadow:0 0 10px #7CFC00, 0 0 20px #7CFC00; }
+
+@media (max-width:640px){ 
+    .club-door{ transform: scale(.8);} 
+    .sign { padding: 15vh 20px 280px; }
+}

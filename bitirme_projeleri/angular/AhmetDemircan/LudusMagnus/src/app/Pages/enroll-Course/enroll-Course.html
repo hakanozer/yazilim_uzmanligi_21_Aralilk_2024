@@ -1,0 +1,132 @@
+<div class="enroll-container">
+  <!-- Sayfa başlığı -->
+  <div class="page-header">
+    <h1 class="main-title">Course Enrollment</h1>
+    <p class="subtitle">Complete your course registration</p>
+  </div>
+
+  <!-- Loading durumu -->
+  @if (isLoading) {
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading course information...</p>
+    </div>
+  }
+
+  <!-- Kurs bilgileri ve kayıt formu -->
+  @if (selectedCourse && !isLoading) {
+    <div class="enrollment-card">
+      <!-- Kurs detayları -->
+      <div class="course-details">
+        <div class="course-header">
+          <div class="course-level">
+            <span class="level-badge" [ngClass]="'level-' + selectedCourse.level">
+              {{ selectedCourse.level | titlecase }}
+            </span>
+          </div>
+          <div class="course-status">
+            <span class="status-indicator" [ngClass]="selectedCourse.isActive ? 'active' : 'inactive'">
+              {{ selectedCourse.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+        </div>
+
+        <h2 class="course-title">{{ selectedCourse.title }}</h2>
+        <p class="course-description">{{ selectedCourse.description }}</p>
+
+        <!-- Kurs bilgileri -->
+        <div class="course-info">
+          <div class="info-row">
+            <span class="info-icon">👨‍🏫</span>
+            <span class="info-text">{{ selectedCourse.instructor }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="info-icon">⏱️</span>
+            <span class="info-text">{{ selectedCourse.duration }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="info-icon">📚</span>
+            <span class="info-text">{{ selectedCourse.category }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="info-icon">👥</span>
+            <span class="info-text">{{ selectedCourse.enrolledStudents }} students enrolled</span>
+          </div>
+
+          <div class="info-row price-row">
+            <span class="info-icon">💰</span>
+            <span class="price">${{ selectedCourse.price }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kayıt durumu ve butonlar -->
+      <div class="enrollment-section">
+        @if (enrollmentMessage) {
+          <div class="message" [ngClass]="isAlreadyEnrolled ? 'success-message' : 'info-message'">
+            {{ enrollmentMessage }}
+          </div>
+        }
+
+        @if (selectedCourse.isActive) {
+          @if (!isAlreadyEnrolled) {
+            <div class="enrollment-actions">
+              <button class="btn btn-primary" 
+                      (click)="enrollToCourse()" 
+                      [disabled]="isEnrolling">
+                @if (isEnrolling) {
+                  <span class="btn-spinner"></span>
+                  Enrolling...
+                } @else {
+                  Enroll Now
+                }
+              </button>
+            </div>
+          } @else {
+            <div class="enrollment-actions">
+              <button class="btn btn-success" disabled>
+                ✓ Already Enrolled
+              </button>
+              <button class="btn btn-danger" 
+                      (click)="unenrollFromCourse()" 
+                      [disabled]="isEnrolling">
+                @if (isEnrolling) {
+                  <span class="btn-spinner"></span>
+                  Processing...
+                } @else {
+                  Unenroll
+                }
+              </button>
+            </div>
+          }
+        } @else {
+          <div class="inactive-message">
+            <span>⚠️ This course is currently not available for enrollment</span>
+          </div>
+        }
+
+        <!-- Geri dön butonu -->
+        <div class="back-section">
+          <button class="btn btn-secondary" (click)="goBack()">
+            ← Back to Courses
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Hata durumu -->
+  @if (enrollmentMessage && !selectedCourse && !isLoading) {
+    <div class="error-state">
+      <div class="error-icon">⚠️</div>
+      <h3>Error</h3>
+      <p>{{ enrollmentMessage }}</p>
+      <button class="btn btn-secondary" (click)="goBack()">
+        ← Back to Courses
+      </button>
+    </div>
+  }
+</div>
