@@ -1,0 +1,118 @@
+<div class="container mt-4">
+  <h2>Instructor Panel</h2>
+  <hr />
+
+  <!-- Kurs Listesi -->
+  <h4>Mevcut Kurslarım</h4>
+  <ul class="list-group mb-4">
+    @for (course of courses; track course.id) {
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <strong>{{ course.title }}</strong><br />
+          <small class="text-muted">{{ course.description }}</small>
+        </div>
+        <div>
+          <button
+            class="btn btn-sm btn-warning me-2"
+            (click)="openEditModal(course)"
+          >
+            Düzenle
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteCourse(course.id)"
+          >
+            Sil
+          </button>
+        </div>
+      </li>
+    }
+  </ul>
+
+  @if (courses.length === 0) {
+    <div class="alert alert-info">
+      Henüz kursunuz bulunmuyor. Yeni kurs ekleyerek başlayabilirsiniz.
+    </div>
+  }
+
+  <!-- Kurs Ekle Butonu -->
+  <button class="btn btn-primary" (click)="openAddModal()">+ Kurs Ekle</button>
+</div>
+
+<!-- Modal (Hem Ekleme Hem Düzenleme için kullanılacak) -->
+<div
+  class="modal fade"
+  id="courseModal"
+  tabindex="-1"
+  aria-labelledby="courseModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="courseForm" (ngSubmit)="saveCourse()">
+        <div class="modal-header">
+          <h5 class="modal-title" id="courseModalLabel">{{ modalTitle }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Kapat"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="title" class="form-label">Kurs Başlığı</label>
+            <input
+              id="title"
+              type="text"
+              class="form-control"
+              formControlName="title"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Açıklama</label>
+            <textarea
+              id="description"
+              class="form-control"
+              rows="3"
+              formControlName="description"
+            ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="price" class="form-label">Fiyat (₺)</label>
+            <input
+              id="price"
+              type="number"
+              class="form-control"
+              formControlName="price"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="image" class="form-label">Kurs Görseli (URL)</label>
+            <input
+              id="image"
+              type="text"
+              class="form-control"
+              formControlName="image"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Kapat
+          </button>
+          <button type="submit" class="btn btn-success" [disabled]="courseForm.invalid">
+            Kaydet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

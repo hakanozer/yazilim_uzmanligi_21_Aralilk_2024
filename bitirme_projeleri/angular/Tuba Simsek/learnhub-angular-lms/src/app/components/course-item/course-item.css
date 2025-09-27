@@ -1,0 +1,55 @@
+/* Kart stil */
+.course-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+/* Görsel */
+.course-card .card-img-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.course-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.course-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Başlık */
+.course-card .card-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Açıklama (satır kısıtlamalı) */
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* sadece 2 satır */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Buton */
+.course-card .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.course-card .btn:hover {
+  background-color: #007bff;
+  color: #fff;
+}

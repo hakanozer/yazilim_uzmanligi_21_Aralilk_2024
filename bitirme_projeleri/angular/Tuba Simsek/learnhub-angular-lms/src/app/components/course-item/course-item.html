@@ -1,0 +1,23 @@
+@if (item) {
+  <div class="card course-card shadow-sm border-0 h-100">
+
+    <!-- Görsel -->
+    <div class="card-img-container">
+      <img [src]="item.image" class="card-img-top" alt="Kurs görseli">
+    </div>
+
+    <!-- İçerik -->
+    <div class="card-body d-flex flex-column">
+      <h5 class="card-title fw-bold text-truncate">{{ item.title }}</h5>
+      <p class="card-text text-muted line-clamp">
+        {{ item.description }}
+      </p>
+
+      <div class="mt-auto">
+        <a [routerLink]="['/course-detail', item.id]" class="btn btn-outline-primary w-100">
+          Kurs Detayları
+        </a>
+      </div>
+    </div>
+  </div>
+}

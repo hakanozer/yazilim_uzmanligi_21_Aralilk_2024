@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <h2>🎓 Öğrenci Profili</h2>
+  <hr>
+
+  <!-- Kullanıcı bilgileri -->
+  <form [formGroup]="userForm" (ngSubmit)="updateUser()" class="mb-4">
+    <div class="mb-3">
+      <label class="form-label">Ad Soyad</label>
+      <input type="text" formControlName="name" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">E-posta</label>
+      <input type="email" formControlName="email" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Şifre</label>
+      <input type="password" formControlName="password" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Güncelle</button>
+  </form>
+
+  <hr>
+
+  <!-- Kayıtlı kurslar -->
+  <h4>📚 Kayıtlı Kurslarım</h4>
+  <ul class="list-group">
+    @for (course of courses; track course.id) {
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+        (click)="fncSelectCourse(course)"
+        role="button"
+        data-bs-toggle="modal"
+        data-bs-target="#courseModal"
+      >
+        <span>{{ course.title }}</span>
+        <span class="badge bg-primary">Detay</span>
+      </li>
+    }
+  </ul>
+</div>
+
+<!-- Modal -->
+@if (selectCourse) {
+  <div
+    class="modal fade"
+    id="courseModal"
+    tabindex="-1"
+    aria-labelledby="courseModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="courseModalLabel">
+            {{ selectCourse.title }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ selectCourse.description }}</p>
+
+          <h6>📊 Ders Durumu</h6>
+          @if (selectEnrollment) {
+            <p><strong>Durum:</strong> {{ selectEnrollment.status }}</p>
+            <div class="progress mb-2">
+              <div
+                class="progress-bar"
+                role="progressbar"
+                [style.width.%]="selectEnrollment.progress"
+              >
+                {{ selectEnrollment.progress }}%
+              </div>
+            </div>
+          } @else {
+            <p class="text-muted">Henüz ilerleme bilgisi yok</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

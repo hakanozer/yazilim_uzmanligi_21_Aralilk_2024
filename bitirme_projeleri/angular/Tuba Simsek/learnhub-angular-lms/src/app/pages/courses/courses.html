@@ -1,0 +1,46 @@
+<div class="container my-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold">Courses</h2>
+    <nav>
+      <ul class="pagination pagination-sm mb-0">
+        @for (item of pages; track $index) {
+          @if(item == current_page) {
+            <li class="page-item active">
+              <a
+                [routerLink]="['/courses']"
+                [queryParams]="{page: item}"
+                class="page-link"
+                >{{item}}</a>
+            </li>
+          } @else {
+            <li class="page-item">
+              <a
+                [routerLink]="['/courses']"
+                [queryParams]="{page: item}"
+                class="page-link"
+                >{{item}}</a>
+            </li>
+          }
+        }
+      </ul>
+    </nav>
+  </div>
+
+  @if (isLoading === true) {
+    <div class="d-flex justify-content-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
+
+  <div class="row g-4">
+    @for (item of courseArr; track $index) {
+      <div class="col-12 col-md-6 col-lg-4">
+        <app-course-item [item]="item"></app-course-item>
+      </div>
+    }
+  </div>
+
+</div>

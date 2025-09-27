@@ -1,0 +1,666 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Ahmet Yılmaz",
+      "email": "ahmet@example.com",
+      "password": "1234",
+      "role": "student"
+    },
+    {
+      "id": "2",
+      "name": "Ayşe Demir",
+      "email": "ayse@example.com",
+      "password": "abcd",
+      "role": "instructor"
+    },
+    {
+      "id": "3",
+      "name": "Mehmet Kaya",
+      "email": "mehmet@example.com",
+      "password": "mehmet123",
+      "role": "student"
+    },
+    {
+      "id": "4",
+      "name": "Engin Çelik",
+      "email": "engin@example.com",
+      "password": "engin1234",
+      "role": "instructor"
+    },
+    {
+      "id": "5",
+      "name": "Burak Akın",
+      "email": "burak@example.com",
+      "password": "burak5678",
+      "role": "student"
+    },
+    {
+      "id": "6",
+      "name": "Zeynep Yıldız",
+      "email": "zeynep@example.com",
+      "password": "zeynep91011",
+      "role": "instructor"
+    },
+    {
+      "id": "7",
+      "name": "Selim Arslan",
+      "email": "selim@example.com",
+      "password": "selim1213",
+      "role": "instructor"
+    },
+    {
+      "id": "8",
+      "name": "Okan Bal",
+      "email": "okan@example.com",
+      "password": "okan1415",
+      "role": "student"
+    },
+    {
+      "id": "9",
+      "name": "Ali Bilgin",
+      "email": "ali@example.com",
+      "password": "ali1617",
+      "role": "instructor"
+    },
+    {
+      "id": "10",
+      "name": "Ece Şahin",
+      "email": "ece@mail.com",
+      "password": "ece1819",
+      "role": "student"
+    },
+    {
+      "id": "7273",
+      "name": "Ahmet Şimşek",
+      "email": "ahmet@mail.com",
+      "password": "ahmet123",
+      "role": "student"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "1",
+      "courseId": 1,
+      "title": "Components Girişi",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-3s.mp4"
+    },
+    {
+      "id": "2",
+      "courseId": 1,
+      "title": "Data Binding",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4"
+    },
+    {
+      "id": "3",
+      "courseId": 2,
+      "title": "React Hooks Temelleri",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-10s.mp4"
+    },
+    {
+      "id": "4",
+      "courseId": 2,
+      "title": "Context API Kullanımı",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-7s.mp4"
+    },
+    {
+      "id": "5",
+      "courseId": 3,
+      "title": "NumPy ile Veri İşleme",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-15s.mp4"
+    },
+    {
+      "id": "6",
+      "courseId": 3,
+      "title": "Pandas DataFrame Kullanımı",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-12s.mp4"
+    },
+    {
+      "id": "7",
+      "courseId": 4,
+      "title": "Spring Boot Temelleri",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-20s.mp4"
+    },
+    {
+      "id": "8",
+      "courseId": 5,
+      "title": "Flutter Widget Yapısı",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-8s.mp4"
+    },
+    {
+      "id": "9",
+      "courseId": 5,
+      "title": "State Management",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-30s.mp4"
+    },
+    {
+      "id": "10",
+      "courseId": 6,
+      "title": "SQL Temelleri",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-6s.mp4"
+    },
+    {
+      "id": "11",
+      "courseId": 7,
+      "title": "Ağ Güvenliği Giriş",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-9s.mp4"
+    },
+    {
+      "id": "12",
+      "courseId": 8,
+      "title": "AWS Servislerine Giriş",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-11s.mp4"
+    },
+    {
+      "id": "13",
+      "courseId": 9,
+      "title": "Makine Öğrenimi Algoritmaları",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-4s.mp4"
+    },
+    {
+      "id": "14",
+      "courseId": 10,
+      "title": "Scrum Metodolojisi",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-13s.mp4"
+    },
+    {
+      "id": "15",
+      "courseId": 11,
+      "title": "Kullanıcı Deneyimi Prensipleri",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-14s.mp4"
+    },
+    {
+      "id": "16",
+      "courseId": 12,
+      "title": "CI/CD Temelleri",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-2s.mp4"
+    },
+    {
+      "id": "17",
+      "courseId": 13,
+      "title": "Veri Yapıları ve Algoritmalar Giriş",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-1s.mp4"
+    },
+    {
+      "id": "18",
+      "courseId": 13,
+      "title": "Algoritma Analizi",
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-16s.mp4"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "1",
+      "userId": 1,
+      "courseId": 1,
+      "date": "2025-09-01",
+      "status": "Devam Ediyor",
+      "progress": 40
+    },
+    {
+      "id": "2",
+      "userId": 3,
+      "courseId": 2,
+      "date": "2025-09-01",
+      "status": "Tamamlandı",
+      "progress": 100
+    },
+    {
+      "id": "3",
+      "userId": 5,
+      "courseId": 3,
+      "date": "2025-09-01",
+      "status": "Devam Ediyor",
+      "progress": 90
+    },
+    {
+      "id": "4",
+      "userId": 8,
+      "courseId": 1,
+      "date": "2025-09-01",
+      "status": "Tamamlandı",
+      "progress": 100
+    },
+    {
+      "id": "5",
+      "userId": 10,
+      "courseId": 4,
+      "date": "2025-09-01",
+      "status": "Devam Ediyor",
+      "progress": 30
+    },
+    {
+      "id": "6",
+      "userId": 1,
+      "courseId": 5,
+      "date": "2025-09-01",
+      "status": "Devam Ediyor",
+      "progress": 20
+    },
+    {
+      "id": "7",
+      "userId": 3,
+      "courseId": 6,
+      "date": "2025-09-01",
+      "status": "Tamamlandı",
+      "progress": 100
+    },
+    {
+      "id": "8",
+      "userId": 5,
+      "courseId": 7,
+      "date": "2025-09-01",
+      "status": "Devam Ediyor",
+      "progress": 60
+    },
+    {
+      "id": "9",
+      "userId": 10,
+      "courseId": "2",
+      "date": "2025-09-16",
+      "status": "Devam Ediyor",
+      "progress": 45
+    },
+    {
+      "id": "10",
+      "userId": 1,
+      "courseId": "2",
+      "date": "2025-09-16",
+      "status": "Devam Ediyor",
+      "progress": 5
+    },
+    {
+      "id": "11",
+      "userId": 3,
+      "courseId": "1",
+      "date": "2025-09-16",
+      "status": "Devam Ediyor",
+      "progress": 0
+    },
+    {
+      "id": "12",
+      "userId": 5,
+      "courseId": "9",
+      "date": "2025-09-16",
+      "status": "Devam Ediyor",
+      "progress": 15
+    },
+    {
+      "id": "0",
+      "userId": 2,
+      "courseId": "1",
+      "date": "2025-09-18",
+      "status": "Devam Ediyor",
+      "progress": 0
+    },
+    {
+      "id": 0,
+      "userId": 2,
+      "courseId": "1",
+      "date": "2025-09-22",
+      "status": "Devam Ediyor",
+      "progress": 0
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "courseId": 13,
+      "userId": 1,
+      "text": "Çok faydalı bir ders!",
+      "date": "2025-08-25"
+    },
+    {
+      "id": "2",
+      "courseId": 1,
+      "userId": 8,
+      "text": "Anlatım çok netti, teşekkürler!",
+      "date": "2025-08-28"
+    },
+    {
+      "id": "3",
+      "courseId": 2,
+      "userId": 3,
+      "text": "React Hooks kısmı çok işime yaradı.",
+      "date": "2025-09-01"
+    },
+    {
+      "id": "4",
+      "courseId": 3,
+      "userId": 5,
+      "text": "Pandas anlatımı süperdi 👌",
+      "date": "2025-09-05"
+    },
+    {
+      "id": "5",
+      "courseId": 4,
+      "userId": 2,
+      "text": "Spring Boot konusu biraz daha detaylı olabilirdi.",
+      "date": "2025-09-07"
+    },
+    {
+      "id": "6",
+      "courseId": 5,
+      "userId": 6,
+      "text": "Mobil geliştirme örnekleri çok işime yaradı.",
+      "date": "2025-09-10"
+    },
+    {
+      "id": "7",
+      "courseId": 1,
+      "userId": 3,
+      "text": "Angular ile ilgili temel bilgileri öğrendim.",
+      "date": "2025-09-12"
+    },
+    {
+      "id": "8",
+      "courseId": 2,
+      "userId": 1,
+      "text": "React Context API kısmı çok faydalıydı.",
+      "date": "2025-09-15"
+    },
+    {
+      "id": "9",
+      "courseId": 1,
+      "userId": 8,
+      "text": "Ders materyalleri çok iyi hazırlanmış.",
+      "date": "2025-09-18"
+    },
+    {
+      "id": "10",
+      "courseId": 4,
+      "userId": 7,
+      "text": "Backend geliştirme konusunda çok şey öğrendim.",
+      "date": "2025-09-20"
+    },
+    {
+      "id": "11",
+      "courseId": 5,
+      "userId": 5,
+      "text": "Flutter ile mobil uygulama geliştirme çok eğlenceliydi!",
+      "date": "2025-09-22"
+    },
+    {
+      "id": "12",
+      "courseId": 1,
+      "userId": 6,
+      "text": "Angular dersleri çok kapsamlı ve anlaşılır.",
+      "date": "2025-09-25"
+    },
+    {
+      "id": "13",
+      "courseId": 6,
+      "userId": 9,
+      "text": "Veritabanı yönetimi konusunda temel bilgileri edindim.",
+      "date": "2025-09-27"
+    },
+    {
+      "id": "14",
+      "courseId": 7,
+      "userId": 1,
+      "text": "Siber güvenlik dersleri çok bilgilendiriciydi.",
+      "date": "2025-09-30"
+    },
+    {
+      "id": "15",
+      "courseId": 8,
+      "userId": 4,
+      "text": "AWS derslerinden çok memnun kaldım.",
+      "date": "2025-10-02"
+    },
+    {
+      "id": "16",
+      "courseId": 12,
+      "userId": 7,
+      "text": "DevOps ve CI/CD süreçlerini öğrenmek çok işime yaradı.",
+      "date": "2025-10-05"
+    },
+    {
+      "id": "17",
+      "courseId": 13,
+      "userId": 5,
+      "text": "Veri yapıları ve algoritmalar konusunda kendimi geliştirdim.",
+      "date": "2025-10-07"
+    },
+    {
+      "id": "18",
+      "courseId": 11,
+      "userId": 2,
+      "text": "UI/UX tasarım prensipleri çok öğreticiydi.",
+      "date": "2025-10-10"
+    },
+    {
+      "id": "19",
+      "courseId": 10,
+      "userId": 9,
+      "text": "Agile proje yönetimi dersleri çok faydalıydı.",
+      "date": "2025-10-12"
+    },
+    {
+      "id": "20",
+      "courseId": 9,
+      "userId": 4,
+      "text": "Yapay zeka ve makine öğrenimi dersleri çok ilgi çekiciydi.",
+      "date": "2025-10-15"
+    },
+    {
+      "id": "0",
+      "courseId": "1",
+      "userId": 7,
+      "text": "gkgckhcg",
+      "date": "2025-09-16"
+    },
+    {
+      "id": "0",
+      "courseId": "2",
+      "userId": 7,
+      "text": "Bazı konular çok hızlı geçilmiş. 😪",
+      "date": "2025-09-16"
+    },
+    {
+      "id": "0",
+      "courseId": "9",
+      "userId": 7,
+      "text": "Bu ders yapay zeka ve makine öğrenimi adına temel oluşturdu.",
+      "date": "2025-09-16"
+    },
+    {
+      "id": "0",
+      "courseId": "1",
+      "userId": 7,
+      "text": "Temel angular eğitimi için ders içeriği yeterliydi.",
+      "date": "2025-09-16"
+    },
+    {
+      "id": "0",
+      "courseId": "2",
+      "userId": 7,
+      "text": "harika bir dersti.\n",
+      "date": "2025-09-16"
+    },
+    {
+      "id": "0",
+      "courseId": "2",
+      "userId": 7,
+      "text": "❤",
+      "date": "2025-09-16"
+    },
+    {
+      "id": 0,
+      "courseId": "3",
+      "userId": 2,
+      "text": "😕😕😕\n",
+      "date": "2025-09-22"
+    }
+  ],
+  "courses": [
+    {
+      "id": "1",
+      "title": "Angular Başlangıç",
+      "description": "Angular ile modern web uygulamaları geliştirmeye giriş",
+      "instructor": "Ahmet Yılmaz",
+      "instructorId": 1,
+      "image": "https://www.infotechacademy.com.tr/content/education/angular_typescript_eigitimi_infotech_academy18.png",
+      "category": "Web Development",
+      "rating": 4.7,
+      "students": 1200,
+      "price": 149.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-5s.mp4"
+    },
+    {
+      "title": "React ile Modern Web",
+      "description": "React Hooks, Context API ve ileri seviye React konuları.",
+      "price": 129.99,
+      "image": "https://www.karmicksolutions.com/blog/wp-content/uploads/2020/05/React-Js-Or-React-Native-For-Modern-Web-Applications-Mobile-Apps-2.jpg",
+      "instructorId": 2,
+      "rating": 0,
+      "students": 0,
+      "category": "Uncategorized",
+      "videoUrl": "",
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "title": "Python ile Veri Bilimi",
+      "description": "NumPy, Pandas, Matplotlib ve Machine Learning temelleri",
+      "instructor": "Selim Arslan",
+      "instructorId": 7,
+      "image": "https://www.workshopers.com/uploads/images/video_python-ile-veri-bilimi-ve-makine-ogrenmesi-egitimi_65c74e99d0371.png",
+      "category": "Data Science",
+      "rating": 4.9,
+      "students": 2000,
+      "price": 179.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-15s.mp4"
+    },
+    {
+      "id": "4",
+      "title": "Java ile Backend Geliştirme",
+      "description": "Spring Boot, RESTful API'ler ve mikroservis mimarisi",
+      "instructor": "Engin Çelik",
+      "instructorId": 4,
+      "image": "https://media.geeksforgeeks.org/wp-content/uploads/20230920172106/Why-to-Choose-Java-For-Backend-Development.png",
+      "category": "Backend Development",
+      "rating": 4.6,
+      "students": 750,
+      "price": 139.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-20s.mp4"
+    },
+    {
+      "id": "5",
+      "title": "Mobil Uygulama Geliştirme",
+      "description": "Flutter ile çapraz platform mobil uygulamalar geliştirme",
+      "instructor": "Selim Arslan",
+      "instructorId": 7,
+      "image": "https://bulutistan.com/blog/wp-content/uploads/2023/11/mobil-uygulama-gelistirme-nedir-bulut-ile-capraz-platform-gelistirme-1.jpeg",
+      "category": "Mobile Development",
+      "rating": 4.5,
+      "students": 600,
+      "price": 119.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-30s.mp4"
+    },
+    {
+      "id": "6",
+      "title": "Veritabanı Yönetimi",
+      "description": "SQL, NoSQL ve veritabanı tasarımı temelleri",
+      "instructor": "Zeynep Yıldız",
+      "instructorId": 6,
+      "image": "https://aybilim.com/uploads/urun/4734-veritabani-nedir-ve-nasil-kullanilir.png",
+      "category": "Database",
+      "rating": 4.4,
+      "students": 500,
+      "price": 99.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-3s.mp4"
+    },
+    {
+      "id": "7",
+      "title": "Siber Güvenlik Temelleri",
+      "description": "Ağ güvenliği, şifreleme ve etik hacking konuları",
+      "instructor": "Selim Arslan",
+      "instructorId": 7,
+      "image": "https://www.btakademi.com/uploads/lessons/23-10-2023-16-12-09_sibergvenlikeitimleri_sibergvenliktemellerisanssec401eitimi.webp",
+      "category": "Cybersecurity",
+      "rating": 4.3,
+      "students": 450,
+      "price": 109.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-7s.mp4"
+    },
+    {
+      "id": "8",
+      "title": "Bulut Bilişim ile AWS",
+      "description": "AWS servisleri, bulut mimarisi ve dağıtık sistemler",
+      "instructor": "Selim Arslan",
+      "instructorId": 7,
+      "image": "https://assets-btkakademi-gov-tr.akamaized.net/api/gallery/51/b3e89a3e-fbe5-4bdf-b5ea-2bfe3f97df86/224-2_0x400.jpg?t=1664440664803",
+      "category": "Cloud Computing",
+      "rating": 4.6,
+      "students": 800,
+      "price": 159.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-12s.mp4"
+    },
+    {
+      "id": "9",
+      "title": "Yapay Zeka ve Makine Öğrenimi",
+      "description": "AI algoritmaları, derin öğrenme ve uygulamaları",
+      "instructor": "Ali Bilgin",
+      "instructorId": 9,
+      "image": "https://coderspace-storage-prod.s3.eu-central-1.amazonaws.com/media/blog/post/content_images/668e0aaf-82c8-42fb-8539-fd3139e9a781.webp",
+      "category": "Artificial Intelligence",
+      "rating": 4.7,
+      "students": 950,
+      "price": 169.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-8s.mp4"
+    },
+    {
+      "id": "10",
+      "title": "Agile Proje Yönetimi",
+      "description": "Scrum, Kanban ve Agile metodolojileri ile proje yönetimi",
+      "instructor": "Ali Bilgin",
+      "instructorId": 9,
+      "image": "https://www.btakademi.com/uploads/lessons/23-10-2023-14-21-41_projeynetimivesreynetimieitimleri_agileprojectmanagement.webp",
+      "category": "Project Management",
+      "rating": 4.5,
+      "students": 700,
+      "price": 129.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-6s.mp4"
+    },
+    {
+      "id": "11",
+      "title": "UI/UX Tasarım Temelleri",
+      "description": "Kullanıcı deneyimi ve arayüz tasarımı prensipleri",
+      "instructor": "Ayşe Demir",
+      "instructorId": 2,
+      "image": "https://iakademi.com/wp-content/uploads/2021/11/ui-ux.jpg",
+      "category": "Design",
+      "rating": 4.4,
+      "students": 650,
+      "price": 119.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-4s.mp4"
+    },
+    {
+      "id": "12",
+      "title": "DevOps ve CI/CD",
+      "description": "DevOps kültürü, araçları ve sürekli entegrasyon/delivery süreçleri",
+      "instructor": "Selim Arslan",
+      "instructorId": 7,
+      "image": "https://cdn.prod.website-files.com/659f535ed8f4066143717a44/65cc64ccf4d8c00e62037645_64d3cfa4ca7fe84ad2aa8f4b_blog-post1.jpeg",
+      "category": "DevOps",
+      "rating": 4.6,
+      "students": 720,
+      "price": 149.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-9s.mp4"
+    },
+    {
+      "id": "13",
+      "title": "Veri Yapıları ve Algoritmalar",
+      "description": "Temel veri yapıları, algoritma analizleri ve uygulamaları",
+      "instructor": "Ali Bilgin",
+      "instructorId": 9,
+      "image": "https://www.guru99.com/images/best-data-structure-courses.png",
+      "category": "Computer Science",
+      "rating": 4.8,
+      "students": 1100,
+      "price": 139.99,
+      "videoUrl": "https://samplelib.com/lib/preview/mp4/sample-11s.mp4"
+    }
+  ]
+}

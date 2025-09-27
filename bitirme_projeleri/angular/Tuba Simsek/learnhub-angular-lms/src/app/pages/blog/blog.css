@@ -1,0 +1,50 @@
+.blog-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.7;
+}
+
+.blog-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.blog-meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.blog-image img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.blog-content p {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  color: #444;
+}
+
+.blog-content strong {
+  color: #0d6efd;
+}
+
+.blog-content em {
+  color: #dc3545;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #0d6efd;
+  padding-left: 12px;
+  font-style: italic;
+  color: #555;
+  margin: 20px 0;
+}
