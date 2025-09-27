@@ -200,7 +200,7 @@ export class EnrollCourse implements OnInit {
 
   // Kurslar sayfasına geri dön
   goBack(): void {
-    this.router.navigate(['/courses']); // Kurslar sayfasına yönlendir
+    this.router.navigate(['/Courses']); // Kurslar sayfasına yönlendir
   }
 }
 
