@@ -1,0 +1,291 @@
+{
+  "users": [
+    {
+      "email": "ali@mail.com",
+      "password": "$2a$10$tD4WqRXBcpOLpD/Gk7eBVe8u7neeCrrhbke/JaIGDzkg3738EVO4y",
+      "name": "Ali",
+      "surname": "Bilmem",
+      "type": "Instructor",
+      "id": "6YM0IN6"
+    },
+    {
+      "email": "ayse@mail.com",
+      "password": "$2a$10$/LZVRjISSuS3kkEspXpiHep9RteN/BWlcxvIFf8u6azA9tEZNsCHm",
+      "name": "Ayse",
+      "surname": "Bilirim",
+      "type": "student",
+      "id": "HJU-5_W"
+    },
+    {
+      "email": "mehmet@mail.com",
+      "password": "$2a$10$5ihAG9sLcrPDj5DtPuGUKeor77FLCu0YAFSeAnCNuK.knbXy0Pb6a",
+      "name": "Mehmet",
+      "surname": "Kara",
+      "type": "student",
+      "id": "Mi65LcV"
+    },
+    {
+      "email": "denemee@mail.com",
+      "password": "$2a$10$CjscFACueyNGjCbiakg85OKvRN9SJOTGgmQcU7kKto13um8WMF9aO",
+      "name": "Deneme",
+      "surname": "Deneme",
+      "type": "student",
+      "id": "Qj33mcZ"
+    },
+    {
+      "email": "caglar@mail.com",
+      "password": "$2a$10$8aoCMsNJKZU5HdT0JLy9iOkuiCOSXroVcEn/qHBk9Wrm0LD7aoaxG",
+      "name": "Caglar",
+      "surname": "Kızılaslan",
+      "type": "instructor",
+      "id": "DroKBg_"
+    },
+    {
+      "email": "ahmet@mail.com",
+      "password": "$2a$10$QpXicOTv48bafJkMviTR4utcPxzU0SLd.uweV1Wn2ScgGrHPccwWm",
+      "name": "Ahmet",
+      "surname": "Kızılaslan",
+      "type": "student",
+      "id": "AgqTJts"
+    },
+    {
+      "email": "nurbanu@mail.com",
+      "password": "$2a$10$ZW0Cd.tgLX9S3cnmGNKXD.5VWPEV9NoMs0MmbQX2RJT6lCG7voW.y",
+      "name": "Nurbanu",
+      "surname": "Balık",
+      "type": "student",
+      "id": "WJvxV6h"
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "coursesTitle": "Angular Başlangıç",
+      "icon": "bi bi-box",
+      "description": "Temel Angular Konuları",
+      "Instructor": "Ali Bilmem",
+      "InstructorId": "6YM0IN6",
+      "stars": 4.5,
+      "comments": [
+        {
+          "userId": "HJU-5_W",
+          "comment": "Çok faydalı bir kurs!",
+          "date": "2024-06-01"
+        },
+        {
+          "userId": "Mi65LcV",
+          "comment": "Anlatım güzel, örnekler yeterli.",
+          "date": "2024-06-02"
+        },
+        {
+          "userId": "StD9BIi",
+          "comment": "Konu anlatımı çok iyi.",
+          "date": "2024-06-03"
+        },
+        {
+          "userId": "p6iDVCy",
+          "comment": "Daha fazla uygulama olabilirdi.",
+          "date": "2024-06-04"
+        },
+        {
+          "userId": "Qj33mcZ",
+          "comment": "Başlangıç için harika.",
+          "date": "2024-06-05"
+        },
+        {
+          "userId": "q2dtdAR",
+          "comment": "deneme 123",
+          "date": "2025-09-26"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "coursesTitle": "React Başlangıç",
+      "icon": "bi bi-lightning",
+      "description": "Temel React Konuları",
+      "Instructor": "Ayse Bilirim",
+      "InstructorId": "HJU-5_W",
+      "stars": 4,
+      "comments": [
+        {
+          "userId": "6YM0IN6",
+          "comment": "Başlangıç için ideal.",
+          "date": "2024-06-03"
+        },
+        {
+          "userId": "Mi65LcV",
+          "comment": "React anlatımı sade ve anlaşılır.",
+          "date": "2024-06-04"
+        },
+        {
+          "userId": "StD9BIi",
+          "comment": "Daha fazla örnek beklerdim.",
+          "date": "2024-06-05"
+        },
+        {
+          "userId": "9_EtziD",
+          "comment": "Güzel bir kurs.",
+          "date": "2024-06-06"
+        },
+        {
+          "userId": "Qj33mcZ",
+          "comment": "Temel konular iyi anlatılmış.",
+          "date": "2024-06-07"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "coursesTitle": "Node.js Giriş",
+      "icon": "bi bi-node-plus",
+      "description": "Node.js ile sunucu programlama",
+      "Instructor": "Mehmet Kara",
+      "InstructorId": "Mi65LcV",
+      "stars": 4.2,
+      "comments": [
+        {
+          "userId": "StD9BIi",
+          "comment": "Sunumlar çok açıklayıcı.",
+          "date": "2024-06-04"
+        },
+        {
+          "userId": "p6iDVCy",
+          "comment": "Node.js'e giriş için güzel bir kurs.",
+          "date": "2024-06-05"
+        },
+        {
+          "userId": "6YM0IN6",
+          "comment": "Daha fazla pratik uygulama olmalı.",
+          "date": "2024-06-06"
+        },
+        {
+          "userId": "Qj33mcZ",
+          "comment": "Konu anlatımı net.",
+          "date": "2024-06-07"
+        },
+        {
+          "userId": "9_EtziD",
+          "comment": "Sunucu tarafı iyi anlatılmış.",
+          "date": "2024-06-08"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "coursesTitle": "Python Temelleri",
+      "icon": "bi bi-file-earmark-code",
+      "description": "Python programlama dili temelleri",
+      "Instructor": "Mehmet Kara",
+      "InstructorId": "Mi65LcV",
+      "stars": 5,
+      "comments": [
+        {
+          "userId": "9_EtziD",
+          "comment": "Harika bir anlatım!",
+          "date": "2024-06-05"
+        },
+        {
+          "userId": "HJU-5_W",
+          "comment": "Python'a yeni başlayanlar için çok iyi.",
+          "date": "2024-06-06"
+        },
+        {
+          "userId": "Mi65LcV",
+          "comment": "Temel konular güzel işlenmiş.",
+          "date": "2024-06-07"
+        },
+        {
+          "userId": "Qj33mcZ",
+          "comment": "Daha fazla örnek olabilirdi.",
+          "date": "2024-06-08"
+        },
+        {
+          "userId": "6YM0IN6",
+          "comment": "Çok faydalı bir kurs.",
+          "date": "2024-06-09"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "coursesTitle": "JavaScript İleri",
+      "icon": "bi bi-code-slash",
+      "description": "JavaScript ileri seviye konular",
+      "Instructor": "Deneme",
+      "InstructorId": "9_EtziD",
+      "stars": 3.8,
+      "comments": [
+        {
+          "userId": "Qj33mcZ",
+          "comment": "Biraz daha fazla örnek olabilirdi.",
+          "date": "2024-06-06"
+        },
+        {
+          "userId": "StD9BIi",
+          "comment": "İleri seviye konular güzel anlatılmış.",
+          "date": "2024-06-07"
+        },
+        {
+          "userId": "Mi65LcV",
+          "comment": "Bazı konular hızlı geçilmiş.",
+          "date": "2024-06-08"
+        },
+        {
+          "userId": "6YM0IN6",
+          "comment": "Daha fazla uygulama isterdim.",
+          "date": "2024-06-09"
+        },
+        {
+          "userId": "p6iDVCy",
+          "comment": "Kurs genel olarak iyi.",
+          "date": "2024-06-10"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "coursesTitle": "Angular İleri",
+      "icon": "bi bi-hurricane",
+      "description": "Angular ileri seviye konular",
+      "Instructor": "Ali Bilmem",
+      "InstructorId": "6YM0IN6",
+      "stars": 4.7,
+      "comments": [
+        {
+          "userId": "p6iDVCy",
+          "comment": "Çok detaylı ve anlaşılır.",
+          "date": "2024-06-07"
+        },
+        {
+          "userId": "Qj33mcZ",
+          "comment": "İleri seviye için güzel bir kurs.",
+          "date": "2024-06-08"
+        },
+        {
+          "userId": "StD9BIi",
+          "comment": "Konu anlatımı başarılı.",
+          "date": "2024-06-09"
+        },
+        {
+          "userId": "Mi65LcV",
+          "comment": "Daha fazla örnek olabilirdi.",
+          "date": "2024-06-10"
+        },
+        {
+          "userId": "9_EtziD",
+          "comment": "Çok faydalı bilgiler içeriyor.",
+          "date": "2024-06-11"
+        }
+      ]
+    },
+    {
+      "coursesTitle": "deneme Kurs",
+      "icon": "",
+      "description": "Deneme kurs",
+      "Instructor": "Caglar Kızılaslan",
+      "InstructorId": "DroKBg_",
+      "id": 7
+    }
+  ]
+}

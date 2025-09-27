@@ -1,0 +1,149 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>Profil</h1>
+    <div *ngIf="currentUser" class="user-info">
+      <h2>{{currentUser.name}} {{currentUser.surname}}</h2>
+      <p class="user-role">{{currentUser.type === 'student' ? 'Student' : 'Instructor'}}</p>
+      <p class="user-email">{{currentUser.email}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>Yükleniyor...</p>
+  </div>
+
+  <!-- Öğrenci Görünümü -->
+  <div *ngIf="!isLoading && currentUser?.type === 'student'" class="student-section">
+    <h3>Kayıtlı Kurslarım</h3>
+    <div *ngIf="userCourses.length === 0" class="no-courses">
+      <p>Henüz hiçbir kursa kayıt olmadınız.</p>
+      <a routerLink="/courses" class="btn btn-primary">Kursları İncele</a>
+    </div>
+    
+    <div *ngIf="userCourses.length > 0" class="courses-grid">
+      <div *ngFor="let course of userCourses" class="course-card">
+        <div class="course-icon">
+          <i *ngIf="course.icon" [class]="course.icon"></i>
+          <span *ngIf="!course.icon">📚</span>
+        </div>
+        <h4>{{course.coursesTitle}}</h4>
+        <p>{{course.description}}</p>
+        <p class="instructor">Instructor: {{course.Instructor}}</p>
+        <div class="progress-section">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getCourseProgress(course)"></div>
+          </div>
+          <span class="progress-text">%{{getCourseProgress(course)}} tamamlandı</span>
+        </div>
+        
+        <!-- Comment Ekleme Bölümü -->
+        <div class="comment-section">
+          <div class="comment-form">
+            <textarea 
+              [(ngModel)]="commentTexts[course.id]" 
+              placeholder="Bu kurs hakkında yorumunuzu yazın..."
+              class="comment-input"
+              rows="3">
+            </textarea>
+            <button 
+              (click)="addComment(course.id, commentTexts[course.id])" 
+              class="btn btn-primary btn-sm"
+              [disabled]="!commentTexts[course.id] || commentTexts[course.id].trim() === ''">
+              <i class="bi bi-chat-dots"></i> Yorum Ekle
+            </button>
+          </div>
+        </div>
+
+        <div class="course-actions">
+          <button (click)="unenrollFromCourse(course.id)" class="btn btn-danger btn-sm">
+            <i class="bi bi-trash"></i> Kurstan Çık
+          </button>
+          <button (click)="viewCourseDetails(course.id)" class="btn btn-info btn-sm">
+            <i class="bi bi-eye"></i> Detayları Gör
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eğitmen Görünümü -->
+  <div *ngIf="!isLoading && currentUser?.type === 'instructor'" class="instructor-section">
+    <div class="section-header">
+      <h3>Kurslarım</h3>
+      <button (click)="toggleAddCourseForm()" class="btn btn-primary">
+        {{showAddCourseForm ? 'İptal' : 'Yeni Kurs Ekle'}}
+      </button>
+    </div>
+
+    <!-- Yeni Kurs Ekleme Formu -->
+    <div *ngIf="showAddCourseForm" class="add-course-form">
+      <h4>Yeni Kurs Ekle</h4>
+      <form (ngSubmit)="addCourse()">
+        <div class="form-group">
+          <label for="courseTitle">Kurs Başlığı:</label>
+          <input type="text" id="courseTitle" [(ngModel)]="newCourse.coursesTitle" name="courseTitle" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="courseIcon">İkon (emoji):</label>
+          <input type="text" id="courseIcon" [(ngModel)]="newCourse.icon" name="courseIcon" placeholder="📚">
+        </div>
+        
+        <div class="form-group">
+          <label for="courseDescription">Açıklama:</label>
+          <textarea id="courseDescription" [(ngModel)]="newCourse.description" name="courseDescription" required></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Kurs Ekle</button>
+          <button type="button" (click)="toggleAddCourseForm()" class="btn btn-secondary">İptal</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Kurs Listesi -->
+    <div *ngIf="userCourses.length === 0" class="no-courses">
+      <p>Henüz hiç kurs oluşturmadınız.</p>
+    </div>
+    
+    <div *ngIf="userCourses.length > 0" class="courses-grid">
+      <div *ngFor="let course of userCourses" class="course-card instructor-card">
+        <!-- Düzenleme Modu -->
+        <div *ngIf="editingCourse?.id === course.id" class="edit-form">
+          <div class="form-group">
+            <label>Kurs Başlığı:</label>
+            <input type="text" [(ngModel)]="editCourse.coursesTitle">
+          </div>
+          
+          <div class="form-group">
+            <label>İkon:</label>
+            <input type="text" [(ngModel)]="editCourse.icon">
+          </div>
+          
+          <div class="form-group">
+            <label>Açıklama:</label>
+            <textarea [(ngModel)]="editCourse.description"></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button (click)="updateCourse()" class="btn btn-success">Kaydet</button>
+            <button (click)="cancelEdit()" class="btn btn-secondary">İptal</button>
+          </div>
+        </div>
+
+        <!-- Normal Görünüm -->
+        <div *ngIf="editingCourse?.id !== course.id">
+          <div class="course-icon">{{course.icon || '📚'}}</div>
+          <h4>{{course.coursesTitle}}</h4>
+          <p>{{course.description}}</p>
+          <p class="course-id">ID: {{course.id}}</p>
+          
+          <div class="course-actions">
+            <button (click)="startEditCourse(course)" class="btn btn-edit">Düzenle</button>
+            <button (click)="deleteCourse(course.id)" class="btn btn-delete">Sil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
