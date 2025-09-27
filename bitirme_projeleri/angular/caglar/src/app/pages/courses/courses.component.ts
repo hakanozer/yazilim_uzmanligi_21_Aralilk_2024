@@ -35,10 +35,10 @@ export class CoursesComponent implements OnInit {
         this.allCoursesArr = response;
         this.coursesArr = response;
         this.cdr.detectChanges();
-        console.log('Courses loaded:', this.coursesArr);
+       
       },
       error:(error) => {
-        console.error('Error loading courses:', error);
+       
       }
     });
 
@@ -64,7 +64,6 @@ export class CoursesComponent implements OnInit {
     this.api.enrollCourse(courseId).subscribe({
       next: (response: any) => {
         this.selectedCourses.add(courseId);
-        console.log('Course selected successfully:', response);
         if (response.success) {
           alert('Kurs başarıyla seçildi!');
         } else {
@@ -72,7 +71,6 @@ export class CoursesComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        console.error('Error selecting course:', error);
         alert('Kurs seçilirken bir hata oluştu.');
       }
     });
@@ -92,10 +90,9 @@ export class CoursesComponent implements OnInit {
         next: (filteredCourses) => {
           this.coursesArr = filteredCourses;
           this.cdr.detectChanges();
-          console.log('Search results:', this.coursesArr);
         },
         error: (error) => {
-          console.error('Error searching courses:', error);
+
         }
       });
     }

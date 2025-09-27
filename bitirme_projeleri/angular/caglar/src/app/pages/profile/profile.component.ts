@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
         this.loadUserCourses();
       },
       error: (error) => {
-        console.error('Error loading user profile:', error);
         this.isLoading = false;
       }
     });
@@ -62,7 +61,6 @@ export class ProfileComponent implements OnInit {
           this.isLoading = false;
         },
         error: (error) => {
-          console.error('Error loading student courses:', error);
           this.isLoading = false;
         }
       });
@@ -74,7 +72,6 @@ export class ProfileComponent implements OnInit {
           this.isLoading = false;
         },
         error: (error) => {
-          console.error('Error loading instructor courses:', error);
           this.isLoading = false;
         }
       });
@@ -115,7 +112,6 @@ export class ProfileComponent implements OnInit {
         alert('Kurs başarıyla eklendi!');
       },
       error: (error) => {
-        console.error('Error adding course:', error);
         alert('Kurs eklenirken hata oluştu!');
       }
     });
@@ -143,7 +139,6 @@ export class ProfileComponent implements OnInit {
         alert('Kurs başarıyla güncellendi!');
       },
       error: (error) => {
-        console.error('Error updating course:', error);
         alert('Kurs güncellenirken hata oluştu!');
       }
     });
@@ -162,7 +157,6 @@ export class ProfileComponent implements OnInit {
           alert('Kurs başarıyla silindi!');
         },
         error: (error) => {
-          console.error('Error deleting course:', error);
           alert('Kurs silinirken hata oluştu!');
         }
       });
@@ -171,8 +165,6 @@ export class ProfileComponent implements OnInit {
 
   // Öğrenci için ilerleme hesaplama (basit örnek)
   getCourseProgress(course: Course): number {
-    // Kurs ID'sine göre sabit bir ilerleme döndürüyoruz
-    // Gerçek uygulamada bu bilgi veritabanından gelecek
     const progressMap: { [key: number]: number } = {
       1: 75,
       2: 60,
@@ -197,7 +189,6 @@ export class ProfileComponent implements OnInit {
           }
         },
         error: (error: any) => {
-          console.error('Error unenrolling from course:', error);
           alert('Kurstan çıkarken bir hata oluştu!');
         }
       });
@@ -222,7 +213,6 @@ export class ProfileComponent implements OnInit {
         }
       },
       error: (error: any) => {
-        console.error('Error adding comment:', error);
         alert('Yorum eklenirken bir hata oluştu!');
       }
     });

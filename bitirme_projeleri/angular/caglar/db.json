@@ -47,6 +47,14 @@
       "surname": "Kızılaslan",
       "type": "student",
       "id": "AgqTJts"
+    },
+    {
+      "email": "nurbanu@mail.com",
+      "password": "$2a$10$ZW0Cd.tgLX9S3cnmGNKXD.5VWPEV9NoMs0MmbQX2RJT6lCG7voW.y",
+      "name": "Nurbanu",
+      "surname": "Balık",
+      "type": "student",
+      "id": "WJvxV6h"
     }
   ],
   "courses": [

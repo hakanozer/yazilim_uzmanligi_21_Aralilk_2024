@@ -50,11 +50,11 @@ export class LoginComponent {
       next: (response) => {
         // json-server-auth başarılı login response'u
         if (response && response.accessToken) {
-          console.log('Giriş başarılı:', response);
+
           
           // json-server-auth'dan gelen JWT token'ı localStorage'a kaydet
           localStorage.setItem('accessToken', response.accessToken);
-          console.log('JWT Access token kaydedildi:', response.accessToken);
+
           
           
           // kurs sayfasına yönlendir
@@ -65,7 +65,6 @@ export class LoginComponent {
         }
       },
       error: (error) => {
-        console.error('Login error:', error);
         this.error = 'Connection error. Please try again.';
       }
     });

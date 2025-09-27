@@ -64,7 +64,7 @@ export class RegisterComponent {
       this.userNameRef?.nativeElement.focus()
       return
     }
-    console.log(nameStatus)
+
     
     const surnameStatus = surnameValid(this.userSurname)
     if(surnameStatus === '') {
@@ -72,7 +72,7 @@ export class RegisterComponent {
       this.userSurnameRef?.nativeElement.focus()
       return
     }
-    console.log(surnameStatus)
+
     const emailStatus = emailValid(this.email)
     const passwordStatus = passwordValid(this.password)
     if(emailStatus === null) {
