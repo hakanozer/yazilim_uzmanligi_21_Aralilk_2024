@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a [routerLink]="['/']" routerLinkActive="active" class="navbar-brand">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a [routerLink]="['/courses']" routerLinkActive="active" class="nav-link active" aria-current="page">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/profile']" routerLinkActive="active" class="nav-link">Profile</a>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="!isLoading">
+          <a class="nav-link" role="button"  aria-expanded="false">
+            <span *ngIf="userName && userSurname"> Sn. {{userName}} {{userSurname}}</span>
+            <span *ngIf="!userName || !userSurname">Kullanıcı</span>
+          </a>
+        </li>
+      </ul>
+      <form class="d-flex me-3" role="search" (ngSubmit)="onSearch($event)">
+        <input class="form-control me-2" type="search" placeholder="Kurs ara..." aria-label="Search" 
+               [(ngModel)]="searchQuery" name="searchQuery" (input)="onSearchInputChange()"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      
+      <div class="navbar-nav">
+        <div class="nav-item" *ngIf="!isLoading">
+          <a (click)="logout()" class="nav-link logout-btn">Log Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

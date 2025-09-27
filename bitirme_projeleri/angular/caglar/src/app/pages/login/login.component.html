@@ -1,0 +1,72 @@
+<div class="login-container">
+  <div class="login-form-wrapper">
+    <h2 class="login-title">Giriş Yap</h2>
+    
+    @if (error !== '') {
+      <div class="alert alert-danger animate-fade-in-up" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>Hata:</strong> {{error}}
+      </div>
+    }
+    
+    <form (submit)="userLogin()" class="login-form">
+      <div class="form-group">
+        <label for="loginEmail" class="form-label">
+          <i class="fas fa-envelope me-2"></i>E-posta Adresi
+        </label>
+        <input 
+          #emailRef  
+          [(ngModel)]="email" 
+          name="email" 
+          type="email" 
+          class="form-control" 
+          id="loginEmail" 
+          placeholder="ornek@email.com"
+          required
+          autocomplete="email">
+      </div>
+      
+      <div class="form-group">
+        <label for="loginPassword" class="form-label">
+          <i class="fas fa-lock me-2"></i>Şifre
+        </label>
+        <input 
+          #passwordRef 
+          [(ngModel)]="password" 
+          name="password" 
+          type="password" 
+          class="form-control" 
+          id="loginPassword"
+          placeholder="Şifrenizi girin"
+          required
+          autocomplete="current-password">
+      </div>
+      
+      <div class="form-check">
+        <input 
+          [(ngModel)]="check" 
+          name="check" 
+          type="checkbox" 
+          class="form-check-input" 
+          id="rememberMe">
+        <label class="form-check-label" for="rememberMe">
+          Beni hatırla
+        </label>
+      </div>
+      
+      <button type="submit" class="btn-login">
+        <i class="fas fa-sign-in-alt me-2"></i>
+        Giriş Yap
+      </button>
+      
+      <div class="register-link">
+        <p>Henüz hesabınız yok mu?</p>
+        <a [routerLink]="['/register']" routerLinkActive="active">
+          <i class="fas fa-user-plus me-2"></i>
+          Kayıt Ol
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
