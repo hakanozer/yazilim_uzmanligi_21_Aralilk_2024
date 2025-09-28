@@ -1,0 +1,88 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2865
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Yorumlar yol haritas\uc0\u305 :\
+\
+1. **Yorum Yazma \uc0\u304 \u351 levi**:\
+\
+- Kullan\uc0\u305 c\u305  (User) modeli i\'e7in yorum yazma \'f6zelli\u287 i geli\u351 tirilecek\
+\
+- Yorum modelinde \uc0\u351 u alanlar tan\u305 mlanacak:\
+\
+* i\'e7erik (zorunlu alan)\
+\
+* olu\uc0\u351 turulma tarihi (otomatik)\
+\
+* g\'fcncelleme tarihi (otomatik)\
+\
+* Son g\'fcncelleyenin ad\uc0\u305  (otomatik)\
+\
+* kullan\uc0\u305 c\u305  bilgileri yorumu ilk olu\u351 turan (referans)\
+\
+* onay durumu (boolean, varsay\uc0\u305 lan false)\
+\
+* aktiflik durumu (boolean, varsay\uc0\u305 lan true)\
+\
+2. **Yorum D\'fczenleme \uc0\u304 \u351 levi**:\
+\
+- Yetki da\uc0\u287 \u305 l\u305 m\u305 :\
+\
+* Customer rol\'fc: T\'fcm yorumlar\uc0\u305  sadece d\'fczenleyebilir.\
+\
+* Admin rol\'fc: Sadece onay i\uc0\u351 lemi yapabilir (isActive de\u287 erini de\u287 i\u351 tirebilir)\
+\
+* User rol\'fc: Sadece kendi yorumlar\uc0\u305 n\u305  d\'fczenleyebilir,\
+\
+yeni yorum yazabilir.\
+\
+- D\'fczenleme i\uc0\u351 lemi i\'e7in gerekli backend fonksiyonlar\u305 :\
+\
+* Yorum g\'fcncelleme endpoint'i\
+\
+* Yetki kontrol middleware'i\
+\
+* Veri do\uc0\u287 rulama mekanizmas\u305 \
+\
+3. **Yorum Onaylama Sistemi**:\
+\
+- Admin rol\'fc i\'e7in \'f6zel endpoint'ler:\
+\
+* Onaylama/reddetme endpoint'i\
+\
+* Onay bekleyen yorumlar\uc0\u305  listeleme endpoint'i\
+\
+- Onay mekanizmas\uc0\u305 :\
+\
+* Admin onay\uc0\u305  sonras\u305  isActive=true olarak g\'fcncellenecek\
+\
+* Onaylanmam\uc0\u305 \u351  yorumlar listelenmeyecek\
+\
+4. **Yorum Listeleme ve Sayfalama**:\
+\
+- Backend odakl\uc0\u305  \'e7\'f6z\'fcmler:\
+\
+* T\'fcm yorumlar\uc0\u305  listeleme endpoint'i (Admin i\'e7in)\
+\
+* Kullan\uc0\u305 c\u305 ya \'f6zel yorum listeleme endpoint'i\
+\
+* Sayfalama deste\uc0\u287 i (limit/offset parametreleri)\
+\
+* MongoDB text search kullanarak arama \'f6zelli\uc0\u287 i\
+\
+* Filtreleme \'f6zellikleri (onay durumu, aktiflik, tarih aral\uc0\u305 \u287 \u305 )\
+\
+Veritaban\uc0\u305  ve API Planlamas\u305 :\
+\
+- MongoDB \uc0\u351 ema tasar\u305 m\u305  (Yorum ve Kullan\u305 c\u305  modelleri aras\u305 nda ili\u351 ki)\
+\
+- RESTful API endpoint'lerinin tasar\uc0\u305 m\u305 \
+\
+- G\'fcvenlik \'f6nlemleri (JWT authentication, role-based access control)\
+\
+- Hata y\'f6netimi ve validasyon kurallar\uc0\u305 \
+\
+- Test senaryolar\uc0\u305  (unit ve integration testler)}
