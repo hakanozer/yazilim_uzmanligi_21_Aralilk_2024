@@ -5,6 +5,7 @@ const options = {
     dbName: 'restapi'
 }
 
+
 export const connectDB = async () => {
     try {
         await mongoose.connect(url, options)
