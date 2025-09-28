@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section -->
+<div class="container py-5">
+  <div class="row align-items-center g-5">
+    <!-- Yazı -->
+    <div class="col-lg-6">
+      <h1 class="display-4 fw-bold mb-5 mb-lg-3">
+        Binlerce kursa erişim: <span class="text-primary">uLearn</span>
+      </h1>
+      <p class="lead text-muted mb-5 mb-lg-4">
+        En güncel kurslarla öğrenmeye başla. Yazılım, tasarım, pazarlama ve daha
+        fazlası.
+      </p>
+      <div class="d-flex gap-3 flex-wrap">
+        <a routerLink="/courses" class="btn btn-primary btn-lg"
+          >Kurslara Göz At</a
+        >
+        <a routerLink="/register" class="btn btn-outline-secondary btn-lg"
+          >Daha Fazla</a
+        >
+      </div>
+    </div>
+
+    <!-- Resim (sadece large ekranlarda gösterilecek) -->
+    <div class="col-lg-6 d-none d-lg-block text-center">
+      <img
+        src="photos/pexels-sam-lion-6001403.webp"
+        alt="Learning"
+        class="img-fluid rounded shadow"
+        style="max-height: 700px; object-fit: cover"
+      />
+    </div>
+  </div>
+</div>

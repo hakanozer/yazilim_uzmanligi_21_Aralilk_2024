@@ -1,0 +1,82 @@
+<app-navbar></app-navbar>
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">My Courses</h2>
+    <a routerLink="/courses/create" class="btn btn-primary">
+      ➕ Create New Course
+    </a>
+  </div>
+
+  @if (isLoading()) {
+    <p>⏳ Kurslar yükleniyor...</p>
+  } @else if (error()) {
+    <p class="text-danger">{{ error() }}</p>
+  } @else if (!courses().length) {
+    <p class="text-bold">Henüz kurs eklemediniz.</p>
+  } @else {
+    <table class="table table-hover shadow-sm">
+      <thead>
+        <tr>
+          <th>Course Title</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+  @for (c of courses(); track c.id) {
+    <tr>
+      <td>
+        <div class="d-flex align-items-center">
+          <!-- Küçük görsel -->
+          <img
+            [src]="c.imageUrl"
+            alt="course image"
+            class="me-3 rounded"
+            style="width: 50px; height: 50px; object-fit: cover;"
+          />
+
+          <!-- Başlık ve alt açıklama -->
+          <div>
+            <div class="fw-semibold text-dark">{{ c.title }}</div>
+            <small class="text-muted">{{ c.category }}</small>
+          </div>
+        </div>
+      </td>
+      <td class="text-end">
+        <a
+          [routerLink]="['/courses/edit', c.id]"
+          class="btn btn-sm btn-outline-primary me-2"
+        >
+          <i class="bi bi-pencil-square"></i> Edit
+        </a>
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="deleteCourse(c.id)"
+        >
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </td>
+    </tr>
+  }
+</tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <button
+        class="btn btn-outline-secondary btn-sm"
+        (click)="prevPage()"
+        [disabled]="page() === 1"
+      >
+        ◀️ Önceki
+      </button>
+      <span> Sayfa {{ page() }} / {{ totalPages() }} </span>
+      <button
+        class="btn btn-outline-secondary btn-sm"
+        (click)="nextPage()"
+        [disabled]="page() === totalPages()"
+      >
+        Sonraki ▶️
+      </button>
+    </div>
+  }
+</div>
