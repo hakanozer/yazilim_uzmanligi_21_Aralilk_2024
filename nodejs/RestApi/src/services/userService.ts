@@ -1,6 +1,8 @@
 import { IResult, jsonResult } from "../models/result";
 import UserDB, { IUser } from "../models/userModel";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { SECRET_KEY } from "../configs/auth";
 
 export const register = async (user: IUser) => {
     // find user - email control
@@ -24,7 +26,8 @@ export const login = async ( user: IUser) => {
     if (findUser) {
         const checkPassword = await bcrypt.compare(user.password, findUser.password)
         if (checkPassword) {
-            findUser.jwt = 'fake-jwt-token'
+            const token = jwt.sign({ id: findUser._id, email: findUser.email, role: findUser.role }, SECRET_KEY, { expiresIn: '1h' })
+            findUser.jwt = token
             return jsonResult(200, true, 'Login successful', findUser)
         } else {
             return jsonResult(404, false, 'E-mail or Password is incorrect', user)

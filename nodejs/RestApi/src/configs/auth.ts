@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { jsonResult } from "../models/result";
 
 
-export const SECRET_KEY = process.env.SECRET_KEY || 'your_secret_key';
+export const SECRET_KEY = process.env.SECRET_KEY || 'your_secret'
 
 export interface AuthRequest extends Request {
   user?: string | JwtPayload;

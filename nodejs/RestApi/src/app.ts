@@ -19,10 +19,13 @@ app.use(bodyParser.json())
 
 // import Rest Controllers
 import userRestController from './restcontrollers/userRestController';
+import categoryRestController from './restcontrollers/categoryRestController';
+
 
 
 // Routers Config
 app.use('/api/v1/users', userRestController)
+app.use('/api/v1/categories', categoryRestController)
 
 
 app.listen(PORT, () => {
