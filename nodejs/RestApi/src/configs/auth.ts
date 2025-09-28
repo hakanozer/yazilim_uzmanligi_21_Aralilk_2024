@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { jsonResult } from "../models/result";
+import { eRoles } from "../utils/eRoles";
 
 
 export const SECRET_KEY = process.env.SECRET_KEY || 'your_secret'
@@ -11,23 +12,27 @@ export interface AuthRequest extends Request {
 
 export function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers["authorization"];
-  if (!authHeader) return jsonResult(403, false, "Token empty!", null);
+  const result = jsonResult(403, false, "Token empty!", null);
+  if (!authHeader) return res.status(403).json(result)
 
   const token = authHeader.split(" ")[1];
-  if (!token) return jsonResult(403, false, "Token missing!", null);
+  const result2 = jsonResult(403, false, "Token missing!", null);
+  if (!token) return res.status(403).json(result2);
 
   jwt.verify(token, SECRET_KEY, (err, user) => {
-    if (err) return jsonResult(403, false, "Invalid token", null);
+    const result3 = jsonResult(403, false, "Token invalid!", null);
+    if (err) return res.status(403).json(result3);
     req.user = user;
     next();
   });
 }
 
-export function checkRole(role: string) {
+export function checkRole(role: eRoles) {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     const user = req.user as JwtPayload;
-    if (user.role !== role) {
-      return jsonResult(403, false, "You do not have permission for this action", null);
+    if (!user.roles.includes(role.toString())) {
+      const result = jsonResult(403, false, "You do not have permission for this action", null);
+      return res.status(403).json(result);
     }
     next();
   };

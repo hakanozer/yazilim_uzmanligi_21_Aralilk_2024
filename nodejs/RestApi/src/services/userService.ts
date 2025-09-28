@@ -26,7 +26,7 @@ export const login = async ( user: IUser) => {
     if (findUser) {
         const checkPassword = await bcrypt.compare(user.password, findUser.password)
         if (checkPassword) {
-            const token = jwt.sign({ id: findUser._id, email: findUser.email, role: findUser.role }, SECRET_KEY, { expiresIn: '1h' })
+            const token = jwt.sign({ id: findUser._id, email: findUser.email, roles: findUser.roles }, SECRET_KEY, { expiresIn: '1h' })
             findUser.jwt = token
             return jsonResult(200, true, 'Login successful', findUser)
         } else {
