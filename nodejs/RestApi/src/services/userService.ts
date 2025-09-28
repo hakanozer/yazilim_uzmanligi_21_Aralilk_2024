@@ -24,6 +24,7 @@ export const login = async ( user: IUser) => {
     if (findUser) {
         const checkPassword = await bcrypt.compare(user.password, findUser.password)
         if (checkPassword) {
+            findUser.jwt = 'fake-jwt-token'
             return jsonResult(200, true, 'Login successful', findUser)
         } else {
             return jsonResult(404, false, 'E-mail or Password is incorrect', user)

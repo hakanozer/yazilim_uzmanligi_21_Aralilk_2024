@@ -1,23 +1,23 @@
-/*
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { jsonResult } from "../models/result";
 
-export const SECRET_KEY = "mysecretkey"; // normalde .env’de saklanır
 
-// Request tipini genişletiyoruz
+export const SECRET_KEY = process.env.SECRET_KEY || 'your_secret_key';
+
 export interface AuthRequest extends Request {
   user?: string | JwtPayload;
 }
 
 export function verifyToken(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers["authorization"];
-  if (!authHeader) return res.status(403).json({ message: "Token gerekli" });
+  if (!authHeader) return jsonResult(403, false, "Token empty!", null);
 
   const token = authHeader.split(" ")[1];
-  if (!token) return res.status(403).json({ message: "Token eksik" });
+  if (!token) return jsonResult(403, false, "Token missing!", null);
 
   jwt.verify(token, SECRET_KEY, (err, user) => {
-    if (err) return res.status(403).json({ message: "Geçersiz token" });
+    if (err) return jsonResult(403, false, "Invalid token", null);
     req.user = user;
     next();
   });
@@ -27,9 +27,8 @@ export function checkRole(role: string) {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     const user = req.user as JwtPayload;
     if (user.role !== role) {
-      return res.status(403).json({ message: "Bu işlem için yetkiniz yok" });
+      return jsonResult(403, false, "You do not have permission for this action", null);
     }
     next();
   };
 }
-*/
