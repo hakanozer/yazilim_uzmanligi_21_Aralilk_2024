@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/home/home.css"],
+  "sourcesContent": [".home-bg {\r\n  min-height: 100vh;\r\n  background-image: url('/assets/arkaplan.png');\r\n  background-size: cover;\r\n  background-position: center;\r\n  background-repeat: no-repeat;\r\n}"],
+  "mappings": ";AAAA,CAAC;AACC,cAAY;AACZ,oBAAkB;AAClB,mBAAiB;AACjB,uBAAqB;AACrB,qBAAmB;AACrB;",
+  "names": []
+}

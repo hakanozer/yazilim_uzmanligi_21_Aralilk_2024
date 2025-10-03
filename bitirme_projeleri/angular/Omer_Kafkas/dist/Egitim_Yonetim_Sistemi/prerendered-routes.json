@@ -1,0 +1,17 @@
+{
+  "routes": {
+    "/": {},
+    "/about-us": {},
+    "/courses": {},
+    "/courses/1": {},
+    "/courses/2": {},
+    "/courses/3": {},
+    "/courses/4": {},
+    "/courses/5": {},
+    "/edit-courses": {},
+    "/login": {},
+    "/profile": {},
+    "/register": {},
+    "/search": {}
+  }
+}

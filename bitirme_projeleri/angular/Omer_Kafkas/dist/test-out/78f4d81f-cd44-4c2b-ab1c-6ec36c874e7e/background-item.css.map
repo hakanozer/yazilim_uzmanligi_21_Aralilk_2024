@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/background-item/background-item.css"],
+  "sourcesContent": [".background-bg {\r\n  background-image: url('/assets/arkaplan.png');\r\n  background-repeat: no-repeat;\r\n  background-size: cover;\r\n  background-attachment: fixed;\r\n  background-position: center center;\r\n  opacity: 0.4;\r\n  z-index: -1;\r\n  position: fixed;\r\n  inset: 0;\r\n  width: 100vw;\r\n  height: 100vh;\r\n}"],
+  "mappings": ";AAAA,CAAC;AACC,oBAAkB;AAClB,qBAAmB;AACnB,mBAAiB;AACjB,yBAAuB;AACvB,uBAAqB,OAAO;AAC5B,WAAS;AACT,WAAS;AACT,YAAU;AACV,SAAO;AACP,SAAO;AACP,UAAQ;AACV;",
+  "names": []
+}

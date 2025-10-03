@@ -1,0 +1,41 @@
+<app-background-item></app-background-item>
+<div class="row mt-5 p-5">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <div class="card p-2">
+    <div class="text-center">
+      <img [src]="profilePhoto" width="120" height="120" alt="Profil Fotoğrafı" class="rounded-circle mx-auto d-block" />
+      <h3 class="mt-2">{{ user?.name }} {{ user?.surname }}</h3>
+      <p>{{ user?.email }}</p>
+      <p *ngIf="user?.role">Rol: {{ user?.role }}</p>
+    </div>
+
+    <hr />
+
+    <div *ngIf="user?.role === 'student'">
+      <h5>Alınan Kurslar</h5>
+      <div *ngFor="let cat of categories">
+        <div *ngIf="groupedCourses[cat.id]?.length">
+          <h6>{{ cat.name }}</h6>
+          <ul>
+            <li *ngFor="let c of groupedCourses[cat.id]">{{ c.title }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="user?.role === 'instructor'">
+      <h5>Verilen Kurslar</h5>
+      <div *ngFor="let cat of categories">
+        <div *ngIf="groupedCourses[cat.id]?.length">
+          <h6>{{ cat.name }}</h6>
+          <ul>
+            <li *ngFor="let c of groupedCourses[cat.id]">{{ c.title }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="col-3"></div>
+</div>

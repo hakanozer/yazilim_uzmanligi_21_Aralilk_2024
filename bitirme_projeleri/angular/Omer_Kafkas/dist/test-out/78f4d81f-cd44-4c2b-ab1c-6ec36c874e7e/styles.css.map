@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/styles.css"],
+  "sourcesContent": ["html, body {\r\n  margin: 0;\r\n  padding: 0;\r\n  overflow-x: hidden;\r\n  width: 100%;\r\n}\r\n\r\n/* Global sayfa i\u00E7erik \u00FCst bo\u015Flu\u011Fu (navbar \u00E7ak\u0131\u015Fmas\u0131n\u0131 \u00F6nlemek i\u00E7in) */\r\n.page-offset-top {\r\n  padding-top: 6rem;\r\n}"],
+  "mappings": ";AAAA;AAAM;AACJ,UAAQ;AACR,WAAS;AACT,cAAY;AACZ,SAAO;AACT;AAGA,CAAC;AACC,eAAa;AACf;",
+  "names": []
+}
