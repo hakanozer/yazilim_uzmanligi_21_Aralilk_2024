@@ -1,6 +1,0 @@
-.course-detail-wrapper {
-	min-height: calc(100vh - 70px);
-	padding-top: 6rem !important; /* navbar altında boşluk */
-}
-.list-group-item { font-size: 14px; }
-textarea { resize: vertical; }
