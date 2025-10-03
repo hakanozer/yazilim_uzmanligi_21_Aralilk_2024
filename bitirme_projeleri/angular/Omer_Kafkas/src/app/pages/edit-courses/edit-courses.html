@@ -1,0 +1,107 @@
+<div class="container py-5 mt-5">
+	<h3 class="mb-4">Kurs Yönetimi</h3>
+	@if(loading()){
+		<div class="d-flex gap-2 align-items-center text-muted"><div class="spinner-border spinner-border-sm"></div><span>Yükleniyor...</span></div>
+	} @else {
+		<div class="row g-4">
+			<div class="col-md-4">
+				<div class="d-flex justify-content-between align-items-center mb-2">
+					<h5 class="m-0">Kurslarım</h5>
+					<button class="btn btn-sm btn-primary" (click)="newCourse()">Yeni</button>
+				</div>
+				<div class="list-group small" style="max-height:420px;overflow:auto">
+					@for(c of filteredCourses(); track c.id){
+						<button type="button" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [class.active]="selectedCourseId()===c.id" (click)="edit(c)">
+							<span class="text-start">
+								<strong class="d-block">{{ c.title }}</strong>
+								<small class="text-muted">₺{{ c.price }} • {{ c.durationHours }} saat</small>
+							</span>
+							<span class="badge bg-secondary">{{ c.level }}</span>
+						</button>
+					}
+					@if(!filteredCourses().length){
+						<div class="list-group-item text-muted">Kurs yok</div>
+					}
+				</div>
+			</div>
+			<div class="col-md-5">
+				<h5 class="mb-3">Kurs Formu</h5>
+				<form [formGroup]="form" (ngSubmit)="save()" class="vstack gap-2">
+					<input type="text" class="form-control" placeholder="Başlık" formControlName="title" />
+					<textarea rows="3" class="form-control" placeholder="Açıklama" formControlName="description"></textarea>
+					<select class="form-select" formControlName="categoryId">
+						<option value="" disabled>Kategori seç</option>
+						@for(cat of categories(); track cat.id){
+							<option [value]="cat.id">{{ cat.name }}</option>
+						}
+					</select>
+					<div>
+						<div class="small fw-semibold text-muted mb-1">Fiyat ve Süre</div>
+						<div class="d-flex gap-2 align-items-start">
+							<div class="flex-fill">
+								<label class="form-label small mb-1" for="priceInput">Fiyat (₺)</label>
+								<input id="priceInput" type="number" class="form-control" placeholder="Örn: 199.99" formControlName="price" min="0.01" max="10000" step="0.01" (blur)="formatPrice()" />
+								@let priceCtrl = form.get('price');
+								@if(priceCtrl?.touched && priceCtrl?.invalid){
+									<div class="text-danger small mt-1">
+										@if(priceCtrl?.errors?.['required']) { Zorunlu }
+										@if(priceCtrl?.errors?.['min']) { Minimum 0.01 }
+										@if(priceCtrl?.errors?.['max']) { Maksimum 10000 }
+									</div>
+								}
+							</div>
+							<div class="flex-fill">
+								<label class="form-label small mb-1" for="durationInput">Süre (saat)</label>
+								<input id="durationInput" type="number" class="form-control" placeholder="Örn: 24" formControlName="durationHours" min="1" max="500" step="1" />
+								@let durCtrl = form.get('durationHours');
+								@if(durCtrl?.touched && durCtrl?.invalid){
+									<div class="text-danger small mt-1">
+										@if(durCtrl?.errors?.['required']) { Zorunlu }
+										@if(durCtrl?.errors?.['min']) { Minimum 1 }
+										@if(durCtrl?.errors?.['max']) { Maksimum 500 }
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+					<div class="d-flex gap-2">
+						<select class="form-select" formControlName="level">
+							<option>Başlangıç</option>
+							<option>Orta</option>
+							<option>İleri</option>
+						</select>
+						<div class="flex-fill">
+							<input type="text" class="form-control" placeholder="Resim (opsiyonel)" formControlName="image" />
+							@let imgCtrl = form.get('image');
+							@if(imgCtrl?.value){
+									@if(imgCtrl?.value){
+										<div class="ratio ratio-16x9 border rounded mt-1 overflow-hidden bg-light">
+											<img [src]="imgCtrl?.value || ''" width="320" height="180" alt="Kurs görseli" />
+										</div>
+									}
+							}
+						</div>
+					</div>
+					<div class="d-flex gap-2 mt-2">
+						<button type="submit" class="btn btn-success" [disabled]="saving()">Kaydet</button>
+						@if(form.value.id){
+							<button type="button" class="btn btn-outline-danger" (click)="remove(form.value)">Sil</button>
+						}
+					</div>
+				</form>
+			</div>
+			<div class="col-md-3">
+				<h5 class="mb-3">Ders Ekle</h5>
+				@if(!selectedCourse()){
+					<div class="alert alert-info p-2 small">Önce bir kurs seç / kaydet.</div>
+				} @else {
+					<form [formGroup]="lessonForm" (ngSubmit)="addLesson()" class="vstack gap-2">
+						<input type="text" class="form-control" placeholder="Ders Başlığı" formControlName="title" />
+						<input type="number" class="form-control" placeholder="Süre (dk)" formControlName="durationMin" />
+						<button type="submit" class="btn btn-primary btn-sm" [disabled]="addingLesson()">Ekle</button>
+					</form>
+				}
+			</div>
+		</div>
+	}
+</div>

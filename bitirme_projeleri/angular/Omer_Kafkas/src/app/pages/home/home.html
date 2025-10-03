@@ -1,0 +1,52 @@
+<div class="home-bg">
+  <div class="d-flex justify-content-center align-items-center">
+    <img style="margin: 70px" src="/assets/logo.png" width="300" height="300" alt="Logo" />
+  </div>
+  <div class="d-flex justify-content-center gap-5">
+    <div class="card" style="width: 18rem">
+      <img src="assets/backend_egitimi.png" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">Backend Eğitimleri</h5>
+
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <img src="assets/veritabanı_egitimi.png" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">Veri Tabanı Eğitimleri</h5>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <img src="assets/frontend_egitimi.png" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">Frontend Eğitimleri</h5>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <img src="assets/sistem_egitimi.png" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">Sistem Eğitimleri</h5>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem">
+      <img src="assets/siber_guvenlik_egitimi.png" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">Siber Güvenlik Eğitimleri</h5>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 d-flex justify-content-center">
+      <a class="btn btn-primary" routerLink="/courses">Eğitimleri İncele</a>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-2 gap-5">
+    <ng-container *ngIf="!auth.currentUser()">
+      <a class="btn btn-primary" routerLink="/login">Giriş Yap</a>
+      <a class="btn btn-primary" routerLink="/register">Kayıt Ol</a>
+    </ng-container>
+  </div>
+</div>
