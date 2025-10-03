@@ -1,0 +1,19 @@
+<app-background-item></app-background-item>
+<div class="container mt-5 pt-4">
+  <div class="row mb-3">
+    <div class="col-md-4">
+  <select class="form-select" (change)="selectedCategory.set($any($event.target).value)">
+        <option value="">Tüm Kategoriler</option>
+        @for(cat of categories; track cat.id){
+          <option [value]="cat.id">{{ cat.name }}</option>
+        }
+      </select>
+    </div>
+  </div>
+</div>
+<app-courses-item
+  [courses]="filtered()"
+  [enrolling]="enrolling"
+  [enrolled]="enrolled"
+  [enroll]="enroll"
+></app-courses-item>

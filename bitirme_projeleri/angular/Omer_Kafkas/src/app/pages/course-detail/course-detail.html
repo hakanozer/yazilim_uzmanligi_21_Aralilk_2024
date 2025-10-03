@@ -1,0 +1,47 @@
+<div class="course-detail-wrapper d-flex justify-content-center align-items-start pt-5 pb-5" *ngIf="course(); else notfound">
+  <div class="container" style="max-width:1000px;">
+    <div class="row g-4">
+      <div class="col-lg-8">
+      <h2>{{ course().title }}</h2>
+      <p class="text-muted mb-1">Eğitmen: {{ course().instructorName }}</p>
+      <p>{{ course().description }}</p>
+      <div class="small text-secondary mb-3">Seviye: {{ course().level }} • Süre: {{ course().durationHours }} saat</div>
+
+      <h4 class="mt-4">Dersler</h4>
+      <ul class="list-group mb-4">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let l of lessons()">
+          <span>{{ l.title }}</span>
+          <span class="badge bg-light text-dark">{{ l.durationMin }} dk</span>
+        </li>
+      </ul>
+
+      <h4>Yorumlar</h4>
+      <div class="mb-3" *ngIf="canComment()">
+  <textarea class="form-control mb-2" rows="2" placeholder="Yorum yaz..." [value]="newComment()" (input)="newComment.set(($any($event.target)).value)"></textarea>
+        <button class="btn btn-sm btn-primary" (click)="addComment()" [disabled]="posting() || !newComment().trim()">Gönder</button>
+      </div>
+      <div *ngIf="!comments().length" class="text-muted small">Henüz yorum yok.</div>
+      <div class="list-group">
+        <div class="list-group-item" *ngFor="let c of comments()">
+          <div class="d-flex justify-content-between align-items-center">
+            <strong>{{ c.authorName || c.userId }}</strong>
+            <span class="text-muted small">{{ c.createdAt | date:'short' }}</span>
+          </div>
+            <div>{{ c.text }}</div>
+        </div>
+      </div>
+      </div>
+      <div class="col-lg-4">
+      <div class="card p-3">
+        <img [src]="course().image || 'assets/logo.png'" class="img-fluid mb-3" alt="{{ course().title }}" style="object-fit:cover;max-height:200px;" />
+        <div class="h5 mb-3">{{ course().price | currency:'TRY' }}</div>
+        <div class="small text-secondary mb-2">Kategori: {{ course().categoryId }}</div>
+        <a routerLink="/courses" class="btn btn-outline-secondary btn-sm">Tüm Kurslar</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #notfound>
+  <div class="container py-5 text-center text-muted">Kurs bulunamadı.</div>
+</ng-template>

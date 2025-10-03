@@ -1,0 +1,73 @@
+<app-background-item></app-background-item>
+
+<div class="register-wrapper">
+  <form class="register-card" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Kayıt Ol</h2>
+
+    <div class="field">
+      <label for="name">Ad</label>
+      <input id="name" type="text" formControlName="name" />
+    </div>
+    <div class="field">
+      <label for="surname">Soyad</label>
+      <input id="surname" type="text" formControlName="surname" />
+    </div>
+    <div class="field">
+      <label for="email">E-Posta</label>
+      <input id="email" type="email" formControlName="email" />
+    </div>
+    <div class="field">
+      <label for="password">Parola</label>
+      <input id="password" type="password" formControlName="password" />
+    </div>
+    <div class="field">
+      <label for="passwordAgain">Tekrar Parola</label>
+      <input id="passwordAgain" type="password" formControlName="passwordAgain" />
+    </div>
+
+    <div>
+      <div class="profile-photo-list" style="display: flex; gap: 12px">
+          <ng-container *ngFor="let photo of photoList">
+          <img
+            [src]="photo"
+            (click)="selectPhoto(photo)"
+            [class.selected]="photo === selectedPhoto"
+            style="
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              object-fit: cover;
+              cursor: pointer;
+              border: 2px solid transparent;
+            "
+            [style.border-color]="photo === selectedPhoto ? '#007bff' : 'transparent'"
+            alt="Profil Fotoğrafı"
+          />
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Kullanıcı Rolü</label>
+      <div class="role-cards">
+        <label class="role-card" [class.active]="form.get('role')?.value==='student'">
+          <input type="radio" formControlName="role" value="student" />
+          <span class="role-title">Öğrenci</span>
+          <span class="role-desc">Kurs satın al ve öğrenmeye başla</span>
+        </label>
+        <label class="role-card" [class.active]="form.get('role')?.value==='instructor'">
+          <input type="radio" formControlName="role" value="instructor" />
+          <span class="role-title">Eğitici</span>
+          <span class="role-desc">Kendi kurslarını oluştur ve yönet</span>
+        </label>
+      </div>
+      <div class="text-danger small mt-1" *ngIf="form.get('role')?.invalid && form.get('role')?.touched">Rol seçimi zorunludur.</div>
+    </div>
+
+    <button class="submit" type="submit" [disabled]="submitting || form.invalid">
+        {{ submitting ? 'Kayıt Olunuyor...' : 'Kayıt Ol' }}
+    </button>
+    <p class="text-center mt-2">Daha önce kayıt olmuşmuydunuz?</p>
+    <a class="login-btn text-center" (click)="navigateToLogin()">Giriş Yap</a>
+  </form>
+</div>
