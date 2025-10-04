@@ -19,14 +19,13 @@ app.use(bodyParser.json())
 
 // import Rest Controllers
 import userRestController from './restcontrollers/userRestController';
-import categoryRestController from './restcontrollers/categoryRestController';
-import commentRestController from './restcontrollers/commentRestController'; //eklendi (Ahmet Demircan)
+import newsRestController from './restcontrollers/newsRestController';
 
 
 // Routers Config
 app.use('/api/v1/users', userRestController)
-app.use('/api/v1/categories', categoryRestController)
-app.use('/api/v1/comments', commentRestController) //eklendi (Ahmet Demircan)
+app.use('/api/v1/news', newsRestController)
+
 
 app.listen(PORT, () => {
   console.log(`Server running: http://localhost:${PORT}`)

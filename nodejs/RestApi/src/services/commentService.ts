@@ -1,3 +1,4 @@
+
 import { IResult, jsonResult } from "../models/result";
 import CommentDB, { IComment } from "../models/commentModel";
 import UserDB from "../models/userModel";
@@ -5,34 +6,18 @@ import mongoose from "mongoose";
 
 export const createComment = async (commentData: Partial<IComment>, userId: string, userName: string) => {
     try {
-        if (!commentData.newsId) {
-            return jsonResult(400, false, "newsId gerekli", null);
-        }
-        if (!mongoose.isValidObjectId(String(commentData.newsId))) {
-            return jsonResult(400, false, "newsId geçersiz", null);
-        }
-
-        const user = await UserDB.findById(userId);
-        if (!user) {
-            return jsonResult(404, false, "Kullanıcı bulunamadı", null);
-        }
-
-        const comment = new CommentDB({
+        const newComment = new CommentDB({
             content: commentData.content,
             userId: new mongoose.Types.ObjectId(userId),
-            newsId: new mongoose.Types.ObjectId(String(commentData.newsId)),
-            lastUpdatedById: new mongoose.Types.ObjectId(userId),
-            isActive: false,
-            like: 0,
-            dislike: 0
+            lastUpdatedBy: userName
         });
-
-        await comment.save();
-        await comment.populate("userId", "name email");
-
-        return jsonResult(201, true, "Yorum başarıyla oluşturuldu", comment);
+        
+        await newComment.save();
+        await newComment.populate('userId', 'name email');
+        
+        return jsonResult(201, true, 'Yorum başarıyla oluşturuldu', newComment);
     } catch (error) {
-        return jsonResult(500, false, "Yorum oluşturulurken hata oluştu", (error as Error).message);
+        return jsonResult(500, false, 'Yorum oluşturulurken hata oluştu', error.message);
     }
 };
 
@@ -71,26 +56,28 @@ export const updateComment = async (commentId: string, updateData: Partial<IComm
     }
 };
 
-export const approveComment = async (commentId: string, isApproved: boolean) => {
-    try {
-        const comment = await CommentDB.findById(commentId);
-        
-        if (!comment) {
-            return jsonResult(404, false, 'Yorum bulunamadı', null);
+    //Yorum Onaylama
+    export const approveComment = async (commentId: string, userRoles: string[]) => {
+            try {
+            // Yetki kontrolü: Sadece admin onaylayabilir
+            const isAdmin = userRoles.includes('Admin');
+            if (!isAdmin) {
+                return jsonResult(403, false, 'Bu işlem için yetkiniz yok');
+            }
+
+            const comment = await CommentDB.findById(commentId);
+            if (!comment) {
+                return jsonResult(404, false, 'Yorum bulunamadı');
+            }
+
+            comment.isActive = true;
+            await comment.save();
+
+            return jsonResult(200, true, 'Yorum başarıyla onaylandı');
+            } catch (error) {
+            return jsonResult(500, false, 'Yorum onaylanırken hata oluştu', error.message);
+            }
         }
-
-        comment.isActive = isApproved; // Onaylanan yorumlar aktif olur
-        comment.updatedAt = new Date();
-
-        await comment.save();
-        await comment.populate('userId', 'name email');
-        
-        const message = isApproved ? 'Yorum onaylandı' : 'Yorum reddedildi';
-        return jsonResult(200, true, message, comment);
-    } catch (error) {
-        return jsonResult(500, false, 'Onay işlemi sırasında hata oluştu', error.message);
-    }
-};
 
 export const getComments = async (page: number = 1, limit: number = 10, filters: any = {}) => {
     try {
@@ -212,4 +199,6 @@ export const searchComments = async (searchTerm: string, page: number = 1, limit
     } catch (error) {
         return jsonResult(500, false, 'Arama sırasında hata oluştu', error.message);
     }
-};
+}
+    
+
