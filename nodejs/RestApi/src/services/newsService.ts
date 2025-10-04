@@ -3,12 +3,12 @@ import News, { INews } from "../models/newsModel";
 import mongoose from "mongoose";
 import Category from "../models/category";
 
-export const addNews = async (data: INews) => {
+export const addNews = async (data: INews, userid: any) => {
   try {
     if (!data.title || !data.content || !data.category) {
       return jsonResult(400, false, "Title, content and category are required", null);
     }
-
+    data.author = userid
     const news = new News(data);
     await news.save();
     return jsonResult(201, true, "News added successfully", {
@@ -140,6 +140,31 @@ export const searchNews = async (q: string, page: number = 1, limit: number = 10
     });
   } catch (error: any) {
     console.error("Search News Error:", error);
+    return jsonResult(500, false, "Internal server error", error.message);
+  }
+};
+
+
+// Haber güncelleme (Admin)
+export const updateNews = async (newsId: string, data: Partial<{ title: string, content: string, category: string}>) => {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(newsId)) {
+      return jsonResult(400, false, "Invalid id", null);
+    }
+
+    const updated = await News.findByIdAndUpdate(
+      newsId,
+      { ...data },
+      { new: true, runValidators: true } // runValidators: şema kurallarını kontrol etsin
+    );
+
+    if (!updated) {
+      return jsonResult(404, false, "News not found", null);
+    }
+
+    return jsonResult(200, true, "News updated successfully", updated);
+  } catch (error: any) {
+    console.error("Update News Error:", error);
     return jsonResult(500, false, "Internal server error", error.message);
   }
 };

@@ -27,7 +27,7 @@ import newsRestController from './restcontrollers/newsRestController';
 app.use('/api/v1/users', userRestController)
 app.use('/api/v1/categories', categoryRestController)
 app.use('/api/v1/comments', commentRestController)
-app.use('/api/news', newsRestController)
+app.use('/api/v1/news', newsRestController)
 
 
 app.listen(PORT, () => {

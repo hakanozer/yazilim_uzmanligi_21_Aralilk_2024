@@ -1,7 +1,7 @@
 import express from 'express'
 import { AuthRequest, checkRole, verifyToken } from '../configs/auth';
 import { eRoles } from '../utils/eRoles';
-import { addNews, removeNews, searchNews } from '../services/newsService';
+import { addNews, newsListAll, removeNews, searchNews, updateNews } from '../services/newsService';
 import { JwtPayload } from 'jsonwebtoken';
 
 const newsRestController = express.Router()
@@ -39,7 +39,7 @@ newsRestController.delete("/delete/:id", verifyToken, checkRole(eRoles.Admin), a
 });
 
 // 2 rol gerektiği için auth.tsdeki checkrole middlewareini güncelledim.
-newsRestController.get("/search", verifyToken, checkRole(eRoles.Admin), async (req, res) => {
+newsRestController.get("/search", verifyToken, checkRole(eRoles.Admin, eRoles.User), async (req, res) => {
   try {
     const q = (req.query.q as string) || "";
     const page = parseInt(req.query.page as string) || 1;
@@ -78,11 +78,11 @@ newsRestController.put("/update/:id", verifyToken, checkRole(eRoles.Admin), asyn
   }
 })
 
-newsRestController.post("/add", verifyToken, checkRole(eRoles.Admin), async (req: AuthRequest, res) => {
+newsRestController.post("/add", verifyToken, checkRole(eRoles.Admin, eRoles.Customer), async (req: AuthRequest, res) => {
   try {
     const data = req.body;
     const user = req.user as JwtPayload;
-    const result = await addNews(data);
+    const result = await addNews(data, user.id);
     return res.status(result.code).json(result);
   } catch (error) {
     return res.status(500).json({ message: "Internal server error", error });
@@ -91,7 +91,7 @@ newsRestController.post("/add", verifyToken, checkRole(eRoles.Admin), async (req
 
 //Haber Silme
 
-newsRestController.delete("delete/:id", verifyToken, checkRole(eRoles.admin), async (req, res) => {
+newsRestController.delete("delete/:id", verifyToken, checkRole(eRoles.Admin), async (req, res) => {
   try {
     const { id } = req.params;
     const result = await removeNews(id);
@@ -102,7 +102,7 @@ newsRestController.delete("delete/:id", verifyToken, checkRole(eRoles.admin), as
 });
 
 // Haber Arama
-newsRestController.get("/search", verifyToken, checkRole(eRoles.admin, eRoles.user), async (req, res) => {
+newsRestController.get("/search", verifyToken, checkRole(eRoles.Admin, eRoles.User), async (req, res) => {
   try {
     const q = (req.query.q as string) || "";
     const page = parseInt(req.query.page as string) || 1;
@@ -114,11 +114,11 @@ newsRestController.get("/search", verifyToken, checkRole(eRoles.admin, eRoles.us
 });
 
 // Haber Güncelleme
-newsRestController.put("/uptade/:id", verifyToken, checkRole(eRoles.admin), async (req, res) => {
+newsRestController.put("/uptade/:id", verifyToken, checkRole(eRoles.Admin), async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const result = await uptadeNews(id, data)
+    const result = await updateNews(id, data)
     return res.status(result.code).json(result)
   } catch (error) {
     return res.status(500).json({ message: "Internal server error", error })
@@ -139,7 +139,3 @@ newsRestController.get("/list", verifyToken, checkRole(eRoles.Admin), async (req
 });
 
 export default newsRestController
-
-function updateNews(id: string, data: any) {
-    throw new Error('Function not implemented.');
-}
