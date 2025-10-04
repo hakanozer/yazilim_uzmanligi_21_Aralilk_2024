@@ -22,7 +22,6 @@ import userRestController from './restcontrollers/userRestController';
 import categoryRestController from './restcontrollers/categoryRestController';
 import commentRestController from './restcontrollers/commentRestController'; //eklendi (Ahmet Demircan)
 
-
 // Routers Config
 app.use('/api/v1/users', userRestController)
 app.use('/api/v1/categories', categoryRestController)
