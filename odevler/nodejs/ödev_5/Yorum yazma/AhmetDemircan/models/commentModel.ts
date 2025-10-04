@@ -6,6 +6,7 @@ export interface IComment extends Document {
     updatedAt: Date; //otomatik çekilecek
     lastUpdatedById: mongoose.Types.ObjectId; //en son yorumu düzenleyenn id si tutulacak
     userId: mongoose.Types.ObjectId; // Yorumu yazanın id si
+    newsId: mongoose.Types.ObjectId; // Yorumun ait olduğu haberin id si
     isActive: boolean; //bu değer admin tarafından yorumu aktif yapmak için kullanılır
     like: number;
     dislike: number;
@@ -20,6 +21,7 @@ const commentSchema = new Schema<IComment>({
     isActive: { type: Boolean, default: false },
     like: { type: Number, default: 0 },
     dislike: { type: Number, default: 0 },
+    newsId: { type: Schema.Types.ObjectId, ref: "News", required: true },
 });
 
 //Otomatik tarih alımı ara katmanı (veri tabanına kayıttan önce uğranan katman, kanca)

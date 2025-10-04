@@ -5,18 +5,34 @@ import mongoose from "mongoose";
 
 export const createComment = async (commentData: Partial<IComment>, userId: string, userName: string) => {
     try {
-        const newComment = new CommentDB({
+        if (!commentData.newsId) {
+            return jsonResult(400, false, "newsId gerekli", null);
+        }
+        if (!mongoose.isValidObjectId(String(commentData.newsId))) {
+            return jsonResult(400, false, "newsId geçersiz", null);
+        }
+
+        const user = await UserDB.findById(userId);
+        if (!user) {
+            return jsonResult(404, false, "Kullanıcı bulunamadı", null);
+        }
+
+        const comment = new CommentDB({
             content: commentData.content,
             userId: new mongoose.Types.ObjectId(userId),
-            lastUpdatedBy: userName
+            newsId: new mongoose.Types.ObjectId(String(commentData.newsId)),
+            lastUpdatedById: new mongoose.Types.ObjectId(userId),
+            isActive: false,
+            like: 0,
+            dislike: 0
         });
-        
-        await newComment.save();
-        await newComment.populate('userId', 'name email');
-        
-        return jsonResult(201, true, 'Yorum başarıyla oluşturuldu', newComment);
+
+        await comment.save();
+        await comment.populate("userId", "name email");
+
+        return jsonResult(201, true, "Yorum başarıyla oluşturuldu", comment);
     } catch (error) {
-        return jsonResult(500, false, 'Yorum oluşturulurken hata oluştu', error.message);
+        return jsonResult(500, false, "Yorum oluşturulurken hata oluştu", (error as Error).message);
     }
 };
 
@@ -55,7 +71,7 @@ export const updateComment = async (commentId: string, updateData: Partial<IComm
     }
 };
 
-export const approveComment = async (commentId: string, isApproved: boolean, adminName: string) => {
+export const approveComment = async (commentId: string, isApproved: boolean) => {
     try {
         const comment = await CommentDB.findById(commentId);
         
@@ -64,7 +80,6 @@ export const approveComment = async (commentId: string, isApproved: boolean, adm
         }
 
         comment.isActive = isApproved; // Onaylanan yorumlar aktif olur
-        comment.lastUpdatedById = new mongoose.Types.ObjectId(adminName);
         comment.updatedAt = new Date();
 
         await comment.save();
