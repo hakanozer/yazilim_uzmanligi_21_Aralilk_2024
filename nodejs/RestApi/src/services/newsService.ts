@@ -123,7 +123,7 @@ export const searchNews = async (q: string, page: number = 1, limit: number = 10
     const skip = (safePage - 1) * safeLimit;
     const regex = new RegExp(q, "i");
 
-    const filter = { $or: [{ title: regex }, { content: regex }, { category: regex }] };
+    const filter = { $or: [{ title: regex }, { content: regex }] };
 
     const [items, total] = await Promise.all([
       News.find(filter).skip(skip).limit(safeLimit).sort({ createdAt: -1 }),

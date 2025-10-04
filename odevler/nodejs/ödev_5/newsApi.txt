@@ -10,7 +10,7 @@ veli@mail.com - [Admin, Customer]
 
 // JWT Geçerli
 Kategori ekleme - Admin - Customer (Ömer - Model)
-Kategori düzenleme - Admin (Mustafa)
+Kategori düzenleme - Admin (Mümine)
 Kategori silme - Admin (Mümine)
 Kategori listeleme - Sayfalamalı - Admin, User (Ömer)
 

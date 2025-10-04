@@ -91,7 +91,7 @@ commentRestController.get('/search', verifyToken, async (req: AuthRequest, res) 
 });
 
 // Belirli bir kullanıcının yorumları - JWT gerekli, Admin veya Customer rolü
-commentRestController.get('/user/:userId', verifyToken, checkRole(eRoles.Customer), async (req: AuthRequest, res) => {
+commentRestController.get('/user/:userId', verifyToken, checkRole(eRoles.Admin, eRoles.Customer), async (req: AuthRequest, res) => {
     const userId = req.params.userId;
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 10;
