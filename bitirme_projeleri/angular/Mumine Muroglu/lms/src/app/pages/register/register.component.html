@@ -1,0 +1,203 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center">
+  <div class="row flex-grow-1">
+    <!-- Sol taraf: form -->
+    <div
+      class="col-12 col-md-5 d-flex justify-content-center align-items-center bg-white"
+    >
+      <div
+        class="card shadow-lg border-0 rounded-4 w-100 mx-3"
+        style="max-width: 480px"
+      >
+        <div class="card-body p-4">
+          <h2 class="text-center mb-4 fw-bold text-primary">
+            <i class="bi bi-person-plus me-2"></i> User Register
+          </h2>
+
+          <!-- Success alert -->
+          @if (success !== '') {
+          <div class="alert alert-success" role="alert">
+            {{ success }}
+          </div>
+          }
+
+          <!-- Error alert -->
+          @if (error !== '') {
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            <strong>Error</strong> {{ error }}
+            <button
+              (click)="error = ''"
+              type="button"
+              class="btn-close"
+              aria-label="Close"
+            ></button>
+          </div>
+          }
+
+          <form (submit)="userRegister()">
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="userName" class="form-label fw-semibold"
+                >Name / Surname</label
+              >
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="bi bi-person"></i
+                ></span>
+                <input
+                  #nameRef
+                  [(ngModel)]="name"
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  id="userName"
+                  placeholder="Enter full name"
+                />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold"
+                >Email address</label
+              >
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="bi bi-envelope"></i
+                ></span>
+                <input
+                  #emailRef
+                  [(ngModel)]="email"
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter email"
+                />
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label fw-semibold"
+                >Password</label
+              >
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input
+                  #passwordRef
+                  [(ngModel)]="password"
+                  name="password"
+                  type="{{ passType }}"
+                  class="form-control"
+                  id="password"
+                  placeholder="Enter password"
+                />
+                <button
+                  (click)="passwordLockUnLock()"
+                  type="button"
+                  class="btn btn-outline-secondary"
+                >
+                  @if(passlock === false) {
+                  <i class="bi bi-unlock2"></i>
+                  } @else {
+                  <i class="bi bi-lock-fill"></i>
+                  }
+                </button>
+              </div>
+            </div>
+
+            <!-- Password Again -->
+            <div class="mb-3">
+              <label for="passwordAgain" class="form-label fw-semibold"
+                >Password Again</label
+              >
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="bi bi-shield-lock"></i
+                ></span>
+                <input
+                  #passwordAgainRef
+                  [(ngModel)]="passwordAgain"
+                  name="passwordAgain"
+                  type="{{ passType }}"
+                  class="form-control"
+                  id="passwordAgain"
+                  placeholder="Re-enter password"
+                />
+              </div>
+            </div>
+
+            <!-- Role Select -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Select Role</label>
+              <select [(ngModel)]="role" name="role" class="form-select">
+                <option value="student">Student</option>
+                <option value="instructor">İnstructor</option>
+              </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary fw-semibold">
+                <i class="bi bi-check-circle me-1"></i> Register
+              </button>
+              <button
+                (click)="formReset()"
+                type="button"
+                class="btn btn-outline-secondary"
+              >
+                <i class="bi bi-arrow-clockwise me-1"></i> Reset
+              </button>
+            </div>
+
+            <!-- Already have account -->
+            <p class="text-center mt-4 mb-1 text-secondary">
+              Do you already have an account??
+            </p>
+            <div class="text-center">
+              <a
+                class="text-decoration-none fw-semibold text-primary"
+                [routerLink]="['/']"
+                routerLinkActive="active"
+              >
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sağ taraf: bilgi -->
+    <div
+      class="col-12 col-md-7 d-flex justify-content-center align-items-center bg-light"
+    >
+      <div class="text-center px-4">
+        <!-- Kod ikonları -->
+        <div class="text-primary mb-2">
+          <i class="bi bi-code-slash me-2 fs-1 fw-bold"></i>
+          <i class="bi bi-braces me-2 fs-1 fw-bold"></i>
+          <i class="bi bi-terminal me-2 fs-1 fw-bold"></i>
+        </div>
+        <h2 class="fw-bold text-primary mb-3">Why Join LMS EDU?</h2>
+        <ul class="list-unstyled text-secondary fs-5">
+          <li class="mb-2">
+            <i class="bi bi-check-circle text-success me-2"></i> Learn from
+            expert instructors
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-check-circle text-success me-2"></i> Access 100+
+            online courses
+          </li>
+          <li>
+            <i class="bi bi-check-circle text-success me-2"></i> Get certified
+            and grow
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

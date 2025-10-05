@@ -1,0 +1,35 @@
+@if (user) {
+  <div class="container mt-4">
+    
+    <!-- 👤 Kullanıcı Profili -->
+    <app-user-profile></app-user-profile>
+
+    <!-- 📚 Kayıtlı Kurslar -->
+    <div class="mt-5">
+      <h2 class="mb-3 text-primary fw-bold">📚 Kayıtlı Olduğun Kurslar</h2>
+
+      @if (enrolledCourses.length > 0) {
+        <div class="list-group" style="max-height: 400px; overflow-y: auto;">
+          @for (course of enrolledCourses; track course.id) {
+            <div class="list-group-item d-flex justify-content-between align-items-start mb-2 shadow-sm rounded">
+              <div>
+                <strong class="text-primary">{{ course.title }}</strong>
+                <p class="mb-1 text-secondary">{{ course.description }}</p>
+              </div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary btn-sm" [routerLink]="['/course-detail', course.id]">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Detay
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="text-secondary">Henüz kayıtlı olduğun bir kurs yok.</p>
+      }
+    </div>
+
+  </div>
+} @else {
+  <p class="text-secondary text-center mt-4">Loading your dashboard...</p>
+}

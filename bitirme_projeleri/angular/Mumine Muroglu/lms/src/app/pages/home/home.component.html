@@ -1,0 +1,25 @@
+@if(coursesArr){
+<div class="container mt-4"> 
+  
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    @for (item of coursesArr; track item.id) {
+      <div class="col">
+        <app-course-item [item]="item" class="h-100"></app-course-item>
+      </div>
+    }
+  </div>
+
+  <!-- Pagination -->
+  <nav class="pagination mt-4 d-flex justify-content-center flex-wrap">
+    @for (p of pages; track p) {
+      <button 
+        (click)="goToPage(p)" 
+        [class.active]="p === current_page"
+        class="btn btn-outline-primary pagination-btn me-2 mb-2">
+        {{ p }}
+      </button>
+    }
+  </nav>
+</div>
+}

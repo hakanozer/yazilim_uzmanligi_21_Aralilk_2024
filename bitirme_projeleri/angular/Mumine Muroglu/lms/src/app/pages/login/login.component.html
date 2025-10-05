@@ -1,0 +1,106 @@
+<div class="container-fluid min-vh-100">
+  <div class="row h-100">
+
+    <!-- Sol tarafta form ve karşılama metni -->
+    <div class="col-12 col-md-5 d-flex flex-column justify-content-center align-items-center bg-light">
+
+      <!-- Dıştaki Welcome yazısı -->
+      <div class="text-center mb-4">
+        
+        <div class="brand text-center mb-4">
+  <h1 class="brand-title text-primary fw-bold"><i class="bi bi-mortarboard-fill me-2"></i>LMS EDU</h1>
+  <div class="brand-subtitle text-secondary">Learning Management System</div>
+</div>
+        <p class="text-secondary mb-0">Empower your learning journey with us!</p>
+      </div>
+
+      <!-- Login Kartı -->
+      <div class="card shadow-lg border-0 rounded-5" style="width: 100%; max-width: 500px;">
+        <div class="card-body p-4 text-center">
+
+          
+
+          <!-- Welcome ibaresi -->
+          <p class="text-muted mb-4">Welcome back! Please login to your account.</p>
+
+          
+          <!-- Error alert -->
+          @if (error !== '') {
+            <div class="alert alert-danger" role="alert">
+              <strong>Error:</strong> {{ error }}
+            </div>
+          }
+
+          <form (ngSubmit)="userLogin()" #loginForm="ngForm">
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="emailInput" class="form-label fw-semibold">Email address</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input 
+                  (keyup)="validEmail()" 
+                  #emailRef 
+                  [(ngModel)]="email" 
+                  name="email" 
+                  type="email" 
+                  class="form-control" 
+                  id="emailInput" 
+                  placeholder="Enter your email">
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="passwordInput" class="form-label fw-semibold">Password</label>
+              <div class="input-group">
+                 <button (click)="passwordLockUnLock()" type="button" class="btn btn-outline-secondary">
+                  @if(passlock === false) {
+                    <i class="bi bi-unlock2"></i>
+                  }
+                  @else {
+                    <i class="bi bi-lock-fill"></i>
+                  }
+                </button>
+              
+                <input 
+                  #passwordRef 
+                  [(ngModel)]="password" 
+                  name="password" 
+                  type="{{passType}}" 
+                  class="form-control" 
+                  id="passwordInput" 
+                  placeholder="Enter your password">
+              </div>
+            </div>
+
+            <!-- Remember me -->
+            <div class="mb-3 form-check">
+              <input [(ngModel)]="remember" name="remember" type="checkbox" class="form-check-input" id="rememberCheck">
+              <label class="form-check-label" for="rememberCheck">Remember me</label>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+              </button>
+              <button [routerLink]="['/register']" class="btn btn-outline-primary">
+                <i class="bi bi-person-plus me-1"></i> Register
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sağ tarafta resim -->
+    <div class="col-12 col-md-7 p-0">
+      <img src="https://img.freepik.com/premium-vektor/devops-muhendisligi-izole-karikatur-vektor-illustrasyonlari_107173-22527.jpg"
+           alt="LMS EDU"
+           class="img-fluid w-100 h-100"
+           style="object-fit: cover;"/>
+    </div>
+  </div>
+</div>

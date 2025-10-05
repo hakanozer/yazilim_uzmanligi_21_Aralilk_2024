@@ -1,0 +1,533 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Ahmet Yılmaz",
+      "email": "ahmet@example.com",
+      "password": "1234!Ahmet",
+      "role": "student"
+    },
+    {
+      "id": "2",
+      "name": "Ayşe Demir",
+      "email": "ayse@mail.com",
+      "password": "1234!Ayşe",
+      "role": "instructor"
+    },
+    {
+      "id": "c498",
+      "name": "Zeynep Sarıca",
+      "email": "zeynep@mail.com",
+      "password": "1234!Zeynep",
+      "role": "student"
+    },
+    {
+      "id": "2dc2",
+      "name": "Fatma Sarıca",
+      "email": "fatma@mail.com",
+      "password": "12345fatma",
+      "role": "student"
+    },
+    {
+      "id": "8192",
+      "name": "Mete Can",
+      "email": "mete@mail.com",
+      "password": "1234!Mete",
+      "role": "instructor"
+    },
+    {
+      "id": "f5f9",
+      "name": "Tarkan Muroğlu",
+      "email": "tarkan@mail.com",
+      "password": "1234!tarkan",
+      "role": "instructor"
+    },
+    {
+      "id": "a102",
+      "name": "Elif Kaya",
+      "email": "elif@mail.com",
+      "password": "1234Elif",
+      "role": "student"
+    },
+    {
+      "id": "b234",
+      "name": "Can Yıldız",
+      "email": "can@mail.com",
+      "password": "can5678",
+      "role": "student"
+    },
+    {
+      "id": "d876",
+      "name": "Seda Acar",
+      "email": "seda@mail.com",
+      "password": "Seda123!",
+      "role": "instructor"
+    }
+  ],
+  "courses": [
+    {
+      "id": "1",
+      "title": "Angular Başlangıç",
+      "description": "Angular bileşenleri ve routing temellerini öğrenin. Temel kavramları uygulamalı örneklerle pekiştirin.",
+      "instructorId": "2",
+      "image": "https://www.infotechacademy.com.tr/content/education/angular_typescript_eigitimi_infotech_academy18.png"
+    },
+    {
+      "id": "2",
+      "title": "React Temelleri",
+      "description": "JSX, props ve state yönetimini kavrayın. Basit React uygulamaları oluşturarak pratiğe dökün.",
+      "instructorId": "2",
+      "image": "https://media.licdn.com/dms/image/v2/D4D12AQGXY8rVDHU2wQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1683186693180?e=2147483647&v=beta&t=BWbrcx5l4O7gRmoUZ0dMLyMlMVmQTRZYzs0j1j-dkhw"
+    },
+    {
+      "id": "3",
+      "title": "Vue.js Giriş",
+      "description": "Vue directives ve Vuex kullanımını öğrenin. Component tabanlı mimariyi kavrayarak küçük projeler geliştirin.",
+      "instructorId": "8192",
+      "image": "https://img-c.udemycdn.com/course/750x422/3260600_ec69_2.jpg"
+    },
+    {
+      "id": "4",
+      "title": "Node.js API Geliştirme",
+      "description": "Express ile RESTful API oluşturmayı öğrenin. Veritabanı bağlantısı ve CRUD işlemlerini uygulayın.",
+      "instructorId": "8192",
+      "image": "https://miro.medium.com/v2/resize:fit:1400/1*TuhDNcbgW4qxOVSNnwoW9w.jpeg"
+    },
+    {
+      "id": "5",
+      "title": "TypeScript Temelleri",
+      "description": "Tip güvenliği ve interface kullanımını öğrenin. Kodunuzu daha güvenli ve okunabilir hâle getirin.",
+      "instructorId": "2",
+      "image": "https://i.ytimg.com/vi/OH3wSkKy4YE/sddefault.jpg"
+    },
+    {
+      "id": "6",
+      "title": "Python Programlama",
+      "description": "Değişkenler, döngüler ve fonksiyonlarla temel programlama becerileri kazanın. Küçük uygulamalarla pratiğe dökün.",
+      "instructorId": "f5f9",
+      "image": "https://cdn.gcp.techcareer.net/Python_Programlama_Dili_ile_Neler_Yapilabilir_41af986968/Python_Programlama_Dili_ile_Neler_Yapilabilir_41af986968.jpg"
+    },
+    {
+      "id": "7",
+      "title": "Java OOP",
+      "description": "Sınıflar, kalıtım ve polimorfizm kavramlarını öğrenin. Nesne yönelimli programlamada basit projeler geliştirin.",
+      "instructorId": "f5f9",
+      "image": "https://images.shiksha.com/mediadata/ugcDocuments/images/wordpressImages/2022_03_Untitled-3.jpg"
+    },
+    {
+      "id": "8",
+      "title": "C# Masaüstü Uygulamalar",
+      "description": "Windows Forms ve WPF ile uygulama geliştirin. Arayüz tasarımı ve temel event handling konularına hakim olun.",
+      "instructorId": "d876",
+      "image": "https://imgrosetta.webtekno.com/file/164984/800x450.jpg"
+    },
+    {
+      "id": "9",
+      "title": "SQL ve Veritabanı",
+      "description": "SQL sorguları ve veritabanı tasarımını öğrenin. Tablo ilişkilerini ve veri analizi tekniklerini uygulayın.",
+      "instructorId": "d876",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr4amdeqXc8e_qQVSIMWcXSMvrHJa1nDxtnpAB5_cv058iuBvWywb57BByLGMwGGvs0h8&usqp=CAU"
+    },
+    {
+      "id": "10",
+      "title": "Docker Temelleri",
+      "description": "Container yapısı ve imaj oluşturmayı öğrenin. Uygulamaları izole ve taşınabilir şekilde çalıştırın.",
+      "instructorId": "2",
+      "image": "https://img-c.udemycdn.com/course/750x422/2293755_818c_7.jpg"
+    },
+    {
+      "id": "11",
+      "title": "Kubernetes Giriş",
+      "description": "Pod, deployment ve service kavramlarını öğrenin. Cluster yönetimi ve temel ölçeklendirme konularını kavrayın.",
+      "instructorId": "8192",
+      "image": "https://i.ytimg.com/vi/WG8Eb4BSaxE/maxresdefault.jpg"
+    },
+    {
+      "id": "12",
+      "title": "Git ve GitHub",
+      "description": "Versiyon kontrolü ve işbirliği süreçlerini öğrenin. Branch ve merge gibi temel Git komutlarını uygulayın.",
+      "instructorId": "f5f9",
+      "image": "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fm79oa15f1d731833o7nc.jpg"
+    },
+    {
+      "id": "13",
+      "title": "SASS ile CSS Yönetimi",
+      "description": "Değişkenler, mixin ve nesting ile CSS kodunuzu yönetin. Projelerde stil tutarlılığını sağlayın.",
+      "instructorId": "d876",
+      "image": "https://miro.medium.com/v2/1*wDjIx4NN4H_BcnFYExeMlQ.jpeg"
+    },
+    {
+      "id": "14",
+      "title": "Web Güvenliği",
+      "description": "XSS, CSRF ve güvenli oturum yönetimini öğrenin. Temel güvenlik önlemlerini uygulayın.",
+      "instructorId": "2",
+      "image": "https://www.natro.com/blog/wp-content/uploads/2016/03/virus-guvenlik.jpg"
+    },
+    {
+      "id": "15",
+      "title": "REST API Tasarımı",
+      "description": "Kaynak odaklı endpoint yapısını kavrayın. RESTful prensipleri ile API tasarımı yapın.",
+      "instructorId": "8192",
+      "image": "https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2019/06/What-is-REST-API.jpg"
+    },
+    {
+      "id": "16",
+      "title": "Next.js ile SSR",
+      "description": "Server-side rendering ve routing konularını öğrenin. SEO ve performans avantajlarını keşfedin.",
+      "instructorId": "f5f9",
+      "image": "https://www.ivanstepanian.com/img/posts/ssr-ssg-api-routes-ultimate-guide/cover.png"
+    },
+    {
+      "id": "17",
+      "title": "NestJS ile Backend",
+      "description": "Modüler yapı ve dependency injection kavramlarını öğrenin. REST API geliştirme becerilerinizi geliştirin.",
+      "instructorId": "d876",
+      "image": "https://visionslabs.io/wp-content/uploads/2021/03/visionslabs-NestJS-backend-framework-pro-webove-aplikace.jpg"
+    },
+    {
+      "id": "18",
+      "title": "MongoDB ile NoSQL",
+      "description": "Doküman tabanlı veri yönetimini öğrenin. CRUD ve aggregation işlemlerini örneklerle uygulayın.",
+      "instructorId": "2",
+      "image": "https://cdn.educba.com/academy/wp-content/uploads/2018/12/Is-MongoDB-NoSQL.jpg"
+    },
+    {
+      "id": "19",
+      "title": "PostgreSQL İleri Seviye",
+      "description": "Join, index ve performans optimizasyonunu öğrenin. Karmaşık sorgularla veri analizini gerçekleştirin.",
+      "instructorId": "8192",
+      "image": "https://www.infotechacademy.com.tr/content/blog/postgresql-nedir-infotech-academy48.png"
+    },
+    {
+      "id": "20",
+      "title": "Firebase ile Gerçek Zamanlı Uygulama",
+      "description": "Realtime database ve authentication özelliklerini öğrenin. Canlı veri akışı ile etkileşimli uygulamalar geliştirin.",
+      "instructorId": "f5f9",
+      "image": "https://blog.koddit.com/wp-content/uploads/2023/04/image-1.png"
+    },
+    {
+      "id": "21",
+      "title": "WebSocket ile Canlı Veri",
+      "description": "Gerçek zamanlı iletişim altyapısını öğrenin. Uygulamalarda anlık veri iletimi sağlayın.",
+      "instructorId": "d876",
+      "image": "https://www.c-sharpcorner.com/article/real-time-communication-made-easy-demonstrating-web-sockets-with-angular/Images/Web-Sockets-with-Angular.jpg"
+    },
+    {
+      "id": "22",
+      "title": "Jest ile Test Yazımı",
+      "description": "Unit ve integration test yazmayı öğrenin. Uygulama kalitesini test senaryoları ile güvence altına alın.",
+      "instructorId": "2",
+      "image": "https://images.ctfassets.net/vrc8wif0t20g/5LvLUoeqtdGMlXHvOi5gLC/7064584ca78ecf6e877e5bea6092557c/Blog_-_Getting_Started_with_Jest.png"
+    },
+    {
+      "id": "23",
+      "title": "Cypress ile UI Testi",
+      "description": "E2E test senaryolarını oluşturun. Kullanıcı arayüzünü otomatik testler ile doğrulayın.",
+      "instructorId": "8192",
+      "image": "https://blog.magicpod.com/hubfs/cypress-end-to-end-test.png"
+    },
+    {
+      "id": "24",
+      "title": "Tailwind CSS",
+      "description": "Utility-first yaklaşımıyla hızlı stil geliştirin. Projelerde esnek ve okunabilir CSS yazın.",
+      "instructorId": "f5f9",
+      "image": "https://analyticahouse.com/storage/website/assets/img/Blogs/6465d8facb6f8.png"
+    },
+    {
+      "id": "25",
+      "title": "Figma ile UI Tasarımı",
+      "description": "Wireframe ve prototipler oluşturun. Kullanıcı deneyimi odaklı tasarımlar geliştirin.",
+      "instructorId": "d876",
+      "image": "https://s3-alpha.figma.com/hub/file/2695360840/57e4f303-5e8a-4c53-80f9-1b3e4cf712bc-cover.png"
+    },
+    {
+      "id": "26",
+      "title": "Responsive Web Design",
+      "description": "Mobil uyumlu tasarım tekniklerini öğrenin. Farklı cihazlarda optimal görünümü sağlayın.",
+      "instructorId": "2",
+      "image": "https://www.searchenginejournal.com/wp-content/uploads/2021/10/responsive-web-design-1-61f01c4b64c5f-sej.png"
+    },
+    {
+      "id": "27",
+      "title": "RxJS ile Reactive Programlama",
+      "description": "Observable ve operator kullanmayı öğrenin. Reactive akışlarla uygulamalar geliştirin.",
+      "instructorId": "8192",
+      "image": "https://www.syncfusion.com/blogs/wp-content/uploads/2024/12/RxJS-for-React-Unlocking-Reactive-States.jpg"
+    },
+    {
+      "id": "28",
+      "title": "GraphQL API Geliştirme",
+      "description": "Schema, resolver ve query yapısını kavrayın. API üzerinden veri çekme ve güncelleme işlemlerini uygulayın.",
+      "instructorId": "f5f9",
+      "image": "https://img-c.udemycdn.com/course/750x422/1877328_6e7b_6.jpg"
+    },
+    {
+      "id": "29",
+      "title": "Web Performans Optimizasyonu",
+      "description": "Lazy loading, caching ve bundle analiz tekniklerini öğrenin. Web sitelerinin performansını artırın.",
+      "instructorId": "d876",
+      "image": "https://adimweb.com/assets/img/icerikgorsel/web-performansi-ve-sonuc-nasil-optimize-edilir-20230208164247.webp"
+    },
+    {
+      "id": "30",
+      "title": "Yazılım Mimarisi",
+      "description": "Monolith ve Microservices mimarisini öğrenin. SOLID prensipleri ile yazılım tasarımını geliştirin.",
+      "instructorId": "2",
+      "image": "https://codigno.com/wp-content/uploads/2023/07/Yazilim-Mimarisi-ve-Tasarimi-2-1024x512.webp"
+    },
+    {
+      "id": "3165",
+      "instructorId": "2",
+      "title": "Kotlin",
+      "description": "Kotlin 'in Temelleri",
+      "lessons": []
+    }
+  ],
+  "lessons": [
+    {
+      "id": "1",
+      "courseId": "1",
+      "title": "Angular Components",
+      "content": "Component yapısı, selector, template ve style."
+    },
+    {
+      "id": "2",
+      "courseId": "1",
+      "title": "Services ve Dependency Injection",
+      "content": "Angular servisleri ve bağımlılık yönetimi."
+    },
+    {
+      "id": "3",
+      "courseId": "1",
+      "title": "Routing ve Navigation",
+      "content": "Angular Router kullanarak sayfalar arası geçiş."
+    },
+    {
+      "id": "4",
+      "courseId": "2",
+      "title": "JSX ve Component Yapısı",
+      "content": "React componentleri ve JSX kullanımı."
+    },
+    {
+      "id": "5",
+      "courseId": "2",
+      "title": "State ve Props",
+      "content": "React state yönetimi ve props ile veri aktarımı."
+    },
+    {
+      "id": "6",
+      "courseId": "2",
+      "title": "Lifecycle Metodları",
+      "content": "Component lifecycle metodlarının kullanımı."
+    },
+    {
+      "id": "7",
+      "courseId": "3",
+      "title": "Vue Directives",
+      "content": "v-if, v-for, v-model kullanımı."
+    },
+    {
+      "id": "8",
+      "courseId": "3",
+      "title": "Vue Router ile Navigasyon",
+      "content": "Sayfalar arası yönlendirme."
+    },
+    {
+      "id": "9",
+      "courseId": "3",
+      "title": "Vuex ile State Yönetimi",
+      "content": "Merkezi state yönetimi Vuex ile."
+    },
+    {
+      "id": "10",
+      "courseId": "4",
+      "title": "Express ile API Başlangıç",
+      "content": "Express kurulumu ve temel route yapısı."
+    },
+    {
+      "id": "11",
+      "courseId": "4",
+      "title": "RESTful API Oluşturma",
+      "content": "CRUD işlemleri ile API geliştirme."
+    },
+    {
+      "id": "12",
+      "courseId": "5",
+      "title": "TypeScript Temelleri",
+      "content": "Tipler, interface ve class kullanımı."
+    },
+    {
+      "id": "13",
+      "courseId": "5",
+      "title": "Advanced TypeScript",
+      "content": "Generics ve advanced tipler."
+    },
+    {
+      "id": "14",
+      "courseId": "6",
+      "title": "Python Değişkenler ve Veri Tipleri",
+      "content": "Temel veri tipleri ve değişken kullanımı."
+    },
+    {
+      "id": "15",
+      "courseId": "6",
+      "title": "Python Döngüler ve Fonksiyonlar",
+      "content": "For, while döngüleri ve fonksiyon tanımlama."
+    },
+    {
+      "id": "16",
+      "courseId": "7",
+      "title": "Java Sınıflar ve Nesneler",
+      "content": "Sınıf tanımlama, nesne oluşturma ve metodlar."
+    },
+    {
+      "id": "17",
+      "courseId": "7",
+      "title": "OOP Kavramları",
+      "content": "Encapsulation, inheritance, polymorphism örnekleri."
+    },
+    {
+      "id": "18",
+      "courseId": "8",
+      "title": "Windows Forms ile Arayüz Tasarımı",
+      "content": "Form elemanları ve layout yönetimi."
+    },
+    {
+      "id": "19",
+      "courseId": "8",
+      "title": "WPF Temelleri",
+      "content": "XAML kullanımı ve data binding."
+    },
+    {
+      "id": "20",
+      "courseId": "9",
+      "title": "SQL Temelleri",
+      "content": "Select, Insert, Update ve Delete işlemleri."
+    },
+    {
+      "id": "21",
+      "courseId": "9",
+      "title": "Veritabanı Tasarımı",
+      "content": "Normalizasyon ve ilişki türleri."
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "63b1",
+      "userId": "1",
+      "courseId": "1"
+    },
+    {
+      "id": "fcb4",
+      "userId": "1",
+      "courseId": "2"
+    },
+    {
+      "id": "5da3",
+      "userId": "1",
+      "courseId": "6"
+    },
+    {
+      "id": "c253",
+      "userId": "c498",
+      "courseId": "1"
+    },
+    {
+      "id": "6923",
+      "userId": "2dc2",
+      "courseId": "2"
+    },
+    {
+      "id": "7d8e",
+      "userId": "2dc2",
+      "courseId": "5"
+    },
+    {
+      "id": "8f9a",
+      "userId": "c498",
+      "courseId": "3"
+    },
+    {
+      "id": "9a01",
+      "userId": "a102",
+      "courseId": "4"
+    },
+    {
+      "id": "ab12",
+      "userId": "b234",
+      "courseId": "5"
+    },
+    {
+      "id": "bc23",
+      "userId": "a102",
+      "courseId": "6"
+    },
+    {
+      "id": "cd34",
+      "userId": "b234",
+      "courseId": "7"
+    },
+    {
+      "id": "de45",
+      "userId": "c498",
+      "courseId": "8"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "courseId": "1",
+      "userId": "1",
+      "text": "Angular dersleri çok açıklayıcı ve uygulamalı.",
+      "date": "2025-08-25"
+    },
+    {
+      "id": "2",
+      "courseId": "2",
+      "userId": "1",
+      "text": "React temel dersleri başlangıç için ideal."
+    },
+    {
+      "id": "3",
+      "courseId": "3",
+      "userId": "c498",
+      "text": "Vue ile modern web geliştirme harika bir deneyim oldu."
+    },
+    {
+      "id": "4",
+      "courseId": "4",
+      "userId": "1",
+      "text": "Node.js API geliştirme dersleri pratik ve anlaşılır."
+    },
+    {
+      "id": "5",
+      "courseId": "5",
+      "userId": "2dc2",
+      "text": "TypeScript ile tip güvenliği çok faydalı bir konu."
+    },
+    {
+      "id": "6",
+      "courseId": "6",
+      "userId": "1",
+      "text": "Python dersleri çok anlaşılır ve örnekler yeterliydi."
+    },
+    {
+      "id": "7",
+      "courseId": "7",
+      "userId": "c498",
+      "text": "Java OOP dersleri sayesinde kavramlar netleşti."
+    },
+    {
+      "id": "8",
+      "courseId": "8",
+      "userId": "a102",
+      "text": "C# dersleriyle masaüstü uygulamalar hızlı öğrenildi."
+    },
+    {
+      "id": "9",
+      "courseId": "9",
+      "userId": "b234",
+      "text": "SQL dersleri sayesinde veritabanı mantığını kavradım."
+    }
+  ]
+}

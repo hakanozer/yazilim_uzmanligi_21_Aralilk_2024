@@ -1,0 +1,52 @@
+.course-list-container {
+  max-width: 900px;
+  margin: 40px auto;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Dropdown panel */
+.dropdown-panel input {
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+.dropdown-panel input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+
+/* Scrollable kurs listesi */
+.course-scrollable {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Kurs item hover */
+.course-item {
+  transition: all 0.2s ease;
+  border-radius: 0.75rem;
+}
+.course-item:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+/* Buton hover efektleri */
+.btn {
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  transform: translateY(-1px);
+}
+.btn-success:hover {
+  background-color: #198754;
+  transform: translateY(-1px);
+}
+.btn-secondary:hover {
+  background-color: #6c757d;
+  transform: translateY(-1px);
+}
