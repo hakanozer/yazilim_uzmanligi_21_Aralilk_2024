@@ -1,0 +1,49 @@
+.course-detail-container {
+  background-color: #fff;
+  border-radius: 1rem;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 1.5rem;
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Ders itemleri */
+.lesson-item {
+  transition: all 0.2s ease;
+}
+.lesson-item:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+/* Ders ekleme paneli */
+.dropdown-panel input,
+.dropdown-panel textarea {
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  border: 1px solid #ced4da;
+  transition: all 0.2s ease;
+}
+.dropdown-panel input:focus,
+.dropdown-panel textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+
+/* Butonlar */
+.btn {
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  transform: translateY(-1px);
+}
+.btn-success:hover {
+  background-color: #198754;
+  transform: translateY(-1px);
+}
+.btn-secondary:hover {
+  background-color: #6c757d;
+  transform: translateY(-1px);
+}

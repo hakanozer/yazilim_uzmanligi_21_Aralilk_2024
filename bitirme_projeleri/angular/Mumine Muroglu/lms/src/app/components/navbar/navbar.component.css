@@ -1,0 +1,68 @@
+/* Genel yazı uyumu */
+.custom-navbar {
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* Marka */
+.navbar-brand {
+  font-weight: 700 !important;
+  transition: all 0.3s ease;
+}
+
+
+/* Menü linkleri */
+.navbar .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 1.05rem;
+  transition: all 0.25s ease;
+  padding: 0.6rem 1rem !important;
+  border-radius: 10px;
+}
+
+/* Hover efekti - sarı/turuncu ton */
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  background-color: rgba(255, 193, 7, 0.15); /* hafif sarı arka plan */
+  color: #ffc107 !important; /* sarı metin */
+  transform: translateY(-1px);
+}
+
+/* Dropdown */
+.dropdown-menu {
+  font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  border: none;
+  padding: 0.5rem 0;
+}
+.dropdown-item {
+  transition: all 0.2s ease;
+}
+.dropdown-item:hover {
+  background-color: #fff3cd; /* açık sarı */
+  color: #ff9800; /* turuncuya yakın */
+}
+
+/* Arama kutusu */
+form .form-control {
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  font-size: 0.95rem;
+}
+form .form-control:focus {
+  box-shadow: 0 0 0 0.15rem rgba(255, 193, 7, 0.25); /* sarı vurgu */
+}
+form .btn-light {
+  transition: all 0.2s ease-in-out;
+}
+form .btn-light:hover {
+  background-color: #ffc107; /* turuncu/sarı hover */
+  color: #000;
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep body {
+  padding-top: 70px;
+}

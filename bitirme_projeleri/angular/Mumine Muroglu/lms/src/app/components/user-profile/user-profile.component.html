@@ -1,0 +1,58 @@
+@if (user) {
+  <div class="user-info-card shadow rounded p-4 mb-4 mt-4" style="max-width: 500px; margin:auto;">
+    
+    <!-- Success alert sadece formun üstünde -->
+    @if (success !== '') {
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ success }}
+        <button type="button" class="btn-close" (click)="success=''" aria-label="Close"></button>
+      </div>
+    }
+
+    <!-- Error alert sadece formun üstünde -->
+    @if (error !== '') {
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error:</strong> {{ error }}
+        <button type="button" class="btn-close" (click)="error = ''" aria-label="Close"></button>
+      </div>
+    }
+
+    <h3 class="text-primary mb-3 fw-bold d-flex align-items-center">
+      <i class="bi bi-person-circle me-2 fs-3"></i> Kullanıcı Bilgileri
+    </h3>
+
+    <!-- Ad -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Ad:</label>
+      <input #nameRef type="text" [(ngModel)]="updatedName" class="form-control" placeholder="Adınızı girin" name="name" />
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Email:</label>
+      <input #emailRef type="email" [(ngModel)]="updatedEmail" class="form-control" placeholder="Email girin"  name="email"/>
+    </div>
+
+    <!-- Şifre -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Şifre:</label>
+      <div class="input-group">
+        <input #passwordRef type="{{passType}}" [(ngModel)]="updatedPassword" class="form-control" placeholder="Yeni şifre" name="password" />
+        <button (click)="passwordLockUnLock()" type="button" class="btn btn-outline-secondary">
+          @if(passlock === false) {
+            <i class="bi bi-unlock2"></i>
+          }
+          @else {
+            <i class="bi bi-lock-fill"></i>
+          }
+        </button>
+      </div>
+    </div>
+
+    <button (click)="updateUser()" class="btn btn-outline-primary w-100 fw-semibold">
+      <i class="bi bi-pencil-square me-1"></i> Güncelle
+    </button>
+  </div>
+} @else {
+  <p class="text-center text-secondary mt-4">Kullanıcı bilgileri yükleniyor...</p>
+}

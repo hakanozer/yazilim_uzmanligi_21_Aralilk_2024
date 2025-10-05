@@ -1,0 +1,33 @@
+<div class="comments-container mt-6 p-4 border rounded bg-white shadow-sm">
+  <h3 class="text-primary fw-semibold mb-4">💬 Yorumlar</h3>
+
+  @if (commentsArr.length > 0) {
+    <div class="d-flex flex-column gap-3"> 
+      @for (comment of commentsArr; track comment.id) {
+        <div class="p-3 bg-light border rounded shadow-sm">
+          <p class="text-dark mb-1">
+            {{ comment.text }}
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+             <span class="text-secondary small fw-medium">
+                Yorum Sahibi: {{ comment.authorName }} 
+             </span>
+             <span class="text-secondary small">
+                {{ comment.date | date:'short' }}
+             </span>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="text-secondary">Bu kursa henüz yorum yapılmamış.</p>
+  }
+
+  @if (role === 'student') {
+    <div class="mt-4 pt-3 border-top border-secondary">
+      <textarea [(ngModel)]="newComment" placeholder="Yorumunuzu yazın..."
+                class="form-control mb-2"></textarea>
+      <button (click)="addComment()" class="btn btn-primary">Yorum Ekle</button>
+    </div>
+  }
+</div>

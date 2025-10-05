@@ -1,0 +1,86 @@
+<div class="course-detail-container p-4 max-w-4xl mx-auto shadow rounded">
+
+  <!-- Kurs Başlığı -->
+  <h1 class="text-primary fs-2 fw-bold mb-2">{{course?.title}}</h1>
+  <p class="text-secondary mb-4">{{course?.description}}</p>
+ 
+
+  <!-- Eğitmen Ders Ekleme -->
+  @if (role === 'instructor' && canAddLesson) {
+    <button (click)="showDropdown = !showDropdown" class="btn btn-outline-primary mb-3 fw-semibold">
+      <i class="bi bi-plus-circle me-1"></i> Ders Ekle
+    </button>
+
+    @if (showDropdown) {
+      <div class="dropdown-panel mt-2 p-3 border rounded bg-light shadow-sm">
+        <input [(ngModel)]="newLessonTitle" placeholder="Ders Başlığı" class="form-control mb-2" />
+        <input [(ngModel)]="newLessonContent" placeholder="Ders İçeriği" class="form-control mb-2" />
+        <div class="d-flex gap-2">
+          <button (click)="addLesson()" class="btn btn-success btn-sm fw-semibold">
+            <i class="bi bi-check-circle me-1"></i> Kaydet
+          </button>
+          <button (click)="showDropdown = false" class="btn btn-secondary btn-sm fw-semibold">
+            <i class="bi bi-x-circle me-1"></i> İptal
+          </button>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Öğrenci Katılım Durumu -->
+  @else if (role === 'student') {
+    @if (isEnrolled) {
+      <div class="text-success fw-semibold mb-3">✅ Bu kursa kayıtlısınız..</div>
+    } @else {
+      <button (click)="joinCourse()" class="btn btn-primary mb-3 fw-semibold">
+        <i class="bi bi-journal-plus me-1"></i> Kursa Katıl
+      </button>
+    }
+  }
+
+  <!-- Dersler Başlığı -->
+  <h2 class="text-primary fs-4 fw-semibold mb-3 mt-4">Dersler</h2>
+
+  <ul class="list-unstyled">
+    @if (lessons.length > 0) {
+      @for (lesson of lessons; track lesson.id) {
+        <li class="lesson-item border p-3 rounded mb-3 shadow-sm bg-white">
+
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h3 class="text-secondary fs-5 fw-normal mb-1">{{ lesson.title }}</h3>
+              <p class="text-secondary small mb-0">{{ lesson.content }}</p>
+            </div>
+
+            @if (role === 'instructor'&& canAddLesson) {
+              <div class="d-flex gap-2">
+                <button (click)="startEditing(lesson)" class="btn btn-outline-success btn-sm fw-semibold">Düzenle</button>
+                <button (click)="deleteLesson(lesson.id)" class="btn btn-outline-danger btn-sm fw-semibold">Sil</button>
+              </div>
+            }
+          </div>
+
+          @if (editingLesson?.id === lesson.id) {
+            <div class="dropdown-panel mt-2 p-3 border rounded bg-light shadow-sm">
+              <input [(ngModel)]="editedLessonTitle" placeholder="Ders Başlığı" class="form-control mb-2" />
+              <textarea [(ngModel)]="editedLessonContent" placeholder="Ders İçeriği" class="form-control mb-2"></textarea>
+              <div class="d-flex gap-2">
+                <button (click)="saveEdits()" class="btn btn-success btn-sm fw-semibold">Kaydet</button>
+                <button (click)="cancelEditing()" class="btn btn-secondary btn-sm fw-semibold">İptal</button>
+              </div>
+            </div>
+          }
+        </li>
+      }
+    } @else {
+      <p class="text-secondary mt-2">Bu kursta henüz ders eklenmemiş.</p>
+    }
+  </ul>
+
+  <hr class="my-4 border-secondary">
+
+  @if (course) {
+    <app-comments [courseId]="course.id"></app-comments>
+  }
+
+</div>
