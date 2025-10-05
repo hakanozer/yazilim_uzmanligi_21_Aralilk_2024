@@ -1,4 +1,3 @@
-
 export const swaggerOptions = {
     swaggerDefinition: {
                 openapi: '3.0.0',
@@ -20,6 +19,25 @@ export const swaggerOptions = {
                 servers: [
                     {
                         url: 'http://localhost:4000/api/v1',
+                    },
+                ],
+                // Tags sıralamasını buraya ekliyoruz
+                tags: [
+                    {
+                        name: 'Users',
+                        description: 'Kullanıcı yönetimi işlemleri',
+                    },
+                    {
+                        name: 'Categories',
+                        description: 'Kategori yönetimi işlemleri',
+                    },
+                    {
+                        name: 'News',
+                        description: 'Haber (İçerik) yönetimi işlemleri',
+                    },
+                    {
+                        name: 'Comments',
+                        description: 'Yorum yönetimi işlemleri',
                     },
                 ],
             components: {
