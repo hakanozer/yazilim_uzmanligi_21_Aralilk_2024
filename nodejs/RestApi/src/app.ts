@@ -12,6 +12,7 @@ dotenv.config({path: path.resolve(__dirname, '../.env')});
 
 const app = express()
 const PORT = process.env.PORT || 4000
+const url = `http://localhost:${PORT}`
 
 // DB Config
 connectDB()
@@ -19,8 +20,6 @@ connectDB()
 // body-parser Config
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-
-// swagger config
 
 // import Rest Controllers
 import userRestController from './restcontrollers/userRestController';
@@ -35,8 +34,15 @@ app.use('/api/v1/categories', categoryRestController)
 app.use('/api/v1/comments', commentRestController)
 app.use('/api/v1/news', newsRestController)
 
+var options = {
+  explorer: true
+};
+// swagger config
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, options));
+
 
 app.listen(PORT, () => {
-  console.log(`Server running: http://localhost:${PORT}`)
+  console.log(`Server running: ${url}`)
 })
 

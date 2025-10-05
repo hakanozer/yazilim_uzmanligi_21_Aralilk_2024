@@ -1,25 +1,26 @@
+
 export const swaggerOptions = {
     swaggerDefinition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'My API',
-            version: '1.0.0',
-            description: 'API documentation using Swagger',
-        },
-        servers: [
-            {
-                url: `http://localhost:${port}`,
+                openapi: '3.0.0',
+                info: {
+                    title: 'My API',
+                    version: '1.0.0',
+                    description: 'API documentation using Swagger',
+                },
+                servers: [
+                    {
+                        url: 'http://localhost:4000',
+                    },
+                ],
+            components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT', 
+                },
             },
-        ],
-    components: {
-    securitySchemes: {
-        bearerAuth: {
-            type: 'http',
-            scheme: 'bearer',
-            bearerFormat: 'JWT', 
         },
     },
-},
-    },
-    apis: ['./routes/*.js'], // Path to your API docs
+    apis: ['./src/restcontrollers/*.ts', './src/models/*.ts'], // Path to the API docs
 };
