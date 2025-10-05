@@ -12,7 +12,7 @@ const userRestController = express.Router()
 
 /**
  * @swagger
- * /register:
+ * /users/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Users]
@@ -23,9 +23,9 @@ const userRestController = express.Router()
  *           schema:
  *             $ref: '#/components/schemas/User'
  *           example:
- *             username: "johndoe"
- *             password: "StrongPassword123!"
+ *             name: "johndoe"
  *             email: "johndoe@example.com"
+ *             password: "StrongPassword123!"
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -40,14 +40,14 @@ const userRestController = express.Router()
  *             schema:
  *               $ref: '#/components/schemas/ApiResponse'
  *     x-validation-notes: |
- *       - username: required, min 3 chars, unique
+ *       - name: required, min 3 chars, unique
  *       - password: required, min 8 chars, must include letters and numbers
  *       - email: required, must be valid email format
  */
 
 /**
  * @swagger
- * /login:
+ * /users/login:
  *   post:
  *     summary: Login with username and password
  *     tags: [Users]
@@ -58,12 +58,12 @@ const userRestController = express.Router()
  *           schema:
  *             type: object
  *             properties:
- *               username:
+ *               email:
  *                 type: string
- *                 example: "johndoe"
+ *                 example: "zehra@mail.com"
  *               password:
  *                 type: string
- *                 example: "StrongPassword123!"
+ *                 example: "123456"
  *     responses:
  *       200:
  *         description: Login successful
@@ -78,7 +78,7 @@ const userRestController = express.Router()
  *             schema:
  *               $ref: '#/components/schemas/ApiResponse'
  *     x-validation-notes: |
- *       - username: required
+ *       - email: required
  *       - password: required
  */
 

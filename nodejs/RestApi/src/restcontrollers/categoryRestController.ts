@@ -6,6 +6,128 @@ import { JwtPayload } from 'jsonwebtoken';
 
 const categoryRestController = express.Router()
 
+/**
+ * @swagger
+ * tags:
+ *   name: Categories
+ *   description: Category management
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Category:
+ *       type: object
+ *       required:
+ *         - name
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: The auto-generated id of the category
+ *           example: "665f1c2b9e6e4a001f8e4b1a"
+ *         name:
+ *           type: string
+ *           description: Category name
+ *           minLength: 2
+ *           maxLength: 50
+ *           example: "Elektronik"
+ *         description:
+ *           type: string
+ *           description: Category description
+ *           example: "Elektronik ürünler kategorisi"
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2024-06-21T12:34:56.789Z"
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           example: "2024-06-21T12:34:56.789Z"
+ */
+
+/**
+ * @swagger
+ * /categories/add:
+ *   post:
+ *     summary: Add a new category
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Category'
+ *           example:
+ *             name: "Kitaplar"
+ *             description: "Kitap kategorisi"
+ *     responses:
+ *       201:
+ *         description: Category added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Category added successfully
+ *                 category:
+ *                   $ref: '#/components/schemas/Category'
+ *       400:
+ *         description: Invalid category name
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (Admin role required)
+ *       500:
+ *         description: Internal server error
+ *     x-roles:
+ *       - Admin
+ */
+
+/**
+ * @swagger
+ * /categories/list:
+ *   get:
+ *     summary: List categories (paginated, 10 per page)
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number
+ *     responses:
+ *       200:
+ *         description: List of categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 categories:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Category'
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *       401:
+ *         description: Unauthorized
+ *       403:
+ *         description: Forbidden (Admin role required)
+ *       500:
+ *         description: Internal server error
+ *     x-roles:
+ *       - Admin
+ */
+
 // Kategori ekleme
 categoryRestController.post('/add', verifyToken, checkRole(eRoles.Admin), async (req: AuthRequest, res) => {
   try {

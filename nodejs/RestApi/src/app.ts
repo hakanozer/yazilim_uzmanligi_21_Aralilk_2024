@@ -34,13 +34,9 @@ app.use('/api/v1/categories', categoryRestController)
 app.use('/api/v1/comments', commentRestController)
 app.use('/api/v1/news', newsRestController)
 
-var options = {
-  explorer: true
-};
 // swagger config
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, options));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(PORT, () => {
   console.log(`Server running: ${url}`)
