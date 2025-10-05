@@ -3,6 +3,9 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import { connectDB } from './configs/db';
+import swaggerUi from 'swagger-ui-express'
+import swaggerJSDoc from 'swagger-jsdoc'
+import { swaggerOptions } from './utils/swaggerOptions';
 
 // .env Config - .env file loading
 dotenv.config({path: path.resolve(__dirname, '../.env')});
@@ -17,11 +20,14 @@ connectDB()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
+// swagger config
+
 // import Rest Controllers
 import userRestController from './restcontrollers/userRestController';
 import categoryRestController from './restcontrollers/categoryRestController';
 import commentRestController from './restcontrollers/commentRestController'; //eklendi (Ahmet Demircan)
 import newsRestController from './restcontrollers/newsRestController';
+
 
 // Routers Config
 app.use('/api/v1/users', userRestController)
