@@ -1,0 +1,57 @@
+@if (product) {
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-4">
+    <h2>{{ product.title }}</h2>
+    <div class="d-flex">
+      <h3>
+        <span class="badge text-bg-warning">{{ product.price }}₺</span>
+      </h3>
+      <h5 style="margin-left: 5px">
+        <span class="badge text-bg-dark"
+          ><del>{{ globalprice }}₺</del></span
+        >
+      </h5>
+    </div>
+    @for (i of stars; track $index) 
+    { @if(i == 1) {
+    <label class="text-danger bi bi-star-fill fs-4"></label>
+    } @if(i == 0.5) {
+    <label class="text-danger bi bi-star-half fs-4"></label>
+    } @if(i == 0) {
+    <label class="text-danger bi bi-star fs-4"></label>
+    } }
+    <div>
+      <kbd class="bg-danger">{{ product.stock }} / Stock</kbd>
+    </div>
+    <div>
+      @for (tag of product.tags; track $index) {
+      <code>{{ tag }},</code>
+      }
+    </div>
+    <div>
+      <p>{{ product.description }}</p>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <img
+      data-bs-toggle="modal"
+      data-bs-target="#imgModal"
+      role="button"
+      src="{{ bigimage }}"
+      class="img-fluid"
+    />
+    @for (img of product.images; track $index) {
+    <img
+      role="button"
+      (click)="changeImage(img)"
+      src="{{ img }}"
+      class="img-thumbnail"
+      width="120"
+    />
+    }
+  </div>
+  <div class="col-sm-2"></div>
+</div>
+}
+

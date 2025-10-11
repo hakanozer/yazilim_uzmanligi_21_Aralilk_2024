@@ -1,0 +1,99 @@
+<div class="search-container">
+  <!-- Sayfa başlığı -->
+  <div class="page-header">
+    <h1 class="main-title">Search Results</h1>
+    @if (searchQuery) {
+      <p class="subtitle">Results for "{{ searchQuery }}"</p>
+    }
+  </div>
+
+  <!-- Loading durumu -->
+  @if (isLoading) {
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Searching courses...</p>
+    </div>
+  }
+
+  <!-- Arama sonuçları -->
+  @if (!isLoading && hasSearched) {
+    @if (searchResults.length > 0) {
+      <div class="results-info">
+        <p class="results-count">{{ searchResults.length }} course(s) found</p>
+      </div>
+      
+      <div class="courses-grid">
+        <div class="course-card" *ngFor="let course of searchResults" [class.inactive-course]="!course.isActive" 
+             [routerLink]="['/course-details', course.id]" [style.cursor]="'pointer'">
+          
+          <!-- Kart üst kısmı -->
+          <div class="card-header">
+            <div class="course-level">
+              <span class="level-badge" [ngClass]="'level-' + course.level">
+                {{ course.level | titlecase }}
+              </span>
+            </div>
+            <div class="course-status">
+              <span class="status-indicator" [ngClass]="course.isActive ? 'active' : 'inactive'">
+                {{ course.isActive ? 'Aktif' : 'Pasif' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Kurs başlığı -->
+          <div class="card-body">
+            <h3 class="course-title">{{ course.title }}</h3>
+            <p class="course-description">{{ course.description }}</p>
+            
+            <!-- Kurs bilgileri -->
+            <div class="course-info">
+              <div class="info-row">
+                <span class="info-icon">👨‍🏫</span>
+                <span class="info-text">{{ course.instructor }}</span>
+              </div>
+              
+              <div class="info-row">
+                <span class="info-icon">⏱️</span>
+                <span class="info-text">{{ course.duration }}</span>
+              </div>
+              
+              <div class="info-row">
+                <span class="info-icon">📚</span>
+                <span class="info-text">{{ course.category }}</span>
+              </div>
+              
+              <div class="info-row">
+                <span class="info-icon">💰</span>
+                <span class="info-text">${{ course.price }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kart alt kısmı -->
+          <div class="card-footer">
+            <div class="course-meta">
+              <span class="students-count">{{ course.enrolledStudents }} students</span>
+              <span class="course-date">{{ course.createdAt | date:'MMM yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="no-results">
+        <div class="no-results-icon">🔍</div>
+        <h3>No courses found</h3>
+        <p>Try searching with different keywords or browse all courses.</p>
+        <button class="browse-all-btn" routerLink="/cursus">Browse All Courses</button>
+      </div>
+    }
+  }
+
+  <!-- İlk yükleme durumu -->
+  @if (!hasSearched && !isLoading) {
+    <div class="initial-state">
+      <div class="search-icon">🔍</div>
+      <h3>Start searching for courses</h3>
+      <p>Use the search bar above to find courses by title, instructor, or category.</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,61 @@
+Yapılacak Proje:
+Mevcut çalışmamız üzerinde gidilercek, yapılan projeler githubtaki ödev_3 altındaki grup numarasına göre atacanacaktır.
+
+Arama: https://jsonbulut.com/api/products/search?query=ip&page=1&per_page=10 apisine parametre gönderilecek ve dönen bilgiler ekranda sunulacaktır.
+
+Kurallar:
+1 - Gelen datalar "product-item" componenti ile gösterilecektir.
+2- sayfalama yapılacaktır
+3- Sayfada toplam kaç sonuç bulunduğu yazılacak
+4- Sayfada ne arandığı yazılacak
+5- Aranan ifadede hiç sorunuç yok ise "Sonuç Bulunamadı" gibi bir ifade iconla birlikte sunabilir.
+
+Projee Başalama saati: 90:00 - 17:00
+
+2. Grup(3 Kişi)
+Ahmet
+Mümine
+Tuğba
+Serhat?
+
+
+## 🔴 KRİTİK ÖNEM (Önce Tamamlanması Gereken)
+1. API Servisine Search Endpoint'i Ekleme
+
+- Dosyalar: apiUrl.ts ve api.ts
+- Görev: searchProducts metodunu oluşturma
+- Neden Kritik: Diğer tüm görevler bu API'ye bağımlı. Bu olmadan hiçbir şey çalışmaz.
+- Tahmini Süre: 15-20 dakika
+## 🟡 ÖNEMLİ (İkinci Öncelik)
+2. Search Sayfası TypeScript Logic'ini Geliştirme
+
+- Dosya: search.ts
+- Görev: API entegrasyonu, pagination ve arama mantığını ekleme
+- Neden Önemli: Sayfanın çalışması için gerekli, ancak API'den sonra yapılabilir.
+- Tahmini Süre: 25-30 dakika
+3. Search Sayfası HTML Template'ini Oluşturma
+
+- Dosya: search.html
+- Görev: Arama sonuçları, pagination ve boş sonuç durumu için HTML yapısı
+- Neden Önemli: Kullanıcının göreceği arayüz, ancak TypeScript logic'ten sonra yapılabilir.
+- Tahmini Süre: 20-25 dakika
+## 🟢 ÖNEMSIZ (Son Öncelik - İsteğe Bağlı)
+4. CSS Styling ve Responsive Tasarım
+
+- Dosya: search.css
+- Görev: Görsel tasarımı tamamlama
+- Neden Önemsiz: Fonksiyonellik çalıştıktan sonra güzelleştirme amaçlı.
+- Tahmini Süre: 15-20 dakika
+## 📋 Önerilen Çalışma Sırası:
+1. 1.
+   İlk: API endpoint (Kritik)
+2. 2.
+   İkinci: TypeScript logic (Önemli)
+3. 3.
+   Üçüncü: HTML template (Önemli)
+4. 4.
+   Son: CSS styling (Önemsiz)
+Not: İlk üç görev tamamlandığında arama sayfası tamamen çalışır hale gelir. CSS sadece görsel iyileştirme içindir.
+
+
+

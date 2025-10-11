@@ -1,0 +1,94 @@
+@if (course) {
+<div class="container my-4">
+  <div class="row g-4">
+    <!-- Kurs resmi -->
+    <div class="col-md-5">
+      <div class="card shadow-sm rounded-4 overflow-hidden">
+        <img [src]="course.image" class="img-fluid rounded-top" alt="Course image" />
+      </div>
+    </div>
+
+    <!-- Kurs bilgileri -->
+    <div class="col-md-6 offset-md-1">
+      <div class="card shadow-sm rounded-4 p-4">
+        <h2 class="fw-bold mb-3">{{course.title}}</h2>
+        <p class="text-muted">{{ course.description }}</p>
+
+        <p><strong>Eğitmen:</strong> {{ course.instructorId }}</p>
+        <p><strong>Kategori:</strong> {{ course.category }}</p>
+        <p><strong>Katılımcı:</strong> <span class="badge bg-info rounded-pill">{{course.students}}</span></p>
+
+        <!-- Fiyat -->
+        <!--<h4>
+          <span class="badge text-bg-warning">{{course.price}} ₺</span>
+        </h4>-->
+
+        <!-- Rating yıldızları -->
+        <div class="mt-3 mb-3">
+          @for (i of stars; track $index) {
+            @if(i == 1) {
+              <i class="bi bi-star-fill text-warning fs-4"></i>
+            }
+            @if(i == 0.5) {
+              <i class="bi bi-star-half text-warning fs-4"></i>
+            }
+            @if(i == 0) {
+              <i class="bi bi-star text-warning fs-4"></i>
+            }
+          }
+        </div>
+
+        <button class="btn btn-success rounded-pill px-4" (click)="enrollToCourse()" [disabled]="!course">
+          📌 Kursa Kaydol
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- Dersler -->
+  <div class="mt-4">
+    <h4 class="mb-3">📚 Dersler</h4>
+    <ul class="list-group shadow-sm rounded-4">
+      @for (lesson of lessons; track $index) {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <strong>{{lesson.title}}</strong>
+          <a [href]="lesson.videoUrl" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill">İzle</a>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <hr class="my-5">
+
+  <!-- Yorumlar -->
+  <div class="mt-4">
+    <h4 class="mb-3">💬 Yorumlar</h4>
+    <div class="list-group shadow-sm rounded-4">
+      @for (comment of comments; track $index) {
+        <div class="list-group-item">
+          <p class="mb-1">{{comment.text}}</p>
+          <small class="text-muted">👤 User #{{comment.userId}} • {{comment.date}}</small>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Yorum ekleme formu -->
+  <div class="mt-5">
+    <h4>💬 Yorum Ekle</h4>
+    <div class="card shadow-sm rounded-4 p-3">
+      <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+        <div class="mb-3">
+          <textarea formControlName="text" class="form-control rounded-3"
+            rows="3" placeholder="Yorumunuzu yazın..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary rounded-pill px-4" [disabled]="commentForm.invalid">
+          Gönder
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+}

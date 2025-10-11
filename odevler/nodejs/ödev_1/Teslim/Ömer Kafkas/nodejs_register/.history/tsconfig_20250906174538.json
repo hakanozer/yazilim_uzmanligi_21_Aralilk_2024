@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    // Proje Dosya Yapısı
+    "rootDir": "./src",
+    "outDir": "./dist",
+    
+    // Ortam ve Modül Ayarları
+    "target": "ES2022", // Hedef JavaScript sürümünü ES2022 olarak ayarlar
+    "module": "NodeNext", // Node.js'in ES modül sistemini kullanır
+    "moduleResolution": "NodeNext", // Modül çözümlemesini Node.js'in yeni sistemiyle yapar
+    "lib": ["ES2022"], // ES2022 kütüphane tanımlamalarını içerir
+    "types": ["node"], // Node.js tip tanımlamalarını ekler
+    "esModuleInterop": true, // CommonJS ve ES modülleri arasında birlikte çalışabilirliği sağlar
+
+    // Diğer Çıktılar
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Gelişmiş Tip Kontrolü ve Stiller
+    "strict": true, // Tüm katı tip kontrolü seçeneklerini etkinleştirir
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

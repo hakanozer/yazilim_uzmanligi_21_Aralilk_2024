@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/courses-item/courses-item.spec.ts"],
+  "sourcesContent": ["import { ComponentFixture, TestBed } from '@angular/core/testing';\r\nimport { CoursesItem } from './courses-item';\r\nimport { globalTestConfig } from '../../../test-setup';\r\n\r\ndescribe('CoursesItem', () => {\r\n\tlet component: CoursesItem;\r\n\tlet fixture: ComponentFixture<CoursesItem>;\r\n\r\n\tbeforeEach(async () => {\r\n\t\tawait TestBed.configureTestingModule({\r\n\t\t\timports: [CoursesItem],\r\n\t\t\tproviders: [...globalTestConfig.providers]\r\n\t\t}).compileComponents();\r\n\r\n\t\tfixture = TestBed.createComponent(CoursesItem);\r\n\t\tcomponent = fixture.componentInstance;\r\n\t\tfixture.detectChanges();\r\n\t});\r\n\r\n\tit('should create', () => {\r\n\t\texpect(component).toBeTruthy();\r\n\t});\r\n});\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;;AAAA;;;AACA;AACA;AAEA,aAAS,eAAe,MAAK;AAC5B,UAAI;AACJ,UAAI;AAEJ,iBAAW,MAAW;AACrB,cAAM,QAAQ,uBAAuB;UACpC,SAAS,CAAC,WAAW;UACrB,WAAW,CAAC,GAAG,iBAAiB,SAAS;SACzC,EAAE,kBAAiB;AAEpB,kBAAU,QAAQ,gBAAgB,WAAW;AAC7C,oBAAY,QAAQ;AACpB,gBAAQ,cAAa;MACtB,EAAC;AAED,SAAG,iBAAiB,MAAK;AACxB,eAAO,SAAS,EAAE,WAAU;MAC7B,CAAC;IACF,CAAC;;;",
+  "names": []
+}

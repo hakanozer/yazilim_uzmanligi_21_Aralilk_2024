@@ -1,0 +1,97 @@
+
+
+
+<div class="teacher-panel-container">
+  <!-- Sayfa başlığı -->
+  <div class="page-header">
+    <h1 class="main-title">Instructor panel</h1>
+    <p class="subtitle">Manage your courses and create new ones</p>
+  </div>
+
+  @if (InstructorRole) {
+    <!-- Aksiyon butonları -->
+    <div class="action-buttons">
+      <button class="btn btn-primary" [routerLink]="['/newCours']">
+        <span class="btn-icon">➕</span>
+        Create New Course
+      </button>
+    </div>
+
+    <!-- Kurslarım bölümü -->
+    <div class="my-courses-section">
+      <h2 class="section-title">My Courses</h2>
+      
+      @if (isLoading) {
+        <div class="loading-state">
+          <div class="loading-spinner"></div>
+          <p>Loading your courses...</p>
+        </div>
+      } @else if (myCourses.length > 0) {
+        <div class="courses-grid">
+          @for (course of myCourses; track course.id) {
+            <div class="course-card" (click)="navigateToCourse(course.id)">
+              <!-- Kurs durumu -->
+              <div class="course-status">
+                <span class="level-badge" [ngClass]="'level-' + course.level">
+                  {{ course.level | titlecase }}
+                </span>
+                <span class="status-indicator" [ngClass]="course.isActive ? 'active' : 'inactive'">
+                  {{ course.isActive ? 'Aktif' : 'Pasif' }}
+                </span>
+              </div>
+
+              <!-- Kurs içeriği -->
+              <div class="card-content">
+                <h3 class="course-title">{{ course.title }}</h3>
+                <p class="course-description">{{ course.description }}</p>
+                
+                <!-- Kurs bilgileri -->
+                <div class="course-info">
+                  <div class="info-row">
+                    <span class="info-icon">⏱️</span>
+                    <span class="info-text">{{ course.duration }}</span>
+                  </div>
+                  
+                  <div class="info-row">
+                    <span class="info-icon">📚</span>
+                    <span class="info-text">{{ course.category }}</span>
+                  </div>
+                  
+                  <div class="info-row">
+                    <span class="info-icon">👥</span>
+                    <span class="info-text">{{ course.enrolledStudents }} öğrenci</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Kart alt kısmı -->
+              <div class="card-footer">
+                <div class="price-section">
+                  <span class="price">${{ course.price }}</span>
+                  <small class="created-date">{{ course.createdAt | date:'dd/MM/yyyy' }}</small>
+                </div>
+                
+                <div class="course-actions">
+                  <button class="btn-action edit" (click)="editCourse(course.id); $event.stopPropagation()" title="Düzenle">
+                    ✏️
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <div class="empty-icon">📚</div>
+          <h3>You did not created any course</h3>
+          <p>Create your first course by clicking the "Create New Course" button.</p>
+          <button class="btn btn-primary" [routerLink]="['/newCours']">
+            Create Your First Course
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+

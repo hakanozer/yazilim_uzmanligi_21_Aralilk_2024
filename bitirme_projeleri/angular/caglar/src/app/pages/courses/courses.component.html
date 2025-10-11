@@ -1,0 +1,28 @@
+<h2>Kurslar</h2>
+<div class="courses-container">
+  @for (course of coursesArr; track course.id) {
+  <div class="course-card">
+      <div class="course-icon">
+        <i [class]="course.icon"></i>
+      </div>
+      <div class="course-content">
+        <h3>{{course.coursesTitle}}</h3>
+        <p class="course-description">{{course.description}}</p>
+        <p class="course-instructor">Eğitmen: {{course.Instructor}}</p>
+      </div>
+      <div class="select-button mt-3 d-flex gap-2">
+        <a class="btn btn-primary" [routerLink]="['/courses', course.id]">Detay</a>
+        <button 
+          class="btn btn-success" 
+          (click)="selectCourse(course.id)"
+          [disabled]="isCourseSelected(course.id)">
+          {{isCourseSelected(course.id) ? 'Selected' : 'Select'}}
+        </button>
+      </div>
+    </div>
+    }
+  
+  @if (coursesArr.length === 0) {
+    <p>Henüz kurs bulunmuyor.</p>
+  }
+</div>

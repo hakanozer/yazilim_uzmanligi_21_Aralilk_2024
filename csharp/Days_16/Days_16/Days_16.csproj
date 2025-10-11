@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="odev_7\" />
+    <None Remove="odev_8\" />
+    <None Remove="odev_9\" />
+    <None Remove="odev_10\" />
+    <None Remove="models\" />
+    <None Remove="utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="odev_7\" />
+    <Folder Include="odev_8\" />
+    <Folder Include="odev_9\" />
+    <Folder Include="odev_10\" />
+    <Folder Include="models\" />
+    <Folder Include="utils\" />
+  </ItemGroup>
+</Project>

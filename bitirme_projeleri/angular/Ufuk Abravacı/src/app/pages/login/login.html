@@ -1,0 +1,92 @@
+<app-navbar/>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow p-4 position-relative" style="width: 400px">
+    <!-- Çarpı işareti (sol üst köşe) -->
+    <a
+      routerLink="/"
+      class="close-btn position-absolute top-0 start-0 m-3 text-primary fs-2 fw-bold text-decoration-none"
+      data-bs-toggle="tooltip"
+      title="Ana sayfaya dön"
+    >
+      &times;
+    </a>
+
+    <h2 class="text-center mb-4">Login</h2>
+
+    <!-- Hata/başarı mesajı / mesajın başındaki emojiye göre class ekliyoruz -->
+    @if (message()) {
+      <div
+        class="alert"
+        [class.alert-success]="message()?.startsWith('✅')"
+        [class.alert-danger]="message()?.startsWith('❌')"
+      >
+        {{ message() }}
+      </div>
+    }
+
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <!-- Email -->
+      <div class="mb-3">
+        <label>Email</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Enter your email"
+          name="email"
+          ngModel
+          required
+          email
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+        />
+        <div class="invalid-feedback">
+          @if (email.errors?.['required']) { Email is required } @if
+          (email.errors?.['email']) { Please enter a valid email }
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter your password"
+          name="password"
+          ngModel
+          required
+          minlength="6"
+          #password="ngModel"
+          [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+        />
+        <div class="invalid-feedback">
+          @if (password.errors?.['required']) { Password is required } @if
+          (password.errors?.['minlength']) { Password must be at least 6
+          characters }
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button
+        class="btn btn-primary w-100 d-flex justify-content-center align-items-center"
+        type="submit"
+        [disabled]="form.invalid || isLoading()"
+      >
+        @if (isLoading()) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Giriş yapılıyor...
+        } @else {
+          Login
+        }
+      </button>
+
+      <!-- Register link -->
+      <div class="text-center mt-3">
+        <small class="text-muted">
+          Henüz bir hesabınız yok mu?
+          <a routerLink="/register" class="ms-1 text-decoration-none">Kaydol</a>
+        </small>
+      </div>
+    </form>
+  </div>
+</div>

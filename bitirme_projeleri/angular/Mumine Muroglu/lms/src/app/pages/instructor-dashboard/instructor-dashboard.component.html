@@ -1,0 +1,53 @@
+<app-user-profile></app-user-profile>
+
+<div class="container mt-4 course-list-container">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-primary fw-bold mb-0 fs-4">Mevcut Kurslarım</h2>
+    <button (click)="showDropdown = !showDropdown" class="btn btn-outline-success btn-sm fw-semibold">
+      <i class="bi bi-plus-circle me-1"></i> Kurs Ekle
+    </button>
+  </div>
+
+  <!-- Dropdown Paneli -->
+  @if(showDropdown) {
+    <div class="dropdown-panel mb-3 p-3 border rounded bg-light shadow-sm" style="max-width: 400px;">
+      <input [(ngModel)]="newCourseTitle" placeholder="Kurs Başlığı" class="form-control mb-2" />
+      <input [(ngModel)]="newCourseDescription" placeholder="Kurs Açıklaması" class="form-control mb-2" />
+      <div class="d-flex justify-content-between">
+        <button (click)="addCourse()" class="btn btn-success btn-sm fw-semibold">
+          <i class="bi bi-check-circle me-1"></i> Kaydet
+        </button>
+        <button (click)="showDropdown = false" class="btn btn-secondary btn-sm fw-semibold">
+          <i class="bi bi-x-circle me-1"></i> İptal
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Kurs listesi scrollable -->
+  <div class="border rounded p-3 shadow-sm course-scrollable">
+    @if(coursesArr.length === 0) {
+      <p class="text-muted">Henüz kursunuz yok. Lütfen yeni bir kurs ekleyin.</p>
+    } @else {
+      @for (course of coursesArr; track course.id) {
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between align-items-start course-item">
+            <div>
+              <strong class="fs-6">{{ course.title }}</strong>
+              <p class="mb-0 text-secondary small">{{ course.description }}</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button (click)="deleteCourse(course.id)" class="btn btn-outline-danger btn-sm fw-semibold">
+                <i class="bi bi-trash me-1"></i> Sil
+              </button>
+              <button class="btn btn-outline-primary btn-sm fw-semibold" [routerLink]="['/course-detail', course.id]">
+                <i class="bi bi-pencil-square me-1"></i> Düzenle
+              </button>
+            </div>
+          </li>
+        </ul>
+      }
+    }
+  </div>
+</div>

@@ -1,0 +1,215 @@
+<div class="course-details-container">
+  <!-- Geri dönüş butonu (iptal birden çok sayfada var nereye götüreceğini tespit etmek ek yük getirir)-->
+ 
+
+  @if (details && details.id) {
+    <!-- Ana kurs detay kartı -->
+    <div class="course-detail-card">
+      <!-- Kurs başlığı ve durum -->
+      <div class="course-header">
+        <div class="course-status-section">
+          <span class="level-badge" [ngClass]="'level-' + details.level">
+            {{ details.level | titlecase }}
+          </span>
+          <span class="status-indicator" [ngClass]="details.isActive ? 'active' : 'inactive'">
+            {{ details.isActive ? 'Aktif' : 'Pasif' }}
+          </span>
+        </div>
+        
+        <h1 class="course-title">{{ details.title }}</h1>
+        <p class="course-description">{{ details.description }}</p>
+      </div>
+
+      <!-- Kurs bilgileri grid -->
+      <div class="course-info-grid">
+        <div class="info-card">
+          <div class="info-icon">👨‍🏫</div>
+          <div class="info-content">
+            <span class="info-label">Instructor</span>
+            <span class="info-value">{{ details.instructor }}</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">⏱️</div>
+          <div class="info-content">
+            <span class="info-label">Duration</span>
+            <span class="info-value">{{ details.duration }}</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">📚</div>
+          <div class="info-content">
+            <span class="info-label">Category</span>
+            <span class="info-value">{{ details.category }}</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">👥</div>
+          <div class="info-content">
+            <span class="info-label">Students</span>
+            <span class="info-value">{{ details.enrolledStudents }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fiyat ve kayıt bölümü -->
+      <div class="price-registration-section">
+        <div class="price-info">
+          <span class="price-label">Course Price</span>
+          <span class="price-value">${{ details.price }}</span>
+          <small class="created-date">Created: {{ details.createdAt | date:'dd/MM/yyyy' }}</small>
+        </div>
+
+        <div class="registration-actions">
+          @if (details.isActive && authService.isLoggedIn() && !authService.isTeacher() && !authService.isAdmin()) {
+            <button class="btn btn-primary btn-large" [routerLink]="['/enroll-Course', details.id]">
+              <span class="btn-icon">🎓</span>
+              Enroll Now
+            </button>
+            <button 
+              class="btn btn-outline btn-large" 
+              [ngClass]="{'saved-btn': savedCurs, 'save-btn': !savedCurs}"
+              (click)="save()">
+              <span class="btn-icon">{{ savedCurs ? '✅' : '💾' }}</span>
+              <span class="btn-text">{{ savedCurs ? 'Saved' : 'Save for Later' }}</span>
+              <span class="btn-hover-text">{{ savedCurs ? 'Delete' : 'Save for Later' }}</span>
+            </button>
+          }
+           @else if (details.isActive && !authService.isLoggedIn()) {
+            <button class="btn btn-secondary btn-large" [routerLink]="['/login']">
+              <span class="btn-icon">🔐</span>
+              Login to Enroll
+            </button>
+          } @else if (details.isActive && (authService.isTeacher() || authService.isAdmin())) {
+            <div class="instructor-info">
+              <span class="instructor-badge">{{ authService.isAdmin() ? 'Admin' : 'Instructor' }} View</span>
+            </div>
+          } @else {
+            <button class="btn btn-disabled btn-large" disabled>
+              <span class="btn-icon">⏸️</span>
+              Course Inactive
+            </button>
+          } 
+        </div>
+      </div>
+    </div>
+
+    <!-- Kurs içeriği bölümü -->
+    <div class="course-content-section">
+      <h2 class="section-title">Course Content</h2>
+      <div class="content-placeholder">
+        <div class="placeholder-icon">📋</div>
+        <p>Course curriculum and materials will be displayed here.</p>
+      </div>
+    </div>
+
+    <!-- Yorumlar bölümü -->
+    <div class="comments-section">
+      <div class="comments-header">
+        <h2 class="section-title">Student Reviews ({{ comments.length }})</h2>
+        @if (authService.isLoggedIn()) {
+          <button class="add-comment-btn" (click)="toggleCommentForm()">
+            {{ showCommentForm ? 'Cancel' : 'Comment' }}
+          </button>
+        }
+      </div>
+
+      <!-- Yorum Ekleme Formu -->
+      @if (showCommentForm) {
+        <div class="comment-form">
+          <h3>{{ editingComment ? 'Edit your Comment' : 'Comment' }}</h3>
+          <form (ngSubmit)="submitComment()">
+            <div class="form-group">
+              <label for="rating">Puan (1-5):</label>
+              <select id="rating" [(ngModel)]="newComment.rating" name="rating" class="form-control" required>
+                <option value="1">1 - Not nicey</option>
+                <option value="2">2 - Almost Nicey</option>
+                <option value="3">3 - Likely Nice</option>
+                <option value="4">4 - Nice</option>
+                <option value="5">5 - Nicer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="comment">Comment:</label>
+              <textarea 
+                id="comment" 
+                [(ngModel)]="newComment.comment" 
+                name="comment" 
+                class="form-control" 
+                rows="4" 
+                placeholder="Share your thoughts about the course..."
+                required>
+              </textarea>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" [disabled]="isSubmittingComment">
+                {{ isSubmittingComment ? 'Sending...' : (editingComment ? 'Update' : 'Send') }}
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      }
+      
+      @if (isLoadingComments) {
+        <div class="loading-comments">
+          <div class="loading-spinner-small"></div>
+          <p>Loading reviews...</p>
+        </div>
+      } @else if (comments.length > 0) {
+        <div class="comments-list">
+          @for (comment of comments; track comment.id) {
+            <div class="comment-card">
+              <div class="comment-header">
+                <div class="user-info">
+                  <div class="user-avatar">{{ comment.userName.charAt(0).toUpperCase() }}</div>
+                  <div class="user-details">
+                    <h4 class="user-name">{{ comment.userName }}</h4>
+                    <div class="comment-rating">
+                      @for (star of getStarArray(comment.rating); track $index) {
+                        <span class="star" [class.filled]="star === 1">★</span>
+                      }
+                      <span class="rating-text">({{ comment.rating }}/5)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="comment-date">
+                  {{ comment.createdAt | date:'MMM dd, yyyy' }}
+                </div>
+              </div>
+              <div class="comment-body">
+                <p class="comment-text">{{ comment.comment }}</p>
+                @if (isUserComment(comment)) {
+                  <div class="comment-actions">
+                    <button class="btn-edit" (click)="editComment(comment)" title="Düzenle">
+                      ✏️
+                    </button>
+                    <button class="btn-delete" (click)="deleteComment(comment)" title="Sil">
+                      🗑️
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="no-comments">
+          <div class="placeholder-icon">💬</div>
+          <p>No reviews yet. Be the first to review this course!</p>
+        </div>
+      }
+    </div>
+  } @else if (isLoading) {
+    <!-- Loading durumu -->
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading course details...</p>
+    </div>
+  }
+</div>

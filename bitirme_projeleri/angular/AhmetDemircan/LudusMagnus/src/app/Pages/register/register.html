@@ -1,0 +1,115 @@
+<section class="position-relative py-4 py-xl-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                @if (error !== '') {
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                }
+                @if (success !== '') {
+                    <div class="alert alert-success" role="alert">
+                        {{ success }}
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-5">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h2 class="my-4">Ludus Magnus</h2>
+                        <p class="text-muted mb-4">Create an account</p>
+                        <form (ngSubmit)="onSubmit($event)" class="text-center w-100" method="post">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full name</label>
+                                <input 
+                                    #nameRef 
+                                    [(ngModel)]="formModel.name" 
+                                    name="name" 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="name"
+                                    placeholder="Ahmet Demircan"
+                                    [disabled]="isLoading"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input 
+                                    #emailRef 
+                                    [(ngModel)]="formModel.email" 
+                                    name="email" 
+                                    type="email" 
+                                    class="form-control" 
+                                    id="email"
+                                    placeholder="ornek@ludusmagnus.com"
+                                    [disabled]="isLoading"
+                                    (blur)="validateEmailOnBlur()"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input 
+                                    #passwordRef 
+                                    [(ngModel)]="formModel.password" 
+                                    name="password" 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="password"
+                                    placeholder="selec your password atleast 6 characters"
+                                    [disabled]="isLoading"
+                                    (blur)="validatePasswordOnBlur()"
+                                    minlength="6"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <input 
+                                    #confirmPasswordRef 
+                                    [(ngModel)]="formModel.confirmPassword" 
+                                    name="confirmPassword" 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="confirmPassword"
+                                    placeholder="Retype your password"
+                                    [disabled]="isLoading"
+                                    (blur)="validatePasswordConfirmation()"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Register as</label>
+                                <select 
+                                    #roleRef 
+                                    [(ngModel)]="formModel.role" 
+                                    name="role" 
+                                    class="form-select" 
+                                    id="role"
+                                    [disabled]="isLoading"
+                                    required>
+                                    <option value="">Select role</option>
+                                    <option value="student">I am Student</option>
+                                    <option value="teacher">I am Teacher</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-primary w-100"
+                                    [disabled]="isLoading">
+                                    @if (isLoading) {
+                                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    }
+                                    {{ isLoading ? 'Creatinging account...' : 'Create account' }}
+                                </button>
+                            </div>
+                            <p class="text-muted mt-3">
+                                Already have an account? 
+                                <a [routerLink]="['/login']" class="text-primary text-decoration-none">Log in here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

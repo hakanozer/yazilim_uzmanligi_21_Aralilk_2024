@@ -1,0 +1,154 @@
+<div class="cursus-container">
+  <!-- Sayfa başlığı -->
+  <div class="page-header">
+    <h1 class="main-title">Courses</h1>
+    <p class="subtitle">Explore our wide range of courses</p>
+    
+    <!-- + Butonu (RoleControl true ise görünür) -->
+    @if (this.role) {
+      <button class="add-course-btn" [routerLink]="['/teacher-panel']" title="Add New Course">
+        <span class="plus-icon">✏️</span>
+      </button>
+    }
+  </div>
+
+  <!-- Loading durumu -->
+  @if (isloading && cursus.length === 0 ) {
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading courses...</p>
+    </div>
+  }
+
+  <!-- Kurs kartları gridi -->
+  @if (!isloading && paginatedCursus.length > 0) {
+    <div class="courses-grid">
+      @for (kurs of paginatedCursus; track kurs.id) {
+        <div class="course-card" [routerLink]="['/course-details', kurs.id]">
+          <!-- Kart üst kısmı -->
+          <div class="card-header">
+            <div class="course-level">
+              <span class="level-badge" [ngClass]="'level-' + kurs.level">
+                {{ kurs.level | titlecase }}
+              </span>
+            </div>
+            <div class="course-status">
+              <span class="status-indicator" [ngClass]="kurs.isActive ? 'active' : 'inactive'">
+                {{ kurs.isActive ? 'Aktif' : 'Pasif' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Kurs başlığı -->
+          <div class="card-body">
+            <h3 class="course-title">{{ kurs.title }}</h3>
+            <p class="course-description">{{ kurs.description }}</p>
+            
+            <!-- Kurs bilgileri -->
+            <div class="course-info">
+              <div class="info-row">
+                <span class="info-icon">👨‍🏫</span>
+                <span class="info-text">{{ kurs.instructor }}</span>
+              </div>
+              
+              <div class="info-row">
+                <span class="info-icon">⏱️</span>
+                <span class="info-text">{{ kurs.duration }}</span>
+              </div>
+              
+              <div class="info-row">
+                <span class="info-icon">📚</span>
+                <span class="info-text">{{ kurs.category }}</span>
+              </div>
+              
+              <div class="info-row">
+                <span class="info-icon">👥</span>
+                <span class="info-text">{{ kurs.enrolledStudents }} student</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kart alt kısmı -->
+          <div class="card-footer">
+            <div class="price-section">
+              <span class="price">${{ kurs.price }}</span>
+              <small class="created-date">{{ kurs.createdAt | date:'dd/MM/yyyy' }}</small>
+            </div>
+            
+            <!--Giriş kontrolü-->
+            @if (authService.isLoggedIn()) {
+              @if (kurs.isActive && isEnrolled && !authService.isTeacher() && !authService.isAdmin()) {
+                <div class="register-section">
+                  <button class="btn btn-primary" 
+                          [routerLink]="['/enroll-curs', kurs.id]"
+                          (click)="$event.stopPropagation()">Register</button>
+                </div>
+              } @else if (kurs.isActive && (authService.isTeacher() || authService.isAdmin())) {
+                <div class="instructor-view">
+                  <span class="instructor-label">{{ authService.isAdmin() ? 'Admin' : 'Instructor' }} View</span>
+                </div>
+              }
+            } @else {
+              @if (kurs.isActive) {
+                <div class="register-section">
+                  <button class="btn btn-primary" 
+                          [routerLink]="['/login']"
+                          (click)="$event.stopPropagation()">Login to Register</button>
+                </div>
+              }
+            }
+            
+            @if (!kurs.isActive) {
+              <div class="inactive-message">
+                <span>Course is not available</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Boş durum -->
+  @if (cursus.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📚</div>
+      <h3>Nullae cursus praesto sunt</h3>
+      <p>Novos cursus mox addemus!</p>
+    </div>
+  }
+
+  <!-- Modern Pagination -->
+  <div class="modern-pagination-container" *ngIf="!isloading && cursus.length > 0">
+    <div class="pagination-wrapper">
+      <!-- Önceki sayfa butonu -->
+      <button 
+        class="nav-button prev-button" 
+        (click)="previousPage()" 
+        [disabled]="currentPage === 1"
+        [class.disabled]="currentPage === 1">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15,18 9,12 15,6"></polyline>
+        </svg>
+      </button>
+      
+      <!-- Sayfa bilgisi -->
+      <div class="page-info">
+        <span class="current-page">{{ currentPage }}</span>
+        <span class="separator">of</span>
+        <span class="total-pages">{{ totalPages }}</span>
+      </div>
+      
+      <!-- Sonraki sayfa butonu -->
+      <button 
+        class="nav-button next-button" 
+        (click)="nextPage()" 
+        [disabled]="currentPage === totalPages"
+        [class.disabled]="currentPage === totalPages">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9,18 15,12 9,6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

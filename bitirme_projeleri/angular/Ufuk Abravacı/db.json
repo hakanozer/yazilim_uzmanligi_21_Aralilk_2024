@@ -1,0 +1,332 @@
+{
+  "users": [
+    {
+      "email": "x@gmail.com",
+      "password": "$2a$10$bZOw7iQk4Wbz1K6VKOa3Ve2QMwGKXeKe4Rib0TGnU7pRAOZ2ikLde",
+      "fullName": "Ufuk Abravacı",
+      "role": "student",
+      "id": 3
+    },
+    {
+      "email": "alison@gmail.com",
+      "password": "$2a$10$cu6wssh3zONM78JoBHScke.Pvax05ckbSPxg0TnoudE0FqMsKdB/a",
+      "fullName": "Ali Son",
+      "role": "student",
+      "id": 4
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$X7f3tz/aUrgChi7wts4MUOFsu4zSmHzYBJAG02ND6HdB3pVKrM9iW",
+      "fullName": "abc",
+      "role": "student",
+      "id": 5
+    },
+    {
+      "email": "yakgun94@gmail.com",
+      "password": "$2a$10$He9/gEYyavdDZt9esrhsxOrM.xBNqLthSNSXH6ySHFbE78rOACRBm",
+      "fullName": "abc",
+      "role": "student",
+      "id": 6
+    },
+    {
+      "email": "aliveli2@gmail.com",
+      "password": "$2a$10$amr1UHmVr4NVvI85OFyFEuH51fhNEC7qIyLbngGJD6olKFJWKFAbq",
+      "fullName": "Ufuk Abravacı",
+      "role": "student",
+      "id": 7
+    },
+    {
+      "email": "ufkk1262@gmail.com",
+      "password": "$2a$10$OBfNWWvZwfnjdCr8YRXNJ.knygCiMs.wO5wwFrdf5lHHeH9ZyCgc.",
+      "fullName": "Ufuk Abravacı",
+      "role": "student",
+      "id": 8
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$cIgMpgbbHlj2OWp7aE0qWO1ByIOcPf1We5h8jVw.Yr0d5sRybrzlW",
+      "name": "Test User",
+      "role": "student",
+      "id": 9
+    },
+    {
+      "email": "egitmen@gmail.com",
+      "password": "$2a$10$BJUOz.meQyrN1yxlXGulUutSn.tM4oWunHAQF0IhTyO6E5ZW1HqyC",
+      "fullName": "eğitmen",
+      "role": "instructor",
+      "id": 10
+    },
+    {
+      "email": "gyildiz@gmail.com",
+      "password": "$2a$10$xrXtB8gn4GPRBBYpIe/y8uRKfGngV1ZVGiDOZlMB/cH8XskcTo7Ui",
+      "fullName": "Gençay Yıldız",
+      "role": "instructor",
+      "id": 11
+    },
+    {
+      "email": "techbuddy@gmail.com",
+      "password": "$2a$10$WPez/bsBZTndntfBbfiDvOplnafdgyMoVAojCEQSszXXZWClrQbUW",
+      "fullName": "Tech Buddy",
+      "role": "instructor",
+      "id": 12
+    }
+  ],
+  "courses": [
+    {
+      "title": "Angular 15 Eğitimi",
+      "description": "Bu kurs Angular 15'in tüm özelliklerini detaylıca incelemektedir. Ayrıca henüz angulara tam olarak entegre olmamış olan zoneless uygulamalar, signallar ve standalone components  hakkında da incelemeler içermektedir. Angular hakkında her şeyi teorik ve uygulamalı olarak inceleyeceğiz.",
+      "category": "Angular",
+      "imageUrl": "https://www.gencayyildiz.com/blog/wp-content/uploads/2023/11/angular-17-720x340.png",
+      "instructorId": 11,
+      "id": 8
+    },
+    {
+      "title": "Özel Ders Formatında A’dan Z’ye Nesne Tabanlı Programlama",
+      "description": "Bu Kurs C# Programlama dilini kullanarak Object Oriented Programming(OOP)/Nesne Tabanlı Programlama konularını detaylıca işlemektedir.",
+      "category": "Programming",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIweckUUgjGnlbhtdnaM8vQTWH34_cqeEqow&s",
+      "instructorId": 11,
+      "id": 9
+    },
+    {
+      "title": "Tasarım Kalıpları - Design Patterns",
+      "description": "Bu kurs en sık kullanılan design patternları detaylıca anlatır. Anlatım sırasında C# dili tercih edilmiştir.",
+      "category": "Programming",
+      "imageUrl": "https://www.vikingsoftware.com/wp-content/uploads/2024/02/C.png",
+      "instructorId": 12,
+      "id": 10
+    },
+    {
+      "title": "Veri Yapıları / Data Structures",
+      "description": "Bu kursumda veri yapılarını c# dili ile birlikte detaylıca inceliyor olacağız.",
+      "category": "Programming",
+      "imageUrl": "https://codegnan.com/wp-content/uploads/2024/05/data-structure-and-algorithm-projects-ilustration.png",
+      "instructorId": 12,
+      "id": 11
+    }
+  ],
+  "lessons": [
+    {
+      "id": 1,
+      "courseId": 1,
+      "title": "Components Giriş",
+      "videoUrl": "https://example.com/video1.mp4",
+      "duration": "12:34"
+    },
+    {
+      "title": "Angular Eğitimi #1 - Angular Nedir? Temel Bilgileri Teorik Olarak İnceleyelim?",
+      "videoUrl": "https://www.youtube.com/watch?v=Z4WqBwmO0mA&list=PLQVXoXFVVtp1DcC4z0euk71_ICphrOEFV",
+      "duration": "49:33",
+      "courseId": 8,
+      "id": 8
+    },
+    {
+      "title": "Angular Eğitimi #2 - Angular Mimarisinin Temel Yapı Taşları Nelerdir? Genel Teorik İnceleyelim",
+      "videoUrl": "https://www.youtube.com/watch?v=dDCqhkGzq6o&list=PLQVXoXFVVtp1DcC4z0euk71_ICphrOEFV&index=2",
+      "duration": "28:59",
+      "courseId": 8,
+      "id": 9
+    },
+    {
+      "title": "Angular Eğitimi #3 - Temel Component Yapılanmasını İnceleyelim",
+      "videoUrl": "https://www.youtube.com/watch?v=ntViOwJjapQ&list=PLQVXoXFVVtp1DcC4z0euk71_ICphrOEFV&index=3",
+      "duration": "53:05",
+      "courseId": 8,
+      "id": 10
+    },
+    {
+      "title": "Angular Eğitimi #4 - Data Binding Mekanizması Nedir? Hangi Yaklaşımlarla Gerçekleştirilmektedir?",
+      "videoUrl": "https://www.youtube.com/watch?v=eYMEegz9sUM&list=PLQVXoXFVVtp1DcC4z0euk71_ICphrOEFV&index=4",
+      "duration": "37:39",
+      "courseId": 8,
+      "id": 11
+    },
+    {
+      "title": "Angular Eğitimi #5 - Interpolation Syntax Nedir? Detaylıca İnceleyelim",
+      "videoUrl": "https://www.youtube.com/watch?v=VAD7T0E15Dg&list=PLQVXoXFVVtp1DcC4z0euk71_ICphrOEFV&index=5",
+      "duration": "26:11",
+      "courseId": 8,
+      "id": 12
+    },
+    {
+      "title": "Nesne Tabanlı Programlama #1 - Nesne Anatomisi - Referans Türlü Değişkenler",
+      "videoUrl": "https://www.youtube.com/watch?v=48Z75_jZHv0&list=PLQVXoXFVVtp306cqgKyC8NoxCmHIuWVBK",
+      "duration": "33:59",
+      "courseId": 9,
+      "id": 13
+    },
+    {
+      "title": "Nesne Tabanlı Programlama #2 - Class Kavramı",
+      "videoUrl": "https://www.youtube.com/watch?v=9_7pa5ZHaa4&list=PLQVXoXFVVtp306cqgKyC8NoxCmHIuWVBK&index=2",
+      "duration": "38:12",
+      "courseId": 9,
+      "id": 14
+    },
+    {
+      "title": "Nesne Tabanlı Programlama #3 - Class Members",
+      "videoUrl": "https://www.youtube.com/watch?v=3CC4EFcqMWM&list=PLQVXoXFVVtp306cqgKyC8NoxCmHIuWVBK&index=3",
+      "duration": "74:27",
+      "courseId": 9,
+      "id": 15
+    },
+    {
+      "title": "Nesne Tabanlı Programlama #4 - Class Yapısına Dair Son Dokunuşlar",
+      "videoUrl": "https://www.youtube.com/watch?v=kdQO_2CeUQs&list=PLQVXoXFVVtp306cqgKyC8NoxCmHIuWVBK&index=4",
+      "duration": "11:03",
+      "courseId": 9,
+      "id": 16
+    },
+    {
+      "title": "Nesne Tabanlı Programlama #5 - this Keyword'ü Nedir? İşlevleri Nelerdir?",
+      "videoUrl": "https://www.youtube.com/watch?v=4ed_DT1jT_4&list=PLQVXoXFVVtp306cqgKyC8NoxCmHIuWVBK&index=5",
+      "duration": "12:36",
+      "courseId": 9,
+      "id": 17
+    },
+    {
+      "title": "Builder Pattern | Design Patterns | Tasarım Kalıpları",
+      "videoUrl": "https://www.youtube.com/watch?v=Spq_ClIy-AM&list=PLRp4oRsit1bzcZhzv-xvHGn1SS0wwLIvR",
+      "duration": "35:16",
+      "courseId": 10,
+      "id": 18
+    },
+    {
+      "title": "Decorator Pattern Nedir ? | Design Patterns | Tasarım Kalıpları",
+      "videoUrl": "https://www.youtube.com/watch?v=4nJ5BUOx7-w&list=PLRp4oRsit1bzcZhzv-xvHGn1SS0wwLIvR&index=2",
+      "duration": "26:20",
+      "courseId": 10,
+      "id": 19
+    },
+    {
+      "title": "Singleton Pattern Nedir ? | Design Patterns | Tasarım Kalıpları",
+      "videoUrl": "https://www.youtube.com/watch?v=vISy3_0mxT8&list=PLRp4oRsit1bzcZhzv-xvHGn1SS0wwLIvR&index=3",
+      "duration": "34:23",
+      "courseId": 10,
+      "id": 20
+    },
+    {
+      "title": "Adapter Pattern | Tasarım Kalıpları | Design Patterns",
+      "videoUrl": "https://www.youtube.com/watch?v=aRzZYXCjRQk&list=PLRp4oRsit1bzcZhzv-xvHGn1SS0wwLIvR&index=4",
+      "duration": "18:57",
+      "courseId": 10,
+      "id": 21
+    },
+    {
+      "title": "Strategy Pattern | Tasarım Kalıpları | Design Patterns",
+      "videoUrl": "https://www.youtube.com/watch?v=xnwo6FxqLbg&list=PLRp4oRsit1bzcZhzv-xvHGn1SS0wwLIvR&index=5",
+      "duration": "19:05",
+      "courseId": 10,
+      "id": 22
+    },
+    {
+      "title": "Kıymetini Bilmiyoruz | Recursive Binary Search Tree",
+      "videoUrl": "https://www.youtube.com/watch?v=tsQZ-7zFziU&list=PLRp4oRsit1byJFPde06A_JxZtegvp-QW7",
+      "duration": "34:57",
+      "courseId": 11,
+      "id": 23
+    },
+    {
+      "title": "Trie | Veri Yapıları",
+      "videoUrl": "https://www.youtube.com/watch?v=oxRiw1LD0yg&list=PLRp4oRsit1byJFPde06A_JxZtegvp-QW7&index=2",
+      "duration": "28:25",
+      "courseId": 11,
+      "id": 24
+    },
+    {
+      "title": "LinkedList | Veri Yapıları",
+      "videoUrl": "https://www.youtube.com/watch?v=s4UbpM2bEQU&list=PLRp4oRsit1byJFPde06A_JxZtegvp-QW7&index=3",
+      "duration": "37:23",
+      "courseId": 11,
+      "id": 25
+    },
+    {
+      "title": "Queue ve Stack Nasıl Çalışır? | Veri Yapıları",
+      "videoUrl": "https://www.youtube.com/watch?v=FJ5sCaNjZ4g&list=PLRp4oRsit1byJFPde06A_JxZtegvp-QW7&index=4",
+      "duration": "35:22",
+      "courseId": 11,
+      "id": 26
+    },
+    {
+      "title": "SortedList Nasıl Çalışır? | Veri Yapıları",
+      "videoUrl": "https://www.youtube.com/watch?v=fQ88XccgiWA&list=PLRp4oRsit1byJFPde06A_JxZtegvp-QW7&index=5",
+      "duration": "29:50",
+      "courseId": 11,
+      "id": 27
+    }
+  ],
+  "enrollments": [
+    {
+      "userId": 11,
+      "courseId": 8,
+      "id": 6
+    },
+    {
+      "userId": 10,
+      "courseId": 8,
+      "id": 7
+    },
+    {
+      "userId": 11,
+      "courseId": 9,
+      "id": 8
+    },
+    {
+      "userId": 12,
+      "courseId": 11,
+      "id": 9
+    },
+    {
+      "userId": 12,
+      "courseId": 10,
+      "id": 10
+    },
+    {
+      "userId": 12,
+      "courseId": 8,
+      "id": 11
+    },
+    {
+      "userId": 8,
+      "courseId": 11,
+      "id": 12
+    },
+    {
+      "userId": 8,
+      "courseId": 10,
+      "id": 13
+    },
+    {
+      "userId": 8,
+      "courseId": 9,
+      "id": 14
+    },
+    {
+      "userId": 8,
+      "courseId": 8,
+      "id": 15
+    }
+  ],
+  "comments": [
+    {
+      "courseId": 8,
+      "userId": 11,
+      "date": "2025-09-26T11:22:11.116Z",
+      "text": "Kursun tarihi eski olsa dahi angular mantığını kavrayabilmek için çok faydalı olacaktır.",
+      "id": 3
+    },
+    {
+      "courseId": 8,
+      "userId": 10,
+      "date": "2025-09-26T11:52:37.670Z",
+      "text": "Güzel bir kurs, teşekkürler hocam",
+      "id": 4
+    },
+    {
+      "courseId": 8,
+      "userId": 12,
+      "date": "2025-09-26T14:37:25.725Z",
+      "text": "Emeğine sağlık hocam",
+      "id": 5
+    }
+  ]
+}

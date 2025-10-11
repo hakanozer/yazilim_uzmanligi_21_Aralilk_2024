@@ -1,0 +1,765 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* ==========================================================================
+   GLOBAL STYLES & RESETS
+   ========================================================================== */
+/* #region */
+/* Close Button Styles */
+.close-btn {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #0d6efd;
+  transform: scale(1.2);
+}
+
+/* Hero Image Wrapper */
+.hero-image-wrapper {
+  width: 100%;
+  max-width: auto;
+  margin: 0 auto;
+}
+
+.hero-image-wrapper img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Responsive Navbar Dropdown */
+@media (max-width: 768px) {
+  .navbar .dropdown-menu {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    border-radius: 0;
+  }
+}
+/*#endregion */
+
+
+
+/* ==========================================================================
+   COURSE DETAILS SECTION
+   ========================================================================== */
+/* #region */
+.course-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.course-detail-container .breadcrumb-section {
+  margin-bottom: 2rem;
+}
+
+.course-detail-container .breadcrumb-section .breadcrumb {
+  background: transparent;
+  padding: 0;
+}
+
+.course-detail-container .breadcrumb-section .breadcrumb-item {
+  font-size: 0.9rem;
+}
+
+.course-detail-container .breadcrumb-section .breadcrumb-item a {
+  color: #6c757d;
+  transition: color 0.2s;
+}
+
+.course-detail-container .breadcrumb-section .breadcrumb-item a:hover {
+  color: #0d6efd;
+}
+
+.course-detail-container .breadcrumb-section .breadcrumb-item.active {
+  color: #495057;
+  font-weight: 500;
+}
+
+.course-detail-container .course-header .category-badge .badge {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.course-detail-container .course-header .course-title {
+  color: #2c3e50;
+  line-height: 1.2;
+}
+
+.course-detail-container .course-header .course-meta .meta-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.course-detail-container .lessons-section .lesson-item {
+  border: 1px solid #e9ecef;
+  transition: all 0.2s;
+}
+
+.course-detail-container .lessons-section .lesson-item:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.1);
+}
+
+.course-detail-container .lessons-section .lesson-item .lesson-number {
+  min-width: 40px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.course-detail-container .lessons-section .lesson-item .lesson-title {
+  color: #2c3e50;
+}
+
+.course-detail-container .course-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.course-detail-container .course-sidebar .course-image img {
+  transition: transform 0.3s;
+}
+
+.course-detail-container .course-sidebar .course-image img:hover {
+  transform: scale(1.02);
+}
+
+.course-detail-container .course-sidebar .course-info-card .info-item:last-child {
+  border-bottom: none !important;
+}
+
+.course-detail-container .course-sidebar .instructor-card .instructor-avatar {
+  color: #6c757d;
+}
+
+.course-detail-container .loading-section,
+.course-detail-container .error-section {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .course-detail-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .course-detail-container .course-sidebar {
+    margin-top: 2rem;
+  }
+}
+
+
+/*#endregion */
+
+
+
+
+/* ==========================================================================
+   COMMENTS SECTION
+   ========================================================================== */
+/* #region */
+.comments-section {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+/* Başlık */
+.comments-section h4 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: left;
+  margin-left: 0;
+}
+
+/* Yorum Yazma Alanı */
+.comments-section .add-comment {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.comments-section .add-comment h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.comments-section .add-comment textarea {
+  resize: vertical;
+  min-height: 100px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 12px;
+  width: 100%;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  text-align: left;
+}
+
+.comments-section .add-comment textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.comments-section .add-comment .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 8px 20px;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+  text-align: left;
+  margin-left: 0;
+}
+
+.comments-section .add-comment .btn-primary:hover:not(:disabled) {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.comments-section .add-comment .btn-primary:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Yorum Listesi */
+.comments-section .comment-item {
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid #e9ecef !important;
+  background: none;
+  text-align: left;
+  transition: all 0.3s ease; /* hover transition */
+}
+
+.comments-section .comment-item:last-child {
+  border-bottom: none !important;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.comments-section .comment-item:hover {
+  background-color: #f8f9fa;
+}
+
+.comments-section .comment-item h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  text-align: left;
+}
+
+.comments-section .comment-item p {
+  color: #495057;
+  line-height: 1.5;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.comments-section .comment-item small {
+  color: #6c757d;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+/* Yorum Aksiyonları (sil vb) */
+.comments-section .comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.comments-section .btn-outline-danger {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.comments-section .btn-outline-danger:hover:not(:disabled) {
+  background-color: #dc3545;
+  color: white;
+}
+
+.comments-section .btn-outline-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+/*#endregion */
+
+
+
+
+/* ==========================================================================
+   OUR INSTRUCTORS SECTION
+   ========================================================================== */
+/* #region */
+
+.our-instructors-section {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 3rem 0;
+}
+
+.our-instructors-section .instructor-card {
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  background: white;
+}
+
+.our-instructors-section .instructor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.our-instructors-section .avatar-placeholder {
+  background: #f8f9fa; /* Mavi arkaplan yerine nötr renk */
+  color: #6c757d;
+  transition: transform 0.3s ease;
+  border: 2px solid #e9ecef;
+}
+
+.our-instructors-section .instructor-card:hover .avatar-placeholder {
+  transform: scale(1.05);
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.our-instructors-section .instructor-name {
+  font-size: 1.1rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.our-instructors-section .instructor-email {
+  font-size: 0.9rem;
+  word-break: break-word;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.our-instructors-section .instructor-role .badge {
+  font-size: 0.8rem;
+  border: 1px solid #007bff;
+  background: rgba(0, 123, 255, 0.1);
+  color: #007bff;
+}
+
+/* Pagination Styles for Instructors */
+.our-instructors-section .pagination .page-link {
+  color: #007bff;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 1rem;
+}
+
+.our-instructors-section .pagination .page-link:hover {
+  background-color: #e9ecef;
+  color: #0056b3;
+}
+
+.our-instructors-section .pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  background-color: #f8f9fa;
+}
+
+.our-instructors-section .pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+/* Responsive Design for Instructors */
+@media (max-width: 768px) {
+  .our-instructors-section {
+    padding: 2rem 0;
+    min-height: auto;
+  }
+  
+  .our-instructors-section .instructor-card {
+    margin-bottom: 1rem;
+  }
+  
+  .our-instructors-section .pagination .page-link {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+/*#endregion */
+
+
+/* ==========================================================================
+   PROFILE SECTION (Eğitmen Profili için)
+   ========================================================================== */
+/* #region */
+.profile-section .avatar-container {
+  background: #f8f9fa; /* Mavi arkaplan yerine nötr renk */
+  border: 3px solid #e9ecef;
+  color: #6c757d;
+}
+
+.profile-section .avatar-container:hover {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+/*#endregion */
+
+
+/* ==========================================================================
+   UTILITY CLASSES (Genel Kullanım için)
+   ========================================================================== */
+/* #region */
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+
+.mt-5 {
+  margin-top: 3rem !important;
+}
+
+.pb-4 {
+  padding-bottom: 1.5rem !important;
+}
+
+.py-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.rounded {
+  border-radius: 6px !important;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.align-items-start {
+  align-items: flex-start !important;
+}
+
+.fw-bold {
+  font-weight: 600 !important;
+}
+
+.fw-semibold {
+  font-weight: 500 !important;
+}
+
+.ml-0 {
+  margin-left: 0 !important;
+}
+
+.pl-0 {
+  padding-left: 0 !important;
+}
+
+/* Alert Styles */
+.alert {
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  text-align: left;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeaa7;
+}
+
+.alert-info {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* Spinner */
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* List Group */
+.list-group {
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  text-align: left;
+}
+
+.list-group-item {
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #fff;
+  text-align: left;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.list-group-item:last-child {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
+.card-img-top {
+  width: 100%;
+  height: 200px;              /* Tüm resimler 200px yüksekliğe sabitlenir */
+  object-fit: contain;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+/* Kart gövdesinin her zaman aynı hizalanması için */
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  flex: 1;                    /* Kart gövdesi kalan alanı kaplasın */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  min-height: 48px;           /* Başlık hizalanması için istersen sabitleyebilirsin */
+}
+
+.card-text {
+  flex-grow: 1;               /* Açıklama alanı esneyerek detaya butonunu alta iter */
+}
+/*#endregion */
+
+/* ==========================================================================
+   MY COURSES SECTION
+   ========================================================================== */
+/* #region */
+.my-courses-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.my-courses-container .page-header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 1.5rem;
+}
+
+.my-courses-container .courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.my-courses-container .course-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.my-courses-container .course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.my-courses-container .course-card-image {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.my-courses-container .course-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.my-courses-container .course-card:hover .course-card-image img {
+  transform: scale(1.05);
+}
+
+.my-courses-container .course-card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.my-courses-container .course-card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.my-courses-container .course-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.my-courses-container .course-card-description {
+  color: #6c757d;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.my-courses-container .course-card-footer {
+  margin-top: auto;
+}
+
+.my-courses-container .course-card-meta {
+  margin-bottom: 1rem;
+}
+
+.my-courses-container .course-card-actions .btn {
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.my-courses-container .course-card-actions .btn:hover {
+  transform: translateY(-1px);
+}
+
+.my-courses-container .courses-stats {
+  text-align: center;
+}
+
+.my-courses-container .courses-stats .badge {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+}
+
+/* Loading, Error ve Empty States */
+.my-courses-container .text-center.py-5 {
+  padding: 4rem 2rem;
+}
+
+.my-courses-container .spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+.my-courses-container .alert {
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.my-courses-container .display-1 {
+  font-size: 4rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .my-courses-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .my-courses-container .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .my-courses-container .course-card-image {
+    height: 160px;
+  }
+  
+  .my-courses-container .course-card-body {
+    padding: 1rem;
+  }
+  
+  .my-courses-container .course-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .my-courses-container .display-1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-courses-container .page-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .my-courses-container .page-header p {
+    font-size: 1rem;
+  }
+}
+/*#endregion */

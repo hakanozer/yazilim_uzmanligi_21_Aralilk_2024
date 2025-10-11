@@ -1,0 +1,21 @@
+:host { display:block; min-height:100vh; background:#1a1410; color:#fdf4e3; font-family: 'Cinzel', serif; }
+    .wrap { position:relative; min-height:100vh; overflow:hidden; }
+    .arena-bg { position:absolute; inset:0; background: radial-gradient(circle at 50% 70%, #2b1a12 0%, #120c09 60%, #0a0604 100%); display:flex; align-items:center; justify-content:center; pointer-events:none; }
+    .arena-bg::before { content:""; position:absolute; inset:0; background: repeating-radial-gradient(circle at center, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 2px, transparent 3px 6px); opacity:.15; }
+    .motto { font-size: clamp(28px, 7vw, 80px); font-weight:900; color:rgba(255,255,255,0.05); text-transform:uppercase; letter-spacing:4px; text-align:center; z-index:1; user-select:none; }
+
+    .content { position:relative; z-index:2; max-width:960px; margin:0 auto; padding: 18vh 20px 10vh; text-align:center; }
+    .title { font-size: clamp(42px, 10vw, 120px); color:#f6d6a6; text-shadow:0 0 18px #8c6239aa, 0 0 40px #5c3b1f88; margin-bottom:20px; }
+    .intro { font-size:1.1rem; margin-bottom:1.5rem; line-height:1.6; }
+
+    .info { margin:2rem auto; font-size:1.1rem; line-height:1.8; }
+    .info a { color:#f6d6a6; text-decoration:none; border-bottom:1px dotted #a67c52; }
+    .info a:hover { color:#fff; }
+
+    .map-box { margin:2.5rem auto; max-width:720px; border:3px solid #a67c52; border-radius:8px; overflow:hidden; box-shadow:0 0 18px #5c3b1f66; }
+
+    .btn { display:inline-block; margin-top:2rem; padding: 12px 20px; border-radius: 999px; border: 2px solid #a67c52; color:#f6d6a6; text-decoration:none; font-weight:700; box-shadow: 0 0 14px #a67c5288, inset 0 0 10px #a67c5244; transition: transform .15s ease, box-shadow .15s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 0 24px #a67c52cc, inset 0 0 16px #a67c5277; }
+    .btn:active { transform: translateY(0); }
+
+    @media (max-width:640px){ .title{ font-size: 48px; } .motto{ font-size: 24px; } }

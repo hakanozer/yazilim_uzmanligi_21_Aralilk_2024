@@ -1,0 +1,223 @@
+/* Footer ana container */
+.footer {
+  background-color: #000000;
+  color: #ffffff;
+  border-top: 1px solid #262626;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* margin-top: auto; satırını kaldırın, çünkü artık app.css'de hallediliyor */
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Ana footer içeriği */
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding: 60px 0 40px;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo ve açıklama */
+.footer-logo {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-description {
+  color: #8e8e8e;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+/* Sosyal medya linkleri */
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.social-link:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* Footer başlıkları */
+.footer-title {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.footer-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+/* Footer linkleri */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-link {
+  color: #8e8e8e;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #3b82f6;
+}
+
+/* İletişim bilgileri */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #8e8e8e;
+  font-size: 0.9rem;
+}
+
+.contact-item i {
+  color: #3b82f6;
+  font-size: 1rem;
+  width: 16px;
+}
+
+/* Footer alt kısmı */
+.footer-bottom {
+  border-top: 1px solid #262626;
+  padding: 25px 0;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copyright {
+  color: #8e8e8e;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 25px;
+}
+
+.footer-bottom-link {
+  color: #8e8e8e;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-link:hover {
+  color: #3b82f6;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 0 30px;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    font-size: 1.8rem;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .footer-bottom-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 0 15px;
+  }
+  
+  .footer-content {
+    padding: 30px 0 20px;
+  }
+  
+  .footer-logo {
+    font-size: 1.5rem;
+  }
+}
+
+.clickable-logo a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.clickable-logo a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+  cursor: pointer;
+}

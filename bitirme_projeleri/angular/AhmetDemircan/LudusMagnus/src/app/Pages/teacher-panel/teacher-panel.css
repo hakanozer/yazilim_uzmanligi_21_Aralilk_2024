@@ -1,0 +1,313 @@
+/* Ana container */
+.teacher-panel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 80px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000000;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+/* Sayfa başlığı */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #8e8e8e;
+  margin: 0;
+}
+
+/* Aksiyon butonları */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #0095f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1877f2;
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+/* Kurslarım bölümü */
+.my-courses-section {
+  margin-top: 40px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Loading durumu */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #8e8e8e;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #262626;
+  border-top: 4px solid #0095f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Kurs kartları grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Kurs kartı */
+.course-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+}
+
+.course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.25);
+}
+
+/* Kurs durumu */
+.course-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px 0;
+}
+
+.level-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.level-beginner {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.level-intermediate {
+  background-color: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+}
+
+.level-advanced {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.status-indicator {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-indicator.active {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+}
+
+.status-indicator.inactive {
+  background-color: rgba(107, 114, 128, 0.2);
+  color: #9ca3af;
+}
+
+/* Kart içeriği */
+.card-content {
+  padding: 20px;
+}
+
+.course-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: white;
+  line-height: 1.3;
+}
+
+.course-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Kurs bilgileri */
+.course-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.info-icon {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.info-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Kart footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fbbf24;
+  margin-bottom: 5px;
+}
+
+.created-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+/* Kurs aksiyonları */
+.course-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-action:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Boş durum */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #8e8e8e;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .teacher-panel-container {
+    padding: 15px;
+    padding-top: 70px;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .course-card {
+    margin: 0 10px;
+  }
+}

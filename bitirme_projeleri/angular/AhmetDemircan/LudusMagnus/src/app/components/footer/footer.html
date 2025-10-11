@@ -1,0 +1,74 @@
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Ana footer içeriği -->
+    <div class="footer-content">
+      <!-- Sol taraf - Logo ve açıklama -->
+      <div class="footer-section">
+        <h3 class="footer-logo clickable-logo">
+          <a routerLink="/cursus">Ludus Magnus</a>
+        </h3>
+        <p class="footer-description">
+          Discover and learn from our wide range of courses. 
+          Enhance your skills with expert instructors.
+        </p>
+        <div class="social-links">
+          <a  class="social-link" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a class="social-link" aria-label="Twitter">
+            <i class="bi bi-twitter"></i>
+          </a>
+          <a class="social-link" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+          </a>
+          <a class="social-link" aria-label="LinkedIn">
+            <i class="bi bi-linkedin"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Orta - Hızlı linkler -->
+      <div class="footer-section">
+        <h4 class="footer-title">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/Courses" class="footer-link">Courses</a></li>
+          <li><a routerLink="/about" class="footer-link">About Us</a></li>
+          <li><a routerLink="/contact" class="footer-link">Contact</a></li>
+          <li><a routerLink="/faq" class="footer-link">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Sağ - İletişim bilgileri -->
+      <div class="footer-section">
+        <h4 class="footer-title">Contact Info</h4>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="bi bi-envelope"></i>
+            <span>info@ludusmagnus.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-telephone"></i>
+            <span>+39 06 1283</span>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <span> Via di S. Giovanni in Laterano, 00184 Roma RM, Italy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alt kısım - Copyright -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p class="copyright">
+          © {{ currentYear }} LudusMagnus. All rights reserved.
+        </p>
+        <div class="footer-bottom-links">
+          <a routerLink="/privacy" class="footer-bottom-link">Privacy Policy</a>
+          <a routerLink="/terms" class="footer-bottom-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

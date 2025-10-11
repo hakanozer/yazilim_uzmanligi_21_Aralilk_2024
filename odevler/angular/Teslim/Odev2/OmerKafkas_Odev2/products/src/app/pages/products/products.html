@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <h2>Products</h2>
+  
+  @if (productsArr.length > 0) {
+    <div class="row">
+      @for (product of productsArr; track product.id) {
+        <div class="col-md-4 mb-4">
+          <app-products-item [item]="product"></app-products-item>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="text-center">
+      <p>Loading products...</p>
+    </div>
+  }
+</div>

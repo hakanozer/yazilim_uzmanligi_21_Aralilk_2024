@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:jit:style:src\\app\\components\\background-item\\background-item.css", "src/app/components/background-item/background-item.ts"],
+  "sourcesContent": ["/* src/app/components/background-item/background-item.css */\n.background-bg {\n  background-image: url(/assets/arkaplan.png);\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-attachment: fixed;\n  background-position: center center;\n  opacity: 0.4;\n  z-index: -1;\n  position: fixed;\n  inset: 0;\n  width: 100vw;\n  height: 100vh;\n}\n/*# sourceMappingURL=background-item.css.map */\n", "import { Component, ChangeDetectionStrategy } from '@angular/core';\r\n\r\n\r\n@Component({\r\n  selector: 'app-background-item',\r\n  imports: [],\r\n  template: `<div class=\"background-bg\"></div>`,\r\n  styleUrls: ['./background-item.css'],\r\n  changeDetection: ChangeDetectionStrategy.OnPush\r\n})\r\nexport class BackgroundItem {\r\n\r\n}\r\n"],
+  "mappings": ";;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;ICUa;;;;;;AAVb;AAUO,IAAM,iBAAN,MAAMA,gBAAc;;AAAd,qBAAc,WAAA;MAP1B,UAAU;QACT,UAAU;QACV,SAAS,CAAA;QACT,UAAU;QAEV,iBAAiB,wBAAwB;;OAC1C;OACY,cAAc;;;",
+  "names": ["BackgroundItem"]
+}

@@ -1,0 +1,189 @@
+<div class="edit-course-container">
+  <!-- Yükleme durumu -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading...</p>
+    </div>
+  } @else {
+    <!-- Sayfa başlığı -->
+    <div class="page-header">
+      <h1 class="main-title">Edit course</h1>
+      <p class="subtitle">Save your changes</p>
+    </div>
+
+    <!-- Mesaj gösterimi -->
+    @if (message) {
+      <div class="message" [ngClass]="messageType + '-message'">
+        {{ message }}
+      </div>
+    }
+
+    <!-- Kurs düzenleme formu -->
+    <div class="form-card">
+      <form (ngSubmit)="updateCourse()" #courseForm="ngForm">
+        
+        <!-- Kurs başlığı -->
+        <div class="form-group">
+          <label for="title">Course Title *</label>
+          <input 
+            type="text" 
+            id="title" 
+            name="title"
+            [(ngModel)]="formModel.title" 
+            class="form-control"
+            placeholder="Frontend Development via Angular"
+            required>
+        </div>
+
+        <!-- Kurs açıklaması -->
+        <div class="form-group">
+          <label for="description">Course Description *</label>
+          <textarea 
+            id="description" 
+            name="description"
+            [(ngModel)]="formModel.description" 
+            class="form-control textarea"
+            placeholder="This course will teach you the fundamentals of frontend development using Angular."
+            rows="4"
+            required></textarea>
+        </div>
+
+        <!-- Eğitmen -->
+        <div class="form-group">
+          <label for="instructor">Instructor</label>
+          <input 
+            type="text" 
+            id="instructor" 
+            name="instructor"
+            [(ngModel)]="formModel.instructor" 
+            class="form-control"
+            placeholder="Hakan Özer"
+            required>
+        </div>
+
+        <!-- Süre ve Seviye -->
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="duration">Course Duration</label>
+            <input 
+              type="text" 
+              id="duration" 
+              name="duration"
+              [(ngModel)]="formModel.duration" 
+              class="form-control"
+              placeholder="8 weeks">
+          </div>
+
+          <div class="form-group half">
+            <label for="level">Course Level</label>
+            <select 
+              id="level" 
+              name="level"
+              [(ngModel)]="formModel.level" 
+              class="form-control">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Kategori ve Fiyat -->
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="category">Course Category</label>
+            <input 
+              type="text" 
+              id="category" 
+              name="category"
+              [(ngModel)]="formModel.category" 
+              class="form-control"
+              placeholder="Web Development">
+          </div>
+
+          <div class="form-group half">
+            <label for="price">Course Price ($)</label>
+            <input 
+              type="number" 
+              id="price" 
+              name="price"
+              [(ngModel)]="formModel.price" 
+              class="form-control"
+              min="0"
+              step="0.01"
+              placeholder="100">
+          </div>
+        </div>
+
+        <!-- Kurs Durumu -->
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input 
+              type="checkbox" 
+              id="isActive" 
+              name="isActive"
+              [(ngModel)]="formModel.isActive" 
+              class="form-checkbox">
+            <label for="isActive" class="checkbox-label">Course Active</label>
+          </div>
+        </div>
+
+        <!-- Kurs İstatistikleri (sadece görüntüleme) -->
+        <div class="stats-section">
+          <h3>Kurs İstatistikleri</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">Enrolled Students:</span>
+              <span class="stat-value">{{ formModel.enrolledStudents }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Date Created:</span>
+              <span class="stat-value">{{ formModel.createdAt | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Butonlar -->
+        <div class="form-actions">
+          <div class="left-buttons">
+            <button 
+              type="button" 
+              class="btn btn-secondary" 
+              (click)="goBack()">
+              ← Back
+            </button>
+            
+            <button 
+              type="button" 
+              class="btn btn-warning" 
+              (click)="cancelChanges()">
+              Cancel Changes
+            </button>
+          </div>
+          
+          <div class="right-buttons">
+            <button 
+              type="button" 
+              class="btn btn-danger" 
+              (click)="deleteCourse()">
+              Delete Course
+            </button>
+            
+            <button 
+              type="submit" 
+              class="btn btn-primary" 
+              [disabled]="isUpdating || !courseForm.form.valid">
+              @if (isUpdating) {
+                <span class="btn-spinner"></span>
+                Updating...
+              } @else {
+                Update Course
+              }
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  }
+</div>

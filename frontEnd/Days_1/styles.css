@@ -1,0 +1,10 @@
+.myBlockquote {
+    font-family: "Roboto";
+    font-size: 40px;
+    color: cornflowerblue;
+}
+
+mark {
+    background-color: brown;
+    color: aliceblue;
+}

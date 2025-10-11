@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg custom-navbar shadow-sm">
+  <div class="container-fluid">
+    <a [routerLink]="['/courses']" routerLinkActive="active" class="navbar-brand fw-bold fs-4">
+      LearnHub
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a [routerLink]="['/courses']" routerLinkActive="active" class="nav-link">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/lessons']" routerLinkActive="active" class="nav-link">Lessons</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/blog']" routerLinkActive="active" class="nav-link">Blog</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Profile
+          </a>
+          <ul class="dropdown-menu rounded-3 shadow">
+            <li><a [routerLink]="['/student']" routerLinkActive="active" class="dropdown-item">Student</a></li>
+            <li><a [routerLink]="['/instructor']" routerLinkActive="active" class="dropdown-item">Instructor</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a (click)="logout()" class="dropdown-item" role="button">Logout</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link fw-semibold">Sn. {{navbarUserName}}</span>
+        </li>
+      </ul>
+      
+      <!-- Search -->
+      <form (submit)="sendSearch()" class="d-flex align-items-center search-form">
+        <input [(ngModel)]="q" name="q" class="form-control search-input" type="search" placeholder="Search"/>
+        <button class="btn btn-search ms-2" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

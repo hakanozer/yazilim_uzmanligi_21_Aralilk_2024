@@ -1,0 +1,26 @@
+<div class="card shadow-sm border-0 rounded-4 overflow-hidden" style="width: 100%; max-width: 350px; margin: auto;">
+  <img [src]="item?.thumbnail"
+       class="card-img-top"
+       alt="Product image"
+       style="height: 200px; object-fit: cover;" />
+
+  <div class="card-body p-4">
+    <h5 class="card-title fw-semibold mb-2">{{ item?.title }}</h5>
+
+    <!-- 💰 Fiyat bilgisi -->
+    <p class="mb-2" style="font-weight: 600; font-size: 1rem; color: #28a745;">
+      {{ item?.price | currency:'USD' }}
+    </p>
+
+    <!-- Açıklama -->
+    <p class="card-text text-muted"
+       style="font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      {{ item?.description | slice:0:60 }}...
+    </p>
+
+    <!-- Detay butonu -->
+    <a [routerLink]="['/products', item?.id]" class="btn btn-outline-primary w-100 rounded-pill mt-3">
+      Detayları Gör
+    </a>
+  </div>
+</div>

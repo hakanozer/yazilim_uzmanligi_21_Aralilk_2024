@@ -1,0 +1,781 @@
+{
+	"info": {
+		"_postman_id": "d1255a3c-6097-4a39-a4c5-6a6a1138d764",
+		"name": "Yazilim_Muhendisligi_Nodejs_RestApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49060678",
+		"_collection_link": "https://muminemuroglu-80612.postman.co/workspace/muminemuroglu's-Workspace~b472f406-b4ba-4434-899b-3f2497c997c5/collection/49060678-d1255a3c-6097-4a39-a4c5-6a6a1138d764?action=share&source=collection_link&creator=49060678"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"zehra@mail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/login",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Veli Bil\",\n    \"email\": \"veli@mail.com\",\n    \"password\": \"123456\",\n    \"roles\": [\"Admin\", \"Customer\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/register",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "Categorie Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}categories/add",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}categories/list?page=1",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "POST Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"yeni bir yorum! Çok beğendim.\",\n    \"newsId\": \"68e0e62e349852d41b198d35\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}comments/create",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"yeni yorum datası ve yazısı\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}comments/update/68e0f1572143c7380b09659b",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"update",
+								"68e0f1572143c7380b09659b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Comment True",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"isApproved\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}comments/approve/68e0f1572143c7380b09659b",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"approve",
+								"68e0f1572143c7380b09659b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comment List - Page",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}comments/list?page=1&limit=10",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}comments/my-comments",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"my-comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments Pending",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}comments/pending",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments Search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}comments/search?q=yor&page=1&limit=10",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "yor"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Comments User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}comments/user/68d8fd9e1b5ca3f0fa127b89",
+							"host": [
+								"{{url}}comments"
+							],
+							"path": [
+								"user",
+								"68d8fd9e1b5ca3f0fa127b89"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "Category Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Son Dakika\",\n    \"description\": \"Son Dakika Haberleri\",\n    \"isactive\": true\n     \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}categories/add",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "page",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}categories/list",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}categories/delete/68e8fe68f57acb8b4867201d",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"delete",
+								"68e8fe68f57acb8b4867201d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Eğitim\",\n    \"description\":\"Eğitim Haberleri\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}categories/update/68e8fdb1f57acb8b4867201a",
+							"host": [
+								"{{url}}categories"
+							],
+							"path": [
+								"update",
+								"68e8fdb1f57acb8b4867201a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "News Add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"iPhone\",\n    \"content\": \"iPhone Detail\",\n    \"category\": \"68e0d3341fb8565fdc6c8860\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}news/add",
+							"host": [
+								"{{url}}news"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New iPhone\",\n    \"content\": \"iPhone Detail\",\n    \"category\": \"68e0d3341fb8565fdc6c8860\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}news/update/68e0f9e96e3bf9f2c0384e2c",
+							"host": [
+								"{{url}}news"
+							],
+							"path": [
+								"update",
+								"68e0f9e96e3bf9f2c0384e2c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}news/delete/68e0f9e96e3bf9f2c0384e2c",
+							"host": [
+								"{{url}}news"
+							],
+							"path": [
+								"delete",
+								"68e0f9e96e3bf9f2c0384e2c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}news/list?page=1&limit=10",
+							"host": [
+								"{{url}}news"
+							],
+							"path": [
+								"list"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "News List Search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}news/search?q=ip&page=1&limit=10 ",
+							"host": [
+								"{{url}}news"
+							],
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "ip"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10 "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:4000/api/v1/"
+		},
+		{
+			"key": "jwt",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZTdiYmIzOTAyODkzZDhjYzM5MTk1YSIsImVtYWlsIjoiemVocmFAbWFpbC5jb20iLCJyb2xlcyI6WyJBZG1pbiIsIlVzZXIiXSwiaWF0IjoxNzYwMTAwMzA5LCJleHAiOjE3NjAxMDM5MDl9._I55InUrJIhQcaaH4rfxwZEL_7MgRwKjn_S5nllF-YE"
+		}
+	]
+}

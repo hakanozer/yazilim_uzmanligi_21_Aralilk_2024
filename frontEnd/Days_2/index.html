@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th style="width: 50px;">ID</th>
+                <th style="width: 100px;">Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>City</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>100</td>
+                <td>Erkan</td>
+                <td>Bilmem</td>
+                <td>erkan@mail.com</td>
+                <td>555-66-77</td>
+                <td>İstanbul</td>
+            </tr>
+            <tr>
+                <td>200</td>
+                <td>Ali</td>
+                <td>Bil</td>
+                <td>ali@mail.com</td>
+                <td>444-66-77</td>
+                <td>Ankara</td>
+            </tr>
+            <tr>
+                <td>300</td>
+                <td>Zehra</td>
+                <td>Bilsin</td>
+                <td>zehra@mail.com</td>
+                <td>222-66-77</td>
+                <td>İzmir</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <hr/>
+    <ul>
+        <li>Başlık-1</li>
+        <li>Başlık-2</li>
+        <li>Başlık-3</li>
+    </ul>
+
+    <hr/>
+    <dl>
+        <dt>İstanbul</dt>
+            <dd>Kadıköy</dd>
+            <dd>Beşiktaş</dd>
+            <dd>Esenyurt</dd>
+            <dd>Kurtköy</dd>
+        <dt>Ankara</dt>
+            <dd>Çankaya</dd>
+            <dd>Ulus</dd>
+    </dl>
+
+    <hr/>
+    <img src="https://picsum.photos/300/300?1" />
+    <img src="https://picsum.photos/300/300?2" />
+    <img src="https://picsum.photos/300/300?3" />
+    <hr/>
+    <img width="200" src="https://i.pinimg.com/736x/79/67/a8/7967a8438b6576d7ebdea2d7a097df85.jpg" />
+    <img width="200" src="https://i.pinimg.com/736x/79/67/a8/7967a8438b6576d7ebdea2d7a097df85.jpg" />
+    <img width="200" src="https://i.pinimg.com/736x/79/67/a8/7967a8438b6576d7ebdea2d7a097df85.jpg" />
+
+    <hr/>
+    <a target="_blank" href="https://google.com.tr">
+        <img src="img/1.jpg" />
+    </a>
+    <img src="img/2.jpg" />
+    <img src="img/3.jpg" />
+
+    <hr/>
+    <video width="600" controls>
+        <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
+        Tarayıcınız video etiketini desteklemiyor!
+    </video>
+
+    <hr/>
+    <audio controls>
+        <source src="https://cdn.pixabay.com/download/audio/2024/05/29/audio_f3a1d24f19.mp3" />
+        Tarayıcınız audio etiketini desteklemiyor!
+    </audio>
+
+    <hr/>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/e1vx5k41YvU?si=Fzw7typ1qjDRbURI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <hr/>
+    <iframe width="560" height="315" src="https://www.mynet.com/"></iframe>
+    <hr/>
+    <iframe width="560" height="315" src="../Days_1/sample.pdf"></iframe>
+    
+    <hr/>
+    <form>
+        <div class="inputSpace">
+            <label for="name">Adınız</label>
+            <input required maxlength="100" minlength="2" type="text" class="inputControl" name="name" id="name" placeholder="Adınız" />
+        </div>
+        <div class="inputSpace">
+            <label for="surname">Soyadınız</label>
+            <input required type="text" class="inputControl" name="surname" id="surname" placeholder="Soyadınız" />
+        </div>
+        <div class="inputSpace">
+            <label for="email">Email</label>
+            <input required type="email" class="inputControl" name="email" id="email" placeholder="E-Mail" />
+        </div>
+        <div class="inputSpace">
+            <label for="password">Password</label>
+            <input required type="password" class="inputControl" name="password" id="password" placeholder="Password" />
+        </div>
+        <div class="inputSpace">
+            <label for="age">Age</label>
+            <input required min="18" max="60" type="number" class="inputControl" name="age" id="age" placeholder="Age" />
+        </div>
+        <button class="formButton">Send</button>
+    </form>
+
+</body>
+</html>

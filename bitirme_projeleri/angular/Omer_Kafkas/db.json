@@ -1,0 +1,595 @@
+{
+  "users": [
+    {
+      "id": "u101",
+      "name": "Selin",
+      "surname": "Arslan",
+      "email": "selin.arslan@example.com",
+      "password": "S3lin!90",
+      "role": "student",
+      "profilePhoto": "assets/profile-photo/3.png"
+    },
+    {
+      "id": "u102",
+      "name": "Baran",
+      "surname": "Ertem",
+      "email": "baran.ertem@example.com",
+      "password": "Brn#4521",
+      "role": "student",
+      "profilePhoto": "assets/profile-photo/6.png"
+    },
+    {
+      "id": "u103",
+      "name": "Derya",
+      "surname": "Işık",
+      "email": "derya.isik@example.com",
+      "password": "DryA_7788",
+      "role": "student",
+      "profilePhoto": "assets/profile-photo/1.png"
+    },
+    {
+      "id": "u104",
+      "name": "Tuna",
+      "surname": "Özmen",
+      "email": "tuna.ozmen@example.com",
+      "password": "Tn_ozM34!",
+      "role": "student",
+      "profilePhoto": "assets/profile-photo/5.png"
+    },
+    {
+      "id": "u105",
+      "name": "Zeynep",
+      "surname": "Tamer",
+      "email": "zeynep.tamer@example.com",
+      "password": "ZpTmr#887",
+      "role": "student",
+      "profilePhoto": "assets/profile-photo/3.png"
+    },
+    {
+      "id": "u201",
+      "name": "Kerem",
+      "surname": "Yalçın",
+      "email": "kerem.yalcin@example.com",
+      "password": "KrmFull!23",
+      "role": "instructor",
+      "profilePhoto": "assets/profile-photo/2.png",
+      "bio": "Fullstack eğitmeni. Node.js, Angular ve bulut mimarileri üzerine çalışır."
+    },
+    {
+      "id": "u202",
+      "name": "Melike",
+      "surname": "Sarı",
+      "email": "melike.sari@example.com",
+      "password": "MlK_React55",
+      "role": "instructor",
+      "profilePhoto": "assets/profile-photo/4.png",
+      "bio": "Frontend performansı, React ekosistemi ve modern UI desenleri eğitmeni."
+    },
+    {
+      "id": "u203",
+      "name": "Hakan",
+      "surname": "Demir",
+      "email": "hakan.demir@example.com",
+      "password": "Hk_Sql#909",
+      "role": "instructor",
+      "profilePhoto": "assets/profile-photo/5.png",
+      "bio": "Veritabanı modelleme, sorgu optimizasyonu ve veri güvenliği odaklı eğitmen."
+    },
+    {
+      "id": "u204",
+      "name": "Seda",
+      "surname": "Aksoy",
+      "email": "seda.aksoy@example.com",
+      "password": "Seda!Cyb33",
+      "role": "instructor",
+      "profilePhoto": "assets/profile-photo/1.png",
+      "bio": "Siber güvenlik temelleri, ağ savunması ve zafiyet analizi alanında uzman."
+    },
+    {
+      "id": "u205",
+      "name": "Mehmet",
+      "surname": "Ural",
+      "email": "mehmet.ural@example.com",
+      "password": "MhUral_77",
+      "role": "instructor",
+      "profilePhoto": "assets/profile-photo/6.png",
+      "bio": "Performans izleme, ölçeklenebilir backend ve dağıtık sistemler eğitmeni."
+    },
+    {
+      "id": "u206",
+      "name": "Ayça",
+      "surname": "Erel",
+      "email": "ayca.erel@example.com",
+      "password": "AyErel!52",
+      "role": "instructor",
+      "profilePhoto": "assets/profile-photo/4.png",
+      "bio": "UI/UX prensipleri, erişilebilirlik ve tasarım sistemleri uzmanı."
+    },
+    {
+      "id": "997e",
+      "name": "Ömer",
+      "surname": "Kafkas",
+      "email": "omerkafkas55@gmail.com",
+      "password": "1qaz2wsx",
+      "profilePhoto": "assets/profile-photo/1.png",
+      "role": "student"
+    }
+  ],
+  "categories": [
+    {
+      "id": "c1",
+      "name": "Frontend"
+    },
+    {
+      "id": "c2",
+      "name": "Backend"
+    },
+    {
+      "id": "c3",
+      "name": "Siber Güvenlik"
+    },
+    {
+      "id": "c4",
+      "name": "Veritabanı"
+    },
+    {
+      "id": "c5",
+      "name": "Sistem"
+    }
+  ],
+  "courses": [
+    {
+      "id": "course1",
+      "title": "Angular Başlangıç Yolculuğu",
+      "categoryId": "c1",
+      "instructorId": "u201",
+      "instructorName": "Kerem Yalçın",
+      "instructorPhoto": "assets/profile-photo/2.png",
+      "description": "Component, directive ve temel yapı taşlarıyla Angular'a hızlı giriş.",
+      "price": 149.99,
+      "durationHours": 18,
+      "level": "Başlangıç",
+      "image": "assets/frontend_egitimi.png"
+    },
+    {
+      "id": "course2",
+      "title": "İleri React Desenleri",
+      "categoryId": "c1",
+      "instructorId": "u202",
+      "instructorName": "Melike Sarı",
+      "instructorPhoto": "assets/profile-photo/4.png",
+      "description": "Performans, state makineleri ve ileri hook kullanım örnekleri.",
+      "price": 209.99,
+      "durationHours": 26,
+      "level": "Orta",
+      "image": "assets/frontend_egitimi.png"
+    },
+    {
+      "id": "course3",
+      "title": "Node.js REST API Geliştirme",
+      "categoryId": "c2",
+      "instructorId": "u201",
+      "instructorName": "Kerem Yalçın",
+      "instructorPhoto": "assets/profile-photo/2.png",
+      "description": "Express, middleware tasarımı ve veri erişim katmanı örüntüleri.",
+      "price": 189.99,
+      "durationHours": 24,
+      "level": "Orta",
+      "image": "assets/backend_egitimi.png"
+    },
+    {
+      "id": "course4",
+      "title": "Veritabanı Modelleme Pratikleri",
+      "categoryId": "c4",
+      "instructorId": "u203",
+      "instructorName": "Hakan Demir",
+      "instructorPhoto": "assets/profile-photo/5.png",
+      "description": "İlişkisel modelleme, normalizasyon tuzakları ve performans ipuçları.",
+      "price": 139.99,
+      "durationHours": 19,
+      "level": "Başlangıç",
+      "image": "assets/veritabanı_egitimi.png"
+    },
+    {
+      "id": "course5",
+      "title": "Siber Güvenliğe Giriş",
+      "categoryId": "c3",
+      "instructorId": "u204",
+      "instructorName": "Seda Aksoy",
+      "instructorPhoto": "assets/profile-photo/1.png",
+      "description": "Temel tehditler, ağ güvenliği konseptleri ve zafiyet analizi.",
+      "price": 169.99,
+      "durationHours": 17,
+      "level": "Başlangıç",
+      "image": "assets/siber_guvenlik_egitimi.png"
+    },
+    {
+      "id": "course6",
+      "title": "Fullstack Uygulama Projesi",
+      "categoryId": "c2",
+      "instructorId": "u201",
+      "instructorName": "Kerem Yalçın",
+      "instructorPhoto": "assets/profile-photo/2.png",
+      "description": "API, frontend entegrasyonu ve dağıtım pipeline oluşturma süreci.",
+      "price": 259.99,
+      "durationHours": 42,
+      "level": "İleri",
+      "image": "assets/backend_egitimi.png"
+    },
+    {
+      "id": "course7",
+      "title": "İleri SQL Optimizasyonu",
+      "categoryId": "c4",
+      "instructorId": "u203",
+      "instructorName": "Hakan Demir",
+      "instructorPhoto": "assets/profile-photo/5.png",
+      "description": "Query plan analizi, indeks stratejileri ve performans ölçümü teknikleri.",
+      "price": 219.99,
+      "durationHours": 30,
+      "level": "İleri",
+      "image": "assets/veritabanı_egitimi.png"
+    },
+    {
+      "id": "course8",
+      "title": "Erişilebilir Arayüz Tasarımı",
+      "categoryId": "c1",
+      "instructorId": "u206",
+      "instructorName": "Ayça Erel",
+      "instructorPhoto": "assets/profile-photo/4.png",
+      "description": "WCAG prensipleri, odak yönetimi ve renk kontrastı uygulamaları.",
+      "price": 179.99,
+      "durationHours": 20,
+      "level": "Orta",
+      "image": "assets/frontend_egitimi.png"
+    },
+    {
+      "id": "course9",
+      "title": "Ağ Güvenliği Derinlemesine",
+      "categoryId": "c3",
+      "instructorId": "u204",
+      "instructorName": "Seda Aksoy",
+      "instructorPhoto": "assets/profile-photo/1.png",
+      "description": "Segmentasyon, IDS/IPS mantığı ve saldırı yüzeyi azaltma teknikleri.",
+      "price": 249.99,
+      "durationHours": 34,
+      "level": "İleri",
+      "image": "assets/siber_guvenlik_egitimi.png"
+    },
+    {
+      "id": "course10",
+      "title": "Dağıtık Sistem Temelleri",
+      "categoryId": "c5",
+      "instructorId": "u205",
+      "instructorName": "Mehmet Ural",
+      "instructorPhoto": "assets/profile-photo/6.png",
+      "description": "Tutarlılık modelleri, mesajlaşma, gözlemlenebilirlik ve ölçeklenebilir mimariler.",
+      "price": 289.99,
+      "durationHours": 36,
+      "level": "İleri",
+      "image": "assets/backend_egitimi.png"
+    },
+    {
+      "id": "course11",
+      "title": "Component Tasarım Desenleri",
+      "categoryId": "c1",
+      "instructorId": "u206",
+      "instructorName": "Ayça Erel",
+      "instructorPhoto": "assets/profile-photo/4.png",
+      "description": "Yeniden kullanılabilir, erişilebilir ve test edilebilir UI component stratejileri.",
+      "price": 199.99,
+      "durationHours": 22,
+      "level": "Orta",
+      "image": "assets/frontend_egitimi.png"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "e1",
+      "userId": "u101",
+      "courseId": "course1"
+    },
+    {
+      "id": "e2",
+      "userId": "u101",
+      "courseId": "course3"
+    },
+    {
+      "id": "e3",
+      "userId": "u102",
+      "courseId": "course2"
+    },
+    {
+      "id": "e4",
+      "userId": "u102",
+      "courseId": "course5"
+    },
+    {
+      "id": "e5",
+      "userId": "u103",
+      "courseId": "course1"
+    },
+    {
+      "id": "e6",
+      "userId": "u103",
+      "courseId": "course2"
+    },
+    {
+      "id": "e7",
+      "userId": "u103",
+      "courseId": "course6"
+    },
+    {
+      "id": "e8",
+      "userId": "u104",
+      "courseId": "course7"
+    },
+    {
+      "id": "e9",
+      "userId": "u104",
+      "courseId": "course10"
+    },
+    {
+      "id": "e10",
+      "userId": "u105",
+      "courseId": "course2"
+    },
+    {
+      "id": "e11",
+      "userId": "u105",
+      "courseId": "course8"
+    },
+    {
+      "id": "e12",
+      "userId": "u101",
+      "courseId": "course11"
+    },
+    {
+      "id": "e13",
+      "userId": "u102",
+      "courseId": "course11"
+    },
+    {
+      "id": "ff01",
+      "userId": "997e",
+      "courseId": "course1"
+    },
+    {
+      "id": "f100",
+      "userId": "997e",
+      "courseId": "course2"
+    },
+    {
+      "id": "3f8d",
+      "userId": "997e",
+      "courseId": "course3"
+    },
+    {
+      "id": "0349",
+      "userId": "997e",
+      "courseId": "course4"
+    },
+    {
+      "id": "796b",
+      "userId": "997e",
+      "courseId": "course5"
+    },
+    {
+      "id": "7f62",
+      "userId": "997e",
+      "courseId": "course6"
+    },
+    {
+      "id": "ce24",
+      "userId": "997e",
+      "courseId": "course7"
+    },
+    {
+      "id": "a104",
+      "userId": "997e",
+      "courseId": "course8"
+    },
+    {
+      "id": "39e1",
+      "userId": "997e",
+      "courseId": "course9"
+    },
+    {
+      "id": "2ba9",
+      "userId": "997e",
+      "courseId": "course10"
+    },
+    {
+      "id": "dd0d",
+      "userId": "997e",
+      "courseId": "course11"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "l1",
+      "courseId": "course1",
+      "title": "Kurulum ve Ortam",
+      "durationMin": 14
+    },
+    {
+      "id": "l2",
+      "courseId": "course1",
+      "title": "Temel Component Yapısı",
+      "durationMin": 28
+    },
+    {
+      "id": "l3",
+      "courseId": "course1",
+      "title": "Veri Akışı ve Binding",
+      "durationMin": 24
+    },
+    {
+      "id": "l4",
+      "courseId": "course2",
+      "title": "Hook Derinlemesine",
+      "durationMin": 36
+    },
+    {
+      "id": "l5",
+      "courseId": "course2",
+      "title": "Performans İyileştirme Teknikleri",
+      "durationMin": 41
+    },
+    {
+      "id": "l6",
+      "courseId": "course3",
+      "title": "Express Yapı Taşları",
+      "durationMin": 29
+    },
+    {
+      "id": "l7",
+      "courseId": "course3",
+      "title": "Veri Katmanı Entegrasyonu",
+      "durationMin": 31
+    },
+    {
+      "id": "l8",
+      "courseId": "course6",
+      "title": "Proje Temel İskele",
+      "durationMin": 21
+    },
+    {
+      "id": "l9",
+      "courseId": "course6",
+      "title": "Tam Yığın İletişim",
+      "durationMin": 46
+    },
+    {
+      "id": "l10",
+      "courseId": "course7",
+      "title": "İndeksleme Stratejileri",
+      "durationMin": 33
+    },
+    {
+      "id": "l11",
+      "courseId": "course7",
+      "title": "Query Plan Analizi",
+      "durationMin": 38
+    },
+    {
+      "id": "l12",
+      "courseId": "course8",
+      "title": "Erişilebilirlik Temelleri",
+      "durationMin": 25
+    },
+    {
+      "id": "l13",
+      "courseId": "course8",
+      "title": "Odak Yönetimi ve Navigasyon",
+      "durationMin": 27
+    },
+    {
+      "id": "l14",
+      "courseId": "course9",
+      "title": "Ağ Segmentasyonu",
+      "durationMin": 32
+    },
+    {
+      "id": "l15",
+      "courseId": "course9",
+      "title": "IDS/IPS Mantığı",
+      "durationMin": 34
+    },
+    {
+      "id": "l16",
+      "courseId": "course10",
+      "title": "Tutarlılık Modelleri",
+      "durationMin": 29
+    },
+    {
+      "id": "l17",
+      "courseId": "course10",
+      "title": "Mesaj Kuyrukları",
+      "durationMin": 31
+    },
+    {
+      "id": "l18",
+      "courseId": "course11",
+      "title": "Component Soyutlama Katmanları",
+      "durationMin": 26
+    },
+    {
+      "id": "l19",
+      "courseId": "course11",
+      "title": "Test Edilebilirlik Desenleri",
+      "durationMin": 28
+    }
+  ],
+  "comments": [
+    {
+      "id": "cmt1",
+      "courseId": "course1",
+      "userId": "u101",
+      "text": "Angular temelleri net anlatılmış, güzel başlangıç!",
+      "createdAt": "2025-09-10T10:00:00Z"
+    },
+    {
+      "id": "cmt2",
+      "courseId": "course2",
+      "userId": "u102",
+      "text": "İleri React kısmı özellikle optimizasyon bölümüyle çok iyi.",
+      "createdAt": "2025-09-11T09:30:00Z"
+    },
+    {
+      "id": "cmt3",
+      "courseId": "course3",
+      "userId": "u103",
+      "text": "Express middleware örnekleri anlaşılırdı, teşekkürler.",
+      "createdAt": "2025-09-12T08:15:00Z"
+    },
+    {
+      "id": "cmt4",
+      "courseId": "course7",
+      "userId": "u104",
+      "text": "İndeks bölümü performans farkını net gösterdi.",
+      "createdAt": "2025-09-14T09:10:00Z"
+    },
+    {
+      "id": "cmt5",
+      "courseId": "course8",
+      "userId": "u105",
+      "text": "Erişilebilirlik ipuçları uygulamada hemen işe yaradı.",
+      "createdAt": "2025-09-14T10:05:00Z"
+    },
+    {
+      "id": "cmt6",
+      "courseId": "course9",
+      "userId": "u102",
+      "text": "Ağ segmentasyonu kısmı çok açıklayıcıydı.",
+      "createdAt": "2025-09-14T11:20:00Z"
+    },
+    {
+      "id": "cmt7",
+      "courseId": "course10",
+      "userId": "u101",
+      "text": "Dağıtık sistem kavramları güzel özetlenmiş.",
+      "createdAt": "2025-09-14T12:00:00Z"
+    },
+    {
+      "id": "cmt8",
+      "courseId": "course11",
+      "userId": "u103",
+      "text": "Soyutlama katmanları derste çok iyi örneklenmiş.",
+      "createdAt": "2025-09-14T12:40:00Z"
+    },
+    {
+      "id": "cmt9",
+      "courseId": "course11",
+      "userId": "u105",
+      "text": "Component test stratejileri bölümünü sevdim.",
+      "createdAt": "2025-09-14T12:55:00Z"
+    },
+    {
+      "id": "049c",
+      "courseId": "course2",
+      "userId": "997e",
+      "text": "Harika bir eğitim.",
+      "createdAt": "2025-09-14T17:11:34.682Z"
+    }
+  ]
+}

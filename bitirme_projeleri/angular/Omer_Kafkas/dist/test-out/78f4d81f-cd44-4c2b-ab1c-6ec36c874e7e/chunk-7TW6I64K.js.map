@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/test-setup.ts"],
+  "sourcesContent": ["import { provideHttpClient, withFetch } from '@angular/common/http';\r\nimport { provideZonelessChangeDetection } from '@angular/core';\r\n\r\n// Global test providers setup. Each spec can import this file to ensure\r\n// HttpClient ve zoneless change detection sağlanır.\r\nexport const globalTestConfig = {\r\n  providers: [\r\n    provideZonelessChangeDetection(),\r\n    provideHttpClient(withFetch())\r\n  ]\r\n};\r\n"],
+  "mappings": ";;;;;;;;;;;;AAAA,IAKa;AALb;;;;AACA;AAIO,IAAM,mBAAmB;MAC9B,WAAW;QACT,+BAA8B;QAC9B,kBAAkB,UAAS,CAAE;;;;;",
+  "names": []
+}

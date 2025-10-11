@@ -1,0 +1,92 @@
+<nav>
+  <div class="navbar-brand">
+    <a routerLink="/Courses">
+      <h1>Ludus Magnus</h1>
+    </a>
+  </div>
+  
+  <div class="nav-links">
+    <!-- herkes görünür -->
+    
+    <!-- Sadece admin'lere görünür -->
+    @if (authService.isAdmin()) {
+      <button class="admin-settings-btn" routerLink="/admin-panel" title="Admin Panel">
+        ⚙️
+      </button>
+    }
+    
+    <!-- listeye yazılan herhangi rol'lere görünür -->
+    @if (authService.hasAnyRole(['teacher'])) {
+      
+    }
+    
+    <!-- Sadece student'lara görünür -->
+    @if (authService.isStudent()) {
+      
+    }
+  </div>
+  
+  <div class="nav-actions">
+    <!-- Kullanıcı adı gösterimi - Login olmuş kullanıcılar için -->
+    @if (authService.isLoggedIn()) {
+      <div class="user-welcome" routerLink="/user">
+        <span class="welcome-text">Salve, {{ authService.getCurrentUser()?.name }}</span>
+      </div>
+    }
+    
+    <!-- Arama butonu ve kutusu -->
+    <div class="search-container">
+      <div class="search-wrapper" [class.expanded]="showSearch">
+        <input 
+          type="text" 
+          [(ngModel)]="searchQuery" 
+          [placeholder]="currentPlaceholder"
+          (keyup.enter)="performSearch()"
+          #searchInput
+          class="search-input"
+          [class.visible]="showSearch"
+        />
+        <button class="search-icon" (click)="toggleSearch()" title="Search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Dropdown menü -->
+    <div class="dropdown-container">
+      <button class="dropdown-toggle" (click)="toggleDropdown()" title="Menu">
+        <div class="hamburger-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+      
+      <div class="dropdown-menu" [class.show]="showDropdown">
+        @if (!authService.isLoggedIn()) {
+          <a routerLink="/login" class="dropdown-item" (click)="closeDropdown()">log in</a>
+          <a routerLink="/register" class="dropdown-item" (click)="closeDropdown()">sign up</a>
+          <a routerLink="/Courses" class="dropdown-item" (click)="closeDropdown()">courses</a>
+        }
+        @if (authService.isLoggedIn()) {
+          <!-- Öğrenci için My Courses linki -->
+          @if (authService.isStudent()) {
+            <a routerLink="/my-courses" class="dropdown-item" (click)="closeDropdown()">my courses</a>
+          }
+          <!-- Öğretmen için Teacher Panel linki -->
+          @if (authService.hasAnyRole(['admin', 'teacher'])) {
+            <a routerLink="/teacher-panel" class="dropdown-item" (click)="closeDropdown()">teacher panel</a>
+          }
+          <!-- Admin için Admin Panel linki -->
+          @if (authService.isAdmin()) {
+            <a routerLink="/admin-panel" class="dropdown-item" (click)="closeDropdown()">admin panel</a>
+          }
+          <button class="dropdown-item logout-btn" (click)="logout()">log out</button>
+        }
+      </div>
+    </div>
+  </div>
+</nav>

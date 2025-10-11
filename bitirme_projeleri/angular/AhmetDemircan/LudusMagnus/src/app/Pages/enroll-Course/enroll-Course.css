@@ -1,0 +1,348 @@
+/* Ana container */
+.enroll-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 80px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000000;
+  min-height: 100vh;
+  color: white;
+}
+
+/* Sayfa başlığı */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #8e8e8e;
+  margin: 0;
+}
+
+/* Loading durumu */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #8e8e8e;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #333;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Ana kayıt kartı */
+.enrollment-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Kurs detayları */
+.course-details {
+  padding: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.level-badge {
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.level-badge.level-beginner {
+  background: rgba(34, 197, 94, 0.3);
+  color: #dcfce7;
+}
+
+.level-badge.level-intermediate {
+  background: rgba(251, 191, 36, 0.3);
+  color: #fef3c7;
+}
+
+.level-badge.level-advanced {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fecaca;
+}
+
+.status-indicator {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.status-indicator.active {
+  background: rgba(34, 197, 94, 0.3);
+  color: #dcfce7;
+}
+
+.status-indicator.inactive {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fecaca;
+}
+
+.course-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.course-description {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Kurs bilgileri */
+.course-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.info-icon {
+  font-size: 1.2rem;
+  width: 24px;
+  text-align: center;
+}
+
+.info-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.price-row .price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+/* Kayıt bölümü */
+.enrollment-section {
+  padding: 30px;
+}
+
+/* Mesajlar */
+.message {
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.success-message {
+  background: rgba(34, 197, 94, 0.2);
+  color: #dcfce7;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.info-message {
+  background: rgba(59, 130, 246, 0.2);
+  color: #dbeafe;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Butonlar */
+.enrollment-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #bc2a8d;
+  color: #ffffff;
+  border: 2px solid #bc2a8d;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #a02478;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(188, 42, 141, 0.4);
+}
+
+.btn-success {
+  background: #22c55e;
+  color: #ffffff;
+  border: 2px solid #22c55e;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #ffffff;
+  border: 2px solid #ef4444;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #8e8e8e;
+  border: 2px solid #333;
+}
+
+.btn-secondary:hover {
+  background: #333;
+  color: white;
+  border-color: #555;
+}
+
+/* Buton spinner */
+.btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Geri dön bölümü */
+.back-section {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Pasif kurs mesajı */
+.inactive-message {
+  text-align: center;
+  padding: 20px;
+  background: rgba(239, 68, 68, 0.2);
+  color: #fecaca;
+  border-radius: 10px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  margin-bottom: 25px;
+}
+
+/* Hata durumu */
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #8e8e8e;
+}
+
+.error-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.error-state h3 {
+  color: #ef4444;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.error-state p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .enroll-container {
+    padding: 15px;
+    padding-top: 70px;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .course-title {
+    font-size: 1.5rem;
+  }
+  
+  .course-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .enrollment-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}

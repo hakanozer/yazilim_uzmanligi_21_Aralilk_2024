@@ -1,0 +1,588 @@
+/* Ana container */
+.cursus-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 80px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000000; /* Instagram benzeri siyah arka plan */
+  min-height: 100vh;
+}
+
+/* Sayfa başlığı */
+.page-header {
+  position: relative;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  color: #ffffff; /* Beyaz başlık */
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #8e8e8e; /* Instagram gri */
+  margin: 0;
+}
+
+/* Loading durumu */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Kurs kartları grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Kurs kartı - Mavi tema */
+/* Kurs kartı hover efekti */
+.course-card {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+}
+
+.course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.25);
+}
+
+/* Kart footer düzenlemesi */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fbbf24;
+  margin-bottom: 5px;
+}
+
+.created-date {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+/* Register butonu sağ tarafa */
+.register-section {
+  margin-left: 20px;
+}
+
+.register-section .btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: #bc2a8d;
+  color: #ffffff;
+  border: 2px solid #bc2a8d;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: #a02478;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(188, 42, 141, 0.4);
+}
+
+/* Tıklama olayını engellemek için register butonu */
+.register-section .btn {
+  position: relative;
+  z-index: 10;
+}
+
+.course-card.inactive-course {
+  opacity: 0.7;
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+}
+
+/* Kart header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 0;
+}
+
+.level-badge {
+  padding: 6px 14px;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.level-badge.level-beginner {
+  background: rgba(34, 197, 94, 0.3);
+  color: #dcfce7;
+}
+
+.level-badge.level-intermediate {
+  background: rgba(251, 191, 36, 0.3);
+  color: #fef3c7;
+}
+
+.level-badge.level-advanced {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fecaca;
+}
+
+.status-indicator {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.status-indicator.active {
+  background: rgba(34, 197, 94, 0.3);
+  color: #dcfce7;
+}
+
+.status-indicator.inactive {
+  background: rgba(239, 68, 68, 0.3);
+  color: #fecaca;
+}
+
+/* Kart body */
+.card-body {
+  padding: 20px;
+}
+
+.course-title {
+  font-size: 1.4rem;
+  color: white;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.course-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Kurs bilgileri */
+.course-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.info-label {
+  font-weight: 600;
+  margin-right: 8px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Fiyat */
+.course-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fbbf24;
+  text-align: center;
+  margin: 15px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Aksiyon butonları - Mavi arka planda daha görünür */
+.course-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: #bc2a8d;
+  color: #ffffff;
+  border: 2px solid #bc2a8d;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: #a02478;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(188, 42, 141, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #9ca3af;
+  border: 2px solid #9ca3af;
+  font-weight: 600;
+}
+
+.btn-outline:hover {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #d1d5db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(156, 163, 175, 0.3);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Boş durum */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #8e8e8e;
+}
+
+.empty-state h3 {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .cursus-container {
+    padding: 15px;
+    padding-top: 70px;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .course-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+.add-course-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.add-course-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.add-course-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+}
+
+.plus-icon {
+  line-height: 1;
+  font-size: 28px;
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+  .add-course-btn {
+    top: 10px;
+    right: 10px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+  
+  .plus-icon {
+    font-size: 24px;
+  }
+}
+
+/* Modern Pagination Styles */
+.modern-pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+  padding: 20px;
+}
+
+.pagination-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.pagination-wrapper:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.nav-button:hover:not(.disabled) {
+  background: #3b82f6;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.nav-button:active:not(.disabled) {
+  transform: scale(0.95);
+}
+
+.nav-button.disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.nav-button svg {
+  transition: transform 0.2s ease;
+}
+
+.nav-button:hover:not(.disabled) svg {
+  transform: translateX(2px);
+}
+
+.prev-button:hover:not(.disabled) svg {
+  transform: translateX(-2px);
+}
+
+.page-info {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+}
+
+.current-page {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  min-width: 24px;
+  text-align: center;
+}
+
+.separator {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 8px;
+  font-weight: 400;
+}
+
+.total-pages {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pagination-wrapper {
+    padding: 6px;
+  }
+  
+  .nav-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .page-info {
+    margin: 0 15px;
+  }
+  
+  .current-page {
+    font-size: 16px;
+  }
+  
+  .total-pages {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modern-pagination-container {
+    margin: 20px 0;
+    padding: 10px;
+  }
+  
+  .pagination-wrapper {
+    padding: 4px;
+  }
+  
+  .nav-button {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .page-info {
+    margin: 0 10px;
+  }
+  
+  .current-page {
+    font-size: 14px;
+  }
+  
+  .separator {
+    font-size: 12px;
+  }
+  
+  .total-pages {
+    font-size: 12px;
+  }
+}
+
+/* Animasyon efektleri */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modern-pagination-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Instructor/Admin view stili */
+.instructor-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.instructor-label {
+  background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+  color: #d1d5db;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #6b7280;
+}

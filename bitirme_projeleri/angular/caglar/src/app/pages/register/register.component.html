@@ -1,0 +1,167 @@
+<div class="register-container">
+  <div class="register-form-wrapper">
+    <h2 class="register-title">Kayıt Ol</h2>
+    
+    @if(success !== '') {
+      <div class="alert alert-success animate-fade-in-up" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        {{success}}
+      </div>
+    }
+    
+    @if (error !== '') {
+      <div class="alert alert-danger alert-dismissible fade show animate-fade-in-up" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>Hata:</strong> {{error}}
+        <button type="button" class="btn-close" (click)="error= ''" aria-label="Close"></button>
+      </div>
+    }
+    
+    <form (submit)="userRegister()" class="register-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userName" class="form-label">
+            <i class="fas fa-user me-2"></i>Ad
+          </label>
+          <input 
+            #userNameRef 
+            [(ngModel)]="userName" 
+            name="userName" 
+            type="text" 
+            class="form-control" 
+            id="userName"
+            placeholder="Adınızı girin"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label for="userSurname" class="form-label">
+            <i class="fas fa-user me-2"></i>Soyad
+          </label>
+          <input 
+            #userSurnameRef 
+            [(ngModel)]="userSurname" 
+            name="userSurname" 
+            type="text" 
+            class="form-control" 
+            id="userSurname"
+            placeholder="Soyadınızı girin"
+            required>
+        </div>
+      </div>
+      
+      <div class="form-group full-width">
+        <label for="email" class="form-label">
+          <i class="fas fa-envelope me-2"></i>E-posta Adresi
+        </label>
+        <input 
+          #emailRef 
+          [(ngModel)]="email" 
+          name="email" 
+          type="email" 
+          class="form-control" 
+          id="email"
+          placeholder="ornek@email.com"
+          required
+          autocomplete="email">
+      </div>
+      
+      <div class="form-group full-width">
+        <label for="password" class="form-label">
+          <i class="fas fa-lock me-2"></i>Şifre
+        </label>
+        <div class="input-group">
+          <input 
+            #passwordRef 
+            [(ngModel)]="password" 
+            name="password" 
+            type="{{passType}}" 
+            class="form-control" 
+            id="password"
+            placeholder="Güçlü bir şifre oluşturun"
+            required
+            autocomplete="new-password">
+          <button 
+            type="button"
+            (click)="passwordLockUnLock()" 
+            class="btn btn-outline-secondary">
+            @if (passlock === false) {
+              <i class="fas fa-eye"></i>
+            } @else {
+              <i class="fas fa-eye-slash"></i>
+            }
+          </button>
+        </div>
+      </div>
+      
+      <div class="form-group full-width">
+        <label for="passwordAgain" class="form-label">
+          <i class="fas fa-lock me-2"></i>Şifre Tekrar
+        </label>
+        <input 
+          #passwordAgainRef 
+          [(ngModel)]="passwordAgain" 
+          name="passwordAgain" 
+          type="{{passType}}" 
+          class="form-control" 
+          id="passwordAgain"
+          placeholder="Şifrenizi tekrar girin"
+          required
+          autocomplete="new-password">
+      </div>
+      
+      <div class="form-group full-width">
+        <label class="form-label">
+          <i class="fas fa-user-tag me-2"></i>Kayıt Türü
+        </label>
+        <div class="user-type-selection">
+          <div class="form-check">
+            <input 
+              [(ngModel)]="userType" 
+              class="form-check-input" 
+              type="radio" 
+              name="userType" 
+              id="instructorId" 
+              value="instructor">
+            <label class="form-check-label" for="instructorId">
+              <i class="fas fa-chalkboard-teacher me-2"></i>
+              Eğitmen
+            </label>
+          </div>
+          <div class="form-check">
+            <input 
+              [(ngModel)]="userType" 
+              class="form-check-input" 
+              type="radio" 
+              name="userType" 
+              id="studentId" 
+              value="student">
+            <label class="form-check-label" for="studentId">
+              <i class="fas fa-graduation-cap me-2"></i>
+              Öğrenci
+            </label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn-register">
+          <i class="fas fa-user-plus me-2"></i>
+          Kayıt
+        </button>
+        <button type="button" (click)="formReset()" class="btn btn-outline-secondary">
+          <i class="fas fa-redo me-2"></i>
+          Temizle
+        </button>
+      </div>
+      
+      <div class="login-link">
+        <p>Zaten hesabınız var mı?</p>
+        <a [routerLink]="['/login']" routerLinkActive="active">
+          <i class="fas fa-sign-in-alt me-2"></i>
+          Giriş Yap
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

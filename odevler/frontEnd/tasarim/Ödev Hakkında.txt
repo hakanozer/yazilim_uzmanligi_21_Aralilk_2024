@@ -1,0 +1,11 @@
+Html Tasarım Ödevi
+Kişisel Site Tasarımı
+
+Not: Ödevde Masaüstü görünüm ve mobil taraf için örnek görünümler gönderilmiştir. Örnek içindeki resim ve yazılar ile tasarımı kendi istediğinize göre tasarlayabilirsiniz. Toplamda 1 html dosyasından oluşmalıdır, küçük ve büyük ekranlardaki görüntü örneğe yakın (Responsive) görünmelidir.
+
+Kodlamada kullanılacak materyaller:
+Html
+CSS
+Bootstrap
+Bootstrap icons
+Google Fonts

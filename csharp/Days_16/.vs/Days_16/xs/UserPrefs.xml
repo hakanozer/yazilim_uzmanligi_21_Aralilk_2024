@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{EB87F9C6-71CA-4909-A9E9-C41B7C9E82EE}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Days_16/UseList.cs">
+    <Files>
+      <File FileName="Days_16/UseList.cs" Line="90" Column="13" />
+      <File FileName="Days_16/Program.cs" Line="24" Column="30" />
+      <File FileName="Days_16/models/User.cs" Line="4" Column="9" />
+      <File FileName="Days_16/models/Product.cs" Line="12" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Days_16">
+            <Node name="Days_16">
+              <Node name="UseList.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Days__16 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

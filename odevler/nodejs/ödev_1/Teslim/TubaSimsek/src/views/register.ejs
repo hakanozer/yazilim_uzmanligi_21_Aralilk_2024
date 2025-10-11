@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <%- include('template/bootstrap') %>
+</head>
+<body>
+    <div class="container mt-3">
+        <% if (typeof error != "undefined") { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= error %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>User Register</h3>
+                <form action="/register" method="post">
+                    <div class="mb-3">
+                        <label for="adSoyad" class="form-label">Ad-Soyad</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-success">Register</button>
+                </form>
+            </div>
+            <div class="col-sm-6 d-none d-sm-block">
+                <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                    <i class="bi bi-person-plus-fill border border-dark rounded p-1" style="font-size: 7em; color: grey;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

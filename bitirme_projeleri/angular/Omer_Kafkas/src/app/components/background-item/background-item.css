@@ -1,0 +1,13 @@
+.background-bg {
+  background-image: url('/assets/arkaplan.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  opacity: 0.4;
+  z-index: -1;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}

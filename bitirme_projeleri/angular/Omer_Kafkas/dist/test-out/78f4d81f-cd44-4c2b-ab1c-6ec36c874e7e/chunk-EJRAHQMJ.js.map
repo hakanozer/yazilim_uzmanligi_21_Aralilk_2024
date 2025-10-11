@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/services/enrollment.service.ts"],
+  "sourcesContent": ["import { Injectable, signal } from '@angular/core';\r\n\r\n@Injectable({ providedIn: 'root' })\r\nexport class EnrollmentService {\r\n  // Her başarılı enroll işleminde artan versiyon\r\n  readonly version = signal(0);\r\n\r\n  notifyEnrollment() {\r\n    this.version.update(v => v + 1);\r\n  }\r\n}\r\n"],
+  "mappings": ";;;;;;;;;;IAGa;;;;;AAHb;AAGO,IAAM,oBAAN,MAAMA,mBAAiB;;MAEnB,UAAU,OAAO,CAAC;MAE3B,mBAAgB;AACd,aAAK,QAAQ,OAAO,OAAK,IAAI,CAAC;MAChC;;AANW,wBAAiB,WAAA;MAD7B,WAAW,EAAE,YAAY,OAAM,CAAE;OACrB,iBAAiB;;;",
+  "names": ["EnrollmentService"]
+}

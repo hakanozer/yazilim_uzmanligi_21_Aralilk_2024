@@ -1,0 +1,38 @@
+    :host { display:block; min-height:100vh; background: radial-gradient(1200px 600px at 50% -200px, #1a1423 0%, #0b0910 50%, #06040a 100%); color:#f9dfff; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji','Segoe UI Emoji'; }
+    .wrap { position:relative; min-height:100vh; overflow:hidden; }
+
+    /* Atmosphere */
+    .stars::before, .stars::after { content:""; position:absolute; inset:0; background-image: radial-gradient(#ffffff55 1px, transparent 1px); background-size: 3px 3px; opacity:.05; }
+    .mist { position:absolute; inset:-20% -20% 30% -20%; background: radial-gradient(60% 50% at 50% 10%, #ff267755, transparent 60%), radial-gradient(40% 35% at 70% 20%, #ff73d355, transparent 60%), radial-gradient(35% 30% at 30% 15%, #ff267533, transparent 60%); filter: blur(30px); opacity:.35; animation: drift 14s linear infinite; }
+    @keyframes drift { from{ transform: translateX(-2%);} to{ transform: translateX(2%);} }
+
+    /* Neon signboard at the bottom */
+    .scene { position:absolute; inset:auto 0 0 0; height:260px; }
+    .houses { position:absolute; left:0; bottom:0; width:100%; height:220px; }
+    .windows rect { fill:#ff2a6d; filter:url(#glow); opacity:.9; animation: wink 6s infinite steps(1); }
+    .windows rect:nth-child(odd){ animation-delay: 1.5s; opacity:.75; }
+    @keyframes wink { 0%, 5%{opacity:.1} 6%, 100%{opacity:.9} }
+    .water { fill: #120c17; }
+
+    .neon.signboard { position:absolute; left:50%; bottom:16px; transform: translateX(-50%); padding:14px 18px; border: 3px solid #ff2a6d; border-radius:22px; box-shadow: 0 0 24px #ff2a6d88, inset 0 0 20px #ff2a6d44; background: #120b14cc; display:flex; align-items:center; gap:10px; backdrop-filter: blur(3px); }
+    .neon .tube { display:inline-block; font-weight:800; letter-spacing:2px; text-shadow: 0 0 8px #ff2a6d, 0 0 24px #ff2a6d; color:#ffcce1; }
+    .neon .tube.small { font-size:14px; }
+    .neon .sep { width:8px; height:2px; background:#ff2a6d; box-shadow:0 0 12px #ff2a6d; display:inline-block; margin:0 4px; }
+    .neon .red { font-size:18px; color:#ff2a6d; text-shadow:0 0 10px #ff2a6d, 0 0 30px #ff2a6d; animation: blink 2.6s infinite; }
+    @keyframes blink { 0%, 4% { opacity:.2 } 5% { opacity:1 } 6% { opacity:.2 } 50% { opacity:1 } 52% { opacity:.3 } 70%, 100% { opacity:1 } }
+
+    /* Center sign */
+    .sign { position: relative; z-index: 2; max-width: 920px; margin: 0 auto; padding: 18vh 20px 160px; text-align:center; }
+    .title { font-size: clamp(72px, 16vw, 200px); line-height: 0.8; font-weight:900; color:#ffd7f1; text-shadow: 0 0 12px #ff2a6d, 0 0 40px #ff2a6d88, 0 0 80px #ff2a6d55; letter-spacing: 8px; }
+    .title .tube { color:#ffe7f6; animation: flicker 4s infinite; display:inline-block; }
+    @keyframes flicker { 0% {opacity:1} 1% {opacity:.2} 2% {opacity:1} 8% {opacity:.3} 9% {opacity:1} 10% {opacity:.6} 11% {opacity:1} 100% {opacity:1}}
+
+    .tag { margin-top: 12px; color:#ffc6e8; opacity:.9; letter-spacing: .2em; text-transform: uppercase; font-weight:700; }
+    .joke { margin: 18px auto 28px; max-width: 760px; font-size: clamp(14px, 2.7vw, 20px); color:#ffe7f6; opacity:.92; }
+
+    .btn { display:inline-block; margin-top:4px; padding: 12px 18px; border-radius: 999px; border: 2px solid #ff2a6d; color:#ffd7f1; text-decoration:none; font-weight:700; box-shadow: 0 0 14px #ff2a6d88, inset 0 0 10px #ff2a6d44; transition: transform .15s ease, box-shadow .15s ease; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 0 24px #ff2a6dcc, inset 0 0 16px #ff2a6d77; }
+    .btn:active { transform: translateY(0); }
+
+    /* Responsive tweaks */
+    @media (max-width:640px){ .neon.signboard{ transform: translateX(-50%) scale(.9);} }

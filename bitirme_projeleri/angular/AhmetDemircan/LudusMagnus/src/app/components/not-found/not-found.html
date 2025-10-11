@@ -1,0 +1,80 @@
+    <main class="wrap" role="main" aria-labelledby="nf-title">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="mist" aria-hidden="true"></div>
+
+      <section class="sign">
+        <h1 id="nf-title" class="title" aria-label="404 Not Found">4<span class="tube">0</span>4</h1>
+        <p class="tag">Page not found</p>
+        <p class="joke">
+          They say all roads lead to Rome, but I guess I took the one road that leads to
+          Amsterdam's Red Light District... and I'm still waiting for a green light.
+        </p>
+        <a class="btn" routerLink="/" aria-label="Go back home">Go back home</a>
+      </section>
+
+      <div class="scene" aria-hidden="true">
+        <!-- Canal houses silhouette -->
+        <svg class="houses" viewBox="0 0 1200 220" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0d0b10"/>
+              <stop offset="100%" stop-color="#050307"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <rect x="0" y="0" width="1200" height="220" fill="url(#night)"/>
+          <!-- Simple building blocks -->
+          <g fill="#0b0a0e">
+            <rect x="0"   y="60" width="120" height="180"/>
+            <rect x="120" y="40" width="140" height="200"/>
+            <rect x="260" y="70" width="120" height="170"/>
+            <rect x="380" y="50" width="180" height="190"/>
+            <rect x="560" y="80" width="130" height="160"/>
+            <rect x="690" y="60" width="150" height="180"/>
+            <rect x="840" y="45" width="160" height="195"/>
+            <rect x="1000" y="75" width="140" height="165"/>
+          </g>
+          <!-- Windows (neon red/pink) -->
+          <g class="windows">
+            <rect x="30"  y="90" width="18" height="24" rx="3"/>
+            <rect x="70"  y="130" width="18" height="24" rx="3"/>
+            <rect x="150" y="80" width="18" height="24" rx="3"/>
+            <rect x="190" y="120" width="18" height="24" rx="3"/>
+            <rect x="220" y="160" width="18" height="24" rx="3"/>
+            <rect x="300" y="110" width="18" height="24" rx="3"/>
+            <rect x="340" y="150" width="18" height="24" rx="3"/>
+            <rect x="420" y="90" width="18" height="24" rx="3"/>
+            <rect x="460" y="130" width="18" height="24" rx="3"/>
+            <rect x="500" y="170" width="18" height="24" rx="3"/>
+            <rect x="590" y="110" width="18" height="24" rx="3"/>
+            <rect x="630" y="150" width="18" height="24" rx="3"/>
+            <rect x="720" y="95" width="18" height="24" rx="3"/>
+            <rect x="760" y="135" width="18" height="24" rx="3"/>
+            <rect x="800" y="175" width="18" height="24" rx="3"/>
+            <rect x="870" y="85" width="18" height="24" rx="3"/>
+            <rect x="910" y="125" width="18" height="24" rx="3"/>
+            <rect x="950" y="165" width="18" height="24" rx="3"/>
+            <rect x="1030" y="105" width="18" height="24" rx="3"/>
+            <rect x="1070" y="145" width="18" height="24" rx="3"/>
+          </g>
+          <!-- Canal water -->
+          <rect class="water" x="0" y="200" width="1200" height="20"/>
+        </svg>
+
+        <!-- Neon red-light sign -->
+        <div class="neon signboard" aria-hidden="true">
+          <span class="tube">A</span><span class="tube">M</span><span class="tube">S</span><span class="tube">T</span>
+          <span class="tube">E</span><span class="tube">R</span><span class="tube">D</span><span class="tube">A</span><span class="tube">M</span>
+          <span class="sep"></span>
+          <span class="tube small">R</span><span class="tube small">L</span><span class="tube small">D</span>
+          <span class="sep"></span>
+          <span class="red">●</span>
+        </div>
+      </div>
+    </main>

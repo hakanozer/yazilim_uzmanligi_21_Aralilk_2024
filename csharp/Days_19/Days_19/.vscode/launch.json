@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // C# hata ayıklaması için hangi özniteliklerin mevcut olduğunu bulmak için IntelliSense’i kullanın
+            // Var olan özniteliklerin açıklaması için vurgulamayı kullanma
+            // Daha fazla bilgi için bkz. https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // Hedef çerçevelerini değiştirdiyseniz, program yolunu güncelleştirdiğinizden emin olun.
+            "program": "${workspaceFolder}/Days_19/bin/Debug/net9.0/Days_19.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Days_19",
+            // 'Konsol' alanı hakkında daha fazla bilgi için bkz. https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}

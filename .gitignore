@@ -87,7 +87,6 @@ csx/
 AppPackages/
 
 # Others
-sql/
 *.Cache
 ClientBin/
 [Ss]tyle[Cc]op.*
@@ -160,3 +159,7 @@ _NCrunch*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+node_modules
+build
+npm-debug.log
+.DS_Store

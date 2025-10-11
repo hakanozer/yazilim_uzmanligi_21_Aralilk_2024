@@ -1,0 +1,116 @@
+<!-- comments.html -->
+<div class="comments-section mt-5">
+  <h4 class="fw-bold mb-4">💬 Yorumlar</h4>
+
+  <!-- Yorum Yazma Bölümü -->
+   <!-- Sadece ikisi de doğruysa bölüm görünecek -->
+  @if (auth.user() && isEnrolled()) {
+    <div class="add-comment mb-5">
+      <h6 class="fw-semibold mb-3">Yorumunuzu Yazın</h6>
+      <textarea 
+        [(ngModel)]="newComment" 
+        class="form-control mb-3" 
+        rows="4" 
+        placeholder="Kurs hakkındaki düşüncelerinizi paylaşın..."
+      ></textarea>
+      <button 
+        class="btn btn-primary" 
+        (click)="addComment()" 
+        [disabled]="!newComment.trim() || adding()"
+      >
+        @if (adding()) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Gönderiliyor...
+        } @else {
+          Yorumu Gönder
+        }
+      </button>
+    </div>
+  } 
+  <!-- Kullanıcı ise ama enroll olmamışsa -->
+  @else if (auth.user()) {
+    <div class="alert alert-warning mb-4">
+      <i class="bi bi-exclamation-triangle me-2"></i>
+      Yorum yapabilmek için bu kursa kayıt olmalısınız.
+    </div>
+  } 
+  <!-- Oturum açmamışsa -->
+  @else {
+    <div class="alert alert-info mb-4">
+      <i class="bi bi-info-circle me-2"></i>
+      Yorum yapmak için lütfen giriş yapınız.
+    </div>
+  }
+
+  <!-- Hata Mesajları -->
+  @if (error()) {
+    <div class="alert alert-danger mb-4">
+      <i class="bi bi-x-circle me-2"></i>
+      {{ error() }}
+    </div>
+  }
+
+  <!-- Yorum Listesi -->
+  @if (loading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
+      <p class="text-muted">Yorumlar yükleniyor...</p>
+    </div>
+  } 
+  
+  @else {
+    @if (comments().length > 0) {
+      <div class="comments-list">
+        @for (comment of comments(); track comment.id) {
+          <div class="comment-item mb-4 pb-3 border-bottom">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <!-- Kullanıcı Bilgisi -->
+              <div class="user-info">
+                <h6 class="fw-bold mb-1 text-dark">
+                  {{ comment.user.fullName || 'Kullanıcı' }}
+                </h6>
+                @if (comment.user.role === 'instructor') {
+                  <span class="badge bg-success bg-opacity-10 text-success small">
+                    <i class="bi bi-award me-1"></i>Eğitmen
+                  </span>
+                }
+              </div>
+              <!-- Tarih ve Sil Butonu -->
+              <div class="d-flex align-items-center gap-2">
+                <small class="text-muted">
+                  <i class="bi bi-clock me-1"></i>
+                  {{ comment.date | date:'dd.MM.yyyy HH:mm' }}
+                </small>
+                <!-- Sil Butonu (sadece kendi yorumu için) -->
+                @if (isOwnComment(comment)) {
+                  <button 
+                    class="btn btn-outline-danger btn-sm"
+                    (click)="deleteComment(comment.id)"
+                    [disabled]="deletingId() === comment.id"
+                    title="Yorumu sil"
+                  >
+                    @if (deletingId() === comment.id) {
+                      <span class="spinner-border spinner-border-sm"></span>
+                    } @else {
+                      <i class="bi bi-trash"></i>
+                    }
+                  </button>
+                }
+              </div>
+            </div>
+            <!-- Yorum İçeriği -->
+            <p class="mb-0 text-dark">{{ comment.text }}</p>
+          </div>
+        }
+      </div>
+    }
+    <!-- Yorum listesi boşsa yani yorum yoksa -->
+    @else {
+      <div class="text-center py-5">
+        <i class="bi bi-chat-quote display-1 text-muted mb-3"></i>
+        <h5 class="text-muted">Henüz yorum yapılmamış</h5>
+        <p class="text-muted">İlk yorumu siz yaparak görüşlerinizi paylaşın!</p>
+      </div>
+    }
+  }
+</div>

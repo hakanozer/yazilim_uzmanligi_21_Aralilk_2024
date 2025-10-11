@@ -1,0 +1,128 @@
+<app-navbar/>
+
+<div class="container py-4">
+
+  <!-- Üst bar: toplam ve sayfa başına öğe seçimi -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="text-muted">
+      Toplam {{ total() }} kurs
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <label class="form-label small mb-0">Sayfa başına:</label>
+      <select
+        class="form-select form-select-sm w-auto"
+        [value]="limit()"
+        (change)="limit.set(+$any($event.target).value); page.set(1); fetchCourses()"
+      >
+        <option [value]="6">6</option>
+        <option [value]="9">9</option>
+        <option [value]="12">12</option>
+      </select>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <p>⏳ Kurslar yükleniyor...</p>
+  } @else if (error()) {
+    <p class="text-danger">⚠️ Hata: {{ error() }}</p>
+  } @else {
+    @if (courses().length === 0) {
+      <div class="text-center text-muted py-5">
+        Hiç kurs bulunamadı.
+      </div>
+    } @else {
+      <div class="row">
+        @for (course of courses(); track course.id) {
+          <div class="col-md-4 mb-3">
+            <div class="card shadow-sm h-100">
+              <img [src]="course.imageUrl" class="card-img-top" alt="course image" />
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text text-muted flex-grow-1">{{ course.description }}</p>
+                <a [routerLink]="['/courses', course.id]" class="btn btn-primary btn-sm mt-2">
+                  Detaylar
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <!-- Aralık bilgisi -->
+        <div class="text-muted small">
+          Gösterilen:
+          {{
+            ((page() - 1) * limit()) + 1
+          }}
+          -
+          {{
+            (page() * limit()) > total() ? total() : (page() * limit())
+          }}
+          / {{ total() }}
+        </div>
+
+        <!-- Sayfalama kontrolleri -->
+        <nav aria-label="Courses pagination">
+          <ul class="pagination mb-0">
+            <!-- İlk sayfa -->
+            <li class="page-item" [class.disabled]="page() === 1">
+              <button
+                class="page-link"
+                (click)="page.set(1); fetchCourses()"
+                [disabled]="page() === 1"
+                aria-label="İlk sayfa"
+              >
+                «
+              </button>
+            </li>
+
+            <!-- Önceki -->
+            <li class="page-item" [class.disabled]="page() === 1">
+              <button
+                class="page-link"
+                (click)="prevPage()"
+                [disabled]="page() === 1"
+                aria-label="Önceki sayfa"
+              >
+                ‹
+              </button>
+            </li>
+
+            <!-- Sayfa göstergesi -->
+            <li class="page-item disabled">
+              <span class="page-link">
+                Sayfa {{ page() }} / {{ totalPages() }}
+              </span>
+            </li>
+
+            <!-- Sonraki -->
+            <li class="page-item" [class.disabled]="page() === totalPages()">
+              <button
+                class="page-link"
+                (click)="nextPage()"
+                [disabled]="page() === totalPages()"
+                aria-label="Sonraki sayfa"
+              >
+                ›
+              </button>
+            </li>
+
+            <!-- Son sayfa -->
+            <li class="page-item" [class.disabled]="page() === totalPages()">
+              <button
+                class="page-link"
+                (click)="page.set(totalPages()); fetchCourses()"
+                [disabled]="page() === totalPages()"
+                aria-label="Son sayfa"
+              >
+                »
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    }
+  }
+</div>

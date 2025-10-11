@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/api.spec.ts"],
+  "sourcesContent": ["import { TestBed } from '@angular/core/testing';\r\nimport { Api } from './api';\r\nimport { globalTestConfig } from '../test-setup';\r\n\r\ndescribe('Api', () => {\r\n  let service: Api;\r\n\r\n  beforeEach(() => {\r\n    TestBed.configureTestingModule({\r\n      providers: [...globalTestConfig.providers]\r\n    });\r\n    service = TestBed.inject(Api);\r\n  });\r\n\r\n  it('should be created', () => {\r\n    expect(service).toBeTruthy();\r\n  });\r\n});\r\n"],
+  "mappings": ";;;;;;;;;;;;;;;AAAA;AACA;AACA;AAEA,SAAS,OAAO,MAAK;AACnB,MAAI;AAEJ,aAAW,MAAK;AACd,YAAQ,uBAAuB;MAC7B,WAAW,CAAC,GAAG,iBAAiB,SAAS;KAC1C;AACD,cAAU,QAAQ,OAAO,GAAG;EAC9B,CAAC;AAED,KAAG,qBAAqB,MAAK;AAC3B,WAAO,OAAO,EAAE,WAAU;EAC5B,CAAC;AACH,CAAC;",
+  "names": []
+}

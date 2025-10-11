@@ -1,0 +1,140 @@
+<app-navbar/>
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="min-height: 80vh"
+>
+  <div
+    class="card shadow p-4 position-relative"
+    style="max-width: 500px; width: 100%"
+  >
+    <!-- Çarpı işareti (sol üst köşe, "/" yönlendirme) -->
+    <a
+      routerLink="/"
+      class="close-btn position-absolute top-0 start-0 m-3 text-primary fs-2 fw-bold text-decoration-none"
+      data-bs-toggle="tooltip"
+      title="Ana sayfaya dön"
+    >
+      &times;
+    </a>
+
+    <h2 class="text-center mb-4">Kayıt Ol</h2>
+    @if (message()) {
+    <div
+      class="alert mt-2"
+      [class.alert-success]="isSuccess()"
+      [class.alert-danger]="!isSuccess()"
+      role="alert"
+    >
+      {{ message() }}
+    </div>
+    }
+
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <!-- İsim -->
+      <div class="mb-3">
+        <label class="form-label">Ad Soyad</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Adınızı giriniz"
+          name="fullName"
+          ngModel
+          required
+          minlength="3"
+          #fullName="ngModel"
+          [class.is-invalid]="fullName.invalid && (fullName.dirty || fullName.touched)"
+        />
+        <div class="invalid-feedback">
+          @if (fullName.errors?.['required']) { Ad Soyad zorunludur. } @if
+          (fullName.errors?.['minlength']) { Ad Soyad en az 3 karakter
+          olmalıdır. }
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">E-Posta</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="ornek@mail.com"
+          name="email"
+          ngModel
+          required
+          email
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+        />
+        <div class="invalid-feedback">
+          @if (email.errors?.['required']) { E-posta adresi zorunludur. } @if
+          (email.errors?.['email']) { Geçerli bir e-posta adresi giriniz. }
+        </div>
+      </div>
+
+      <!-- Şifre -->
+      <div class="mb-3">
+        <label class="form-label">Şifre</label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="******"
+          name="password"
+          ngModel
+          required
+          minlength="6"
+          maxlength="20"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,20}$"
+          #password="ngModel"
+          [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+        />
+        <div class="invalid-feedback">
+          @if (password.errors) { @if (password.errors['required']) { Şifre
+          zorunludur. } @else if (password.errors['minlength']) { Şifre en az 6
+          karakter olmalıdır. } @else if (password.errors['maxlength']) { Şifre
+          en fazla 20 karakter olabilir. } @else if (password.errors['pattern'])
+          { Şifrede en az bir büyük harf, bir küçük harf, bir rakam ve bir özel
+          karakter olmalıdır. } }
+        </div>
+      </div>
+
+      <!-- Rol -->
+      <div class="mb-3">
+        <label class="form-label">Rol</label>
+        <select
+          class="form-select"
+          name="role"
+          ngModel
+          required
+          #role="ngModel"
+          [class.is-invalid]="role.invalid && (role.dirty || role.touched)"
+        >
+          <option value="">Seçiniz...</option>
+          <option value="student">Öğrenci</option>
+          <option value="instructor">Eğitmen</option>
+        </select>
+        <div class="invalid-feedback">
+          @if (role.errors?.['required']) { Rol seçmek zorunludur. }
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="btn btn-primary w-100 d-flex justify-content-center align-items-center"
+        [disabled]="form.invalid || isLoading()"
+      >
+        @if (isLoading()) {
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        Kayıt Yapılıyor... } @else { Kayıt Ol }
+      </button>
+    </form>
+
+    <!-- Login link -->
+    <div class="text-center mt-3">
+      <small class="text-muted">
+        Zaten bir hesabınız var mı?
+        <a routerLink="/login" class="ms-1 text-decoration-none">Giriş yap</a>
+      </small>
+    </div>
+  </div>
+</div>

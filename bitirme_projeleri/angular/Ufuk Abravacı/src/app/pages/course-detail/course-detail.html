@@ -1,0 +1,226 @@
+<app-navbar />
+<div class="course-detail-container">
+  @if (loading()) {
+  <div class="loading-section">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Yükleniyor...</span>
+    </div>
+    <p class="mt-2">Kurs bilgileri yükleniyor...</p>
+  </div>
+  } @else if (error()) {
+  <div class="error-section alert alert-danger">
+    <h4>⚠️ Hata Oluştu</h4>
+    <p class="mb-0">{{ error() }}</p>
+  </div>
+  } @else if (course()) {
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="breadcrumb-section">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a routerLink="/courses" class="text-decoration-none">🏠 Tüm Kurslar</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        {{ course()!.title }}
+      </li>
+    </ol>
+  </nav>
+
+  <div class="row g-4">
+    <!-- Sol Taraf - Ana İçerik -->
+    <div class="col-lg-8">
+      <!-- Kurs Başlık ve Açıklama -->
+      <header class="course-header mb-4">
+        <div class="category-badge mb-2">
+          <span class="badge bg-primary">{{ course()!.category }}</span>
+        </div>
+        <h1 class="course-title display-5 fw-bold text-dark mb-3">
+          {{ course()!.title }}
+        </h1>
+        <p class="course-description lead text-muted mb-4">
+          {{ course()!.description }}
+        </p>
+
+        <!-- Kurs Meta Bilgileri -->
+        <div class="course-meta d-flex gap-4 text-muted mb-4">
+          <div class="meta-item">
+            <i class="bi bi-collection-play me-1"></i>
+            <span>{{ lessonsCount() }} ders</span>
+          </div>
+          <div class="meta-item">
+            <i class="bi bi-bar-chart me-1"></i>
+            <span>İleri Seviye</span>
+          </div>
+          @if (isEnrolled()) {
+          <div class="meta-item">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            <span class="text-success">Kayıtlısınız</span>
+          </div>
+          }
+        </div>
+      </header>
+
+      <!-- Dersler Bölümü -->
+      <section class="lessons-section">
+        <div
+          class="section-header d-flex justify-content-between align-items-center mb-4"
+        >
+          <h2 class="h4 fw-bold mb-0">📚 Dersler ({{ lessonsCount() }})</h2>
+        </div>
+
+        @if (course()!.lessons?.length) {
+        <div class="lessons-list">
+          @for (lesson of course()!.lessons; track lesson.id; let i = $index) {
+          <div class="lesson-item card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="lesson-info">
+                  <div class="d-flex align-items-center mb-2">
+                    <span class="lesson-number badge bg-light text-dark me-3"
+                      >#{{ i + 1 }}</span
+                    >
+                    <h3 class="lesson-title h6 fw-bold mb-0">
+                      {{ lesson.title }}
+                    </h3>
+                  </div>
+                  <div class="lesson-meta text-muted small">
+                    <span class="duration me-3">
+                      <i class="bi bi-play-circle me-1"></i>{{ lesson.duration
+                      }} dk
+                    </span>
+                  </div>
+                </div>
+                <div class="lesson-actions">
+                  @if (isEnrolled()) {
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    [href]="lesson.videoUrl"
+                    target="_blank"
+                  >
+                    <i class="bi bi-play-fill"></i>
+                    İzle
+                  </a>
+                  } @else {
+                  <button class="btn btn-outline-primary btn-sm" disabled>
+                    <i class="bi bi-lock"></i>
+                    Kursa Kaydolun
+                  </button>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        } @else {
+        <div class="empty-lessons text-center py-5">
+          <i class="bi bi-film display-1 text-muted mb-3"></i>
+          <h3 class="h5 text-muted">Henüz ders eklenmemiş</h3>
+          <p class="text-muted">Bu kursa ait dersler yakında eklenecek.</p>
+        </div>
+        }
+      </section>
+    </div>
+
+    <!-- Sağ Taraf - Sidebar -->
+    <div class="col-lg-4">
+      <aside class="course-sidebar">
+        <!-- Kurs Görseli -->
+        <div class="course-image mb-4">
+          <img
+            [src]="course()!.imageUrl"
+            [alt]="course()!.title"
+            class="img-fluid rounded-3 shadow-sm w-100"
+          />
+        </div>
+
+        <!-- Kurs Detay Kartı -->
+        <div class="course-info-card card border-0 shadow-sm">
+          <div class="card-body">
+            <h3 class="h5 fw-bold mb-3">Kurs Detayları</h3>
+            <div class="info-list">
+              <div
+                class="info-item d-flex justify-content-between py-2 border-bottom"
+              >
+                <span class="text-muted">Ders Sayısı</span>
+                <strong>{{ lessonsCount() }}</strong>
+              </div>
+              <div
+                class="info-item d-flex justify-content-between py-2 border-bottom"
+              >
+                <span class="text-muted">Seviye</span>
+                <strong>İleri</strong>
+              </div>
+              <div
+                class="info-item d-flex justify-content-between py-2 border-bottom"
+              >
+                <span class="text-muted">Kategori</span>
+                <strong>{{ course()!.category }}</strong>
+              </div>
+              @if (isEnrolled()) {
+              <div
+                class="info-item d-flex justify-content-between py-2 border-bottom"
+              >
+                <span class="text-muted">Durum</span>
+                <strong class="text-success">Kayıtlısınız</strong>
+              </div>
+              }
+            </div>
+
+            <!-- Kayıt Ol Butonu -->
+            <div class="enroll-section mt-4">
+              @if (isEnrolled()) {
+              <button class="btn btn-success w-100 py-2 fw-semibold" disabled>
+                <i class="bi bi-check-circle-fill me-2"></i>
+                Kursa Kayıtlısınız
+              </button>
+              } @else {
+              <button
+                class="btn btn-primary w-100 py-2 fw-semibold"
+                (click)="enroll()"
+                [disabled]="isEnrolling() || !auth.user()"
+              >
+                <i class="bi bi-cart-plus me-2"></i>
+                @if (isEnrolling()) { Kaydediliyor... } @else if (!auth.user())
+                { Giriş Yapınız } @else { Kursa Kayıt Ol }
+              </button>
+              }
+              <p class="text-center text-muted small mt-2 mb-0">
+                %100 memnuniyet garantisi
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Eğitmen Bilgisi -->
+        <div class="instructor-card card border-0 shadow-sm mt-4">
+          <div class="card-body text-center">
+            <div class="instructor-avatar mb-3">
+              <i class="bi bi-person-circle display-4 text-muted"></i>
+            </div>
+            @if (instructor()) {
+            <h4 class="h6 fw-bold mb-1">{{instructor()?.fullName}}</h4>
+            } @else(){
+            <h4 class="h6 fw-bold mb-1">Eğitmen bulunamadı.</h4>
+            }
+            <p class="text-muted small mb-3">
+              Kurs içeriği uzman eğitmen tarafından hazırlanmıştır.
+            </p>
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              [routerLink]="['/profile', instructor()?.id]"
+              [disabled]="!instructor()?.id"
+            >
+              <i class="bi bi-info-circle me-1"></i>Profilini Gör
+            </button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+  }
+  <!-- commentler -->
+  @if (course()) {
+  <app-comments [courseId]="course()!.id" [isEnrolled]="isEnrolled()">
+  </app-comments>
+  }
+</div>

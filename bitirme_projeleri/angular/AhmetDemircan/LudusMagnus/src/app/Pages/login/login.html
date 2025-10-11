@@ -1,0 +1,118 @@
+<section class="position-relative py-4 py-xl-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                @if (error !== '') {
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-5">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h2 class="my-4">Ludus Magnus</h2>
+                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="text-center w-100" method="post">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input 
+                                    #emailRef 
+                                    formControlName="email" 
+                                    type="email" 
+                                    class="form-control" 
+                                    id="email"
+                                    placeholder="admin@ludusmagnus.com"
+                                    [disabled]="isLoading"
+                                    [class.is-invalid]="f['email'].invalid && f['email'].touched">
+                                @if (f['email'].invalid && f['email'].touched) {
+                                    <div class="invalid-feedback">
+                                        @if (f['email'].errors?.['required']) {
+                                            Email address is required.
+                                        }
+                                        @if (f['email'].errors?.['email']) {
+                                            Please enter a valid email address.
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input 
+                                    #passwordRef 
+                                    formControlName="password" 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="password"
+                                    placeholder="admin1283"
+                                    [disabled]="isLoading"
+                                    [class.is-invalid]="f['password'].invalid && f['password'].touched">
+                                @if (f['password'].invalid && f['password'].touched) {
+                                    <div class="invalid-feedback">
+                                        @if (f['password'].errors?.['required']) {
+                                            Password is required.
+                                        }
+                                        @if (f['password'].errors?.['minlength']) {
+                                            Password must be at least 6 characters long.
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input 
+                                    formControlName="remember" 
+                                    type="checkbox" 
+                                    class="form-check-input" 
+                                    id="remember">
+                                <label class="form-check-label" for="remember">
+                                    Remember me
+                                </label>
+                            </div>
+                            <div class="mb-3">
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-primary w-100"
+                                    [disabled]="isLoading || loginForm.invalid">
+                                    @if (isLoading) {
+                                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    }
+                                    {{ isLoading ? 'Logging in...' : 'Login' }}
+                                </button>
+                            </div>
+                            <p class="text-muted">
+                                <a href="#" (click)="toggleForgotPasswordMessage($event)" class="text-primary text-decoration-none">Forgot your password?</a>
+                            </p>
+                            
+                            @if (showForgotPasswordMessage) {
+                                <div class="alert alert-info mt-2" role="alert">
+                                    WE DO NOT CARE ABOUT YOUR PASSWORD
+                                </div>
+                            }
+                            
+                            <p class="text-muted mt-2">
+                                Don't have an account? 
+                                <a [routerLink]="['/register']" class="text-primary text-decoration-none">Sign up</a>
+                            </p>
+                            
+                            <!-- Test kullanıcıları toggle linki -->
+                            <p class="text-muted mt-2">
+                                <a href="#" (click)="toggleTestUsers($event)" class="text-primary text-decoration-none">Test kullanıcıları</a>
+                            </p>
+                            
+                            <!-- Test kullanıcıları bilgisi (toggle ile gösterilir) -->
+                            @if (showTestUsers) {
+                                <div class="alert alert-dark mt-2" role="alert">
+                                    <small class="text-info d-block">Admin: admin@ludusmagnus.com / admin1283</small>
+                                    <small class="text-warning d-block">Teacher: teacher@ludusmagnus.com / teacher123</small>
+                                    <small class="text-success d-block">Student: student@ludusmagnus.com / student123</small>
+                                </div>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>

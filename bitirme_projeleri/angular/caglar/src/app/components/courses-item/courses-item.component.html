@@ -1,0 +1,31 @@
+@if (course) {
+  <div class="course-detail">
+    <h2>{{ course.coursesTitle }}</h2>
+    <p>{{ course.description }}</p>
+    <p><strong>Eğitmen:</strong> {{ course.Instructor }}</p>
+    @if (course.stars !== undefined) {
+      <p><strong>Değerlendirme:</strong> {{ course.stars }} / 5 ⭐</p>
+    }
+
+    <h3>Yorumlar</h3>
+    @if (course.comments && course.comments.length > 0) {
+      <div class="comments-list">
+        @for (c of course.comments; track c.date) {
+          <div class="comment-item">
+            <div class="comment-header">
+              <strong class="comment-author">{{ getUserName(c.userId) }}</strong>
+              <span class="comment-date">{{ c.date }}</span>
+            </div>
+            <div class="comment-text">{{ c.comment }}</div>
+          </div>
+        }
+      </div>
+    } @else {
+      <p class="no-comments">Henüz yorum yok.</p>
+    }
+  </div>
+} @else {
+  <p>Kurs bilgisi yükleniyor...</p>
+}
+ 
+  

@@ -1,0 +1,14 @@
+2025-05-14 22:28:27 | CategoryService.Ekle | Bu kategori adı zaten mevcut.
+2025-05-14 22:28:27 | CategoryService.Ekle | Bu kategori adı zaten mevcut.
+2025-05-14 22:28:27 | CategoryService.Ekle | Bu kategori adı zaten mevcut.
+2025-05-14 22:50:37 | ProductService.Ara | A CString cannot contain null bytes. (Parameter 'value')
+2025-05-14 22:51:02 | ProductService.Filtrele | ' ' is not a valid 24 digit hex string.
+2025-05-23 22:08:49 | CategoryService.Ekle | Bu kategori adı zaten mevcut.
+2025-05-23 22:08:59 | CategoryService.Listele | Element 'Name' does not match any field or property of class ProductCatalogApp.Models.Category.
+2025-05-23 22:09:04 | CategoryService.Listele | Element 'Name' does not match any field or property of class ProductCatalogApp.Models.Category.
+2025-05-23 22:15:15 | ProductService.Ara | A CString cannot contain null bytes. (Parameter 'value')
+2025-05-23 22:18:24 | CategoryService.Ekle | Bu kategori adı zaten mevcut.
+2025-05-23 22:22:48 | CategoryService.Listele | Element 'Name' does not match any field or property of class ProductCatalogApp.Models.Category.
+2025-05-23 22:24:44 | CategoryService.Listele | Element 'Name' does not match any field or property of class ProductCatalogApp.Models.Category.
+2025-05-23 22:24:48 | CategoryService.Listele | Element 'Name' does not match any field or property of class ProductCatalogApp.Models.Category.
+2025-05-23 22:26:10 | CategoryService.Listele | Element 'Name' does not match any field or property of class ProductCatalogApp.Models.Category.

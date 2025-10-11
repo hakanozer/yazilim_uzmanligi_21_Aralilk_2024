@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, td, th {
+    border: 1px solid;
+}
+
+tbody > tr:hover {
+    background-color: rgb(187, 187, 187);
+    color: brown;
+}
+
+dt {
+    font-weight: bold;
+}
+
+img {
+    border: 2px solid;
+}
+
+img:hover {
+    border-color: rgb(255, 255, 255);
+}
+
+a {
+    color: black;
+}
+
+iframe {
+    border: none;
+}
+
+.inputSpace {
+    margin-bottom: 10px;
+}
+
+.inputControl {
+    padding: 10px;
+    font-size: 15px;
+    width: 300px;
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+}
+
+.formButton {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: chocolate;
+    font-size: 15px;
+}
+

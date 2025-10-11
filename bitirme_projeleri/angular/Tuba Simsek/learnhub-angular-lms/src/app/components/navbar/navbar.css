@@ -1,0 +1,68 @@
+/* Navbar genel */
+.custom-navbar {
+  background: #ffffff;
+  border-radius: 20px;   /* Yuvarlak hat */
+  margin: 10px;          /* Kenarlardan boşluk */
+  padding: 12px 20px;    /* Daha büyük görünüm */
+}
+
+/* Marka */
+.custom-navbar .navbar-brand {
+  color: #0d6efd;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: #0a58ca;
+}
+
+/* Menü linkleri */
+.custom-navbar .nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 12px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.custom-navbar .nav-link.active,
+.custom-navbar .nav-link:hover {
+  background: #e7f1ff;
+  color: #0d6efd;
+}
+
+/* Dropdown menü */
+.custom-navbar .dropdown-menu {
+  border: none;
+  padding: 10px 0;
+  font-size: 0.95rem;
+}
+
+.custom-navbar .dropdown-item {
+  padding: 8px 16px;
+  border-radius: 10px;
+}
+
+.custom-navbar .dropdown-item:hover {
+  background: #f1f5ff;
+  color: #0d6efd;
+}
+
+/* Search alanı */
+.search-input {
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+
+.btn-search {
+  background: #0d6efd;
+  color: #fff;
+  border-radius: 12px;
+  padding: 8px 16px;
+  transition: background 0.3s ease;
+}
+
+.btn-search:hover {
+  background: #0a58ca;
+}
