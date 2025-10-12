@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    /* === Dosya Yapısı === */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* === Ortam ve Modül Ayarları === */
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    /* === Node Ortamı Destekleri === */
+    "lib": ["es2020"],
+    "types": ["node"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+
+    /* === JSON ve Modül Ayarları === */
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+
+    /* === Yazım ve Tip Kontrol Ayarları === */
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+
+    /* === Derleme ve Kaynak === */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+
+  /* === Derlenecek Dosyalar === */
+  "include": ["src", "types", "swagger-output.json"],
+  "exclude": ["node_modules", "dist"]
+}
