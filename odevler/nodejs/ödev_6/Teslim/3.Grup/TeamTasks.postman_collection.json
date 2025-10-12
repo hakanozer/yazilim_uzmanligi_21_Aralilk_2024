@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "35871ab8-7b89-4feb-9a23-b5c94055e6bb",
+		"name": "TeamTasks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48832222",
+		"_collection_link": "https://caglarkizilaslan-6738281.postman.co/workspace/%C3%87a%C4%9Flar-K%C4%B1z%C4%B1laslan's-Workspace~1e87f8f4-c72e-4cb3-8a57-2ef934ec0ffc/collection/48832222-35871ab8-7b89-4feb-9a23-b5c94055e6bb?action=share&source=collection_link&creator=48832222"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": ""
+		}
+	]
+}
