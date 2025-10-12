@@ -130,7 +130,7 @@
 			]
 		},
 		{
-			"name": "Comment",
+			"name": "comment",
 			"item": [
 				{
 					"name": "POST Comment",
