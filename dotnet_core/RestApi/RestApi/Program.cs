@@ -3,6 +3,7 @@ using RestApi.Utils;
 using RestApi.Services;
 using AutoMapper;
 using RestApi.Mappings;
+using RestApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,9 @@ builder.Services.AddControllers();
 var app = builder.Build();
 app.MapOpenApi();
 //app.UseHttpsRedirection();
+
+// App Add Middleware
+app.UseMiddleware<GlobalExceptionHandler>();
 
 // Controllers Class Maps
 app.MapControllers();
