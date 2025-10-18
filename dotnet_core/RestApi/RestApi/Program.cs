@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using RestApi.Utils;
 using RestApi.Services;
+using AutoMapper;
+using RestApi.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 
 // Add Class Scoped
 builder.Services.AddScoped<UserService>();
+
+// Add Mapper Class
+builder.Services.AddAutoMapper(typeof(UserProfile));
 
 // Controllers Class Add Container
 builder.Services.AddControllers();

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RestApi.Dto.UserDto;
 using RestApi.Models;
 using RestApi.Services;
 
@@ -15,9 +16,9 @@ namespace RestApi.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(User user)
+        public IActionResult Register(UserRegisterDto userRegisterDto)
         {
-            _userService.Register(user);
+            var user = _userService.Register(userRegisterDto);
             return Ok(user);
         }
 
