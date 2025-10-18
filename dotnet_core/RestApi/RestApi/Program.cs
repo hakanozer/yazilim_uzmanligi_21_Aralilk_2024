@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestApi.Utils;
+using RestApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +14,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlite(path);
 });
 
+// Add Class Scoped
+builder.Services.AddScoped<UserService>();
+
 // Controllers Class Add Container
 builder.Services.AddControllers();
 
 var app = builder.Build();
 app.MapOpenApi();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // Controllers Class Maps
 app.MapControllers();
