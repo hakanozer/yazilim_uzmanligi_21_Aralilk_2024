@@ -8,7 +8,7 @@ namespace RestApi.Models
     [Index(nameof(Email), IsUnique = true)]
     public class User
     {
-        [Key] 
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public string FirstName { get; set; } = string.Empty;

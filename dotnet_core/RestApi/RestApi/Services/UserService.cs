@@ -13,7 +13,13 @@ namespace RestApi.Services
             _dbContext = dbContext;
         }
 
-        
+        public User Register(User user)
+        {
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
+            return user;
+        }
     
     }
 }
