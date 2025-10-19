@@ -32,11 +32,14 @@ namespace RestApi.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            string message = exception.Message;
+            /*
+            string? message = exception.Message;
             if (exception.GetType() == typeof(Microsoft.EntityFrameworkCore.DbUpdateException))
             {
                 message = "UNIQUE constraint failed: Email";
             }
+            */
+            string? message = exception.InnerException?.Message.ToString();
             _logger.LogError(
                 exception,
                 "Unhandled exception: {Message} | Path: {Path} | IP: {IP} | Agent: {Agent} | Type: {Type}",

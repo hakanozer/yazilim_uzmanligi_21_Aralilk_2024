@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestApi.Utils;
 using RestApi.Services;
-using AutoMapper;
 using RestApi.Mappings;
 using RestApi.Middleware;
 
