@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <%- include('template/bootstrap') %>
+</head>
+<body>
+    <div class="container mt-3">
+      <h1>Dashboard</h1>
+      <div class="row">
+        <%- include('template/leftMenu') %>
+        <div class="col-sm-9">
+            <h4>Note Add</h4>
+            <form action="/dashboard/noteAdd" method="post">
+                <div class="mb-3">
+                    <input name="title" class="form-control" placeholder="Title">
+                </div>
+                <div class="mb-3">
+                    <textarea name="detail" class="form-control" placeholder="Detail"></textarea>
+                </div>
+                <div class="mb-3">
+                    <input name="date" class="form-control" type="datetime-local">
+                </div>
+                <div class="mb-3">
+                    <input name="color" type="color">
+                </div>
+                <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">Add</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+                </div>
+            </form>
+        </div>
+
+      </div>
+    </div>
+
+
+
+</body>
+</html>
