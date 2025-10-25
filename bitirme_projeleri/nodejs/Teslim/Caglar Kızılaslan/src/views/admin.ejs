@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewsHub - Admin Paneli</title>
+  <%- include('template/bootstrap') %>
+</head>
+<body class="fade-in-up">
+  <div class="container mt-4">
+    <div class="row">
+      <%- include('template/leftMenu') %>
+      <div class="col-sm-9">
+        <!-- Header Section -->
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <div>
+            <h1 class="text-gradient fw-bold mb-2">Admin Paneli</h1>
+            <p class="text-muted mb-0">Sistem yönetimi ve kullanıcı kontrolü</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="bi bi-shield-check text-primary me-2" style="font-size: 2rem;"></i>
+          </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header bg-transparent border-0">
+            <h4 class="fw-bold text-primary mb-0">
+              <i class="bi bi-people me-2"></i>Kullanıcılar
+            </h4>
+          </div>
+          <div class="card-body">
+            <% if (users && users.length) { %>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th class="fw-semibold">Numara</th>
+                      <th class="fw-semibold">Ad Soyad</th>
+                      <th class="fw-semibold">Email</th>
+                      <th class="fw-semibold">Rol</th>
+                      <th class="fw-semibold">Kayıt Tarihi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% users.forEach(function(u, idx){ %>
+                      <tr>
+                        <th scope="row" class="fw-bold text-primary"><%= idx + 1 %></th>
+                        <td class="fw-semibold"><%= u.surname %> <%= u.lastname %></td>
+                        <td class="text-muted"><%= u.email %></td>
+                        <td>
+                          <span class="badge bg-<%= u.role === 'admin' ? 'success' : 'secondary' %>">
+                            <%= u.role === 'admin' ? 'Yönetici' : 'Kullanıcı' %>
+                          </span>
+                        </td>
+                        <td class="text-muted">
+                          <small><%= new Date(u.date).toLocaleString('tr-TR') %></small>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+              </div>
+            <% } else { %>
+              <div class="text-center py-4">
+                <i class="bi bi-person-x text-muted" style="font-size: 3rem;"></i>
+                <h5 class="text-muted mt-3">Kullanıcı bulunamadı</h5>
+                <p class="text-muted">Henüz kayıtlı kullanıcı yok.</p>
+              </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Posts Section -->
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-transparent border-0">
+            <h4 class="fw-bold text-primary mb-0">
+              <i class="bi bi-journal-text me-2"></i>Yazılar
+            </h4>
+          </div>
+          <div class="card-body">
+            <% if (posts && posts.length) { %>
+              <div class="content-list">
+                <ul class="list-group">
+                  <% posts.forEach(function(p){ %>
+                    <li class="list-group-item">
+                      <div class="d-flex align-items-start">
+                        <div class="me-3 mt-1">
+                          <div class="color-swatch" style="background-color: <%= p.color %>"></div>
+                        </div>
+                        <div class="flex-grow-1">
+                          <a href="/news/<%= p._id %>" class="text-decoration-none fw-semibold fs-5">
+                            <%= p.title %>
+                          </a>
+                          <% if (p.detail) { %>
+                            <p class="text-muted mt-2 mb-3">
+                              <%= (p.detail.length > 140) ? (p.detail.slice(0, 140) + '...') : p.detail %>
+                            </p>
+                          <% } %>
+                          <div class="meta d-flex align-items-center gap-3">
+                            <span class="text-muted">
+                              <i class="bi bi-calendar3 me-1"></i>
+                              <%= new Date(p.date).toLocaleString('tr-TR') %>
+                            </span>
+                            <span class="text-muted">
+                              <i class="bi bi-person me-1"></i>
+                              <%= p.userID && p.userID.surname ? (p.userID.surname + ' ' + p.userID.lastname) : 'Anonim' %>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="actions mt-3">
+                        <a href="/news/<%= p._id %>" class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-pencil-square me-1"></i>Düzenle
+                        </a>
+                        <form action="/news/delete/<%= p._id %>" method="post" class="d-inline" 
+                              onsubmit="return confirm('Bu yazıyı silmek istediğinizden emin misiniz?')">
+                          <button type="submit" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash me-1"></i>Sil
+                          </button>
+                        </form>
+                      </div>
+                    </li>
+                  <% }) %>
+                </ul>
+              </div>
+            <% } else { %>
+              <div class="text-center py-4">
+                <i class="bi bi-journal-x text-muted" style="font-size: 3rem;"></i>
+                <h5 class="text-muted mt-3">Henüz yazı yok</h5>
+                <p class="text-muted">Kullanıcılar henüz içerik paylaşmamış.</p>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

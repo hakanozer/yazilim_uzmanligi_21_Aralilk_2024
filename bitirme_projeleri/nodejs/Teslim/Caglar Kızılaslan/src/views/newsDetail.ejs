@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsHub - <%= (user && user.role === 'admin') ? 'Yazı Düzenle' : 'Yazı Detayı' %></title>
+    <%- include('template/bootstrap') %>
+</head>
+<body class="fade-in-up">
+    <div class="container mt-4">
+        <div class="row">
+            <%- include('template/leftMenu') %>
+            <div class="col-sm-9">
+                <% if (typeof status != "undefined" && status !== true) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        <%= status %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>
+
+                <!-- Header Section -->
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <h1 class="text-gradient fw-bold mb-2">
+                            <%= (user && user.role === 'admin') ? 'Yazı Düzenle' : 'Yazı Detayı' %>
+                        </h1>
+                        <p class="text-muted mb-0">
+                            <%= (user && user.role === 'admin') ? 'Yazı bilgilerini düzenleyin' : 'Yazı içeriğini görüntüleyin' %>
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-pencil-square text-primary me-2" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+
+                <!-- Edit Form -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-transparent border-0 pb-0">
+                        <h4 class="fw-bold text-primary mb-0">
+                            <i class="bi bi-gear me-2"></i>Yazı Ayarları
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="updateForm" action="/news/update/<%= post._id %>" method="post" class="needs-validation" novalidate>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label for="title" class="form-label fw-semibold">
+                                        <i class="bi bi-type me-2 text-primary"></i>Başlık
+                                    </label>
+                                    <input name="title" class="form-control form-control-lg" id="title" 
+                                           placeholder="Yazı başlığı" value="<%= post.title %>" required>
+                                    <div class="invalid-feedback">
+                                        Lütfen bir başlık girin.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="detail" class="form-label fw-semibold">
+                                        <i class="bi bi-file-text me-2 text-primary"></i>İçerik
+                                    </label>
+                                    <textarea name="detail" class="form-control" id="detail" rows="6" 
+                                              placeholder="Yazı içeriği" required><%= post.detail %></textarea>
+                                    <div class="invalid-feedback">
+                                        Lütfen içerik girin.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="date" class="form-label fw-semibold">
+                                        <i class="bi bi-calendar3 me-2 text-primary"></i>Yayın Tarihi
+                                    </label>
+                                    <input name="date" class="form-control" id="date" type="datetime-local" 
+                                           value="<%= new Date(post.date).toISOString().slice(0,16) %>" required>
+                                    <div class="invalid-feedback">
+                                        Lütfen yayın tarihini seçin.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="color" class="form-label fw-semibold">
+                                        <i class="bi bi-palette me-2 text-primary"></i>Renk Teması
+                                    </label>
+                                    <div class="d-flex align-items-center">
+                                        <input name="color" type="color" id="color" class="form-control form-control-color" 
+                                               value="<%= post.color %>" style="width: 60px; height: 45px;">
+                                        <span class="ms-3 text-muted">Yazı temasını belirleyin</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!-- Comments Section -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-transparent border-0">
+                        <h4 class="fw-bold text-primary mb-0">
+                            <i class="bi bi-chat-dots me-2"></i>Yorumlar
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Add Comment Form -->
+                        <form action="/news/<%= post._id %>/comment" method="post" class="mb-4">
+                            <div class="input-group">
+                                <input type="text" name="text" class="form-control form-control-lg" 
+                                       placeholder="Yorumunuzu yazın..." required>
+                                <button class="btn btn-primary btn-lg" type="submit">
+                                    <i class="bi bi-send me-2"></i>Gönder
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Comments List -->
+                        <% if (comments && comments.length) { %>
+                            <div class="list-group">
+                                <% comments.forEach(function(c){ %>
+                                    <div class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                                                         style="width: 32px; height: 32px;">
+                                                        <i class="bi bi-person-fill text-white"></i>
+                                                    </div>
+                                                    <div>
+                                                        <strong class="text-primary">
+                                                            <%= c.userID && c.userID.surname ? (c.userID.surname + ' ' + c.userID.lastname) : 'Anonim' %>
+                                                        </strong>
+                                                        <small class="text-muted ms-2">
+                                                            <i class="bi bi-clock me-1"></i>
+                                                            <%= new Date(c.date).toLocaleString('tr-TR') %>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <p class="mb-0 text-muted"><%= c.text %></p>
+                                            </div>
+                                            <% if (user.role === 'admin' || String(user._id) === String(post.userID)) { %>
+                                                <form action="/news/<%= post._id %>/comment/<%= c._id %>/delete" method="post" class="d-inline">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                                            onclick="return confirm('Bu yorumu silmek istediğinizden emin misiniz?')">
+                                                        <i class="bi bi-trash me-1"></i>Sil
+                                                    </button>
+                                                </form>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <div class="text-center py-4">
+                                <i class="bi bi-chat-square-text text-muted" style="font-size: 3rem;"></i>
+                                <h5 class="text-muted mt-3">Henüz yorum yok</h5>
+                                <p class="text-muted">İlk yorumu siz yapın!</p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <% if (user.role === 'admin' || String(user._id) === String(post.userID)) { %>
+                            <form action="/news/delete/<%= post._id %>" method="post" class="d-inline" 
+                                  onsubmit="return confirm('Bu yazıyı silmek istediğinizden emin misiniz?')">
+                                <button type="submit" class="btn btn-danger btn-lg">
+                                    <i class="bi bi-trash me-2"></i>Yazıyı Sil
+                                </button>
+                            </form>
+                        <% } %>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success btn-lg" form="updateForm">
+                            <i class="bi bi-check-circle me-2"></i>Güncelle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>

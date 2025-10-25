@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsHub - Yeni Yazı</title>
+    <%- include('template/bootstrap') %>
+</head>
+<body class="fade-in-up">
+    <div class="container mt-4">
+        <div class="row">
+            <%- include('template/leftMenu') %>
+            <div class="col-sm-9">
+                <!-- Header Section -->
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <h1 class="text-gradient fw-bold mb-2">Yeni Yazı Oluştur</h1>
+                        <p class="text-muted mb-0">Fikirlerinizi paylaşın ve toplulukla buluşturun</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-pencil-square text-primary me-2" style="font-size: 2rem;"></i>
+                    </div>
+                </div>
+
+                <!-- Create Post Form -->
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-transparent border-0 pb-0">
+                        <h4 class="fw-bold text-primary mb-0">
+                            <i class="bi bi-plus-circle me-2"></i>Yazı Bilgileri
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <% if (typeof status !== 'undefined' && status === true) { %>
+                            <div class="alert alert-success">Yazı başarıyla eklendi.</div>
+                        <% } %>
+                        <% if (typeof status !== 'undefined' && status !== true) { %>
+                            <div class="alert alert-danger"><%= status %></div>
+                        <% } %>
+                        <form action="/news/newsAdd" method="post" class="needs-validation" novalidate>
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label for="title" class="form-label fw-semibold">
+                                        <i class="bi bi-type me-2 text-primary"></i>Başlık
+                                    </label>
+                                    <input name="title" class="form-control form-control-lg" id="title" 
+                                           placeholder="Yazınızın başlığını girin..." required maxlength="20">
+                                    <div class="invalid-feedback">
+                                        Lütfen bir başlık girin.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="detail" class="form-label fw-semibold">
+                                        <i class="bi bi-file-text me-2 text-primary"></i>İçerik
+                                    </label>
+                                    <textarea name="detail" class="form-control" id="detail" rows="6" 
+                                              placeholder="Yazınızın içeriğini buraya yazın..." required maxlength="500"></textarea>
+                                    <div class="invalid-feedback">
+                                        Lütfen içerik girin.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="date" class="form-label fw-semibold">
+                                        <i class="bi bi-calendar3 me-2 text-primary"></i>Yayın Tarihi
+                                    </label>
+                                    <input name="date" class="form-control" id="date" type="datetime-local" required>
+                                    <div class="invalid-feedback">
+                                        Lütfen yayın tarihini seçin.
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="color" class="form-label fw-semibold">
+                                        <i class="bi bi-palette me-2 text-primary"></i>Renk Teması
+                                    </label>
+                                    <div class="d-flex align-items-center">
+                                        <input name="color" type="color" id="color" class="form-control form-control-color" 
+                                               value="#3b82f6" style="width: 60px; height: 45px;" required>
+                                        <span class="ms-3 text-muted">Yazınızın temasını belirleyin</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-3 mt-4">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="bi bi-check-circle me-2"></i>Yayınla
+                                </button>
+                                <button type="reset" class="btn btn-outline-danger btn-lg">
+                                    <i class="bi bi-arrow-clockwise me-2"></i>Temizle
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Recent Posts Section -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-transparent border-0">
+                        <h4 class="fw-bold text-primary mb-0">
+                            <i class="bi bi-clock-history me-2"></i>Son Yazılar
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <% if (news && news.length) { %>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="fw-semibold">Numara</th>
+                                            <th scope="col" class="fw-semibold">Başlık</th>
+                                            <% if (user && user.role === 'admin') { %>
+                                                <th scope="col" class="fw-semibold">Yazar</th>
+                                            <% } %>
+                                            <th scope="col" class="fw-semibold">İçerik</th>
+                                            <th scope="col" class="fw-semibold">Tarih</th>
+                                            <th scope="col" class="fw-semibold">Tema</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% news.forEach(function(n, idx){ %>
+                                            <tr>
+                                                <th scope="row" class="fw-bold text-primary"><%= idx + 1 %></th>
+                                                <td>
+                                                    <a href="/news/<%= n._id %>" class="text-decoration-none fw-semibold">
+                                                        <%= n.title %>
+                                                    </a>
+                                                </td>
+                                                <% if (user && user.role === 'admin') { %>
+                                                    <td class="text-muted"><%= n.userID?.surname %> <%= n.userID?.lastname %></td>
+                                                <% } %>
+                                                <td class="text-muted"><%= n.detail.length > 40 ? (n.detail.slice(0, 40) + '...') : n.detail %></td>
+                                                <td class="text-muted"><small><%= new Date(n.date).toLocaleString('tr-TR') %></small></td>
+                                                <td>
+                                                    <span class="badge" style="background-color: <%= n.color %>">Tema</span>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% } else { %>
+                            <div class="alert alert-info">Henüz içerik yok.</div>
+                        <% } %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const dateTimeLocal = `${year}-${month}-${day}T${hours}:${minutes}`;
+            document.getElementById('date').value = dateTimeLocal;
+        });
+    </script>
+</body>
+</html>

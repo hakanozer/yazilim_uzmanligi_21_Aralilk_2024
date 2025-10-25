@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewsHub - Kullanıcı Düzenle</title>
+  <%- include('template/bootstrap') %>
+</head>
+<body class="fade-in-up">
+  <div class="container mt-4">
+    <div class="row">
+      <%- include('template/leftMenu') %>
+      <div class="col-sm-9">
+        <!-- Header Section -->
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <div>
+            <h1 class="text-gradient fw-bold mb-2">Kullanıcı Düzenle</h1>
+            <p class="text-muted mb-0">Kullanıcı bilgilerini güncelleyin</p>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="bi bi-person-gear text-primary me-2" style="font-size: 2rem;"></i>
+          </div>
+        </div>
+
+        <% if (!editUser) { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Kullanıcı bulunamadı.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } else { %>
+          <div class="card shadow-sm border-0">
+            <div class="card-header bg-transparent border-0">
+              <h4 class="fw-bold text-primary mb-0">
+                <i class="bi bi-person-lines-fill me-2"></i>Kullanıcı Bilgileri
+              </h4>
+            </div>
+            <div class="card-body">
+              <form action="/admin/users/<%= editUser._id %>/update" method="post" class="needs-validation" novalidate>
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                      <i class="bi bi-person me-2 text-primary"></i>Ad
+                    </label>
+                    <input type="text" name="surname" class="form-control form-control-lg" 
+                           value="<%= editUser.surname %>" placeholder="Ad" required>
+                    <div class="invalid-feedback">
+                      Lütfen ad girin.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                      <i class="bi bi-person me-2 text-primary"></i>Soyad
+                    </label>
+                    <input type="text" name="lastname" class="form-control form-control-lg" 
+                           value="<%= editUser.lastname %>" placeholder="Soyad" required>
+                    <div class="invalid-feedback">
+                      Lütfen soyad girin.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                      <i class="bi bi-envelope me-2 text-primary"></i>Email
+                    </label>
+                    <input type="email" name="email" class="form-control form-control-lg" 
+                           value="<%= editUser.email %>" placeholder="ornek@email.com" required>
+                    <div class="invalid-feedback">
+                      Lütfen geçerli bir email girin.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">
+                      <i class="bi bi-shield me-2 text-primary"></i>Rol
+                    </label>
+                    <select name="role" class="form-select form-select-lg" required>
+                      <option value="user" <%= editUser.role === 'user' ? 'selected' : '' %>>Kullanıcı</option>
+                      <option value="admin" <%= editUser.role === 'admin' ? 'selected' : '' %>>Yönetici</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Lütfen bir rol seçin.
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="d-flex gap-3 mt-4">
+                  <button type="submit" class="btn btn-success btn-lg">
+                    <i class="bi bi-check-circle me-2"></i>Kaydet
+                  </button>
+                  <a href="/news/list" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left me-2"></i>Geri Dön
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Form validation
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+</body>
+</html>

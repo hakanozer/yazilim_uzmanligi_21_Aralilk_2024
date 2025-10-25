@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsHub - Kayıt Ol</title>
+    <%- include('template/bootstrap') %>
+</head>
+<body class="fade-in-up">
+    <div class="container-fluid min-vh-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body p-5">
+                            <div class="row g-4">
+                                <!-- Registration Form -->
+                                <div class="col-md-7">
+                                    <div class="text-center mb-4">
+                                        <h2 class="text-gradient fw-bold mb-2">Hesap Oluştur</h2>
+                                        <p class="text-muted">NewsHub'a katılın ve içerik paylaşmaya başlayın</p>
+                                    </div>
+
+                                    <% if (typeof error != "undefined") { %>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <i class="bi bi-exclamation-triangle me-2"></i>
+                                        <%= error %>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="/register" method="post" class="needs-validation" novalidate>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label for="surname" class="form-label fw-semibold">
+                                                    <i class="bi bi-person me-2 text-primary"></i>Ad
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg" id="surname" name="surname" 
+                                                       placeholder="Adınız" required>
+                                                <div class="invalid-feedback">
+                                                    Lütfen adınızı girin.
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="lastname" class="form-label fw-semibold">
+                                                    <i class="bi bi-person me-2 text-primary"></i>Soyad
+                                                </label>
+                                                <input type="text" class="form-control form-control-lg" id="lastname" name="lastname" 
+                                                       placeholder="Soyadınız" required>
+                                                <div class="invalid-feedback">
+                                                    Lütfen soyadınızı girin.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label fw-semibold">
+                                                <i class="bi bi-envelope me-2 text-primary"></i>Email Adresi
+                                            </label>
+                                            <input type="email" class="form-control form-control-lg" id="email" name="email" 
+                                                   placeholder="ornek@email.com" required>
+                                            <div class="invalid-feedback">
+                                                Lütfen geçerli bir email adresi girin.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label fw-semibold">
+                                                <i class="bi bi-lock me-2 text-primary"></i>Şifre
+                                            </label>
+                                            <input type="password" class="form-control form-control-lg" id="password" name="password" 
+                                                   placeholder="••••••••" required>
+                                            <div class="invalid-feedback">
+                                                Lütfen şifrenizi girin.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="role" class="form-label fw-semibold">
+                                                <i class="bi bi-shield me-2 text-primary"></i>Rol
+                                            </label>
+                                            <select class="form-select form-select-lg" id="role" name="role" required>
+                                                <option value="">Rol seçin</option>
+                                                <option value="user">Kullanıcı</option>
+                                                <option value="admin">Yönetici</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Lütfen bir rol seçin.
+                                            </div>
+                                        </div>
+
+                                        <div class="d-grid gap-2 mb-4">
+                                            <button type="submit" class="btn btn-success btn-lg">
+                                                <i class="bi bi-person-plus me-2"></i>Hesap Oluştur
+                                            </button>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <p class="text-muted mb-0">Zaten hesabınız var mı?</p>
+                                            <a href="/" class="btn btn-outline-primary btn-lg mt-2">
+                                                <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Visual Section -->
+                                <div class="col-md-5 d-none d-md-block">
+                                    <div class="d-flex flex-column justify-content-center align-items-center h-100 p-4" 
+                                         style="background: linear-gradient(135deg, var(--success-light) 0%, var(--info-light) 100%); border-radius: var(--radius-lg);">
+                                        <div class="text-center">
+                                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center mb-4 shadow-lg" 
+                                                 style="width: 120px; height: 120px;">
+                                                <i class="bi bi-people text-success" style="font-size: 4rem;"></i>
+                                            </div>
+                                            <h4 class="text-success fw-bold mb-3">Topluluğa Katılın</h4>
+                                            <p class="text-success mb-0 fw-medium">
+                                                Diğer kullanıcılarla birlikte içerik paylaşın
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>
