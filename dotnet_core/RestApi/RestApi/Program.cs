@@ -16,6 +16,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
     option.UseSqlite(path);
 });
 
+// JWT Configuration
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 // Add Class Scoped
 builder.Services.AddScoped<UserService>();
 
@@ -28,6 +31,8 @@ builder.Services.AddControllers();
 var app = builder.Build();
 app.MapOpenApi();
 //app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 
 // App Add Middleware
 app.UseMiddleware<GlobalExceptionHandler>();

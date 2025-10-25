@@ -15,10 +15,12 @@ namespace RestApi.Services
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
-        public UserService(ApplicationDbContext dbContext, IMapper mapper)
+        private readonly IConfiguration _iConfiguration;
+        public UserService(ApplicationDbContext dbContext, IMapper mapper, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _iConfiguration = configuration;
         }
 
         public User Register(UserRegisterDto userRegisterDto)
@@ -45,7 +47,7 @@ namespace RestApi.Services
                     var userJwtDto = _mapper.Map<UserJwtDto>(existingUser);
                     // Jwt generator
                     var tokenHandler = new JwtSecurityTokenHandler();
-                    var jwtKey = "asd123";
+                    var jwtKey = _iConfiguration.GetValue<string>("Jwt:Key") ?? "";
                     double ExpiresTime = 1; // 1 saat
                     var key = Encoding.ASCII.GetBytes(jwtKey);
                     var tokenDesc = new SecurityTokenDescriptor
@@ -54,7 +56,11 @@ namespace RestApi.Services
                         {
                             new Claim(ClaimTypes.Name, existingUser.Email)
                         }),
-                        Expires = DateTime.UtcNow.AddHours(ExpiresTime)
+                        Expires = DateTime.UtcNow.AddHours(ExpiresTime),
+                        SigningCredentials = new SigningCredentials(
+                            new SymmetricSecurityKey(key),
+                            SecurityAlgorithms.HmacSha256Signature
+                        )
                     };
                     if (tokenDesc != null)
                     {
