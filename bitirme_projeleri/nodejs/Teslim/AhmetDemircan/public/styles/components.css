@@ -1,0 +1,263 @@
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--text);
+  color: #fff;
+  background: var(--text);
+  text-decoration: none;
+}
+.btn.outline { background: transparent; color: var(--text); }
+.btn:hover { opacity: 0.9; }
+
+/* Cards ve formlar: yüzey üzerinde */
+.card, .plan-card, .auth-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+/* Alerts */
+.alert {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  border: 1px solid;
+}
+.alert-error { background: #fff5f5; border-color: #ffd1d1; color: #a40000; }
+.alert-success { background: #f2fff5; border-color: #c8e6c9; color: #256029; }
+
+/* Forms */
+.form-group { margin-bottom: 16px; }
+label { display: block; font-weight: 600; margin-bottom: 6px; }
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--line);
+  border-radius: 6px; font-family: inherit; font-size: 16px;
+  color: var(--text); background: transparent;
+}
+.hint { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; }
+.form-actions { margin-top: 12px; display: flex; gap: 12px; align-items: center; }
+
+/* Dark mode: dolu butonları açık palete çek, outline uyumlu kalsın */
+body.theme-dark .btn {
+  background: #eef3fb;
+  color: #0a0f14;
+  border-color: #eef3fb;
+}
+body.theme-dark .btn.outline {
+  background: transparent;
+  color: var(--text);      /* base.css'teki açık yazı rengi */
+  border-color: var(--text);
+}
+
+/* Search panel ve sonuç kutusu: konumu akışa al, animasyon layout.css’de */
+.search-panel {
+  position: fixed;
+  top: 0;                 /* layout.css ile uyumlu */
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 90%;
+  max-width: 640px;
+  background: transparent;
+  z-index: 1001;
+}
+
+/* input bar: panel içinde tam genişlik görünümü */
+/* Arama input: kenarlık ve arka plan panelden gelir, input sade kalır */
+.search-panel #searchInput {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+}
+.theme-dark .search-panel #searchInput {
+  border: 0;
+  background: transparent;
+  color: #e5e7eb;
+}
+
+/* Sonuç kutusu artık mutlak değil; panel akışında animasyon layout.css’de */
+.search-panel .search-input-wrap .search-results,
+.search-panel .search-results {
+  position: static;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+.theme-dark .search-panel .search-input-wrap .search-results,
+.theme-dark .search-panel .search-results {
+  border-color: #374151;
+  background-color: #111827;
+}
+
+.search-panel .search-results .result {
+  display: block;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-top: 1px solid #e5e7eb;
+  color: #111827;
+}
+
+.search-panel .search-results .result:first-child {
+  border-top: none;
+}
+
+.theme-dark .search-panel .search-results .result {
+  border-top-color: #374151;
+  color: #e5e7eb;
+}
+
+.search-panel .search-results .result:hover {
+  background-color: #f3f4f6;
+}
+
+.theme-dark .search-panel .search-results .result:hover {
+  background-color: #1f2937;
+}
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+}
+
+/* Page header (global): liste sayfalarında başlık + sağda buton */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+/* Yardımcı: sönük metin */
+.muted { color: var(--muted); }
+/* Kart başlığı: blog/news ile uyumlu */
+.card-title { font-size: 20px; margin: 0 0 8px; }
+/* Tablo: yüzeye uygun hafif çizgiler ve boşluk */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th, .table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.table thead th {
+  font-weight: 700;
+  background: var(--surface);
+}
+
+/* Ortak kapak alanı: tüm kartlarda sabit 16:9 yükseklik */
+.cover-wrapper {
+  position: relative;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  overflow: hidden;
+}
+/* 16:9 oran (56.25%) – tarayıcı desteği düşükse fallback */
+.cover-wrapper::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%; /* 16 / 9 */
+}
+/* Görsel/placeholder ve overlay kapak alanını tamamen doldursun */
+.cover-wrapper > .blog-cover,
+.cover-wrapper > .blog-cover-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cover-wrapper > .preview-overlay {
+  position: absolute;
+  inset: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+/* Reusable pagination component */
+.pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+.pagination-list {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+.page-number {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--text);
+  transition: transform .12s ease, background-color .12s ease, border-color .12s ease;
+}
+.page-number:hover {
+  transform: translateY(-1px);
+  border-color: var(--text);
+}
+.page-number.active {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+.btn.disabled { opacity: 0.5; pointer-events: none; }
+/* Hover halinde hafif vurgulama isterseniz (opsiyonel) */
+/* .card-link:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); } */
+/* Ortak overlay ve önizleme stilleri */
+.cover-wrapper { position: relative; }
+.preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity .2s ease;
+  color: #fff;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+.preview-text {
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 90%;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Danger (kırmızı) buton */
+.btn.btn-danger {
+  background: #d93025;
+  border-color: #d93025;
+  color: #fff;
+}
+.btn.btn-danger:hover {
+  opacity: 0.95;
+}
+/* Koyu tema: kırmızı butonun rengini koru */
+body.theme-dark .btn.btn-danger {
+  background: #d93025;
+  border-color: #d93025;
+  color: #fff;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>403 - YETKİSİZ İMHA</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/pages/error-403.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Daktilo / Monospace Font Etkisi (Kullanıcının 404 kodundan alındı) */
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+  <!-- Ana Klasör Konteyneri -->
+  <div class="file-folder max-w-4xl w-full p-8 md:p-16 rounded-xl relative">
+    <!-- Üst Kısım (Sekme) -->
+    <div class="absolute top-[-15px] left-10 w-24 h-6 bg-red-200 rounded-t-lg border-2 border-b-0 border-red-800"></div>
+    
+    <!-- İçerik Alanı -->
+    <div class="relative z-0">
+      
+      <!-- Gizli Belge Görsel Alanı (CONFIDENTIAL, TOP SECRET ve Fotoğraf) -->
+      <div class="gizli-belge-alani">
+          <p class="damga-ust">CLASSIFIED DOCUMENT</p>
+
+          <div class="photo-frame"></div> <!-- Kapatıldı; boş çerçeve -->
+          
+          <p class="damga-alt">TOP SECRET</p>
+      </div>
+
+      <div class="mt-20 text-center">
+        <!-- 403 Kodu -->
+        <h1 class="text-7xl md:text-8xl font-black text-red-800 mb-6 daktilo-text">403</h1>
+        
+        <!-- Ana Uyarı Başlığı -->
+        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4 imha-baslik">GÜVENLİK İHLALİ TESPİTİ</h2>
+        
+        <!-- İmha Mesajı -->
+        <p class="text-xl md:text-2xl font-bold text-red-700 mb-4">
+            <span class="daktilo-text">YETKİSİZ ERİŞİM!</span>
+        </p>
+        <p class="text-lg md:text-xl text-gray-800 mb-8 max-w-2xl mx-auto daktilo-text font-serif">
+          Bu dosya yetkisiz erişim sebebi ile sunucu protokolleri tarafından tetiklenmiş ve kendini anında **İMHA ETMİŞTİR**. Bu yüzden içeriği size gösteremiyoruz.
+        </p>
+      </div>
+
+      <!-- Damga (Tıklanabilir hale getirildi) -->
+      <a href="/" class="stamp font-serif">TOP SECRET</a>
+      
+      <!-- Yönlendirme ve Protokol Bilgileri -->
+      <div class="mt-12 text-center">
+        <p class="text-sm text-gray-600 daktilo-text font-serif">
+            Güvenli bölgeye dönmek için yukarıdaki kırmızı damgayı kullanın.
+        </p>
+      </div>
+
+      <!-- Alt Bilgi / Debug Bilgisi -->
+      <div class="absolute bottom-[-2rem] left-8 text-sm daktilo-text hidden md:block opacity-70">
+        <p class="text-gray-800">PROTOKOL NO: 403 - DURUM: İMHA BAŞARILI</p>
+        <p class="text-gray-800">LÜTFEN TEKRAR DENEMEYİNİZ. (GÜVENLİK İHLALİ)</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

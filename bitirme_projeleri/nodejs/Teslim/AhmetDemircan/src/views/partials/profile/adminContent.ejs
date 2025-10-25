@@ -1,0 +1,288 @@
+<script>
+  (function () {
+    if (typeof activeTab === 'undefined' || activeTab !== 'blogs') return;
+
+    const newsContainer = document.getElementById('adminNewsContainer');
+    const blogsContainer = document.getElementById('adminBlogsContainer');
+    if (!newsContainer || !blogsContainer) return;
+
+    const msgs = document.getElementById('blogsMessages');
+    const prevBtn = document.getElementById('adminPrevPage');
+    const nextBtn = document.getElementById('adminNextPage');
+    const pageLabel = document.getElementById('adminPageLabel');
+
+    const searchInput = document.getElementById('adminSearchInput');
+    const searchBtn = document.getElementById('adminSearchBtn');
+    const searchClear = document.getElementById('adminSearchClear');
+
+    let newsItems = [];
+    let blogItems = [];
+    let page = 1;
+    const perSide = 4; // 2x2 haber + 2x2 blog
+    const getId = (obj) => obj?.id || obj?._id;
+
+    let isSearchMode = false;
+    let currentQuery = '';
+    let searchNewsItems = [];
+    let searchBlogItems = [];
+
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || 'Yüklenemedi');
+      return data;
+    }
+
+    function escapeHtml(str) {
+      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return String(str).replace(/[&<>"']/g, (ch) => map[ch]);
+    }
+
+    async function performSearch(q) {
+      const query = String(q || '').trim();
+      if (!query) {
+        isSearchMode = false;
+        currentQuery = '';
+        searchNewsItems = [];
+        searchBlogItems = [];
+        page = 1;
+        render();
+        return;
+      }
+      try {
+        const [newsData, blogsData] = await Promise.all([
+          fetchJson('/api/v1/search/news?q=' + encodeURIComponent(query) + '&limit=50'),
+          fetchJson('/api/v1/search/blogs?q=' + encodeURIComponent(query) + '&limit=50')
+        ]);
+        searchNewsItems = Array.isArray(newsData.items) ? newsData.items : [];
+        searchBlogItems = Array.isArray(blogsData.items) ? blogsData.items : [];
+        isSearchMode = true;
+        currentQuery = query;
+        page = 1;
+        render();
+      } catch (err) {
+        if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Arama başarısız') + '</div>';
+      }
+    }
+
+    function render() {
+      const sourceNews = isSearchMode ? searchNewsItems : newsItems;
+      const sourceBlogs = isSearchMode ? searchBlogItems : blogItems;
+
+      const newsStart = (page - 1) * perSide;
+      const blogsStart = (page - 1) * perSide;
+      const newsSlice = sourceNews.slice(newsStart, newsStart + perSide);
+      const blogSlice = sourceBlogs.slice(blogsStart, blogsStart + perSide);
+
+      const totPages = Math.max(
+        Math.ceil((sourceNews.length || 0) / perSide),
+        Math.ceil((sourceBlogs.length || 0) / perSide)
+      ) || 1;
+
+      newsContainer.innerHTML = '';
+      blogsContainer.innerHTML = '';
+
+      const newsTplEl = document.getElementById('profile-news-card-template');
+      const blogTplEl = document.getElementById('profile-blog-card-template');
+      const newsTpl = newsTplEl ? newsTplEl.innerHTML : '';
+      const blogTpl = blogTplEl ? blogTplEl.innerHTML : '';
+
+      // Haberler
+      if (!newsSlice.length) {
+        newsContainer.innerHTML = '<p class="hint">Haber bulunamadı.</p>';
+      } else {
+        newsSlice.forEach(n => {
+          const coverMarkup = n.imageUrl
+            ? `<img class="blog-cover" src="${n.imageUrl}" alt="${escapeHtml(n.title)} kapak" />`
+            : `<div class="blog-cover blog-cover-placeholder"></div>`;
+          const statusLabel = typeof n.isActive === 'boolean' ? (n.isActive ? 'Aktif' : 'Pasif') : '—';
+          const toggleText = typeof n.isActive === 'boolean' ? (n.isActive ? 'Gizle' : 'Yayınla') : 'Yayınla';
+
+          const wrapper = document.createElement('div');
+          wrapper.innerHTML = newsTpl
+            .replace(/{{id}}/g, getId(n))
+            .replace('{{cover}}', coverMarkup)
+            .replace(/{{title}}/g, escapeHtml(n.title))
+            .replace(/{{status}}/g, escapeHtml(statusLabel))
+            .replace(/{{toggleText}}/g, escapeHtml(toggleText));
+
+          const card = wrapper.firstElementChild;
+          if (!card) return;
+
+          // Arama modunda aksiyonları sadeleştir: “Düzenle”
+          if (isSearchMode) {
+            const actions = card.querySelector('.form-actions');
+            if (actions) actions.innerHTML = `<a class="btn btn-sm" href="/news/${getId(n)}/edit" data-action="edit">Düzenle</a>`;
+          }
+
+          // Kart tıklaması: detay sayfasına git
+          card.addEventListener('click', (e) => {
+            const action = e.target?.getAttribute && e.target.getAttribute('data-action');
+            if (action) return;
+            window.location.href = '/news/' + getId(n);
+          });
+          // Düzenle
+          card.querySelector('[data-action="edit"]')?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = '/news/' + getId(n) + '/edit';
+          });
+          // Sil
+          card.querySelector('[data-action="news-delete"]')?.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            if (!confirm('Bu haberi silmek istediğinize emin misiniz?')) return;
+            try {
+              const res = await fetch('/api/v1/news/' + getId(n), {
+                method: 'DELETE',
+                credentials: 'same-origin'
+              });
+              const result = await res.json().catch(() => ({}));
+              if (!res.ok) throw new Error(result?.error || 'Silme başarısız');
+              card.remove();
+            } catch (err) {
+              if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Silme sırasında hata') + '</div>';
+            }
+          });
+          // Yayında/Gizli durumunu değiştir
+          card.querySelector('[data-action="news-toggle"]')?.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            try {
+              const shouldActive = !n.isActive;
+              const res = await fetch('/api/v1/news/' + getId(n), {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'same-origin',
+                body: JSON.stringify({ isActive: shouldActive })
+              });
+              const result = await res.json();
+              if (!res.ok) throw new Error(result?.error || result?.message || 'Durum güncelleme başarısız');
+
+              n.isActive = !!(result?.item?.isActive ?? shouldActive);
+              const statusP = card.querySelector('.blog-card-status') || card.querySelector('.muted');
+              const toggleBtn = card.querySelector('[data-action="news-toggle"]');
+              if (statusP) statusP.textContent = 'Durum: ' + (n.isActive ? 'Yayında' : 'Taslak');
+              if (toggleBtn) toggleBtn.textContent = n.isActive ? 'Gizle' : 'Yayınla';
+            } catch (err) {
+              if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Durum değiştirilemedi') + '</div>';
+            }
+          });
+
+          newsContainer.appendChild(card);
+        });
+      }
+
+      if (!blogSlice.length) {
+        blogsContainer.innerHTML = '<p class="hint">Blog bulunamadı.</p>';
+      } else {
+        blogSlice.forEach(b => {
+          const coverMarkup = b.coverImageUrl
+            ? `<img class="blog-cover" src="${b.coverImageUrl}" alt="${escapeHtml(b.title)} kapak" />`
+            : `<div class="blog-cover blog-cover-placeholder"></div>`;
+          const statusLabel = typeof b.isPublished === 'boolean' ? (b.isPublished ? 'Yayında' : 'Taslak') : '—';
+          const publishText = typeof b.isPublished === 'boolean' ? (b.isPublished ? 'Gizle' : 'Yayınla') : 'Yayınla';
+
+          const wrapper = document.createElement('div');
+          wrapper.innerHTML = blogTpl
+            .replace(/{{id}}/g, getId(b))
+            .replace('{{cover}}', coverMarkup)
+            .replace(/{{title}}/g, escapeHtml(b.title))
+            .replace(/{{status}}/g, escapeHtml(statusLabel))
+            .replace(/{{publishText}}/g, escapeHtml(publishText));
+
+          const card = wrapper.firstElementChild;
+          if (!card) return;
+
+          // Arama modunda aksiyonları sadeleştir: sadece "Görüntüle"
+          if (isSearchMode) {
+            const actions = card.querySelector('.form-actions');
+            if (actions) actions.innerHTML = `<a class="btn btn-sm" href="/blogs/${getId(b)}" data-action="view">Görüntüle</a>`;
+          }
+
+          // Normal mod: mevcut aksiyonlar (edit/delete/publish) çalışır
+          card.addEventListener('click', (e) => {
+            const action = e.target?.getAttribute && e.target.getAttribute('data-action');
+            if (action) return;
+            window.location.href = '/blogs/' + getId(b);
+          });
+          card.querySelector('[data-action="edit"]')?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.location.href = '/blogs/' + getId(b) + '/edit';
+          });
+          card.querySelector('[data-action="delete"]')?.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            if (!confirm('Bu blog yazısını silmek istediğinize emin misiniz?')) return;
+            try {
+              const res = await fetch('/blogs/' + getId(b), { method: 'DELETE' });
+              const result = await res.json();
+              if (!res.ok) throw new Error(result?.error || 'Silme başarısız');
+              card.remove();
+            } catch (err) {
+              if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Silme sırasında hata') + '</div>';
+            }
+          });
+          card.querySelector('[data-action="publish"]')?.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            try {
+              const current = !!b.isPublished;
+              const shouldPublish = !current;
+              const res = await fetch('/blogs/' + getId(b) + '/publish', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ publish: shouldPublish })
+              });
+              const result = await res.json();
+              if (!res.ok) throw new Error(result?.error || 'Yayın durumu güncelleme başarısız');
+              b.isPublished = shouldPublish;
+              const statusP = card.querySelector('.blog-card-status') || card.querySelector('.muted');
+              const publishBtn = card.querySelector('[data-action="publish"]');
+              if (statusP) statusP.textContent = 'Durum: ' + (b.isPublished ? 'Yayında' : 'Taslak');
+              if (publishBtn) publishBtn.textContent = b.isPublished ? 'Gizle' : 'Yayınla';
+            } catch (err) {
+              if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Yayın durumu değiştirilemedi') + '</div>';
+            }
+          });
+
+          blogsContainer.appendChild(card);
+        });
+      }
+
+      if (pageLabel) {
+        pageLabel.textContent = isSearchMode
+          ? 'Arama: "' + currentQuery + '" — Sayfa ' + page + ' / ' + totPages
+          : 'Sayfa ' + page + ' / ' + totPages;
+      }
+      if (prevBtn) prevBtn.disabled = page <= 1;
+      if (nextBtn) nextBtn.disabled = page >= totPages;
+    }
+
+    async function init() {
+      try {
+        const [newsData, blogsData] = await Promise.all([
+          fetchJson('/api/v1/news'),
+          fetchJson('/api/v1/blogs')
+        ]);
+        newsItems = Array.isArray(newsData.items) ? newsData.items : [];
+        blogItems = Array.isArray(blogsData.items) ? blogsData.items : [];
+        render();
+      } catch (err) {
+        if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Veriler yüklenemedi') + '</div>';
+      }
+    }
+
+    prevBtn?.addEventListener('click', () => { if (page > 1) { page--; render(); } });
+    nextBtn?.addEventListener('click', () => { page++; render(); });
+
+    searchBtn?.addEventListener('click', () => performSearch(searchInput?.value || ''));
+    searchInput?.addEventListener('keydown', (e) => { if (e.key === 'Enter') performSearch(searchInput.value); });
+    searchClear?.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      isSearchMode = false;
+      currentQuery = '';
+      searchNewsItems = [];
+      searchBlogItems = [];
+      page = 1;
+      render();
+    });
+
+    init();
+  })();
+</script>

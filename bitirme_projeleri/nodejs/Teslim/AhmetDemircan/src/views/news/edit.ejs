@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/pages/news.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container container-wide">
+    <section class="auth-card">
+      <h1 class="auth-title">Haberi Düzenle</h1>
+      <div id="alert" class="alert" style="display:none;"></div>
+
+      <% const canEditAll = isOwner || isAdmin && isOwner; const onlyActive = isAdmin && !isOwner; %>
+      <form id="newsForm" class="form">
+        <div class="form-group">
+          <label for="title">Başlık</label>
+          <input type="text" id="title" name="title" class="input" required value="<%= news.title %>" <%= onlyActive ? 'disabled' : '' %> />
+        </div>
+
+        <div class="form-group">
+          <label for="imageUrl">Görsel URL (opsiyonel)</label>
+          <input type="text" id="imageUrl" name="imageUrl" class="input" placeholder="https://..." value="<%= news.imageUrl || '' %>" <%= onlyActive ? 'disabled' : '' %> />
+        </div>
+
+        <div class="form-group">
+          <label for="content">İçerik</label>
+          <textarea id="content" name="content" class="input" rows="8" required <%= onlyActive ? 'disabled' : '' %>><%= news.content %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Kategori (opsiyonel)</label>
+          <select id="category" name="category" class="input" <%= onlyActive ? 'disabled' : '' %>>
+            <option value="">-- Lütfen bir kategori seçin (opsiyonel) --</option>
+            <% (categories || []).forEach(function(cat){ %>
+              <option value="<%= cat._id %>" <%= String(news.category || '') === String(cat._id) ? 'selected' : '' %>><%= cat.name %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" id="isActive" <%= news.isActive ? 'checked' : '' %> /> Aktif</label>
+          <% if (onlyActive) { %>
+            <p class="hint">Admin olarak sahibi olmadığınız haberlerde sadece “Aktif” durumunu değiştirebilirsiniz.</p>
+          <% } %>
+        </div>
+
+        <div class="form-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <button type="submit" class="btn">Güncelle</button>
+          <button type="button" id="deleteBtn" class="btn btn-danger">Sil</button>
+        </div>
+      </form>
+
+      <script>
+        const form = document.getElementById('newsForm');
+        const alertBox = document.getElementById('alert');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const newsId = "<%= news._id %>";
+        const onlyActive = <%= JSON.stringify(isAdmin && !isOwner) %>;
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const payload = {};
+          if (!onlyActive) {
+            payload.title = document.getElementById('title').value.trim();
+            payload.imageUrl = document.getElementById('imageUrl').value.trim();
+            payload.content = document.getElementById('content').value.trim();
+            const categorySel = document.getElementById('category');
+            payload.category = categorySel.value || undefined;
+          }
+          payload.isActive = document.getElementById('isActive').checked;
+
+          try {
+            const res = await fetch('/api/v1/news/' + newsId, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.error || data?.message || 'Güncelleme başarısız');
+
+            window.location.href = '/news/' + newsId;
+          } catch (err) {
+            alertBox.textContent = err.message;
+            alertBox.style.display = 'block';
+          }
+        });
+
+        deleteBtn.addEventListener('click', async () => {
+          if (!confirm('Bu haberi silmek istediğinize emin misiniz?')) return;
+
+          try {
+            const res = await fetch('/api/v1/news/' + newsId, {
+              method: 'DELETE',
+              credentials: 'same-origin'
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.error || data?.message || 'Silme başarısız');
+
+            window.location.href = '/news';
+          } catch (err) {
+            alertBox.textContent = err.message;
+            alertBox.style.display = 'block';
+          }
+        });
+      </script>
+    </section>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

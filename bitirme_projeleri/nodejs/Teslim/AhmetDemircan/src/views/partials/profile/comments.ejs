@@ -1,0 +1,241 @@
+<div class="section section-comments">
+  <h2>Yorum Yönetimi</h2>
+  <% const roles = (user && Array.isArray(user.roles)) ? user.roles : (user && user.roles ? [user.roles] : []); %>
+  <% const isAdmin = roles.includes('admin'); %>
+  <p class="hint"><%= isAdmin ? 'Admin olarak tüm yorumları görebilir ve yönetebilirsiniz.' : 'Kendi yorumlarınızı düzenleyebilir veya silebilirsiniz.' %></p>
+
+  <div id="commentsMessages" class="messages"></div>
+
+  <div class="comments-toolbar" style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+    <button id="reloadCommentsBtn" class="btn btn-sm">Yorumları Yükle</button>
+    <% if (isAdmin) { %>
+      <label style="margin-left:8px;">
+        <select id="adminFilterActive" class="input input-sm">
+          <option value="">Durum: Hepsi</option>
+          <option value="true">Aktif</option>
+          <option value="false">Gizli</option>
+        </select>
+      </label>
+      <label style="margin-left:8px;">
+        <select id="adminFilterSubjectModel" class="input input-sm">
+          <option value="">Tür: Hepsi</option>
+          <option value="News">News</option>
+          <option value="Blog">Blog</option>
+        </select>
+      </label>
+    <% } else { %>
+      <label style="margin-left:8px;">
+        <select id="userFilterSubjectModel" class="input input-sm">
+          <option value="">Tür: Hepsi</option>
+          <option value="News">News</option>
+          <option value="Blog">Blog</option>
+        </select>
+      </label>
+    <% } %>
+  </div>
+
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <% if (isAdmin) { %><th>Yazar</th><% } %>
+          <th>Tür</th>
+          <th>İçerik</th>
+          <th>Durum</th>
+          <th>Oluşturulma</th>
+          <th>Bağlantı</th>
+          <th>İşlem</th>
+        </tr>
+      </thead>
+      <tbody id="commentsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function(){
+  var IS_ADMIN = <%= (isAdmin ? 'true' : 'false') %>;
+  var CURRENT_USER_ID = "<%= user?.sub || '' %>";
+
+  var msgs = document.getElementById('commentsMessages');
+  var tbody = document.getElementById('commentsTableBody');
+  var reloadBtn = document.getElementById('reloadCommentsBtn');
+
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, function(ch) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[ch];
+    });
+  }
+
+  function timeString(iso) {
+    try {
+      var d = new Date(iso);
+      return d.toLocaleString('tr-TR');
+    } catch { return String(iso || ''); }
+  }
+
+  function buildSubjectLink(item) {
+    var base = item.subjectModel === 'Blog' ? '/blogs/' : '/news/';
+    return base + encodeURIComponent(String(item.subject));
+  }
+
+  async function fetchComments() {
+    msgs.innerHTML = '';
+    var url = '/api/v1/comments';
+    var params = [];
+    if (IS_ADMIN) {
+      var active = document.getElementById('adminFilterActive').value;
+      var sm = document.getElementById('adminFilterSubjectModel').value;
+      if (active) params.push('isActive=' + encodeURIComponent(active));
+      if (sm) params.push('subjectModel=' + encodeURIComponent(sm));
+    } else {
+      var smu = document.getElementById('userFilterSubjectModel').value;
+      if (smu) params.push('subjectModel=' + encodeURIComponent(smu));
+    }
+    if (params.length) url += '?' + params.join('&');
+
+    try {
+      var res = await fetch(url, { credentials: 'same-origin' });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data?.error || data?.message || 'Yorumlar yüklenemedi');
+      renderComments(Array.isArray(data.items) ? data.items : []);
+    } catch (err) {
+      msgs.innerHTML = '<div class="alert alert-error">' + escapeHtml(err.message || 'Ağ hatası') + '</div>';
+    }
+  }
+
+  function renderComments(items) {
+    if (!tbody) return;
+    if (!items.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="muted">Gösterilecek yorum yok.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = items.map(function(c) {
+      var owner = String(c.author?.id || '') === String(CURRENT_USER_ID || '');
+      var canEdit = owner || IS_ADMIN;
+      var canDelete = owner || IS_ADMIN;
+      var statusLabel = c.isActive ? 'Aktif' : 'Gizli';
+
+      var authorCell = IS_ADMIN ? ('<td>' + escapeHtml(c.author?.name || c.author?.id || '-') + '</td>') : '';
+      var subjectCell = '<td>' + escapeHtml(c.subjectModel || '-') + '</td>';
+      var contentCell = '<td class="comment-cell" style="max-width:420px;">' +
+                        '<div class="comment-text">' + escapeHtml(c.content) + '</div>' +
+                        '</td>';
+      var statusCell = '<td>' + statusLabel + '</td>';
+      var createdCell = '<td>' + escapeHtml(timeString(c.createdAt)) + '</td>';
+      var linkCell = '<td><a class="btn btn-sm" href="' + buildSubjectLink(c) + '">Göster</a></td>';
+      var actions = '<td style="white-space:nowrap;">' +
+                    (canEdit ? '<button class="btn btn-sm" data-action="edit" data-id="'+ c.id +'">Düzenle</button> ' : '') +
+                    (IS_ADMIN ? '<button class="btn btn-sm" data-action="toggle" data-id="'+ c.id +'" data-active="'+ (c.isActive ? '1' : '0') +'">' + (c.isActive ? 'Gizle' : 'Yayınla') + '</button> ' : '') +
+                    (canDelete ? '<button class="btn btn-sm btn-danger" data-action="delete" data-id="'+ c.id +'">Sil</button>' : '') +
+                    '</td>';
+
+      return '<tr data-id="'+ c.id +'">' +
+             authorCell + subjectCell + contentCell + statusCell + createdCell + linkCell + actions +
+             '</tr>';
+    }).join('');
+
+    // Bind actions
+    tbody.querySelectorAll('[data-action="edit"]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        enterEditMode(this.getAttribute('data-id'));
+      });
+    });
+    tbody.querySelectorAll('[data-action="delete"]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var id = this.getAttribute('data-id');
+        if (!confirm('Bu yorumu silmek istediğinize emin misiniz?')) return;
+        deleteComment(id);
+      });
+    });
+    tbody.querySelectorAll('[data-action="toggle"]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var id = this.getAttribute('data-id');
+        var active = this.getAttribute('data-active') === '1';
+        toggleActive(id, !active);
+      });
+    });
+  }
+
+  function enterEditMode(id) {
+    var tr = tbody.querySelector('tr[data-id="'+ id +'"]');
+    if (!tr) return;
+    var cell = tr.querySelector('.comment-cell');
+    if (!cell) return;
+    var textEl = cell.querySelector('.comment-text');
+    var original = textEl ? textEl.textContent : '';
+    cell.innerHTML =
+      '<textarea class="input comment-edit" rows="3">' + escapeHtml(original) + '</textarea>' +
+      '<div style="margin-top:8px;display:flex;gap:8px;">' +
+      '<button class="btn btn-sm" data-action="save-edit" data-id="'+ id +'">Kaydet</button>' +
+      '<button class="btn btn-sm" data-action="cancel-edit" data-id="'+ id +'">İptal</button>' +
+      '</div>';
+
+    cell.querySelector('[data-action="save-edit"]').addEventListener('click', function() {
+      var content = cell.querySelector('.comment-edit').value;
+      saveEdit(id, content);
+    });
+    cell.querySelector('[data-action="cancel-edit"]').addEventListener('click', function() {
+      // yeniden yükle
+      fetchComments();
+    });
+  }
+
+  async function saveEdit(id, content) {
+    msgs.innerHTML = '';
+    try {
+      var res = await fetch('/api/v1/comments/' + encodeURIComponent(id), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ content: String(content || '').trim() })
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data?.error || data?.message || 'Yorum güncellenemedi');
+      msgs.innerHTML = '<div class="alert alert-success">Yorum güncellendi</div>';
+      fetchComments();
+    } catch (err) {
+      msgs.innerHTML = '<div class="alert alert-error">' + escapeHtml(err.message || 'Ağ hatası') + '</div>';
+    }
+  }
+
+  async function deleteComment(id) {
+    msgs.innerHTML = '';
+    try {
+      var res = await fetch('/api/v1/comments/' + encodeURIComponent(id), {
+        method: 'DELETE',
+        credentials: 'same-origin'
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data?.error || data?.message || 'Yorum silinemedi');
+      msgs.innerHTML = '<div class="alert alert-success">Yorum silindi</div>';
+      fetchComments();
+    } catch (err) {
+      msgs.innerHTML = '<div class="alert alert-error">' + escapeHtml(err.message || 'Ağ hatası') + '</div>';
+    }
+  }
+
+  async function toggleActive(id, nextActive) {
+    msgs.innerHTML = '';
+    try {
+      var res = await fetch('/api/v1/comments/' + encodeURIComponent(id), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ isActive: !!nextActive })
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data?.error || data?.message || 'Durum değiştirilemedi');
+      msgs.innerHTML = '<div class="alert alert-success">Durum güncellendi</div>';
+      fetchComments();
+    } catch (err) {
+      msgs.innerHTML = '<div class="alert alert-error">' + escapeHtml(err.message || 'Ağ hatası') + '</div>';
+    }
+  }
+
+  reloadBtn.addEventListener('click', fetchComments);
+
+  // Otomatik yükleme
+  fetchComments();
+})();
+</script>

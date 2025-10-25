@@ -1,0 +1,158 @@
+/*  hero ve plan kartları */
+.nyt-hero { background: var(--bg); border-bottom: 1px solid var(--line); }
+.nyt-hero .container { padding: 48px 16px; text-align: center; }
+.nyt-hero h1 { font-size: 40px; font-weight: 700; margin: 0 0 12px; }
+.nyt-hero p { color: var(--muted); font-size: 18px; margin: 0; }
+body.theme-dark .nyt-hero .btn { background: transparent; color: var(--text); }
+
+.nyt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+.plan-card { padding: 24px; text-align: left; }
+.plan-card h3 { font-size: 24px; margin: 0 0 8px; }
+.plan-card .price { font-size: 14px; color: var(--muted); margin: 0 0 12px; }
+.plan-card ul { padding-left: 18px; margin: 0 0 16px; }
+
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.feature {
+  border: 1px solid var(--line);
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+@media (max-width: 900px) {
+  .features { grid-template-columns: 1fr; }
+  .nyt-grid { grid-template-columns: 1fr; }
+  .nyt-hero h1 { font-size: 32px; }
+}
+
+/* Ana sayfa iki sütun düzeni: Sol Haberler (geniş), Sağ Bloglar (dar) */
+.home-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr; /* sol daha geniş */
+  gap: 24px;
+  align-items: start;
+}
+.home-column { display: flex; flex-direction: column; gap: 16px; }
+.section-title { font-size: 22px; font-weight: 700; margin: 0 0 8px; text-align: center; }
+/* Başlık link stilini miras al, hover’da altı çizilsin */
+.section-title a,
+.section-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+.section-title a:hover,
+.section-title-link:hover {
+  text-decoration: underline;
+}
+/* Sütun başlığı semantiği ve hizalaması */
+.column-header {
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+@media (max-width: 900px) {
+  .home-grid { grid-template-columns: 1fr; }
+}
+
+/* Sol sütun: Öne çıkan haber kartı */
+.feature-card { border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+.feature-link { text-decoration: none; color: inherit; display: block; }
+.feature-cover {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+}
+.feature-title { font-size: 28px; line-height: 1.2; margin: 0 0 8px; }
+.feature-meta { color: var(--muted); font-size: 14px; margin: 0 0 8px; }
+.feature-excerpt { color: var(--text); font-size: 16px; margin: 0; }
+
+/* Sol sütun: İki sütunlu kısa haberler */
+.stacked-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.stacked-item { border-top: 1px solid var(--line); padding-top: 12px; }
+.stacked-link { text-decoration: none; color: inherit; display: block; }
+.stacked-title { font-size: 18px; margin: 0 0 4px; }
+.stacked-meta { color: var(--muted); font-size: 13px; margin: 0 0 6px; }
+.stacked-excerpt { color: var(--muted); font-size: 14px; margin: 0; }
+
+/* Sağ sütun: Top Stories benzeri blog listesi */
+.story-list { list-style: none; padding: 0; margin: 0; }
+.story-list-item { border-top: 1px solid var(--line); padding: 12px 0; }
+.story-list-link { display: block; text-decoration: none; color: inherit; }
+.story-list-title { font-size: 18px; margin: 0 0 4px; }
+.story-list-meta { color: var(--muted); font-size: 13px; margin: 0 0 6px; }
+.story-list-excerpt { color: var(--muted); font-size: 14px; margin: 0; }
+
+/* Eski kart görselleri (gerekirse başka sayfalarda kullanılabilir) */
+.media-card { padding: 0; transition: transform .18s ease, box-shadow .18s ease; }
+.media-card:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+.media-cover {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: block;
+}
+.card-body { padding: 12px; }
+.preview {
+  margin: 8px 0 0;
+  color: var(--muted);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .25s ease, opacity .25s ease;
+}
+.media-card:hover .preview {
+  max-height: 160px;
+  opacity: 1;
+}
+
+/* Responsive ince ayar */
+@media (max-width: 900px) {
+  .feature-cover { height: 200px; }
+  .stacked-grid { grid-template-columns: 1fr; }
+}
+
+/* Dark mode: Haber & Blog alanı siyah arka plan */
+body.theme-dark .home-grid {
+  background: #000;
+}
+
+body.theme-dark .home-column {
+  background: transparent;
+}
+
+body.theme-dark .feature-card,
+body.theme-dark .story-list-item,
+body.theme-dark .stacked-item {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Ana sayfa: tam genişlik için kap sınıfı */
+.container-wide {
+  max-width: none;     /* global 1100px üst sınırı kaldır */
+  width: 100%;
+}
+
+/* Geniş ekran optimizasyonları */
+@media (min-width: 1200px) {
+  .feature-cover { height: 360px; }
+}
+
+@media (min-width: 1400px) {
+  .home-grid { grid-template-columns: 2fr 1fr; } /* ekran genişledikçe daha dengeli oran */
+  .stacked-grid { grid-template-columns: 1fr 1fr 1fr; } /* 3 sütun kısa haber */
+}
+
+@media (min-width: 1800px) {
+  .feature-cover { height: 400px; }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/pages/blog.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container container-wide blog-container">
+    <section class="auth-card">
+      <h1 class="auth-title">Blogu Düzenle</h1>
+      <div id="alert" class="alert" style="display:none;"></div>
+
+      <form id="blogForm" class="form" method="post" action="/blogs/<%= blog._id %>">
+        <div class="form-group">
+          <label for="title">Başlık</label>
+          <input type="text" id="title" name="title" class="input" required value="<%= blog.title %>" />
+        </div>
+
+        <div class="form-group">
+          <label for="coverImageUrl">Kapak Görseli URL (opsiyonel)</label>
+          <input type="text" id="coverImageUrl" name="coverImageUrl" class="input" placeholder="https://..." value="<%= blog.coverImageUrl || '' %>" />
+        </div>
+
+        <div class="form-group">
+          <label for="content">İçerik</label>
+          <textarea id="content" name="content" class="input" rows="8" required><%= blog.content %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="tags">Etiketler (virgülle)</label>
+          <input type="text" id="tags" name="tags" class="input" value="<%= (blog.tags || []).join(', ') %>" />
+        </div>
+
+        <div class="form-group">
+          <label for="categories">Kategoriler (opsiyonel)</label>
+          <select id="categories" name="categories" class="input" multiple size="4">
+            <option value="">-- Lütfen bir kategori seçin (opsiyonel) --</option>
+            <% (categories || []).forEach(function(cat){ %>
+              <option value="<%= cat._id %>" <%= (blog.categories || []).some(function(c){ return String(c) === String(cat._id) }) ? 'selected' : '' %>><%= cat.name %></option>
+            <% }) %>
+          </select>
+          <span class="hint">Birden fazla seçilebilir; boş bırakılabilir.</span>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" id="isPublished" <%= blog.isPublished ? 'checked' : '' %> /> Yayınla</label>
+        </div>
+
+        <div class="form-actions" style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <button type="submit" class="btn">Güncelle</button>
+          <button type="button" id="deleteBtn" class="btn btn-danger">Sil</button>
+        </div>
+      </form>
+
+      <script>
+        const form = document.getElementById('blogForm');
+        const alertBox = document.getElementById('alert');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const blogId = "<%= blog._id %>";
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const title = document.getElementById('title').value.trim();
+          const coverImageUrl = document.getElementById('coverImageUrl').value.trim();
+          const content = document.getElementById('content').value.trim();
+          const tagsInput = document.getElementById('tags').value.trim();
+          const isPublished = document.getElementById('isPublished').checked;
+          const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(Boolean) : [];
+          const categoriesSelect = document.getElementById('categories');
+          const categories = Array.from(categoriesSelect.selectedOptions)
+            .map(o => o.value)
+            .filter(v => v); // boş placeholder değerini gönderme
+
+          try {
+            const res = await fetch('/blogs/' + blogId, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ title, coverImageUrl, content, tags, categories, isPublished })
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.error || 'Güncelleme başarısız');
+
+            window.location.href = '/blogs/' + blogId;
+          } catch (err) {
+            alertBox.textContent = err.message;
+            alertBox.style.display = 'block';
+          }
+        });
+
+        deleteBtn.addEventListener('click', async () => {
+          if (!confirm('Bu blog yazısını silmek istediğinize emin misiniz?')) return;
+
+          try {
+            const res = await fetch('/blogs/' + blogId, { method: 'DELETE' });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.error || 'Silme başarısız');
+
+            window.location.href = '/blogs';
+          } catch (err) {
+            alertBox.textContent = err.message;
+            alertBox.style.display = 'block';
+          }
+        });
+      </script>
+    </section>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

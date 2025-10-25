@@ -1,0 +1,131 @@
+/* Daktilo / Monospace efekti */
+.daktilo-text {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Ana klasör stili */
+.file-folder {
+  background-color: #d8c29b;
+  border: 4px solid #a88b6c;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Damga (ana sayfa linki) */
+.stamp {
+  position: absolute;
+  bottom: 25%;
+  right: 15%;
+  transform: rotate(10deg);
+  border: 4px solid #d90429;
+  color: #d90429;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  text-align: center;
+}
+.stamp:hover {
+  transform: rotate(10deg) scale(1.05);
+  opacity: 1;
+}
+@media (max-width: 768px) {
+  .stamp {
+    bottom: 35%;
+    right: 5%;
+    font-size: 1.2rem;
+    transform: rotate(5deg);
+  }
+  .stamp:hover {
+    transform: rotate(5deg) scale(1.05);
+  }
+}
+
+/* Başlık */
+.imha-baslik {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #d90429;
+  margin-bottom: 0.5rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Sayfa arka planı */
+body {
+  background-color: #f3f4f6;
+}
+
+/* Gizli belge alanı */
+.gizli-belge-alani {
+  position: absolute;
+  top: -6rem;
+  left: 10%;
+  width: 180px;
+  height: 150px;
+  transform: rotate(-5deg);
+  padding: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.gizli-belge-alani .damga-ust {
+  color: #a0522d;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(-10deg);
+  background: #d8c29b;
+  padding: 0 5px;
+  z-index: 12;
+}
+.gizli-belge-alani .damga-alt {
+  color: #d90429;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(5deg);
+  background: #d8c29b;
+  padding: 0 5px;
+  z-index: 12;
+}
+
+/* Fotoğraf çerçevesi ve içeriği */
+.photo-frame {
+  width: 160px;
+  height: 128px;            /* 404 ile uyumlu yükseklik */
+  background-color: #fcfcfc;
+  border: 4px solid white;  /* Beyaz kenarlık görünür olsun */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  z-index: 11;
+}
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-frame svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

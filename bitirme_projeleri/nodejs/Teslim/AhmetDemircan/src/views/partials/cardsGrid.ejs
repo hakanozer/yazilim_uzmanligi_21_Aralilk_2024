@@ -1,0 +1,29 @@
+<div class="blog-grid">
+  <% items.forEach(function(item){ %>
+    <article class="card blog-card">
+      <a class="card-link" href="<%= linkBase %>/<%= item._id %>">
+        <div class="cover-wrapper">
+          <% if (item[imageKey]) { %>
+            <img class="blog-cover" src="<%= item[imageKey] %>" alt="<%= item[titleKey] %> kapak" />
+          <% } else { %>
+            <div class="blog-cover blog-cover-placeholder"></div>
+          <% } %>
+          <div class="preview-overlay">
+            <p class="preview-text"><%= item.excerpt || '' %></p>
+          </div>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title"><%= item[titleKey] %></h2>
+          <% if (showCategory) { %>
+            <p class="muted">
+              Kategori: <%= item.category?.name || 'Belirtilmemiş' %> ·
+              Yazar: <%= item.author?.name || 'Anonim' %>
+            </p>
+          <% } else { %>
+            <p class="muted">Yazar: <%= item.author?.name || 'Anonim' %></p>
+          <% } %>
+        </div>
+      </a>
+    </article>
+  <% }) %>
+</div>

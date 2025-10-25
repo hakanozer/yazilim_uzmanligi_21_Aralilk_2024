@@ -1,0 +1,264 @@
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 2rem;
+}
+
+/* Sayfa arka planı: Yggdrasil */
+body {
+  min-height: 100vh;
+  background: url('/images/yggdrasil.jpg') center / cover no-repeat fixed;
+  color: #fff;
+}
+
+/* İçerik okunabilirliği için yarı saydam overlay */
+.page-overlay {
+  background: rgba(0, 0, 0, 0.45);
+  min-height: calc(100vh - 120px);
+  padding: 2rem;
+}
+
+/* Navbar stilleri */
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+}
+.navbar a:hover {
+  text-decoration: underline;
+}
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Footer stilleri */
+.footer {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+/* Base theme (NYT esintili) */
+:root {
+  --text: #121212;
+  --muted: #6e6e6e;
+  --bg: #ffffff;
+  --line: #e5e5e5;
+}
+
+@font-face {
+  font-family: 'Norse';
+  src: url('/fonts/Norse.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* Navbar */
+.navbar {
+  background: #fff;
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar a { color: var(--text); text-decoration: none; }
+.navbar a:hover { text-decoration: underline; }
+.navbar-links { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; }
+
+.navbar .rune {
+  font-family: 'Norse', 'Noto Sans Runic', 'Segoe UI Symbol', 'Symbola', Georgia, 'Times New Roman', serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+}
+
+/* Hero */
+.nyt-hero {
+  background: #f7f7f7;
+  border-bottom: 1px solid var(--line);
+}
+.nyt-hero .container {
+  padding: 48px 16px;
+  text-align: center;
+}
+.nyt-hero h1 {
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+.nyt-hero p {
+  color: var(--muted);
+  font-size: 18px;
+  margin: 0;
+}
+
+/* Plans */
+.nyt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+.plan-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  background: #fff;
+  text-align: left;
+}
+.plan-card h3 { font-size: 24px; margin: 0 0 8px; }
+.plan-card .price { font-size: 14px; color: var(--muted); margin: 0 0 12px; }
+.plan-card ul { padding-left: 18px; margin: 0 0 16px; }
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.feature {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--text);
+  color: #fff;
+  background: var(--text);
+  text-decoration: none;
+}
+.btn.outline {
+  background: transparent;
+  color: var(--text);
+}
+.btn:hover { opacity: 0.9; }
+
+/* Footer */
+.footer {
+  background: #fff;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .features { grid-template-columns: 1fr; }
+  .nyt-grid { grid-template-columns: 1fr; }
+  .nyt-hero h1 { font-size: 32px; }
+}
+
+/* Auth (Register) */
+.auth-card {
+  max-width: 520px;
+  margin: 40px auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 24px;
+}
+
+.auth-title {
+  font-size: 28px;
+  margin: 0 0 6px;
+}
+
+.auth-subtitle {
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.auth-form .form-group { margin-bottom: 16px; }
+
+.auth-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Alerts */
+.alert {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  border: 1px solid;
+}
+
+.alert-error {
+  background: #fff5f5;
+  border-color: #ffd1d1;
+  color: #a40000;
+}
+
+.alert-success {
+  background: #f2fff5;
+  border-color: #c8e6c9;
+  color: #256029;
+}

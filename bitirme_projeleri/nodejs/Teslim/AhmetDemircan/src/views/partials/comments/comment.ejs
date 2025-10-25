@@ -1,0 +1,301 @@
+<section class="auth-card comments-section">
+  <h2>Yorumlar</h2>
+  <div id="commentsMessages" class="messages"></div>
+  <div id="commentsList" class="comments-list"></div>
+
+  <div id="commentFormWrapper" class="form responsive-comment-form">
+    <div class="form-group">
+      <label for="commentContent">Yorumunuz</label>
+      <div class="comment-form-row">
+        <textarea id="commentContent" rows="3" class="input" placeholder="Yorum yazın..."></textarea>
+        <button id="commentSubmitBtn" class="btn" aria-label="Yorumu gönder">Gönder</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Bölüm ve liste düzeni */
+  .comments-section { margin-top: 24px; }
+  .comments-list { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+  /* Kart ve başlık */
+  .comment-card { border-radius: 8px; padding: 12px; }
+  .comment-header { display: flex; align-items: center; gap: 12px; }
+  .comment-header .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .comment-header .meta { display: flex; flex-direction: column; }
+  .comment-content { margin-top: 8px; line-height: 1.5; }
+  .comment-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
+  .comment-edit-input { width: 100%; min-height: 80px; resize: vertical; margin-top: 8px; }
+  .comment-edit-actions { display: flex; gap: 8px; margin-top: 8px; }
+
+  /* Form satırı: responsive */
+  .responsive-comment-form .comment-form-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .responsive-comment-form .comment-form-row .input {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+  }
+  .responsive-comment-form .comment-form-row .btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  /* Küçük ekranlar */
+  @media (max-width: 768px) {
+    .comment-header .avatar { width: 32px; height: 32px; }
+    .responsive-comment-form .comment-form-row {
+      flex-direction: column;
+    }
+    .responsive-comment-form .comment-form-row .btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+  }
+
+  /* Orta/büyük ekranlar */
+  @media (min-width: 769px) {
+    .comments-section { margin-top: 32px; }
+    .comment-card { padding: 16px; }
+  }
+</style>
+
+<script>
+(function(){
+  var SUBJECT_MODEL = '<%= String(subjectModel) %>';
+  var SUBJECT_ID = '<%= String(subjectId) %>';
+  var USER = <%- JSON.stringify((typeof currentUser !== 'undefined' && currentUser) ? currentUser : (typeof user !== 'undefined' ? user : null)) %>;
+  var USER_ID = USER && USER.sub ? String(USER.sub) : null;
+  var USER_ROLES = USER && Array.isArray(USER.roles) ? USER.roles : [];
+  var IS_ADMIN = Array.isArray(USER_ROLES) && USER_ROLES.indexOf('admin') !== -1;
+  var IS_LOGGED_IN = !!USER_ID;
+
+  var messagesEl = document.getElementById('commentsMessages');
+  var listEl = document.getElementById('commentsList');
+  var contentEl = document.getElementById('commentContent');
+  var submitBtn = document.getElementById('commentSubmitBtn');
+  var formWrapper = document.getElementById('commentFormWrapper');
+
+  function escapeHtml(str) { var m={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}; return String(str||'').replace(/[&<>"']/g,function(ch){return m[ch];}); }
+  function timeString(iso){ try{ var d=new Date(iso); return d.toLocaleString('tr-TR'); } catch(e){ return iso || ''; } }
+
+  function apiBaseList() {
+    var base = SUBJECT_MODEL === 'Blog' ? '/api/v1/blogs/' : '/api/v1/news/';
+    return base + SUBJECT_ID + '/comments';
+  }
+
+  function renderItem(c) {
+    var canEdit = IS_ADMIN || (USER_ID && c.author && String(c.author.id) === USER_ID);
+    var canDelete = IS_ADMIN || (USER_ID && c.author && String(c.author.id) === USER_ID);
+    var adminToggle = IS_ADMIN ? '<button class="btn btn-sm" data-action="toggle" aria-label="Yorumu gizle/göster">'+ (c.isActive ? 'Gizle' : 'Yayınla') +'</button>' : '';
+    var editBtn = canEdit ? '<button class="btn btn-sm" data-action="edit" aria-label="Yorumu düzenle">Düzenle</button>' : '';
+    var deleteBtn = canDelete ? '<button class="btn btn-sm btn-danger" data-action="delete" aria-label="Yorumu sil">Sil</button>' : '';
+    var statusLabel = IS_ADMIN ? ('<span class="muted">Durum: '+ (c.isActive ? 'Aktif' : 'Pasif') +'</span>') : '';
+    var avatar = c.author && c.author.profilePicture ? ('<img class="avatar" src="'+ escapeHtml(c.author.profilePicture) +'" alt="'+ escapeHtml(c.author.name||'') +' avatar" />') : '';
+    var authorName = c.author && c.author.name ? c.author.name : 'Anonim';
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'comment-card';
+    wrapper.setAttribute('data-id', String(c.id));
+    wrapper.innerHTML =
+      '<div class="comment-header">'+
+        avatar +
+        '<div class="meta">'+
+          '<strong>'+ escapeHtml(authorName) +'</strong>'+
+          '<div class="muted">'+ escapeHtml(timeString(c.createdAt)) +'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="comment-content">'+ escapeHtml(c.content) +'</div>'+
+      '<div class="comment-actions">'+ statusLabel +' '+ adminToggle +' '+ editBtn +' '+ deleteBtn +'</div>';
+
+    // Sil
+    var del = wrapper.querySelector('[data-action="delete"]');
+    if (del) {
+      del.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        if (!confirm('Bu yorumu silmek istediğinize emin misiniz?')) return;
+        deleteComment(String(c.id), wrapper);
+      });
+    }
+
+    // Durum (admin)
+    var toggleBtn = wrapper.querySelector('[data-action="toggle"]');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        toggleActive(String(c.id), !c.isActive, wrapper);
+      });
+    }
+
+    // Düzenle (sahip veya admin)
+    var edit = wrapper.querySelector('[data-action="edit"]');
+    if (edit) {
+      edit.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        enterEditMode(String(c.id), wrapper);
+      });
+    }
+
+    return wrapper;
+  }
+
+  function enterEditMode(id, node) {
+    var contentNode = node.querySelector('.comment-content');
+    var actionsNode = node.querySelector('.comment-actions');
+    if (!contentNode || !actionsNode) return;
+
+    var original = contentNode.textContent || '';
+    contentNode.innerHTML = ''
+      + '<textarea class="input comment-edit-input" aria-label="Yorum içeriği düzenle">'+ original +'</textarea>'
+      + '<div class="comment-edit-actions">'
+      + '  <button class="btn btn-sm" data-action="save-edit" aria-label="Yorumu kaydet">Kaydet</button>'
+      + '  <button class="btn btn-sm btn-secondary" data-action="cancel-edit" aria-label="Düzenlemeyi iptal">İptal</button>'
+      + '</div>';
+
+    var saveBtn = contentNode.querySelector('[data-action="save-edit"]');
+    var cancelBtn = contentNode.querySelector('[data-action="cancel-edit"]');
+    var input = contentNode.querySelector('.comment-edit-input');
+
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var newContent = String(input && input.value || '').trim();
+        if (!newContent) {
+          messagesEl.innerHTML = '<div class="alert alert-error">Yorum metni gerekli</div>';
+          return;
+        }
+        saveEdit(id, newContent, node);
+      });
+    }
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        contentNode.textContent = original;
+      });
+    }
+  }
+
+  async function saveEdit(id, newContent, node) {
+    try {
+      var data = await fetchJson('/api/v1/comments/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ content: newContent })
+      });
+      var updated = data && data.item ? data.item : null;
+      var contentNode = node.querySelector('.comment-content');
+      if (contentNode) {
+        contentNode.textContent = updated ? updated.content : newContent;
+      }
+      messagesEl.innerHTML = '<div class="alert alert-success">Yorum güncellendi</div>';
+    } catch(err) {
+      messagesEl.innerHTML = '<div class="alert alert-error">'+ escapeHtml(err.message || 'Yorum güncellenemedi') +'</div>';
+    }
+  }
+
+  async function fetchJson(url, options) {
+    var res = await fetch(url, options || {});
+    var data = {};
+    try { data = await res.json(); } catch(e) {}
+    if (!res.ok) throw new Error((data && (data.error || data.message)) || 'İstek başarısız');
+    return data;
+  }
+
+  async function loadComments() {
+    listEl.innerHTML = '<p class="muted">Yükleniyor...</p>';
+    try {
+      var data = await fetchJson(apiBaseList());
+      var items = Array.isArray(data.items) ? data.items : [];
+      listEl.innerHTML = '';
+      if (!items.length) {
+        listEl.innerHTML = '<p class="muted">Henüz yorum yok.</p>';
+      } else {
+        items.forEach(function(c){ listEl.appendChild(renderItem(c)); });
+      }
+    } catch(err) {
+      messagesEl.innerHTML = '<div class="alert alert-error">'+ escapeHtml(err.message || 'Yorumlar yüklenemedi') +'</div>';
+    }
+  }
+
+  async function deleteComment(id, node) {
+    try {
+      var data = await fetchJson('/api/v1/comments/' + id, { method: 'DELETE', credentials: 'same-origin' });
+      node && node.remove();
+    } catch(err) {
+      messagesEl.innerHTML = '<div class="alert alert-error">'+ escapeHtml(err.message || 'Silme başarısız') +'</div>';
+    }
+  }
+
+  async function toggleActive(id, toActive, node) {
+    try {
+      var data = await fetchJson('/api/v1/comments/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ isActive: !!toActive })
+      });
+      var updated = data && data.item ? data.item : null;
+      if (updated && node) {
+        var acts = node.querySelector('.comment-actions');
+        if (acts) {
+          acts.innerHTML = '<span class="muted">Durum: '+ (updated.isActive ? 'Aktif' : 'Pasif') +'</span> ' +
+                           '<button class="btn btn-sm" data-action="toggle">'+ (updated.isActive ? 'Gizle' : 'Yayınla') +'</button>' +
+                           (IS_ADMIN || (USER_ID && updated.author && String(updated.author.id) === USER_ID)
+                            ? ' <button class="btn btn-sm btn-danger" data-action="delete">Sil</button>' : '');
+          var del = acts.querySelector('[data-action="delete"]');
+          if (del) del.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); deleteComment(String(updated.id), node); });
+          var toggleBtn = acts.querySelector('[data-action="toggle"]');
+          if (toggleBtn) toggleBtn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); toggleActive(String(updated.id), !updated.isActive, node); });
+        }
+      }
+    } catch(err) {
+      messagesEl.innerHTML = '<div class="alert alert-error">'+ escapeHtml(err.message || 'Durum güncellenemedi') +'</div>';
+    }
+  }
+
+  if (!IS_LOGGED_IN && formWrapper) {
+    formWrapper.style.display = 'none';
+    var hint = document.createElement('p');
+    hint.className = 'muted';
+    hint.textContent = 'Yorum yapmak için giriş yapın.';
+    listEl.parentNode && listEl.parentNode.insertBefore(hint, listEl);
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', async function(e){
+      e.preventDefault();
+      var content = String(contentEl && contentEl.value || '').trim();
+      if (!content) {
+        messagesEl.innerHTML = '<div class="alert alert-error">Yorum metni gerekli</div>';
+        return;
+      }
+      submitBtn.disabled = true;
+      try {
+        var payload = { content: content, subjectModel: SUBJECT_MODEL, subject: SUBJECT_ID };
+        var data = await fetchJson('/api/v1/comments', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify(payload)
+        });
+        contentEl.value = '';
+        messagesEl.innerHTML = '<div class="alert alert-success">Yorum eklendi</div>';
+        var node = renderItem(data.item);
+        listEl.insertBefore(node, listEl.firstChild);
+      } catch(err) {
+        messagesEl.innerHTML = '<div class="alert alert-error">'+ escapeHtml(err.message || 'Yorum gönderilemedi') +'</div>';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
+  loadComments();
+})();
+</script>

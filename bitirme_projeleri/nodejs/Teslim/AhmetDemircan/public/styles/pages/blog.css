@@ -1,0 +1,161 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .blog-grid { grid-template-columns: 1fr; }
+}
+
+.card.blog-card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+}
+
+.cover-wrapper { position: relative; }
+
+.blog-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+  transition: filter .2s ease, opacity .2s ease;
+}
+@supports not (aspect-ratio: 16 / 9) {
+  .blog-cover { height: 200px; }
+}
+
+.blog-cover-placeholder { background: #000; }
+
+.preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity .2s ease;
+  color: #fff;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  pointer-events: none; /* tıklanabilirliği engelleme */
+}
+
+.preview-text {
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 90%;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card.blog-card:hover .blog-cover {
+  filter: blur(3px) brightness(0.75);
+}
+.card.blog-card:hover .preview-overlay {
+  opacity: 1;
+}
+
+.card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.blog-content {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+/* Blog detay başlığı */
+.blog-title {
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .blog-title { margin-bottom: 14px; }
+}
+
+/* Yeni Blog oluşturma sayfası: news/new ile benzer genişlik ve grid düzeni */
+.container-wide {
+  max-width: none;
+  width: 100%;
+}
+
+.blog-container {
+  padding: 24px 16px;
+}
+
+.blog-container .auth-card {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+#blogForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+#blogForm .input,
+#blogForm textarea.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--text);
+  background: transparent;
+}
+
+@media (min-width: 900px) {
+  #blogForm {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+  }
+
+  /* 1: Başlık (sol), 2: Kapak URL (sağ) */
+  #blogForm .form-group:nth-child(1) { grid-column: 1 / 2; }
+  #blogForm .form-group:nth-child(2) { grid-column: 2 / 3; }
+
+  /* 3: İçerik (tam genişlik) */
+  #blogForm .form-group:nth-child(3) { grid-column: 1 / -1; }
+
+  /* 4: Etiketler (sol), 5: Yayınla checkbox (sağ, alt hizalı) */
+  #blogForm .form-group:nth-child(4) { grid-column: 1 / 2; }
+  #blogForm .form-group:nth-child(5) { grid-column: 2 / 3; align-self: end; }
+
+  /* Oluştur butonu altta tam genişlikte */
+  #blogForm .btn { grid-column: 1 / -1; justify-self: start; }
+}

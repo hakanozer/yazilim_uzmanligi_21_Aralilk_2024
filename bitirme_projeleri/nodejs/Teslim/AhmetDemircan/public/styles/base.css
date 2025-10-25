@@ -1,0 +1,42 @@
+:root {
+  --text: #121212;
+  --muted: #6e6e6e;
+  --bg: #eaf4ff;
+  --line: #cfe1f5;
+  --surface: #ffffff; /* yükseltilmiş yüzey (light) */
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* Footer alta yapışsın: esnek düzen */
+body {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0; /* sabit footer offset’i kaldırıldı */
+}
+/* İçerik alanı kalan yüksekliği doldursun */
+main {
+  flex: 1 0 auto;
+}
+
+/* Dark mode değişkenleri */
+body.theme-dark {
+  --text: #e6eaf0;   /* yumuşak açık yazı rengi */
+  --muted: #a7b0bf;  /* gri‑mavi ikincil metin */
+  --bg: #0a0f14;     /* koyu mavi‑siyah arka plan */
+  --line: #1f2a36;   /* düşük kontrast sınır */
+  --surface: #12171f;/* navbar/kart/panel yüzeyi (dark) */
+}
+/* Seçim rengi: gözü yormayan mavi ton */
+::selection { background: #284b75; color: #eef3fb; }

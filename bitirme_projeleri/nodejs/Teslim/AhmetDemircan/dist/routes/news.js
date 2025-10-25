@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const authController_1 = require("../controllers/authController");
+const newsController_1 = require("../controllers/newsController");
+const apiNewsController_1 = require("../controllers/restControllers/apiNewsController");
+const ValidationChainsExpress_1 = require("../middleware/ValidationChainsExpress");
+const router = (0, express_1.Router)();
+router.get('/', authController_1.authenticateWeb, newsController_1.listNewsPage);
+router.get('/new', authController_1.authenticateWeb, newsController_1.newNewsForm);
+router.get('/:id/edit', authController_1.authenticateWeb, ValidationChainsExpress_1.validateObjectIdParam, ValidationChainsExpress_1.handleValidation, newsController_1.editNewsForm);
+router.get('/:id', authController_1.authenticateWeb, ValidationChainsExpress_1.validateObjectIdParam, ValidationChainsExpress_1.handleValidation, newsController_1.showNewsPage);
+router.post('/', authController_1.authenticateWeb, (0, authController_1.authorizeRoles)('admin', 'author'), ValidationChainsExpress_1.newsCreateRules, ValidationChainsExpress_1.handleValidation, newsController_1.createNews);
+router.post('/:id/like', authController_1.authenticateWeb, ValidationChainsExpress_1.reactionParamRules, ValidationChainsExpress_1.handleValidation, apiNewsController_1.likeNews);
+router.post('/:id/dislike', authController_1.authenticateWeb, ValidationChainsExpress_1.reactionParamRules, ValidationChainsExpress_1.handleValidation, apiNewsController_1.dislikeNews);
+exports.default = router;
