@@ -1,0 +1,72 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title text-center mb-4">Kayıt Ol</h3>
+
+        <%# Kontrolden gelen hata mesajlarını göster %>
+        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+          <div class="alert alert-danger pb-0">
+            <ul>
+              <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+              <% }) %>
+            </ul>
+          </div>
+        <% } %>
+
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="alert alert-danger" role="alert"><%= error %></div>
+        <% } %>
+
+        <form action="/register" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Ad Soyad</label>
+            <%# Hatalıysa kenarlık kırmızı olsun %>
+            <input
+              type="text"
+              class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'name')) ? 'is-invalid' : '' %>"
+              id="name"
+              name="name"
+              value="<%= typeof oldInput !== 'undefined' ? oldInput.name : '' %>"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Adresi</label>
+            <input
+              type="email"
+              class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'email')) ? 'is-invalid' : '' %>"
+              id="email"
+              name="email"
+              value="<%= typeof oldInput !== 'undefined' ? oldInput.email : '' %>"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Parola</label>
+            <%# Güvenlik nedeniyle parolayı geri yüklemiyoruz %>
+            <input
+              type="password"
+              class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'password')) ? 'is-invalid' : '' %>"
+              id="password"
+              name="password"
+              required
+            />
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+          </div>
+        </form>
+
+        <hr />
+        <p class="text-center mb-0">
+          Zaten hesabın var mı? <a href="/login">Giriş Yap</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

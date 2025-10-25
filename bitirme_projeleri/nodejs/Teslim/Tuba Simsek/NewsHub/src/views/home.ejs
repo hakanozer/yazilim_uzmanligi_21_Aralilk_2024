@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="sidebar-fixed border-end pe-3">
+    <%# Sidebar partial'ını buraya dahil ediyoruz %> <%-
+    include('partials/_sidebar') %>
+  </div>
+
+  <div class="content-area">
+
+    <div class="tabs-wrapper mb-4">
+      <ul class="nav nav-tabs border-0">
+        <li class="nav-item">
+          <a class="nav-link active" href="?tab=foryou">Sana Özel</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?tab=featured">Öne Çıkanlar</a>
+        </li>
+      </ul>
+      <hr class="mt-0 mb-3" />
+    </div>
+
+
+    <h1 class="mb-4 visually-hidden">Anasayfa</h1>
+    <% if (posts && posts.length > 0) { %> <% posts.forEach(post => { %>
+
+    <div class="card mb-4 shadow-sm overflow-hidden">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <% const imageSource = post.imageUrl ? '/uploads/' + post.imageUrl :
+          'https://via.placeholder.com/300x200?text=NewsHub'; %>
+          <a href="/posts/<%= post._id %>">
+            <img
+              src="<%= imageSource %>"
+              class="img-fluid rounded-start w-100 h-100 object-fit-cover"
+              alt="<%= post.title %>"
+              style="min-height: 180px"
+            />
+          </a>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body d-flex flex-column h-100">
+            <p class="card-text mb-1">
+              <small class="text-body-secondary">
+                <%= post.author ? post.author.name : 'Bilinmeyen Yazar' %> - <%=
+                new Date(post.createdAt).toLocaleDateString('tr-TR', { day:
+                'numeric', month: 'long' }) %> <% if (post.category &&
+                post.category !== 'Diğer') { %>
+                <span class="badge bg-secondary ms-1"
+                  ><%= post.category %></span
+                >
+                <% } %>
+              </small>
+            </p>
+            <h5 class="card-title post-title mb-2">
+              <%# mb-1 yerine mb-2 %>
+              <a href="/posts/<%= post._id %>"><%= post.title %></a>
+            </h5>
+            <p class="card-text text-secondary">
+              <% const snippet = post.content.length > 100 ?
+              post.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...' :
+              post.content.replace(/<[^>]*>/g, ''); %> <%= snippet %>
+            </p>
+            <p class="card-text mt-auto">
+              <a href="/posts/<%= post._id %>" class="text-primary fw-semibold"
+                >Devamını Oku →</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    
+
+
+    <% }) %> <% } else { %>
+    <div class="text-center p-5 border rounded bg-light">
+      <p class="lead">Henüz hiç yazı yayınlanmamış.</p>
+      <% if (user && user.id) { %>
+      <a href="/posts/new" class="btn btn-primary mt-3">İlk Yazıyı Sen Ekle</a>
+      <% } %>
+    </div>
+    <% } %>
+  </div>
+</div>
+

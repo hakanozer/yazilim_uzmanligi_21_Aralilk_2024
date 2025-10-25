@@ -1,0 +1,33 @@
+<div class="list-group list-group-flush sticky-top" style="top: 80px;"> <a href="/" class="list-group-item list-group-item-action py-2 <%= typeof activePage !== 'undefined' && activePage === 'home' ? 'active' : '' %>">
+        <i class="bi bi-house-door fs-5 me-2 align-middle"></i> 
+        <span class="align-middle">Anasayfa</span>
+    </a>
+
+    <a href="/dashboard" class="list-group-item list-group-item-action py-2 <%= typeof activePage !== 'undefined' && activePage === 'dashboard' ? 'active' : '' %>">
+        <i class="bi bi-person-workspace fs-5 me-2 align-middle"></i> 
+        <span class="align-middle">Panelim</span>
+    </a>
+
+    <a href="/profile" class="list-group-item list-group-item-action py-2 <%= typeof activePage !== 'undefined' && activePage === 'profile' ? 'active' : '' %>">
+        <i class="bi bi-person fs-5 me-2 align-middle"></i> 
+        <span class="align-middle">Profil</span>
+    </a>
+
+    <a href="#" class="list-group-item list-group-item-action py-2">
+        <i class="bi bi-bookmark fs-5 me-2 align-middle"></i> 
+        <span class="align-middle">Kütüphane</span>
+    </a>
+
+    <a href="#" class="list-group-item list-group-item-action py-2">
+        <i class="bi bi-bar-chart-line fs-5 me-2 align-middle"></i> 
+        <span class="align-middle">İstatistikler</span>
+    </a>
+
+    <hr class="my-2"> <% if (user && user.roles && user.roles.includes(eRoles.Admin)) { %>
+        <a href="/admin/dashboard" class="list-group-item list-group-item-action py-2 text-danger <%= typeof activePage !== 'undefined' && activePage === 'admin' ? 'active' : '' %>">
+            <i class="bi bi-shield-lock fs-5 me-2 align-middle"></i> 
+            <span class="align-middle">Admin Paneli</span>
+        </a>
+    <% } %>
+
+    </div>
