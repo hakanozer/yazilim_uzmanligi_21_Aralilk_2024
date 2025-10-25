@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/pages/news.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+    <div class="page-header">
+      <h1 class="auth-title">Haberler</h1>
+      <% 
+        const userRoles = (typeof user !== 'undefined' && user)
+          ? (Array.isArray(user.roles) ? user.roles : (user.roles ? [user.roles] : []))
+          : [];
+        const canCreateNews = userRoles.includes('admin') || userRoles.includes('author');
+      %>
+      <% if (canCreateNews) { %>
+        <a class="btn" href="/news/new">Yeni Haber</a>
+      <% } %>
+    </div>
+
+    <% if (!news || !news.length) { %>
+      <p class="muted">Henüz haber yok.</p>
+    <% } else { %>
+      <%- include('../partials/cardsGrid', { 
+        items: news, 
+        imageKey: 'imageUrl', 
+        titleKey: 'title', 
+        linkBase: '/news', 
+        showCategory: true 
+      }) %>
+
+      <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+        <%- include('../partials/navigationButton', { currentPage, totalPages, paginationPath: '/news' }) %>
+      <% } %>
+    <% } %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/pages/categories.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+  <main class="container container-wide categories-container">
+    <section class="card">
+      <h1 class="card-title"><%= title %></h1>
+
+      <% if (Array.isArray(errors) && errors.length) { %>
+        <div class="alert alert-error">
+          <ul style="margin:0; padding-left: 18px;">
+            <% errors.forEach(function(err) { %>
+              <li><%= err %></li>
+            <% }); %>
+          </ul>
+        </div>
+      <% } %>
+
+      <form id="categoryForm" method="post" action="/categories">
+        <div class="form-group">
+          <label for="name">Kategori Adı</label>
+          <input id="name" name="name" type="text" required value="<%= (values && values.name) ? values.name : '' %>" />
+          <span class="hint">Örn: “Teknoloji”, “Spor”</span>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Açıklama</label>
+          <textarea id="description" name="description" rows="3"><%= (values && values.description) ? values.description : '' %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="kind">Tür</label>
+          <select id="kind" name="kind">
+            <option value="both" <%= (values && values.kind === 'both') ? 'selected' : '' %>>Her ikisi</option>
+            <option value="news" <%= (values && values.kind === 'news') ? 'selected' : '' %>>Haber</option>
+            <option value="blog" <%= (values && values.kind === 'blog') ? 'selected' : '' %>>Blog</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox">
+            <input type="checkbox" name="isActive" <%= (values && (values.isActive === true || values.isActive === 'on')) ? 'checked' : '' %> />
+            Aktif
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <a href="/categories" class="btn outline">Geri</a>
+          <button type="submit" class="btn">Kaydet</button>
+        </div>
+      </form>
+    </section>
+  </main>
+  <%- include('../partials/footer') %>
+</body>
+</html>

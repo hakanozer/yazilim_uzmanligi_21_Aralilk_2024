@@ -1,0 +1,207 @@
+/* Yeni Haber oluşturma sayfası: daha geniş ve responsive konteyner */
+.container-wide {
+  max-width: none;  /* global 1100px sınırını kaldır */
+  width: 100%;
+}
+
+.news-container {
+  padding: 24px 16px; /* temel boşluk */
+}
+
+/* Kartı sayfanın ortasında ve daha geniş tut */
+.news-container .auth-card {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px; /* kart içi boşluk ekle */
+}
+
+/* Formu responsive grid yapısı ile düzenle */
+#newsForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Form alanlarını tam genişlik ve tutarlı görünüm için stil ver */
+#newsForm .input,
+#newsForm textarea.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--text);
+  background: transparent;
+}
+
+/* Büyük ekranlarda iki sütun; içerik alanı tam genişlik */
+@media (min-width: 900px) {
+  #newsForm {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 24px;
+  }
+
+  /* 1: Başlık (sol), 2: Görsel URL (sağ) */
+  #newsForm .form-group:nth-child(1) { grid-column: 1 / 2; }
+  #newsForm .form-group:nth-child(2) { grid-column: 2 / 3; }
+
+  /* 3: İçerik (tam genişlik) */
+  #newsForm .form-group:nth-child(3) { grid-column: 1 / -1; }
+
+  /* 4: Kategori (sol), 5: Yayınla checkbox (sağ, alt hizalı) */
+  #newsForm .form-group:nth-child(4) { grid-column: 1 / 2; }
+  #newsForm .form-group:nth-child(5) {
+    grid-column: 2 / 3;
+    align-self: end;
+  }
+
+  /* 6: Oluştur butonu (tam genişlikte satır) */
+  #newsForm button[type="submit"] { grid-column: 1 / -1; }
+}
+
+/* İçerik alanını kartla orantılı büyüt, responsive tut */
+#content {
+  min-height: clamp(280px, 35vh, 600px);
+  resize: vertical;
+}
+
+/* Haber listesi: kart ve görsel responsive */
+/* Haber listesi: 3x3 grid */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Daha dar ekranlarda duyarlı kolon sayısı */
+@media (max-width: 1200px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .blog-grid { grid-template-columns: 1fr; }
+}
+
+/* Kart ve görsel taşmayı önle */
+.card.blog-card {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+.cover-wrapper { position: relative; }
+
+.blog-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  transition: filter .2s ease, opacity .2s ease;
+}
+@supports not (aspect-ratio: 16 / 9) {
+  .blog-cover { height: 200px; }
+}
+
+.blog-cover-placeholder { background: #000; }
+
+.preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity .2s ease;
+  color: #fff;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.preview-text {
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 90%;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card.blog-card:hover .blog-cover {
+  filter: blur(3px) brightness(0.75);
+}
+.card.blog-card:hover .preview-overlay {
+  opacity: 1;
+}
+/* Sayfalama stili */
+.pagination { margin-top: 16px; display: flex; justify-content: center; }
+.pagination-list { list-style: none; display: flex; gap: 8px; padding: 0; margin: 0; align-items: center; }
+.page-number {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--text);
+}
+.page-number.active {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+.btn.disabled { opacity: 0.5; pointer-events: none; }
+
+.card-body {
+  padding: 12px;
+  display: flex;            /* eklendi */
+  flex-direction: column;   /* eklendi */
+  flex: 1;                  /* eklendi: içeriği büyütüp butonu alta iter */
+}
+
+/* Haber detay sayfası: URL'den gelen büyük görsellerin taşmasını önle */
+.auth-card .blog-cover {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  max-height: min(70vh, 720px);
+  object-fit: contain;
+  margin: 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* Koyu tema: kenarlık görünürlüğünü koru */
+body.theme-dark .auth-card .blog-cover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.card-body .btn {
+  margin-top: auto;         /* eklendi: butonu her zaman en alta koy */
+  align-self: flex-start;   /* eklendi: sol hizala */
+}
+/* Yeni: haber detay başlığı */
+.news-title {
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+/* Dar ekranlarda üst boşluğu biraz artırmak istersen (opsiyonel) */
+@media (max-width: 768px) {
+  .news-title { margin-bottom: 14px; }
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/pages/blog.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container container-wide blog-container">
+    <section class="auth-card">
+      <h1 class="auth-title">Yeni Blog Yazısı</h1>
+      <div id="alert" class="alert" style="display:none;"></div>
+
+      <form id="blogForm" class="form" method="post" action="/blogs" novalidate>
+        <div class="form-group">
+          <label for="title">Başlık</label>
+          <input type="text" id="title" name="title" class="input" required minlength="2" maxlength="120" />
+          <small class="hint">Başlık 2–120 karakter olmalı.</small>
+          <div id="titleError" class="field-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="coverImageUrl">Kapak Görseli URL (opsiyonel)</label>
+          <input type="text" id="coverImageUrl" name="coverImageUrl" class="input" placeholder="https://..." />
+        </div>
+
+        <div class="form-group">
+          <label for="content">İçerik</label>
+          <textarea id="content" name="content" class="input" rows="8" required minlength="150" maxlength="4000"></textarea>
+          <small class="hint">İçerik 150–4000 karakter olmalı.</small>
+          <div id="contentError" class="field-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="tags">Etiketler (virgülle)</label>
+          <input type="text" id="tags" name="tags" class="input" placeholder="node, jwt, api" />
+        </div>
+
+        <div class="form-group">
+          <label for="categories">Kategoriler (opsiyonel)</label>
+          <select id="categories" name="categories" class="input" multiple size="4">
+            <option value="">-- Lütfen bir kategori seçin (opsiyonel) --</option>
+            <% (categories || []).forEach(function(cat){ %>
+              <option value="<%= cat._id %>"><%= cat.name %></option>
+            <% }) %>
+          </select>
+          <span class="hint">Birden fazla seçilebilir; boş bırakılabilir.</span>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" id="isPublished" /> Yayınla</label>
+        </div>
+
+        <button type="submit" class="btn">Oluştur</button>
+      </form>
+
+      <script>
+        const form = document.getElementById('blogForm');
+        const alertBox = document.getElementById('alert');
+
+        // Alan bazlı hata gösterimi
+        function setFieldError(inputEl, msg) {
+          const el = document.getElementById(inputEl.id + 'Error');
+          if (!el) return;
+          if (msg) {
+            el.textContent = msg;
+            inputEl.setAttribute('aria-invalid', 'true');
+          } else {
+            el.textContent = '';
+            inputEl.removeAttribute('aria-invalid');
+          }
+        }
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const titleInput = document.getElementById('title');
+          const coverImageUrlInput = document.getElementById('coverImageUrl');
+          const contentInput = document.getElementById('content');
+          const tagsInputEl = document.getElementById('tags');
+          const isPublishedInput = document.getElementById('isPublished');
+          const categoriesSelect = document.getElementById('categories');
+
+          // Hataları sıfırla
+          setFieldError(titleInput, '');
+          setFieldError(contentInput, '');
+          alertBox.textContent = '';
+          alertBox.style.display = 'none';
+
+          const title = titleInput.value.trim();
+          const content = contentInput.value.trim();
+
+          // Başlık ve içerik sınırları
+          if (title.length < 2 || title.length > 120) {
+            setFieldError(titleInput, 'Başlık 2–120 karakter olmalı');
+            alertBox.textContent = 'Formda hatalar var, lütfen düzeltin.';
+            alertBox.style.display = 'block';
+            return;
+          }
+          if (content.length < 150 || content.length > 4000) {
+            setFieldError(contentInput, 'İçerik 150–4000 karakter olmalı');
+            alertBox.textContent = 'Formda hatalar var, lütfen düzeltin.';
+            alertBox.style.display = 'block';
+            return;
+          }
+
+          const tags = (tagsInputEl.value.trim() || '')
+            .split(',')
+            .map(t => t.trim())
+            .filter(Boolean);
+
+          const categories = Array.from(categoriesSelect.selectedOptions)
+            .map(o => o.value)
+            .filter(v => v);
+
+          try {
+            const res = await fetch('/blogs', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                title,
+                coverImageUrl: coverImageUrlInput.value.trim(),
+                content,
+                tags,
+                categories,
+                isPublished: isPublishedInput.checked
+              })
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.error || 'İstek başarısız');
+
+            window.location.href = '/blogs/' + data.blog._id;
+          } catch (err) {
+            alertBox.textContent = err.message;
+            alertBox.style.display = 'block';
+          }
+        });
+      </script>
+    </section>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

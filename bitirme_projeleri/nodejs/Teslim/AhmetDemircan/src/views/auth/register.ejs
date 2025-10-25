@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title || 'Kayıt Ol' %></title>
+  <link rel="stylesheet" href="/styles/main.css" />
+  <style>
+    /* Şifre ikonunu görünür yap ve dark mode'da beyaz renge çevir */
+    .password-wrapper button { color: var(--text); }
+    .password-wrapper svg { color: inherit; }
+    body.theme-dark .password-wrapper button,
+    body.theme-dark .password-wrapper svg { color: #fff; }
+  </style>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+  <main class="container">
+    <section class="auth-card">
+      <h1 class="auth-title">Kayıt Ol</h1>
+      <p class="auth-subtitle">Yggdrasil’e katıl, içerikleri kaydet ve daha fazlasını keşfet.</p>
+      <% if (typeof success !== 'undefined' && success) { %>
+        <div class="alert alert-success"><%= success %></div>
+      <% } %>
+      <% if (errors && errors.length) { %>
+        <div class="alert alert-error">
+          <ul>
+            <% errors.forEach(function(err){ %><li><%= err %></li><% }); %>
+          </ul>
+        </div>
+      <% } %>
+
+      <!-- İstemci tarafı hata kutusu -->
+      <div id="clientErrorWrapper" class="alert alert-error" style="display:none;">
+        <div id="clientErrorBox"></div>
+      </div>
+
+      <!-- Register formu içinde -->
+      <!-- Register formu içinde password alanını güncelle -->
+      <form method="POST" action="/auth/register" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="name">Ad Soyad</label>
+          <input id="name" name="name" type="text"
+                 value="<%= (values && values.name) || '' %>"
+                 required minlength="2" autocomplete="name" />
+          <div id="nameError" class="field-error"></div>
+        </div>
+        <div class="form-group">
+          <label for="email">E-posta</label>
+          <input id="email" name="email" type="email"
+                 value="<%= (values && values.email) || '' %>"
+                 required inputmode="email" autocomplete="email"
+                 pattern="^\S+@\S+\.\S+$" />
+          <div id="emailError" class="field-error"></div>
+        </div>
+        <div class="form-group">
+          <label for="password">Şifre</label>
+          <div class="password-wrapper" style="position: relative;">
+            <input id="password" name="password" type="password"
+                   required minlength="8" autocomplete="new-password" style="padding-right: 36px;" />
+            <button type="button" id="togglePasswordReg" aria-label="Şifreyi göster" title="Şifreyi göster"
+                    style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: transparent; border: none; padding: 0; cursor: pointer;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                   fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                </svg>
+              </button>
+            </div>
+            <small class="hint">En az 8 karakter olmalı.</small>
+            <div id="passwordError" class="field-error"></div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn">Kayıt Ol</button>
+          <a class="btn outline" href="/auth/login">Giriş Yap</a>
+        </div>
+      </form>
+    </section>
+  </main>
+  <%- include('../partials/footer') %>
+
+  <!-- İstemci tarafı doğrulama betiği -->
+  <script>
+    (function() {
+      const emailRegex = /^\S+@\S+\.\S+$/;
+      const form = document.querySelector('form[action="/auth/register"]');
+      if (!form) return;
+
+      const nameInput = document.getElementById('name');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const clientErrorWrapper = document.getElementById('clientErrorWrapper');
+      // Şifre göster/gizle toggle
+      const showPasswordReg = document.getElementById('showPasswordReg');
+      if (showPasswordReg && passwordInput) {
+        showPasswordReg.addEventListener('change', function() {
+          passwordInput.type = this.checked ? 'text' : 'password';
+        });
+      }
+      const clientErrorBox = document.getElementById('clientErrorBox');
+
+      function setFieldError(inputEl, msg) {
+        const el = document.getElementById(inputEl.id + 'Error');
+        if (!el) return;
+        if (msg) {
+          el.textContent = msg;
+          inputEl.setAttribute('aria-invalid', 'true');
+        } else {
+          el.textContent = '';
+          inputEl.removeAttribute('aria-invalid');
+        }
+      }
+
+      form.addEventListener('submit', function(e) {
+        const errors = [];
+
+        // Sıfırla
+        setFieldError(nameInput, '');
+        setFieldError(emailInput, '');
+        setFieldError(passwordInput, '');
+        clientErrorBox.innerHTML = '';
+        clientErrorWrapper.style.display = 'none';
+
+        // Ad Soyad doğrulama
+        const nameVal = String(nameInput.value || '').trim();
+        if (!nameVal) {
+          errors.push('Ad en az 2 karakter olmalı');
+          setFieldError(nameInput, 'Ad en az 2 karakter olmalı');
+        } else if (nameVal.length < 2) {
+          errors.push('Ad en az 2 karakter olmalı');
+          setFieldError(nameInput, 'Ad en az 2 karakter olmalı');
+        }
+
+        // E-posta doğrulama
+        const emailVal = String(emailInput.value || '').trim();
+        if (!emailVal) {
+          errors.push('E‑posta gerekli');
+          setFieldError(emailInput, 'E‑posta gerekli');
+        } else if (!emailRegex.test(emailVal)) {
+          errors.push('Geçerli bir e‑posta girin');
+          setFieldError(emailInput, 'Geçerli bir e‑posta girin');
+        }
+
+        // Şifre doğrulama
+        const passVal = String(passwordInput.value || '');
+        if (!passVal) {
+          errors.push('Şifre gerekli');
+          setFieldError(passwordInput, 'Şifre gerekli');
+        } else if (passVal.length < 8) {
+          errors.push('Şifre en az 8 karakter olmalı');
+          setFieldError(passwordInput, 'Şifre en az 8 karakter olmalı');
+        }
+
+        // Hataları göster ve gönderimi engelle
+        if (errors.length) {
+          e.preventDefault();
+          clientErrorBox.innerHTML =
+            '<ul style="margin:0; padding-left: 18px;">' +
+            errors.map(m => '<li>' + m + '</li>').join('') +
+            '</ul>';
+          clientErrorWrapper.style.display = '';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
+<!-- Client-side doğrulama ve etkileşim script bloğu -->
+<script>
+  (function() {
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    const form = document.querySelector('form[action="/auth/register"]');
+    if (!form) return;
+
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const clientErrorWrapper = document.getElementById('clientErrorWrapper');
+    // Şifre göster/gizle: button ile toggle (id="togglePasswordReg")
+    const togglePasswordReg = document.getElementById('togglePasswordReg');
+    if (togglePasswordReg && passwordInput) {
+      togglePasswordReg.addEventListener('click', function() {
+        const isHidden = passwordInput.type === 'password';
+        passwordInput.type = isHidden ? 'text' : 'password';
+        this.setAttribute('aria-label', isHidden ? 'Şifreyi gizle' : 'Şifreyi göster');
+        this.setAttribute('title', isHidden ? 'Şifreyi gizle' : 'Şifreyi göster');
+      });
+    }
+
+    const clientErrorBox = document.getElementById('clientErrorBox');
+
+    function setFieldError(inputEl, msg) {
+      const el = document.getElementById(inputEl.id + 'Error');
+      if (!el) return;
+      if (msg) {
+        el.textContent = msg;
+        inputEl.setAttribute('aria-invalid', 'true');
+      } else {
+        el.textContent = '';
+        inputEl.removeAttribute('aria-invalid');
+      }
+    }
+
+    form.addEventListener('submit', function(e) {
+      const errors = [];
+
+      // Sıfırla
+      setFieldError(nameInput, '');
+      setFieldError(emailInput, '');
+      setFieldError(passwordInput, '');
+      clientErrorBox.innerHTML = '';
+      clientErrorWrapper.style.display = 'none';
+
+      // Ad Soyad doğrulama
+      const nameVal = String(nameInput.value || '').trim();
+      if (!nameVal) {
+        errors.push('Ad en az 2 karakter olmalı');
+        setFieldError(nameInput, 'Ad en az 2 karakter olmalı');
+      } else if (nameVal.length < 2) {
+        errors.push('Ad en az 2 karakter olmalı');
+        setFieldError(nameInput, 'Ad en az 2 karakter olmalı');
+      }
+
+      // E-posta doğrulama
+      const emailVal = String(emailInput.value || '').trim();
+      if (!emailVal) {
+        errors.push('E‑posta gerekli');
+        setFieldError(emailInput, 'E‑posta gerekli');
+      } else if (!emailRegex.test(emailVal)) {
+        errors.push('Geçerli bir e‑posta girin');
+        setFieldError(emailInput, 'Geçerli bir e‑posta girin');
+      }
+
+      // Şifre doğrulama
+      const passVal = String(passwordInput.value || '');
+      if (!passVal) {
+        errors.push('Şifre gerekli');
+        setFieldError(passwordInput, 'Şifre gerekli');
+      } else if (passVal.length < 8) {
+        errors.push('Şifre en az 8 karakter olmalı');
+        setFieldError(passwordInput, 'Şifre en az 8 karakter olmalı');
+      }
+
+      // Hataları göster ve gönderimi engelle
+      if (errors.length) {
+        e.preventDefault();
+        clientErrorBox.innerHTML =
+          '<ul style="margin:0; padding-left: 18px;">' +
+          errors.map(m => '<li>' + m + '</li>').join('') +
+          '</ul>';
+        clientErrorWrapper.style.display = '';
+      }
+    });
+  })();
+</script>
+<!-- En alttaki duplicate/hatalı <script> bloğu kaldırıldı -->
+</body>
+</html>

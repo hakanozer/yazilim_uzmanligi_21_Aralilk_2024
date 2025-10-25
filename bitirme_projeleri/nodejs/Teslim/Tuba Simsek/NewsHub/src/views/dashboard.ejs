@@ -1,0 +1,42 @@
+<%#dashboard.ejs kullanıcının kendi "mutfağı" %>
+
+<div class="row">
+    <div class="col-md-3 border-end pe-3">
+        <%- include('partials/_sidebar') %>
+        
+    </div>
+
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Yazılarım</h1>
+            
+        </div>
+        <hr>
+
+        <% if (posts && posts.length > 0) { %>
+            <ul class="list-group list-group-flush">
+                <% posts.forEach(post => { %>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <a href="/posts/<%= post._id %>" class="fw-semibold"><%= post.title %></a> <br>
+                            <small class="text-muted">
+                                Yayınlandı: <%= new Date(post.createdAt).toLocaleDateString('tr-TR') %>
+                                <% if (post.category) { %> - Kategori: <%= post.category %> <% } %>
+                            </small>
+                        </div>
+                        <div>
+                            <a href="/posts/<%= post._id %>/edit" class="btn btn-sm btn-outline-secondary me-1">Düzenle</a>
+                            <form action="/posts/<%= post._id %>/delete" method="POST" class="d-inline" onsubmit="return confirm('Bu yazıyı silmek istediğinizden emin misiniz?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Sil</button>
+                            </form>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <div class="alert alert-light text-center" role="alert">
+                Henüz hiç yazı oluşturmadınız.
+            </div>
+        <% } %>
+    </div>
+</div>

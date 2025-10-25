@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title || 'Yggdrasil' %></title>
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/pages/home.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <header class="nyt-hero"></header>
+
+  <main class="container container-wide">
+    <% const blogsArr = Array.isArray(blogs) ? blogs : []; const newsArr = Array.isArray(news) ? news : []; %>
+
+    <section class="home-grid">
+      <div class="home-column home-left">
+        <header class="column-header">
+          <h2 class="section-title">
+            <a class="section-title-link" href="/news" aria-label="Haberler sayfasına git">Haberler</a>
+          </h2>
+        </header>
+        <% if (!newsArr.length) { %>
+          <p class="muted">Henüz haber yok.</p>
+        <% } else { %>
+          <% const featured = newsArr[0]; const restNews = newsArr.slice(1, 7); %>
+
+          <!-- Öne çıkan haber -->
+          <article class="feature-card">
+            <a class="feature-link" href="/news/<%= featured._id %>" title="<%= featured.title %>">
+              <% if (featured.imageUrl) { %>
+                <img class="feature-cover" src="<%= featured.imageUrl %>" alt="<%= featured.title %> görsel" loading="lazy" />
+              <% } %>
+              <h3 class="feature-title"><%= featured.title %></h3>
+              <p class="feature-meta">
+                Kategori: <%= featured.category?.name || 'Belirtilmemiş' %> · <%= new Date(featured.createdAt).toLocaleDateString('tr-TR') %>
+              </p>
+              <p class="feature-excerpt">
+                <%= String(featured.content || '').replace(/<[^>]+>/g, '').slice(0, 220) %>...
+              </p>
+            </a>
+          </article>
+
+          <!-- İki sütunlu kısa haberler -->
+          <div class="stacked-grid">
+            <% restNews.forEach(function(n){ %>
+              <article class="stacked-item">
+                <a class="stacked-link" href="/news/<%= n._id %>" title="<%= n.title %>">
+                  <h3 class="stacked-title"><%= n.title %></h3>
+                  <p class="stacked-meta">
+                    <%= new Date(n.createdAt).toLocaleDateString('tr-TR') %> · <%= n.category?.name || 'Genel' %>
+                  </p>
+                  <p class="stacked-excerpt">
+                    <%= String(n.content || '').replace(/<[^>]+>/g, '').slice(0, 140) %>...
+                  </p>
+                </a>
+              </article>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="home-column home-right">
+        <header class="column-header">
+          <h2 class="section-title">
+            <a class="section-title-link" href="/blogs" aria-label="Bloglar sayfasına git">Bloglar</a>
+          </h2>
+        </header>
+        <% if (!blogsArr.length) { %>
+          <p class="muted">Henüz blog yok.</p>
+        <% } else { %>
+          <ul class="story-list">
+            <% blogsArr.slice(0, 12).forEach(function(b){ %>
+              <li class="story-list-item">
+                <a class="story-list-link" href="/blogs/<%= b._id %>" title="<%= b.title %>">
+                  <h3 class="story-list-title"><%= b.title %></h3>
+                  <p class="story-list-meta">
+                    Yazar: <%= b.author?.name || 'Anonim' %> · <%= new Date(b.createdAt).toLocaleDateString('tr-TR') %>
+                  </p>
+                  <p class="story-list-excerpt">
+                    <%= String(b.content || '').replace(/<[^>]+>/g, '').slice(0, 120) %>...
+                  </p>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

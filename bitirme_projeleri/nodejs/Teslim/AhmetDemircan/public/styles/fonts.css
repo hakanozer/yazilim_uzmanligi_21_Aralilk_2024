@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&family=Inter:wght@400;700&display=swap');
+@font-face {
+  font-family: 'Norse';
+  src: url('/fonts/Norse.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

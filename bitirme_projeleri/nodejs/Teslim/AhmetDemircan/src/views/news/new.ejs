@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/pages/news.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container container-wide news-container">
+    <section class="auth-card">
+      <h1 class="auth-title">Yeni Haber</h1>
+      <div id="alert" class="alert" style="display:none;"></div>
+
+      <form id="newsForm" class="form" method="post" action="/news">
+        <div class="form-group">
+          <label for="title">Başlık</label>
+          <input type="text" id="title" name="title" class="input" required minlength="2" maxlength="120" />
+          <small class="hint">Başlık 2–120 karakter olmalı.</small>
+          <div id="titleError" class="field-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="imageUrl">Görsel URL (opsiyonel)</label>
+          <input type="url" id="imageUrl" name="imageUrl" class="input" placeholder="https://..." />
+        </div>
+
+        <div class="form-group">
+          <label for="content">İçerik</label>
+          <textarea id="content" name="content" class="input" rows="8" required minlength="150" maxlength="4000"></textarea>
+          <small class="hint">İçerik 150–4000 karakter olmalı.</small>
+          <div id="contentError" class="field-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Kategori (opsiyonel)</label>
+          <select id="category" name="category" class="input">
+            <option value="">Kategori seçilmesin</option>
+            <% (categories || []).forEach(function(cat){ %>
+              <option value="<%= cat._id %>"><%= cat.name %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label><input type="checkbox" id="isActive" /> Yayınla</label>
+        </div>
+
+        <button type="submit" class="btn">Oluştur</button>
+      </form>
+
+      <script>
+        const form = document.getElementById('newsForm');
+        const alertBox = document.getElementById('alert');
+
+        // Alan bazlı hata gösterimi
+        function setFieldError(inputEl, msg) {
+          const el = document.getElementById(inputEl.id + 'Error');
+          if (!el) return;
+          if (msg) {
+            el.textContent = msg;
+            inputEl.setAttribute('aria-invalid', 'true');
+          } else {
+            el.textContent = '';
+            inputEl.removeAttribute('aria-invalid');
+          }
+        }
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const titleInput = document.getElementById('title');
+          const imageUrlInput = document.getElementById('imageUrl');
+          const contentInput = document.getElementById('content');
+          const categoryInput = document.getElementById('category');
+          const isActiveInput = document.getElementById('isActive');
+
+          // Hataları sıfırla
+          setFieldError(titleInput, '');
+          setFieldError(contentInput, '');
+          alertBox.textContent = '';
+          alertBox.style.display = 'none';
+
+          const title = titleInput.value.trim();
+          const content = contentInput.value.trim();
+
+          // Başlık ve içerik sınırları
+          if (title.length < 2 || title.length > 120) {
+            setFieldError(titleInput, 'Başlık 2–120 karakter olmalı');
+            alertBox.textContent = 'Formda hatalar var, lütfen düzeltin.';
+            alertBox.style.display = 'block';
+            return;
+          }
+          if (content.length < 150 || content.length > 4000) {
+            setFieldError(contentInput, 'İçerik 150–4000 karakter olmalı');
+            alertBox.textContent = 'Formda hatalar var, lütfen düzeltin.';
+            alertBox.style.display = 'block';
+            return;
+          }
+
+          try {
+            const res = await fetch('/news', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                title,
+                imageUrl: imageUrlInput.value.trim() || undefined,
+                content,
+                category: categoryInput.value || undefined,
+                isActive: isActiveInput.checked
+              })
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data?.error || 'İstek başarısız');
+
+            window.location.href = '/news/' + data.item._id;
+          } catch (err) {
+            alertBox.textContent = err.message;
+            alertBox.style.display = 'block';
+          }
+        });
+      </script>
+    </section>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

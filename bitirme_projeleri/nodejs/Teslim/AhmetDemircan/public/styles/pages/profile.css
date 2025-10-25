@@ -1,0 +1,170 @@
+/* Sayfa düzeni */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .settings-grid { grid-template-columns: 1fr; }
+}
+
+/* Sidebar */
+.settings-sidebar {
+  padding: 12px;
+}
+.settings-link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.settings-link + .settings-link { margin-top: 6px; }
+.settings-link:hover { background: rgba(0, 0, 0, 0.06); }
+body.theme-dark .settings-link:hover { background: rgba(255, 255, 255, 0.08); }
+.settings-link.active {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* İçerik paneli */
+.settings-content { padding: 16px; }
+.section { display: grid; gap: 16px; max-width: 720px; }
+.section h2 { margin: 0 0 8px; font-size: 20px; }
+
+/* Form düzeni */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } }
+.form-actions { display: flex; gap: 12px; }
+
+/* Avatar alanı */
+.avatar-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .avatar-row { grid-template-columns: 1fr; }
+}
+.avatar-preview {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/* Metin ipucu ve mesajlar */
+.hint { color: var(--muted); font-size: 13px; }
+.messages .alert { margin: 0; }
+
+/* Blogs bölümündeki inline stil dönüşümleri */
+.clickable-card { cursor: pointer; }
+/* Başlıklar: kart yüksekliğini sabitlemek için 2 satır clamp */
+.blog-card-title {
+  margin: 0 0 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;       /* en fazla 2 satır göster */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.3;
+  min-height: 2.6em;           /* kartlarda aynı başlık yüksekliği */
+  word-break: break-word;      /* uzun kelimeleri taşırma */
+}
+.blog-card-status { margin: 0 0 10px; }
+
+/* Profil sayfası: sol/sağ kenarlardan 20px boşluk */
+.profile-container {
+  max-width: none;     /* geniş ekranda 1100px sınırını kaldır */
+  width: 100%;
+  padding-left: 20px;  /* sidebar sol kenardan 20px */
+  padding-right: 20px; /* content sağ kenardan 20px */
+}
+
+/* İçerik alanı: büyük ekranda genişliği kısıtlama */
+.settings-content .section {
+  max-width: none;
+  width: 100%;
+}
+
+/* Blogs sekmesi: genişliği serbest bırak ve grid’i tek sütun yap */
+.section.section-blogs { max-width: none; width: 100%; }
+
+/* Bloglarım grid: 2x2 düzen */
+.settings-content .blog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 sütun */
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Dar ekranlarda tek sütun */
+@media (max-width: 900px) {
+  .settings-content .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Butonlar sığmadığında alta sarılabilsin */
+.card.blog-card .form-actions { flex-wrap: wrap; }
+
+/* Kart içeriği dikey akışta olsun, buton grubu alta iner */
+.card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;              /* kart gövdesi alanı doldursun */
+}
+
+/* Butonlar sığmadığında alta sarılabilsin ve her zaman en altta yer alsın */
+.card.blog-card .form-actions {
+  flex-wrap: wrap;
+  margin-top: auto;            /* aksiyonlar her zaman kartın en altında */
+}
+
+/* Admin: Site içeriği iki sütun ve iç listeler 2x2 */
+.admin-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.admin-list-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.admin-pagination {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .admin-content-grid { grid-template-columns: 1fr; }
+  .admin-list-grid { grid-template-columns: 1fr; }
+}
+
+/* Admin: Site içeriği arama çubuğu */
+.admin-searchbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.admin-searchbar input[type="search"] {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+}

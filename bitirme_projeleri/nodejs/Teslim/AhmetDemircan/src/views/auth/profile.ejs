@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= title %> • Ayarlar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="/styles/main.css" rel="stylesheet" />
+  <link href="/styles/pages/blog.css" rel="stylesheet" />
+  <link href="/styles/pages/profile.css" rel="stylesheet" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+  <main class="container profile-container">
+    <div class="settings-grid">
+      <%- include('../partials/profile/sidebar') %>
+      <%- include('../partials/profile/content') %>
+    </div>
+  </main>
+
+  <script>
+    const activeTab = "<%= tab %>";
+
+    // Edit Profile (name/email)
+    document.getElementById('infoForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const msgs = document.getElementById('infoMessages');
+      msgs.innerHTML = '';
+
+      try {
+        const res = await fetch('/auth/profile/info', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          msgs.innerHTML = '<div class="alert alert-success">Profil güncellendi</div>';
+        } else {
+          msgs.innerHTML = '<div class="alert alert-error">' + (data?.error || data?.message || 'Hata oluştu') + '</div>';
+        }
+      } catch (err) {
+        msgs.innerHTML = '<div class="alert alert-error">Ağ hatası</div>';
+      }
+    });
+
+    // Change Password
+    document.getElementById('pwdForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const currentPassword = document.getElementById('currentPassword').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const msgs = document.getElementById('pwdMessages');
+      msgs.innerHTML = '';
+
+      try {
+        const res = await fetch('/auth/profile/password', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ currentPassword, newPassword })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          msgs.innerHTML = '<div class="alert alert-success">Şifre güncellendi</div>';
+          document.getElementById('currentPassword').value = '';
+          document.getElementById('newPassword').value = '';
+        } else {
+          msgs.innerHTML = '<div class="alert alert-error">' + (data?.error || data?.message || 'Hata oluştu') + '</div>';
+        }
+      } catch (err) {
+        msgs.innerHTML = '<div class="alert alert-error">Ağ hatası</div>';
+      }
+    });
+
+    // Upload Avatar
+    document.getElementById('avatarForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('avatar');
+      const msgs = document.getElementById('avatarMessages');
+      msgs.innerHTML = '';
+
+      if (!fileInput.files || !fileInput.files[0]) {
+        msgs.innerHTML = '<div class="alert alert-error">Lütfen bir dosya seçin</div>';
+        return;
+      }
+
+      const fd = new FormData();
+      fd.append('avatar', fileInput.files[0]);
+
+      try {
+        const res = await fetch('/auth/profile/picture', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (res.ok) {
+          msgs.innerHTML = '<div class="alert alert-success">Profil fotoğrafı güncellendi</div>';
+          if (data?.profilePicture) {
+            document.getElementById('avatarPreview').src = data.profilePicture;
+          }
+        } else {
+          msgs.innerHTML = '<div class="alert alert-error">' + (data?.error || data?.message || 'Hata oluştu') + '</div>';
+        }
+      } catch (err) {
+        msgs.innerHTML = '<div class="alert alert-error">Ağ hatası</div>';
+      }
+    });
+
+    // Burada eski loadMyBlogs fonksiyonu ve çağrısını kaldırıyoruz
+    // Kullanıcılar: listele, rol güncelle, sil (yalnızca admin)
+    async function loadAdminUsers() {
+      const msgs = document.getElementById('usersMessages');
+      if (!msgs) return;
+      msgs.innerHTML = '';
+
+      try {
+        const res = await fetch('/api/v1/admin/users', { credentials: 'same-origin' });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || data?.message || 'Kullanıcılar yüklenemedi');
+        renderAdminUsers(Array.isArray(data.items) ? data.items : []);
+      } catch (err) {
+        msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Ağ hatası') + '</div>';
+      }
+    }
+
+    function renderAdminUsers(items) {
+      const tbody = document.getElementById('adminUsersTableBody');
+      if (!tbody) return;
+      const currentUserId = "<%= user?.sub || '' %>";
+
+      tbody.innerHTML = items.map(u => {
+        const roles = Array.isArray(u.roles) ? u.roles : [];
+        const has = (r) => roles.includes(r);
+        const disableDelete = String(u._id) === String(currentUserId);
+
+        return `
+          <tr data-id="${u._id}">
+            <td>${u.name || '-'}</td>
+            <td>${u.email || '-'}</td>
+            <td>
+              <label><input type="checkbox" data-role="user" ${has('user') ? 'checked' : ''}> user</label>
+              <label style="margin-left:8px;"><input type="checkbox" data-role="author" ${has('author') ? 'checked' : ''}> author</label>
+              <label style="margin-left:8px;"><input type="checkbox" data-role="admin" ${has('admin') ? 'checked' : ''}> admin</label>
+            </td>
+            <td style="white-space:nowrap;">
+              <button class="btn btn-sm" onclick="handleSaveRoles('${u._id}')">Kaydet</button>
+              <button class="btn btn-sm btn-danger" onclick="handleDeleteUser('${u._id}')" ${disableDelete ? 'disabled title="Kendi hesabınızı silemezsiniz"' : ''}>Sil</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function getSelectedRolesFromRow(row) {
+      const checks = row.querySelectorAll('input[type="checkbox"][data-role]');
+      const roles = Array.from(checks)
+        .filter(c => c.checked)
+        .map(c => String(c.getAttribute('data-role')));
+      return Array.from(new Set(roles));
+    }
+
+    async function handleSaveRoles(id) {
+      const row = document.querySelector(`tr[data-id="${id}"]`);
+      const msgs = document.getElementById('usersMessages');
+      if (!row || !msgs) return;
+
+      const roles = getSelectedRolesFromRow(row);
+      if (!roles.length) {
+        msgs.innerHTML = '<div class="alert alert-error">En az bir rol seçin</div>';
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/v1/admin/users/${id}/roles`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ roles })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || data?.message || 'Rol güncelleme başarısız');
+        msgs.innerHTML = '<div class="alert alert-success">Roller güncellendi</div>';
+      } catch (err) {
+        msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Ağ hatası') + '</div>';
+      }
+    }
+
+    async function handleDeleteUser(id) {
+      const msgs = document.getElementById('usersMessages');
+      if (!msgs) return;
+      if (!confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?')) return;
+
+      try {
+        const res = await fetch(`/api/v1/admin/users/${id}`, {
+          method: 'DELETE',
+          credentials: 'same-origin'
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.error || data?.message || 'Silme başarısız');
+
+        const row = document.querySelector(`tr[data-id="${id}"]`);
+        row?.remove();
+        msgs.innerHTML = '<div class="alert alert-success">Kullanıcı silindi</div>';
+      } catch (err) {
+        msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Ağ hatası') + '</div>';
+      }
+    }
+
+    if (activeTab === 'users') {
+      loadAdminUsers();
+    }
+
+    // Hesabı sil butonu
+    const deleteBtn = document.getElementById('deleteAccountBtn');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', async () => {
+        const msgs = document.getElementById('accountMessages');
+        if (!confirm('Hesabınızı kalıcı olarak silmek istiyor musunuz?')) return;
+        if (msgs) msgs.innerHTML = '';
+        try {
+          const res = await fetch('/auth/profile', {
+            method: 'DELETE',
+            credentials: 'same-origin'
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data?.error || data?.message || 'Silme başarısız');
+          window.location.href = '/';
+        } catch (err) {
+          if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Ağ hatası') + '</div>';
+        }
+      });
+    }
+  </script>
+
+  <%- include('../partials/profile/contentCards') %>
+  <%- include('../partials/profile/adminContent') %>
+  <%- include('../partials/profile/myContent') %>
+</body>
+</html>

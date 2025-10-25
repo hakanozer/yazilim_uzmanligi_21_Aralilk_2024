@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const authController_1 = require("../controllers/authController");
+const categoryController_1 = require("../controllers/categoryController");
+const ValidationChainsExpress_1 = require("../middleware/ValidationChainsExpress");
+const router = (0, express_1.Router)();
+router.get('/', authController_1.authenticateWeb, categoryController_1.listCategoriesPage);
+router.get('/new', authController_1.authenticateWeb, categoryController_1.newCategoryForm);
+router.post('/', authController_1.authenticateWeb, ValidationChainsExpress_1.categoryCreateRules, ValidationChainsExpress_1.handleValidation, categoryController_1.createCategoryWeb);
+exports.default = router;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+  <main class="container">
+    <div class="page-header">
+      <h1 class="auth-title">Kategoriler</h1>
+      <% const userRoles = (user && Array.isArray(user.roles)) ? user.roles : (user && user.roles ? [user.roles] : []);
+         if (userRoles.includes('admin')) { %>
+        <a class="btn" href="/categories/new">Yeni Kategori</a>
+      <% } %>
+    </div>
+
+    <% if (!categories || categories.length === 0) { %>
+      <p class="muted">Henüz kategori yok.</p>
+    <% } else { %>
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Ad</th>
+              <th>Tür</th>
+              <th>Aktif</th>
+              <th>Açıklama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% categories.forEach(function(cat) { %>
+              <tr>
+                <td><%= cat.name %></td>
+                <td><%= cat.kind %></td>
+                <td><%= cat.isActive ? 'Evet' : 'Hayır' %></td>
+                <td><%= cat.description || '-' %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </main>
+  <%- include('../partials/footer') %>
+</body>
+</html>

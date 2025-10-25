@@ -1,0 +1,304 @@
+<script>
+  // Global durum ve sayfalama
+  let myBlogsItems = [];
+  let myNewsItems = [];
+  let myContentPage = 1;
+  const pageSizePerSide = 4; // 2x2
+
+  // Bloglarım: (normal kullanıcı için eski akış) Tümünü yükle ve render et
+  async function loadMyBlogs() {
+    const msgs = document.getElementById('blogsMessages');
+    const container = document.getElementById('myBlogsContainer');
+    if (!container) return;
+    msgs.innerHTML = '';
+    container.innerHTML = '';
+
+    try {
+      const res = await fetch('/auth/profile/blogs');
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || 'Listeleme başarısız');
+
+      const blogs = Array.isArray(data.blogs) ? data.blogs : [];
+      if (!blogs.length) {
+        container.innerHTML = '<p class="hint">Henüz bir blog yazınız yok.</p>';
+        return;
+      }
+
+      const tplEl = document.getElementById('profile-blog-card-template');
+      const tpl = tplEl ? tplEl.innerHTML : '';
+
+      blogs.forEach(b => {
+        const coverMarkup = b.coverImageUrl
+          ? `<img class="blog-cover" src="${b.coverImageUrl}" alt="${escapeHtml(b.title)} kapak" />`
+          : `<div class="blog-cover blog-cover-placeholder"></div>`;
+        const statusLabel = b.isPublished ? 'Yayında' : 'Taslak';
+        const publishText = b.isPublished ? 'Gizle' : 'Yayınla';
+
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = tpl
+          .replace(/{{id}}/g, b.id)
+          .replace('{{cover}}', coverMarkup)
+          .replace(/{{title}}/g, escapeHtml(b.title))
+          .replace(/{{status}}/g, escapeHtml(statusLabel))
+          .replace(/{{publishText}}/g, escapeHtml(publishText));
+
+        const card = wrapper.firstElementChild;
+        if (!card) return;
+
+        bindBlogCardActions(card, b);
+        container.appendChild(card);
+      });
+    } catch (err) {
+      const msgs = document.getElementById('blogsMessages');
+      if (msgs) msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Ağ hatası') + '</div>';
+    }
+  }
+
+  // Author için: Bloglarımı yükle (sayfalama için belleğe al)
+  async function loadMyBlogsAuthor() {
+    const res = await fetch('/auth/profile/blogs');
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || 'Bloglar yüklenemedi');
+    myBlogsItems = Array.isArray(data.blogs) ? data.blogs : [];
+  }
+
+  // Author için: Haberlerimi yükle (sayfalama için belleğe al)
+  async function loadMyNews() {
+    const res = await fetch('/auth/profile/news');
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || 'Haberler yüklenemedi');
+    myNewsItems = Array.isArray(data.news) ? data.news : [];
+  }
+
+  // Author için: belirtilen sayfayı render et (4 haber + 4 blog)
+  function renderMyContentPage(page) {
+    const msgs = document.getElementById('blogsMessages');
+    const newsContainer = document.getElementById('myNewsContainer');
+    const blogsContainer = document.getElementById('myBlogsContainer');
+    const label = document.getElementById('myContentPageLabel');
+    if (!newsContainer || !blogsContainer) return;
+
+    newsContainer.innerHTML = '';
+    blogsContainer.innerHTML = '';
+    msgs && (msgs.innerHTML = '');
+
+    const startNews = (page - 1) * pageSizePerSide;
+    const startBlogs = (page - 1) * pageSizePerSide;
+    const sliceNews = myNewsItems.slice(startNews, startNews + pageSizePerSide);
+    const sliceBlogs = myBlogsItems.slice(startBlogs, startBlogs + pageSizePerSide);
+
+    // Haberler
+    if (!sliceNews.length) {
+      newsContainer.innerHTML = '<p class="hint">Henüz bir haberiniz yok.</p>';
+    } else {
+      const tplEl = document.getElementById('profile-news-card-template');
+      const tpl = tplEl ? tplEl.innerHTML : '';
+      sliceNews.forEach(n => {
+        const coverMarkup = n.imageUrl
+          ? `<img class="blog-cover" src="${n.imageUrl}" alt="${escapeHtml(n.title)} kapak" />`
+          : `<div class="blog-cover blog-cover-placeholder"></div>`;
+        const statusLabel = n.isActive ? 'Yayında' : 'Taslak';
+        const toggleText = n.isActive ? 'Gizle' : 'Yayınla';
+
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = tpl
+          .replace(/{{id}}/g, n.id)
+          .replace('{{cover}}', coverMarkup)
+          .replace(/{{title}}/g, escapeHtml(n.title))
+          .replace(/{{status}}/g, escapeHtml(statusLabel))
+          .replace(/{{toggleText}}/g, escapeHtml(toggleText));
+
+        const card = wrapper.firstElementChild;
+        if (!card) return;
+
+        // Kart tıklaması: detay sayfasına git
+        card.addEventListener('click', (e) => {
+          const target = e.target;
+          const action = target?.getAttribute && target.getAttribute('data-action');
+          if (action) return;
+          window.location.href = '/news/' + n.id;
+        });
+
+        // Haber sil
+        card.querySelector('[data-action="news-delete"]')?.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const msgs = document.getElementById('blogsMessages');
+          if (!confirm('Bu haberi silmek istediğinize emin misiniz?')) return;
+          try {
+            const res = await fetch('/api/v1/news/' + n.id, {
+              method: 'DELETE',
+              credentials: 'same-origin'
+            });
+            const result = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(result?.error || 'Silme başarısız');
+            card.remove();
+          } catch (err) {
+            msgs && (msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Silme sırasında hata') + '</div>');
+          }
+        });
+
+        // Yayında/Gizli durumunu değiştir
+        card.querySelector('[data-action="news-toggle"]')?.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const msgs = document.getElementById('blogsMessages');
+          try {
+            const shouldActive = !n.isActive;
+            const res = await fetch('/api/v1/news/' + n.id, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({ isActive: shouldActive })
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result?.error || result?.message || 'Durum güncelleme başarısız');
+
+            n.isActive = !!(result?.item?.isActive ?? shouldActive);
+            const statusP = card.querySelector('.blog-card-status') || card.querySelector('.muted');
+            const toggleBtn = card.querySelector('[data-action="news-toggle"]');
+            if (statusP) statusP.textContent = 'Durum: ' + (n.isActive ? 'Yayında' : 'Taslak');
+            if (toggleBtn) toggleBtn.textContent = n.isActive ? 'Gizle' : 'Yayınla';
+          } catch (err) {
+            msgs && (msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Durum değiştirilemedi') + '</div>');
+          }
+        });
+
+        newsContainer.appendChild(card);
+      });
+    }
+
+    // Bloglar
+    if (!sliceBlogs.length) {
+      blogsContainer.innerHTML = '<p class="hint">Henüz bir blog yazınız yok.</p>';
+    } else {
+      const tplEl = document.getElementById('profile-blog-card-template');
+      const tpl = tplEl ? tplEl.innerHTML : '';
+      sliceBlogs.forEach(b => {
+        const coverMarkup = b.coverImageUrl
+          ? `<img class="blog-cover" src="${b.coverImageUrl}" alt="${escapeHtml(b.title)} kapak" />`
+          : `<div class="blog-cover blog-cover-placeholder"></div>`;
+        const statusLabel = b.isPublished ? 'Yayında' : 'Taslak';
+        const publishText = b.isPublished ? 'Gizle' : 'Yayınla';
+
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = tpl
+          .replace(/{{id}}/g, b.id)
+          .replace('{{cover}}', coverMarkup)
+          .replace(/{{title}}/g, escapeHtml(b.title))
+          .replace(/{{status}}/g, escapeHtml(statusLabel))
+          .replace(/{{publishText}}/g, escapeHtml(publishText));
+
+        const card = wrapper.firstElementChild;
+        if (!card) return;
+
+        bindBlogCardActions(card, b);
+        blogsContainer.appendChild(card);
+      });
+    }
+
+    const maxPages = Math.max(
+      Math.ceil(myNewsItems.length / pageSizePerSide) || 1,
+      Math.ceil(myBlogsItems.length / pageSizePerSide) || 1
+    );
+    const prevBtn = document.getElementById('myContentPrev');
+    const nextBtn = document.getElementById('myContentNext');
+
+    label && (label.textContent = `Sayfa ${page} / ${maxPages}`);
+    prevBtn && (prevBtn.disabled = page <= 1);
+    nextBtn && (nextBtn.disabled = page >= maxPages);
+  }
+
+  function bindBlogCardActions(card, b) {
+    card.addEventListener('click', (e) => {
+      const target = e.target;
+      const action = target?.getAttribute && target.getAttribute('data-action');
+      if (action) return;
+      window.location.href = '/blogs/' + b.id;
+    });
+
+    card.querySelector('[data-action="delete"]')?.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const msgs = document.getElementById('blogsMessages');
+      if (!confirm('Bu blog yazısını silmek istediğinize emin misiniz?')) return;
+      try {
+        const res = await fetch('/blogs/' + b.id, { method: 'DELETE' });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result?.error || 'Silme başarısız');
+        card.remove();
+      } catch (err) {
+        msgs && (msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Silme sırasında hata') + '</div>');
+      }
+    });
+
+    card.querySelector('[data-action="publish"]')?.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const msgs = document.getElementById('blogsMessages');
+      try {
+        const shouldPublish = !b.isPublished;
+        const res = await fetch('/blogs/' + b.id + '/publish', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ publish: shouldPublish })
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result?.error || 'Yayın durumu güncelleme başarısız');
+
+        b.isPublished = !!result.isPublished;
+        const statusP = card.querySelector('.blog-card-status') || card.querySelector('.muted');
+        const publishBtn = card.querySelector('[data-action="publish"]');
+        if (statusP) statusP.textContent = 'Durum: ' + (b.isPublished ? 'Yayında' : 'Taslak');
+        if (publishBtn) publishBtn.textContent = b.isPublished ? 'Gizle' : 'Yayınla';
+      } catch (err) {
+        msgs && (msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'Yayın durumu değiştirilemedi') + '</div>');
+      }
+    });
+  }
+
+  function escapeHtml(str) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+    return String(str).replace(/[&<>"']/g, (ch) => map[ch]);
+  }
+
+  async function initMyContent() {
+    const prevBtn = document.getElementById('myContentPrev');
+    const nextBtn = document.getElementById('myContentNext');
+
+    try {
+      await Promise.all([loadMyBlogsAuthor(), loadMyNews()]);
+      myContentPage = 1;
+      renderMyContentPage(myContentPage);
+
+      prevBtn?.addEventListener('click', () => {
+        if (myContentPage > 1) {
+          myContentPage -= 1;
+          renderMyContentPage(myContentPage);
+        }
+      });
+      nextBtn?.addEventListener('click', () => {
+        const maxPages = Math.max(
+          Math.ceil(myNewsItems.length / pageSizePerSide) || 1,
+          Math.ceil(myBlogsItems.length / pageSizePerSide) || 1
+        );
+        if (myContentPage < maxPages) {
+          myContentPage += 1;
+          renderMyContentPage(myContentPage);
+        }
+      });
+    } catch (err) {
+      const msgs = document.getElementById('blogsMessages');
+      msgs && (msgs.innerHTML = '<div class="alert alert-error">' + (err.message || 'İçerikler yüklenemedi') + '</div>');
+    }
+  }
+
+  // Kullanıcı rolünü EJS'den JS'e göm ve author olup olmadığını belirle
+  const USER_ROLES = <%- JSON.stringify(user && Array.isArray(user.roles) ? user.roles : []) %>;
+  const IS_AUTHOR = Array.isArray(USER_ROLES) && USER_ROLES.includes('author');
+
+  // Tab aktifliğine göre akış
+  if (typeof activeTab !== 'undefined' && activeTab === 'blogs') {
+    if (IS_AUTHOR) {
+      initMyContent();
+    } else {
+      loadMyBlogs();
+    }
+  }
+</script>

@@ -1,0 +1,125 @@
+<article class="auth-card">
+  <header>
+    <h1 class="news-title"><%= item.title %></h1>
+  </header>
+
+  <% 
+    const imageUrl = imageKey && item && item[imageKey];
+  %>
+  <% if (imageUrl) { %>
+    <img class="blog-cover" src="<%= imageUrl %>" alt="<%= item.title %> kapak" />
+  <% } %>
+
+  <div class="blog-content"><%= item.content %></div>
+
+  <p class="muted">
+    <% if (categoryKey === 'category') { %>
+      Kategori: <%= item.category?.name || 'Belirtilmemiş' %> ·
+    <% } else if (categoryKey === 'categories') { %>
+      Kategoriler: <%= Array.isArray(item.categories) && item.categories.length ? item.categories.map(c => c?.name || '').filter(Boolean).join(', ') : 'Belirtilmemiş' %> ·
+    <% } %>
+    Yazar: <%= item.author?.name || 'Anonim' %>
+  </p>
+
+  <%
+    const userId = (typeof user !== 'undefined' && user && user.sub) ? String(user.sub) : null;
+    const likesArr = Array.isArray(item.likesID) ? item.likesID : [];
+    const dislikesArr = Array.isArray(item.dislikesID) ? item.dislikesID : [];
+    const likedByUser = !!(userId && likesArr.some(id => String(id) === userId));
+    const dislikedByUser = !!(userId && dislikesArr.some(id => String(id) === userId));
+    const likesCount = likesArr.length;
+    const dislikesCount = dislikesArr.length;
+  %>
+
+  <div class="reaction-bar" style="display:flex; gap:12px; align-items:center; margin-top:12px;">
+    <button 
+      id="likeBtn" 
+      class="btn <%= likedByUser ? 'active' : '' %>" 
+      aria-pressed="<%= likedByUser ? 'true' : 'false' %>"
+      title="Beğen">👍</button>
+    <span id="likeCount" class="muted"><%= likesCount %></span>
+
+    <button 
+      id="dislikeBtn" 
+      class="btn <%= dislikedByUser ? 'active' : '' %>" 
+      aria-pressed="<%= dislikedByUser ? 'true' : 'false' %>"
+      title="Beğenme">👎</button>
+    <span id="dislikeCount" class="muted"><%= dislikesCount %></span>
+  </div>
+
+  <div id="alert" class="alert" style="display:none; margin-top:8px;"></div>
+
+  <script>
+    const likeBtn = document.getElementById('likeBtn');
+    const dislikeBtn = document.getElementById('dislikeBtn');
+    const likeCountEl = document.getElementById('likeCount');
+    const dislikeCountEl = document.getElementById('dislikeCount');
+    const alertBox = document.getElementById('alert');
+    const itemId = '<%= item._id %>';
+    const base = '<%= reactionBase %>';
+
+    let busy = false;
+    function setBusy(state) {
+      busy = state;
+      likeBtn.toggleAttribute('disabled', state);
+      dislikeBtn.toggleAttribute('disabled', state);
+    }
+
+    function applyUI(action, likesCount, dislikesCount) {
+      likeCountEl.textContent = String(likesCount);
+      dislikeCountEl.textContent = String(dislikesCount);
+
+      if (action === 'liked' || action === 'switched_to_like') {
+        likeBtn.classList.add('active');
+        likeBtn.setAttribute('aria-pressed', 'true');
+        dislikeBtn.classList.remove('active');
+        dislikeBtn.setAttribute('aria-pressed', 'false');
+      } else if (action === 'disliked' || action === 'switched_to_dislike') {
+        dislikeBtn.classList.add('active');
+        dislikeBtn.setAttribute('aria-pressed', 'true');
+        likeBtn.classList.remove('active');
+        likeBtn.setAttribute('aria-pressed', 'false');
+      } else if (action === 'unliked') {
+        likeBtn.classList.remove('active');
+        likeBtn.setAttribute('aria-pressed', 'false');
+      } else if (action === 'undisliked') {
+        dislikeBtn.classList.remove('active');
+        dislikeBtn.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    async function postReaction(path) {
+      if (busy) return;
+      alertBox.style.display = 'none';
+      setBusy(true);
+      try {
+        const res = await fetch(path, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin'
+        });
+        const data = await res.json();
+        if (res.status === 401) {
+          window.location.href = '/auth/login';
+          return;
+        }
+        if (!res.ok) {
+          throw new Error(data?.error || 'İstek başarısız');
+        }
+        applyUI(
+          data.action,
+          data.likesCount ?? Number(likeCountEl.textContent),
+          data.dislikesCount ?? Number(dislikeCountEl.textContent)
+        );
+      } catch (err) {
+        alertBox.textContent = err.message;
+        alertBox.style.display = 'block';
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    likeBtn?.addEventListener('click', () => postReaction(`${base}/${itemId}/like`));
+    dislikeBtn?.addEventListener('click', () => postReaction(`${base}/${itemId}/dislike`));
+  </script>
+</article>

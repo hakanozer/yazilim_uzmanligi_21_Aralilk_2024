@@ -1,0 +1,27 @@
+<nav class="pagination" aria-label="Sayfalama">
+  <ul class="pagination-list">
+    <li>
+      <% if (currentPage > 1) { %>
+        <a class="btn outline" href="<%= paginationPath %>?page=<%= currentPage - 1 %>" aria-label="Önceki sayfa">&laquo;</a>
+      <% } else { %>
+        <span class="btn outline disabled" aria-disabled="true">&laquo;</span>
+      <% } %>
+    </li>
+    <li class="pages">
+      <% for (let p = 1; p <= totalPages; p++) { %>
+        <% if (p === currentPage) { %>
+          <span class="page-number active"><%= p %></span>
+        <% } else { %>
+          <a class="page-number" href="<%= paginationPath %>?page=<%= p %>"><%= p %></a>
+        <% } %>
+      <% } %>
+    </li>
+    <li>
+      <% if (currentPage < totalPages) { %>
+        <a class="btn outline" href="<%= paginationPath %>?page=<%= currentPage + 1 %>" aria-label="Sonraki sayfa">&raquo;</a>
+      <% } else { %>
+        <span class="btn outline disabled" aria-disabled="true">&raquo;</span>
+      <% } %>
+    </li>
+  </ul>
+</nav>

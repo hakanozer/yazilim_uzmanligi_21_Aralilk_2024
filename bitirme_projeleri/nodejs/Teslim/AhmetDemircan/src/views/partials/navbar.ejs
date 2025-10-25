@@ -1,0 +1,262 @@
+<nav class="navbar">
+  <button class="navbar-icon search-toggle" aria-label="Ara">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+      <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+    </svg>
+  </button>
+
+  <div class="navbar-brand">
+    <a href="/" class="rune" aria-label="Yggdrasil">
+      <span class="text">Yggdrasil</span>
+      <span class="runes" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             aria-label="Mímisbrunnr Runik Yazıtı" 
+             viewBox="0 0 900 120" width="100%" height="120">
+          <style>
+            .rune-line {
+              fill: none;
+              stroke: #333333;
+              stroke-width: 8;
+              stroke-linecap: round;
+              stroke-linejoin: round;
+            }
+          </style>
+          <g transform="translate(40,80)">
+            <!-- M -->
+            <path class="rune-line" d="M0 40 V-40 M0 -40 L20 0 L40 -40 M40 40 V-40" />
+            <!-- I -->
+            <path class="rune-line" d="M80 40 V-40" />
+            <!-- M -->
+            <path class="rune-line" d="M120 40 V-40 M120 -40 L140 0 L160 -40 M160 40 V-40" />
+            <!-- I -->
+            <path class="rune-line" d="M200 40 V-40" />
+            <!-- S -->
+            <path class="rune-line" d="M240 -40 L260 0 L240 40" />
+            <!-- B -->
+            <path class="rune-line" d="M300 40 V-40 M300 -40 L330 0 L300 40" />
+            <!-- R -->
+            <path class="rune-line" d="M360 40 V-40 M360 0 L390 -40 M360 0 L390 40" />
+            <!-- U -->
+            <path class="rune-line" d="M420 -40 V40 M420 40 L450 -40" />
+            <!-- N -->
+            <path class="rune-line" d="M480 40 V-40 M480 -40 L510 40 M510 40 V-40" />
+            <!-- N -->
+            <path class="rune-line" d="M540 40 V-40 M540 -40 L570 40 M570 40 V-40" />
+            <!-- R -->
+            <path class="rune-line" d="M600 40 V-40 M600 0 L630 -40 M600 0 L630 40" />
+          </g>
+        </svg>
+      </span>
+    </a>
+  </div>
+
+  <div class="navbar-actions">
+    <% if (typeof user !== 'undefined' && user) { %>
+      <div class="dropdown" id="navbarDropdown">
+        <button class="dropdown-toggle" type="button" aria-expanded="false" aria-label="Menü">
+          <span class="hamburger" aria-hidden="true">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </span>
+        </button>
+        <div class="dropdown-menu" role="menu" aria-label="Gezinme menüsü">
+          <a class="dropdown-item" href="/">Ana Sayfa</a>
+          <a class="dropdown-item" href="/blogs">Bloglar</a>
+          <a class="dropdown-item" href="/news">Haberler</a>
+          <% 
+            const roles = Array.isArray(user.roles) ? user.roles : (user.roles ? [user.roles] : []);
+            const isAdmin = roles.includes('admin');
+          %>
+          <% if (isAdmin) { %>
+            <a class="dropdown-item" href="/categories">Kategoriler</a>
+          <% } %>
+          <a class="dropdown-item" href="/api-docs">API Docs</a>
+          <!-- Yeni: Çıkış yap -->
+          <a class="dropdown-item dropdown-danger" href="/auth/logout" aria-label="Çıkış yap">Çıkış yap</a>
+        </div>
+      </div>
+
+      <% const hasCustomAvatar = user.profilePicture && user.profilePicture !== '/images/default-avatar.svg'; %>
+      <a class="avatar-link" href="/auth/profile" aria-label="Profil" title="Profil">
+        <% if (hasCustomAvatar) { %>
+          <img class="avatar" src="<%= user.profilePicture %>" alt="Profil" />
+        <% } else { %>
+          <span class="avatar-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                 fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+            </svg>
+          </span>
+        <% } %>
+      </a>
+    <% } else { %>
+      <a class="navbar-login" href="/auth/login">Giriş yap</a>
+    <% } %>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir">
+      <svg width="28" height="28" viewBox="0 0 48 24" fill="none" aria-hidden="true">
+        <ellipse class="island" cx="24" cy="18" rx="16" ry="4" fill="currentColor"></ellipse>
+        <g class="sun" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="8" r="4" fill="none"></circle>
+          <line x1="12" y1="1" x2="12" y2="4"></line>
+          <line x1="12" y1="12" x2="12" y2="15"></line>
+          <line x1="5" y1="8" x2="8" y2="8"></line>
+          <line x1="16" y1="8" x2="19" y2="8"></line>
+          <line x1="7" y1="3" x2="9" y2="5"></line>
+          <line x1="15" y1="11" x2="17" y2="13"></line>
+          <line x1="7" y1="13" x2="9" y2="11"></line>
+          <line x1="15" y1="5" x2="17" y2="3"></line>
+        </g>
+        <path class="moon" d="M34 6c-3.5 0-6.5 3-6.5 6.5s3 6.5 6.5 6.5c-3-1.2-5.3-4.1-5.3-6.5s2.3-5.3 5.3-6.5z" fill="currentColor"></path>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Arama paneli ve overlay -->
+<div id="searchOverlay" class="search-overlay" hidden></div>
+<div id="searchPanel" class="search-panel" role="dialog" aria-label="Site içi arama" aria-modal="true" hidden>
+  <!-- Arama satırı: ikon + input + kapat -->
+  <div class="search-input-row">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+      <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+    </svg>
+    <input id="searchInput" type="text" autocomplete="off" placeholder="Ara: başlık, yazar, etiket..." />
+  </div>
+
+  <div id="searchResults" class="search-results" aria-live="polite"></div>
+    <div class="muted">Arama sonuçları</div>
+  </div>
+</div>
+
+<!-- navbar.ejs: renderResults ve fetchResults hem blog hem news destekleyecek şekilde güncelleniyor -->
+<script>
+  (function () {
+    // Dropdown
+    const dropdown = document.getElementById('navbarDropdown');
+    const toggleBtn = dropdown?.querySelector('.dropdown-toggle');
+    const menu = dropdown?.querySelector('.dropdown-menu');
+    function closeDropdown() { dropdown?.classList.remove('open'); toggleBtn?.setAttribute('aria-expanded', 'false'); }
+    function openDropdown() { dropdown?.classList.add('open'); toggleBtn?.setAttribute('aria-expanded', 'true'); }
+    toggleBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (dropdown.classList.contains('open')) closeDropdown(); else openDropdown();
+    });
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (dropdown && target && !dropdown.contains(target)) closeDropdown();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+
+    // Arama paneli
+    const toggleSearchBtn = document.querySelector('.search-toggle');
+    const panel = document.getElementById('searchPanel');
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchInput');
+    const closeBtn = document.getElementById('searchClose');
+    const resultsBox = document.getElementById('searchResults');
+
+    function openPanel() {
+      panel.hidden = false;
+      overlay.hidden = false;
+      panel.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => input && input.focus(), 50);
+      closeDropdown();
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      if (input) input.value = '';
+      if (resultsBox) resultsBox.innerHTML = '';
+      setTimeout(() => { panel.hidden = true; overlay.hidden = true; }, 200);
+    }
+
+    toggleSearchBtn?.addEventListener('click', openPanel);
+    overlay?.addEventListener('click', closePanel);
+    closeBtn?.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+
+    // Basit HTML escape (XSS önlemi)
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"'`=\/]/g, s => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;', '`':'&#96;', '=':'&#61;','/':'&#47;'
+      }[s] || s));
+    }
+
+    function renderResults(items) {
+      if (!resultsBox) return;
+      if (!items || items.length === 0) {
+        resultsBox.innerHTML = '<div class="muted">Sonuç bulunamadı</div>';
+        return;
+      }
+      resultsBox.innerHTML = items.map(item => `
+        <a class="result" href="/${item.type}/${item._id}">
+          <div class="title">${escapeHtml(item.title || '')}</div>
+          <div class="meta">Yazar: ${escapeHtml((item.author && item.author.name) || 'Bilinmiyor')}</div>
+        </a>
+      `).join('');
+    }
+
+    async function fetchResults(q) {
+      try {
+        const headers = { 'accept': 'application/json' };
+        const [blogsResp, newsResp] = await Promise.all([
+          fetch('/api/v1/search/blogs?q=' + encodeURIComponent(q), { headers }),
+          fetch('/api/v1/search/news?q=' + encodeURIComponent(q), { headers })
+        ]);
+        if (!blogsResp.ok) throw new Error('HTTP ' + blogsResp.status);
+        if (!newsResp.ok) throw new Error('HTTP ' + newsResp.status);
+
+        const blogsData = await blogsResp.json();
+        const newsData = await newsResp.json();
+
+        const blogItems = (blogsData.items || []).map(it => ({ ...it, type: 'blogs' }));
+        const newsItems = (newsData.items || []).map(it => ({ ...it, type: 'news' }));
+
+        const items = [...blogItems, ...newsItems]
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+          .slice(0, 20);
+
+        renderResults(items);
+      } catch (err) {
+        if (resultsBox) resultsBox.innerHTML = '<div class="error">Hata: ' + escapeHtml(err.message || String(err)) + '</div>';
+      }
+    }
+
+    function debounce(fn, wait) {
+      let t;
+      return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
+    }
+    const debouncedFetch = debounce(fetchResults, 250);
+
+    input?.addEventListener('input', (e) => {
+      const q = e.target.value.trim();
+      if (!resultsBox) return;
+      if (q.length < 2) { resultsBox.innerHTML = ''; return; }
+      resultsBox.innerHTML = '<div class="muted">Yükleniyor...</div>';
+      debouncedFetch(q);
+    });
+
+    // Tema toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const KEY = 'theme';
+    function applyTheme(mode) {
+      document.body.classList.toggle('theme-dark', mode === 'dark');
+    }
+    const saved = localStorage.getItem(KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(saved);
+
+    themeBtn?.addEventListener('click', () => {
+      const next = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem(KEY, next);
+      closeDropdown();
+    });
+  })();
+</script>

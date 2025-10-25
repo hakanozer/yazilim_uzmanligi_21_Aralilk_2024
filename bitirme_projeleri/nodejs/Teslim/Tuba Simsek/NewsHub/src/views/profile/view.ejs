@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-3"><%- include('../partials/_sidebar') %></div>
+  <div class="col-md-9">
+    <h1>Profil Bilgileri</h1>
+    <hr />
+
+    <% if (typeof updated !== 'undefined' && updated === 'true') { %>
+    <div class="alert alert-success" role="alert">
+      Profil bilgileri başarıyla güncellendi.
+    </div>
+    <% } %>
+
+    <div class="card">
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">Ad Soyad:</dt>
+          <dd class="col-sm-9"><%= userData.name %></dd>
+
+          <dt class="col-sm-3">Email:</dt>
+          <dd class="col-sm-9"><%= userData.email %></dd>
+
+          <dt class="col-sm-3">Rol:</dt>
+          <dd class="col-sm-9">
+            <% if (userData.roles && userData.roles.length > 0) { %>
+            <span class="badge bg-info"><%= userData.roles[0] %></span>
+            <% } else { %>
+            <span class="badge bg-secondary">Rol Atanmamış</span>
+            <% } %>
+          </dd>
+
+          <dt class="col-sm-3">Kayıt Tarihi:</dt>
+          <dd class="col-sm-9">
+            <%= new Date(userData.createdAt).toLocaleDateString('tr-TR', {
+            dateStyle: 'long' }) %>
+          </dd>
+        </dl>
+        <hr />
+        <a href="/profile/edit" class="btn btn-primary">Profili Düzenle</a>
+      </div>
+    </div>
+  </div>
+</div>

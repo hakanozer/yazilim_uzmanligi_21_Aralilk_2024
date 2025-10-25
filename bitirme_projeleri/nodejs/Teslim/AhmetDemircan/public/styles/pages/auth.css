@@ -1,0 +1,4 @@
+/* Register / Auth sayfası */
+.auth-card { max-width: 520px; margin: 40px auto; padding: 24px; }
+.auth-title { font-size: 28px; margin: 0 0 6px; }
+.auth-subtitle { color: var(--muted); margin: 0 0 16px; }

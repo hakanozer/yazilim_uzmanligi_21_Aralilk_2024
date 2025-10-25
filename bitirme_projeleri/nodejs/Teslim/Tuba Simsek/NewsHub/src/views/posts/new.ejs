@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <h1 class="mb-4">Yeni Yazı Oluştur</h1>
+    <a href="/dashboard">Dashboard'a Dön</a>
+    <hr />
+
+    <%# Validasyon Hataları %>
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+    <div class="alert alert-danger pb-0">
+      <ul>
+        <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+    <% } %> <%# Genel Hata %> <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger" role="alert"><%= error %></div>
+    <% } %>
+
+    <form action="/posts" method="POST" enctype="multipart/form-data">
+      <%# Başlık %>
+      <div class="mb-3">
+        <label for="title" class="form-label">Başlık:</label>
+        <input
+          type="text"
+          class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'title')) ? 'is-invalid' : '' %>" <%# Hata Class'ı %>
+          id="title"
+          name="title"
+          value="<%= typeof oldInput !== 'undefined' ? oldInput.title : '' %>" <%# Eski Girdi %>
+          required
+        />
+      </div>
+
+      <%# Resim %>
+      <div class="mb-3">
+        <label for="postImage" class="form-label">Yazı Görseli (Opsiyonel):</label>
+        <input
+          class="form-control" <%# Resim için is-invalid eklemiyoruz, genellikle hata mesajı yeterli %>
+          type="file"
+          id="postImage"
+          name="postImage"
+          accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
+        />
+      </div>
+
+      <%# Kategori %>
+      <div class="mb-3">
+        <label for="category" class="form-label">Kategori:</label>
+        <select class="form-select <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'category')) ? 'is-invalid' : '' %>" <%# Hata Class'ı %>
+                id="category" name="category" required>
+          <option selected disabled value="">Kategori Seçiniz...</option>
+          <% categories.forEach(cat => { %>
+          <option value="<%= cat %>" <%= (typeof oldInput !== 'undefined' && oldInput.category === cat) ? 'selected' : '' %> ><%= cat %></option> <%# Eski Seçim %>
+          <% }) %>
+        </select>
+      </div>
+
+      <%# İçerik %>
+      <div class="mb-3">
+        <label for="content" class="form-label">İçerik:</label>
+        <textarea
+          class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'content')) ? 'is-invalid' : '' %>" <%# Hata Class'ı %>
+          id="content"
+          name="content"
+          rows="10"
+          required
+        ><%= typeof oldInput !== 'undefined' ? oldInput.content : '' %></textarea> <%# Eski Girdi %>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Yayınla</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-md-3 border-end pe-2">
+    <%# Kenarlık ve padding eklendi %> <%- include('../partials/_sidebar') %>
+  </div>
+  <div class="col-md-9 ps-3">
+    <%# Padding eklendi %>
+    <h1>Profili Düzenle</h1>
+    <hr />
+
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+    <div class="alert alert-danger pb-0">
+      <ul>
+        <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+    <% } %> <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <div class="card">
+      <div class="card-body">
+        <form action="/profile/edit" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">Ad Soyad:</label>
+            <input type="text" class="form-control <%= (typeof errors !==
+            'undefined' && errors.find(e => e.path === 'name')) ? 'is-invalid' :
+            '' %>" <%# Hata class'ı %> id="name" name="name" value="<%= typeof
+            oldInput !== 'undefined' ? oldInput.name : userData.name %>"
+            required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Adresi:</label>
+            <input
+              type="email"
+              class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'email')) ? 'is-invalid' : '' %>"
+              id="email"
+              name="email"
+              value="<%= typeof oldInput !== 'undefined' ? oldInput.email : userData.email %>"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Parola:</label>
+            <input
+              type="password"
+              class="form-control <%= (typeof errors !== 'undefined' && errors.find(e => e.path === 'password')) ? 'is-invalid' : '' %>"
+              id="password"
+              name="password"
+              value="<%= typeof oldInput !== 'undefined' ? oldInput.password : '' %>"
+              required
+            />
+            <% if (typeof errors !== 'undefined') { const err = errors.find(e =>
+            e.path === 'password'); if (err) { %>
+            <div class="invalid-feedback"><%= err.msg %></div>
+            <% } } %>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+          <a href="/profile" class="btn btn-secondary ms-2">İptal</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

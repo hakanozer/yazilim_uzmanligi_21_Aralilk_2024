@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsHub - Giriş Yap</title>
+    <%- include('template/bootstrap') %>
+</head>
+<body class="fade-in-up">
+    <div class="container-fluid min-vh-100 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body p-5">
+                            <div class="row g-4">
+                                <!-- Login Form -->
+                                <div class="col-md-6">
+                                    <div class="text-center mb-4">
+                                        <h2 class="text-gradient fw-bold mb-2">Hoş Geldiniz</h2>
+                                        <p class="text-muted">Hesabınıza giriş yapın</p>
+                                    </div>
+
+                                    <% if (typeof error != "undefined") { %>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <i class="bi bi-exclamation-triangle me-2"></i>
+                                        <%= error %>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="/login" method="POST" class="needs-validation" novalidate>
+                                        <div class="mb-4">
+                                            <label for="email" class="form-label fw-semibold">
+                                                <i class="bi bi-envelope me-2 text-primary"></i>Email Adresi
+                                            </label>
+                                            <input type="email" class="form-control form-control-lg" id="email" name="email" 
+                                                   placeholder="ornek@email.com" required>
+                                            <div class="invalid-feedback">
+                                                Lütfen geçerli bir email adresi girin.
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label for="password" class="form-label fw-semibold">
+                                                <i class="bi bi-lock me-2 text-primary"></i>Şifre
+                                            </label>
+                                            <input type="password" class="form-control form-control-lg" id="password" name="password" 
+                                                   placeholder="••••••••" required>
+                                            <div class="invalid-feedback">
+                                                Lütfen şifrenizi girin.
+                                            </div>
+                                        </div>
+
+                                        <div class="d-grid gap-2 mb-4">
+                                            <button type="submit" class="btn btn-primary btn-lg">
+                                                <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
+                                            </button>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <p class="text-muted mb-0">Hesabınız yok mu?</p>
+                                            <a href="/register" class="btn btn-outline-success btn-lg mt-2">
+                                                <i class="bi bi-person-plus me-2"></i>Kayıt Ol
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- Visual Section -->
+                                <div class="col-md-6 d-none d-md-block">
+                                    <div class="d-flex flex-column justify-content-center align-items-center h-100 p-4" 
+                                         style="background: linear-gradient(135deg, var(--primary-light) 0%, var(--info-light) 100%); border-radius: var(--radius-lg);">
+                                        <div class="text-center">
+                                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center mb-4 shadow-lg" 
+                                                 style="width: 120px; height: 120px;">
+                                                <i class="bi bi-newspaper text-primary" style="font-size: 4rem;"></i>
+                                            </div>
+                                            <h4 class="text-primary fw-bold mb-3">NewsHub</h4>
+                                            <p class="text-primary mb-0 fw-medium">
+                                                Modern haber ve blog platformu
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>

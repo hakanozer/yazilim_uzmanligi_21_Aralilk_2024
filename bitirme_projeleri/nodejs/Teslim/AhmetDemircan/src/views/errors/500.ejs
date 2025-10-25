@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+  <main class="container">
+    <section class="card">
+      <h1 class="card-title">Bir hata oluştu</h1>
+      <p class="muted"><%= message %></p>
+      <% if (stack) { %>
+        <pre style="overflow:auto;"><%= stack %></pre>
+      <% } %>
+      <a class="btn" href="/">Ana sayfaya dön</a>
+    </section>
+  </main>
+  <%- include('../partials/footer') %>
+</body>
+</html>

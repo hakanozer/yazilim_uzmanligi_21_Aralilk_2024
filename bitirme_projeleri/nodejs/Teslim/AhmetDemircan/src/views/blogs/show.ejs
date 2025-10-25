@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles/base.css" />
+  <link rel="stylesheet" href="/styles/components.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/pages/blog.css" />
+  <link rel="stylesheet" href="/styles/pages/news.css" />
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <main class="container">
+     <%- include('../partials/showItem', { 
+      item: blog, 
+      reactionBase: '/blogs', 
+      imageKey: 'coverImageUrl', 
+      categoryKey: 'categories' 
+    }) %>
+     <%- include('../partials/comments/comment', { subjectModel: 'Blog', subjectId: blog._id, currentUser: user }) %>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<script type="text/template" id="profile-blog-card-template">
+  <div class="card blog-card clickable-card" data-id="{{id}}" title="{{title}}">
+    <div class="cover-wrapper">
+      {{cover}}
+    </div>
+    <div class="card-body">
+      <h3 class="blog-card-title">{{title}}</h3>
+      <p class="muted blog-card-status">Durum: {{status}}</p>
+      <div class="form-actions">
+        <a class="btn btn-sm" href="/blogs/{{id}}/edit" data-action="edit">Düzenle</a>
+        <button class="btn btn-sm btn-danger" data-action="delete">Sil</button>
+        <button class="btn btn-sm" data-action="publish">{{publishText}}</button>
+      </div>
+    </div>
+  </div>
+</script>
+<script type="text/template" id="profile-news-card-template">
+  <div class="card blog-card clickable-card" data-id="{{id}}" title="{{title}}">
+    <div class="cover-wrapper">
+      {{cover}}
+    </div>
+    <div class="card-body">
+      <h3 class="blog-card-title">{{title}}</h3>
+      <p class="muted blog-card-status">Durum: {{status}}</p>
+      <div class="form-actions">
+        <a class="btn btn-sm" href="/news/{{id}}/edit" data-action="edit">Düzenle</a>
+        <button class="btn btn-sm btn-danger" data-action="news-delete">Sil</button>
+        <button class="btn btn-sm" data-action="news-toggle">{{toggleText}}</button>
+      </div>
+    </div>
+  </div>
+</script>
