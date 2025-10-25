@@ -7,7 +7,7 @@ namespace RestApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "User, Admin")]
     public class ProductController : ControllerBase
     {
 
