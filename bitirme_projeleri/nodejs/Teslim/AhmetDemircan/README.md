@@ -139,7 +139,6 @@ Detaylı tanımlar ve deneme için Swagger’ı kullanın: `/api-docs`.
 ---
 
 ### Uygulama Ekran Görüntüleri
-Aşağıda uygulamanın farklı bölümlerine ait örnek ekran görüntülerini ekleyebilirsiniz. Görselleri `./images/` klasörüne koyup README’de referanslayın.
 
 #### Ana Sayfa
 Platformun giriş sayfası ve gezinme menüsü.
