@@ -10,6 +10,7 @@ namespace RestApi.Mappings
         {
             CreateMap<UserRegisterDto, User>();
             CreateMap<UserLoginDto, User>();
+            CreateMap<User, UserJwtDto>();
         }
     }
 }

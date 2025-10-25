@@ -23,9 +23,14 @@ namespace RestApi.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(User user)
+        public IActionResult Login(UserLoginDto userLoginDto)
         {
-            return Ok("Login Success");
+            var userJwtDto = _userService.Login(userLoginDto);
+            if (userJwtDto == null)
+            {
+                return Unauthorized("Email or password is incorrect");
+            }
+            return Ok(userJwtDto);
         }
 
     }
