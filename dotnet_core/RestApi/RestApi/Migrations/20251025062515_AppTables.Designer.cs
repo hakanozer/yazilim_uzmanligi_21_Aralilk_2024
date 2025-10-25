@@ -11,14 +11,14 @@ using RestApi.Utils;
 namespace RestApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251012093102_AppTables")]
+    [Migration("20251025062515_AppTables")]
     partial class AppTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.9");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.10");
 
             modelBuilder.Entity("RestApi.Models.User", b =>
                 {
@@ -42,6 +42,10 @@ namespace RestApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

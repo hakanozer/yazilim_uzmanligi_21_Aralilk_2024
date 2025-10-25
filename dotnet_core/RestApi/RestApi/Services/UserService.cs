@@ -21,9 +21,15 @@ namespace RestApi.Services
         {
             var user = _mapper.Map<User>(userRegisterDto);
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Role = "User"; // Default role
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
             return user;
+        }
+
+        public User Login(UserLoginDto userLoginDto)
+        {
+            var user = _mapper.Map<User>(userLoginDto);
         }
     
     }

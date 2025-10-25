@@ -9,6 +9,7 @@ namespace RestApi.Mappings
         public UserProfile()
         {
             CreateMap<UserRegisterDto, User>();
+            CreateMap<UserLoginDto, User>();
         }
     }
 }
