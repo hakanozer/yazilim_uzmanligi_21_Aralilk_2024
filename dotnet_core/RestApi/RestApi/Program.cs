@@ -6,37 +6,46 @@ using RestApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Open Api Özelliği - Swagger
-builder.Services.AddOpenApi();
+// Swagger + JWT desteği
+builder.Services.AddSwaggerWithJwt();
 
-// ApplicationDbContext Class Add Container
+// DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
     var path = builder.Configuration.GetConnectionString("DefaultConnection");
     option.UseSqlite(path);
 });
 
-// JWT Configuration
+// JWT Authentication
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
-// Add Class Scoped
+// Scoped Services
 builder.Services.AddScoped<UserService>();
 
-// Add Mapper Class
+// AutoMapper
 builder.Services.AddAutoMapper(typeof(UserProfile));
 
-// Controllers Class Add Container
+// Controllers
 builder.Services.AddControllers();
 
 var app = builder.Build();
-app.MapOpenApi();
+
+// Swagger UI Active
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Rest API v1");
+        options.RoutePrefix = string.Empty; // http://localhost:5185
+    });
+}
+
+// Middleware
 //app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
-// App Add Middleware
 app.UseMiddleware<GlobalExceptionHandler>();
 
-// Controllers Class Maps
 app.MapControllers();
 app.Run();
