@@ -10,5 +10,6 @@ namespace RestApi.Utils
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Service> Services { get; set; }
     }
 }

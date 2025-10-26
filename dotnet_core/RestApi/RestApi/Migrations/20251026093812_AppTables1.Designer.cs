@@ -11,14 +11,42 @@ using RestApi.Utils;
 namespace RestApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251025062515_AppTables")]
-    partial class AppTables
+    [Migration("20251026093812_AppTables1")]
+    partial class AppTables1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.10");
+
+            modelBuilder.Entity("RestApi.Models.Service", b =>
+                {
+                    b.Property<int>("Sid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Detail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DurationMinute")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Sid");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Services");
+                });
 
             modelBuilder.Entity("RestApi.Models.User", b =>
                 {

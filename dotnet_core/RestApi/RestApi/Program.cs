@@ -21,9 +21,10 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // Scoped Services
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<CategoryService>();
 
 // AutoMapper
-builder.Services.AddAutoMapper(typeof(UserProfile));
+builder.Services.AddAutoMapper(typeof(AppProfile));
 
 // Controllers
 builder.Services.AddControllers();

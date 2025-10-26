@@ -1,16 +1,21 @@
 using AutoMapper;
 using RestApi.Models;
 using RestApi.Dto.UserDto;
+using RestApi.Dto.ServiceDto;
 
 namespace RestApi.Mappings
 {
-    public class UserProfile : Profile
+    public class AppProfile : Profile
     {
-        public UserProfile()
+        public AppProfile()
         {
+            // User
             CreateMap<UserRegisterDto, User>();
             CreateMap<UserLoginDto, User>();
             CreateMap<User, UserJwtDto>();
+
+            // Service
+            CreateMap<ServiceAddDto, Service>();
         }
     }
 }
