@@ -30,5 +30,10 @@ namespace RestApi.Services
             return null;
         }
 
+        public List<Service> GetAllService()
+        {
+            return _dbContext.Services.ToList();
+        }
+
     }
 }
