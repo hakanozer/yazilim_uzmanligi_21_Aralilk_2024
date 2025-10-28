@@ -1,0 +1,312 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div id="newsDetail">
+                <div class="text-center">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <h4 class="mb-3">İlgili Haberler</h4>
+            <div id="relatedNews"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const newsId = window.location.pathname.split('/').pop();
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        loadNewsDetail();
+    });
+    
+    async function loadNewsDetail() {
+        try {
+            const response = await fetch(`/api/news/${newsId}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                displayNewsDetail(result.data.news);
+                if (result.data.news.category) {
+                    loadRelatedNews(result.data.news.category);
+                }
+            } else {
+                document.getElementById('newsDetail').innerHTML = 
+                    '<div class="alert alert-danger">Haber bulunamadı!</div>';
+            }
+        } catch (error) {
+            console.error('Haber yükleme hatası:', error);
+            document.getElementById('newsDetail').innerHTML = 
+                '<div class="alert alert-danger">Haber yüklenirken hata oluştu.</div>';
+        }
+    }
+    
+    function displayNewsDetail(news) {
+        const container = document.getElementById('newsDetail');
+        
+        container.innerHTML = `
+            <span class="badge bg-primary mb-3">${news.category}</span>
+            <h1 class="display-5 mb-3">${news.title}</h1>
+            
+            <div class="d-flex align-items-center text-muted mb-4">
+                <i class="fas fa-user me-2"></i>
+                <span class="me-3">${news.author?.name || 'Anonim'}</span>
+                <i class="fas fa-calendar me-2"></i>
+                <span class="me-3">${new Date(news.createdAt).toLocaleDateString('tr-TR')}</span>
+                <i class="fas fa-eye me-2"></i>
+                <span>${news.views || 0} görüntülenme</span>
+            </div>
+            
+            ${news.image ? `<img src="${news.image}" class="img-fluid rounded mb-4" alt="${news.title}">` : ''}
+            
+            <div class="lead mb-4">${news.content}</div>
+            
+            <hr class="my-4">
+            
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <button class="btn btn-outline-primary" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i> Geri Dön
+                </button>
+                
+                <div>
+                    <button class="btn btn-outline-secondary">
+                        <i class="fas fa-share-alt"></i> Paylaş
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Yorumlar Bölümü -->
+            <div class="comments-section">
+                <h3 class="mb-4">
+                    <i class="fas fa-comments"></i> Yorumlar
+                    <span id="commentCount" class="badge bg-secondary">0</span>
+                </h3>
+                
+                <!-- Yorum Ekleme Formu -->
+                <div class="card mb-4" id="commentFormCard">
+                    <div class="card-body">
+                        <h5 class="card-title">Yorum Yap</h5>
+                        <form id="commentForm" onsubmit="handleAddComment(event)">
+                            <div class="mb-3">
+                                <textarea class="form-control" id="commentContent" rows="3" 
+                                          placeholder="Yorumunuzu yazın..." required maxlength="1000"></textarea>
+                                <div class="form-text">En fazla 1000 karakter</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Gönder
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Yorumlar Listesi -->
+                <div id="commentsList">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Yorumlar yükleniyor...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Yorumları yükle
+        loadComments();
+    }
+    
+    async function loadRelatedNews(category) {
+        try {
+            const response = await fetch(`/api/news?category=${category}&limit=5`);
+            const result = await response.json();
+            
+            if (result.success && result.data.news.length > 0) {
+                const relatedNews = result.data.news.filter(n => n._id !== newsId).slice(0, 4);
+                displayRelatedNews(relatedNews);
+            }
+        } catch (error) {
+            console.error('İlgili haberler yüklenemedi:', error);
+        }
+    }
+    
+    function displayRelatedNews(newsArray) {
+        const container = document.getElementById('relatedNews');
+        
+        if (newsArray.length === 0) {
+            container.innerHTML = '<p class="text-muted">İlgili haber bulunamadı.</p>';
+            return;
+        }
+        
+        container.innerHTML = newsArray.map(news => `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <a href="/news/${news._id}" class="text-decoration-none">${news.title}</a>
+                    </h6>
+                    <p class="card-text small text-muted">
+                        ${news.content.substring(0, 80)}...
+                    </p>
+                    <small class="text-muted">
+                        <i class="fas fa-eye"></i> ${news.views || 0}
+                    </small>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Yorumları yükle
+    async function loadComments() {
+        try {
+            const response = await fetch(`/api/comments/news/${newsId}`);
+            const result = await response.json();
+            
+            if (result.success) {
+                displayComments(result.data.comments);
+                document.getElementById('commentCount').textContent = result.data.pagination.total;
+            } else {
+                document.getElementById('commentsList').innerHTML = 
+                    '<div class="alert alert-info">Henüz yorum yapılmamış. İlk yorumu siz yapın!</div>';
+            }
+        } catch (error) {
+            console.error('Yorumlar yüklenemedi:', error);
+            document.getElementById('commentsList').innerHTML = 
+                '<div class="alert alert-danger">Yorumlar yüklenirken hata oluştu.</div>';
+        }
+    }
+    
+    // Yorumları göster
+    function displayComments(comments) {
+        const container = document.getElementById('commentsList');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        if (comments.length === 0) {
+            container.innerHTML = '<div class="alert alert-info">Henüz yorum yapılmamış. İlk yorumu siz yapın!</div>';
+            return;
+        }
+        
+        container.innerHTML = comments.map(comment => `
+            <div class="card mb-3" id="comment-${comment._id}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h6 class="mb-1">
+                                <i class="fas fa-user-circle text-primary"></i> 
+                                ${comment.author.name}
+                                ${comment.author.role === 'Admin' ? '<span class="badge bg-danger ms-2">Admin</span>' : ''}
+                                ${comment.author.role === 'Moderator' ? '<span class="badge bg-warning ms-2">Moderator</span>' : ''}
+                            </h6>
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> 
+                                ${new Date(comment.createdAt).toLocaleString('tr-TR')}
+                            </small>
+                        </div>
+                        ${(user.role === 'Admin' || comment.author._id === user.id) ? `
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteComment('${comment._id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        ` : ''}
+                    </div>
+                    <p class="mb-0">${comment.content}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // Yorum ekle
+    async function handleAddComment(e) {
+        e.preventDefault();
+        
+        const token = localStorage.getItem('accessToken');
+        
+        if (!token) {
+            alert('Yorum yapmak için giriş yapmalısınız!');
+            window.location.href = '/login';
+            return;
+        }
+        
+        const content = document.getElementById('commentContent').value.trim();
+        const btn = e.target.querySelector('button[type="submit"]');
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Gönderiliyor...';
+        
+        try {
+            const response = await fetch(`/api/comments/news/${newsId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ content })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                document.getElementById('commentForm').reset();
+                loadComments(); // Yorumları yeniden yükle
+                alert('Yorumunuz başarıyla eklendi!');
+            } else {
+                alert(result.message || 'Yorum eklenirken hata oluştu!');
+                if (response.status === 401) {
+                    localStorage.clear();
+                    window.location.href = '/login';
+                }
+            }
+        } catch (error) {
+            console.error('Yorum ekleme hatası:', error);
+            alert('Yorum eklenirken hata oluştu!');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Gönder';
+        }
+    }
+    
+    // Yorum sil
+    async function deleteComment(commentId) {
+        if (!confirm('Bu yorumu silmek istediğinizden emin misiniz?')) {
+            return;
+        }
+        
+        const token = localStorage.getItem('accessToken');
+        
+        try {
+            const response = await fetch(`/api/comments/${commentId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                loadComments(); // Yorumları yeniden yükle
+                alert('Yorum başarıyla silindi!');
+            } else {
+                alert(result.message || 'Yorum silinemedi!');
+            }
+        } catch (error) {
+            console.error('Yorum silme hatası:', error);
+            alert('Yorum silinirken hata oluştu!');
+        }
+    }
+    
+    // Giriş kontrolü - Yorum formu göster/gizle
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('accessToken');
+        const commentFormCard = document.getElementById('commentFormCard');
+        
+        if (!token) {
+            commentFormCard.innerHTML = `
+                <div class="card-body text-center">
+                    <p class="mb-3">Yorum yapmak için giriş yapmalısınız.</p>
+                    <a href="/login" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Giriş Yap
+                    </a>
+                </div>
+            `;
+        }
+    });
+</script>

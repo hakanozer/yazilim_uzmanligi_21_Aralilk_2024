@@ -1,0 +1,119 @@
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="card-title mb-4">
+                        <i class="fas fa-plus-circle"></i> Yeni Haber Oluştur
+                    </h2>
+                    
+                    <form id="createNewsForm" onsubmit="handleCreateNews(event)" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Başlık *</label>
+                            <input type="text" class="form-control" id="title" required 
+                                   placeholder="Haber başlığı (10-200 karakter)">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Kategori *</label>
+                            <select class="form-select" id="category" required>
+                                <option value="">Kategori seçin</option>
+                                <option value="Teknoloji">Teknoloji</option>
+                                <option value="Spor">Spor</option>
+                                <option value="Ekonomi">Ekonomi</option>
+                                <option value="Sağlık">Sağlık</option>
+                                <option value="Eğitim">Eğitim</option>
+                                <option value="Gündem">Gündem</option>
+                                <option value="Diğer">Diğer</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="content" class="form-label">İçerik *</label>
+                            <textarea class="form-control" id="content" rows="10" required
+                                      placeholder="Haber içeriği (min 50 karakter)"></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Görsel</label>
+                            <input type="file" class="form-control" id="image" accept="image/*">
+                            <small class="text-muted">veya</small>
+                            <input type="url" class="form-control mt-2" id="imageUrl" 
+                                   placeholder="Görsel URL'si (https://...)">
+                            <small class="text-muted">Maksimum 5MB - JPEG, PNG, GIF, WEBP</small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane"></i> Haberi Yayınla
+                            </button>
+                            <a href="/" class="btn btn-outline-secondary">
+                                <i class="fas fa-times"></i> İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function handleCreateNews(e) {
+        e.preventDefault();
+        
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            alert('Giriş yapmanız gerekiyor!');
+            window.location.href = '/login';
+            return;
+        }
+        
+        const title = document.getElementById('title').value;
+        const category = document.getElementById('category').value;
+        const content = document.getElementById('content').value;
+        const imageFile = document.getElementById('image').files[0];
+        const imageUrl = document.getElementById('imageUrl').value;
+        const btn = e.target.querySelector('button[type="submit"]');
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Yayınlanıyor...';
+        
+        try {
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('category', category);
+            formData.append('content', content);
+            
+            if (imageFile) {
+                formData.append('image', imageFile);
+            } else if (imageUrl) {
+                formData.append('image', imageUrl);
+            }
+            
+            const response = await fetch('/api/news', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Haber başarıyla oluşturuldu!');
+                window.location.href = `/news/${result.data.news._id}`;
+            } else {
+                alert(result.message || 'Haber oluşturulamadı!');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Haberi Yayınla';
+            }
+        } catch (error) {
+            console.error('Haber oluşturma hatası:', error);
+            alert('Bir hata oluştu!');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Haberi Yayınla';
+        }
+    }
+</script>

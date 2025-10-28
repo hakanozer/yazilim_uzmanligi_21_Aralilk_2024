@@ -1,0 +1,223 @@
+<div class="container my-5">
+    <!-- Loading State -->
+    <div id="loadingState" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Yükleniyor...</span>
+        </div>
+        <p class="mt-3">Profil bilgileri yükleniyor...</p>
+    </div>
+    
+    <!-- Profile Content -->
+    <div id="profileContent" class="row" style="display: none;">
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-user-circle fa-5x text-primary"></i>
+                    </div>
+                    <h4 id="profileName">-</h4>
+                    <p class="text-muted" id="profileEmail">-</p>
+                    <span id="profileRole" class="badge bg-info">-</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="fas fa-info-circle"></i> Profil Bilgileri
+                    </h5>
+                    <form id="updateProfileForm" onsubmit="handleUpdateProfile(event)">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">İsim *</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-posta *</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Bilgileri Güncelle
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="fas fa-key"></i> Şifre Değiştir
+                    </h5>
+                    <form id="changePasswordForm" onsubmit="handleChangePassword(event)">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Mevcut Şifre *</label>
+                            <input type="password" class="form-control" id="currentPassword" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Yeni Şifre *</label>
+                            <input type="password" class="form-control" id="newPassword" required 
+                                   minlength="8">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Yeni Şifre Tekrar *</label>
+                            <input type="password" class="form-control" id="confirmPassword" required 
+                                   minlength="8">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-lock"></i> Şifreyi Değiştir
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function loadProfile() {
+        const token = localStorage.getItem('accessToken');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        if (!token || !user.name) {
+            alert('Lütfen önce giriş yapın!');
+            window.location.replace('/login');
+            return;
+        }
+        
+        // Loading'i gizle, içeriği göster
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('profileContent').style.display = 'flex';
+        
+        // LocalStorage'dan bilgileri göster
+        document.getElementById('profileName').textContent = user.name || 'Kullanıcı';
+        document.getElementById('profileEmail').textContent = user.email || '';
+        document.getElementById('profileRole').textContent = user.role || 'User';
+        document.getElementById('name').value = user.name || '';
+        document.getElementById('email').value = user.email || '';
+        
+        // API'den güncel bilgileri çek
+        try {
+            const response = await fetch('/api/auth/profile', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                const serverUser = result.data.user;
+                document.getElementById('profileName').textContent = serverUser.name;
+                document.getElementById('profileEmail').textContent = serverUser.email;
+                document.getElementById('profileRole').textContent = serverUser.role;
+                document.getElementById('name').value = serverUser.name;
+                document.getElementById('email').value = serverUser.email;
+                
+                // LocalStorage'ı güncelle
+                localStorage.setItem('user', JSON.stringify(serverUser));
+            } else {
+                console.error('Profil yüklenemedi:', result.message);
+                if (response.status === 401) {
+                    alert('Oturumunuz sona erdi. Lütfen tekrar giriş yapın.');
+                    localStorage.clear();
+                    window.location.replace('/login');
+                }
+            }
+        } catch (error) {
+            console.error('Profil yüklenirken hata:', error);
+            // Hata olsa bile localStorage'daki bilgilerle devam et
+        }
+    }
+    
+    async function handleUpdateProfile(e) {
+        e.preventDefault();
+        
+        const token = localStorage.getItem('accessToken');
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const btn = e.target.querySelector('button[type="submit"]');
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Güncelleniyor...';
+        
+        try {
+            const response = await fetch('/api/auth/profile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ name, email })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                const updatedUser = result.data.user;
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                alert('Profil başarıyla güncellendi!');
+                loadProfile();
+            } else {
+                alert(result.message || 'Profil güncellenemedi!');
+            }
+        } catch (error) {
+            console.error('Profil güncellenirken hata:', error);
+            alert('Bir hata oluştu!');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-save"></i> Bilgileri Güncelle';
+        }
+    }
+    
+    async function handleChangePassword(e) {
+        e.preventDefault();
+        
+        const token = localStorage.getItem('accessToken');
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const btn = e.target.querySelector('button[type="submit"]');
+        
+        if (newPassword !== confirmPassword) {
+            alert('Yeni şifreler eşleşmiyor!');
+            return;
+        }
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Değiştiriliyor...';
+        
+        try {
+            const response = await fetch('/api/auth/change-password', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ currentPassword, newPassword })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Şifre başarıyla değiştirildi!');
+                document.getElementById('changePasswordForm').reset();
+            } else {
+                alert(result.message || 'Şifre değiştirilemedi!');
+            }
+        } catch (error) {
+            console.error('Şifre değiştirilirken hata:', error);
+            alert('Bir hata oluştu!');
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-lock"></i> Şifreyi Değiştir';
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadProfile);
+</script>

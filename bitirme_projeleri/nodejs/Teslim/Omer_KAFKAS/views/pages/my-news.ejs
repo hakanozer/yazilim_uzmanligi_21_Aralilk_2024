@@ -1,0 +1,135 @@
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-newspaper"></i> Haberlerim</h2>
+        <a href="/news/create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Yeni Haber
+        </a>
+    </div>
+    
+    <div id="myNewsContainer"></div>
+    <div id="loadingSpinner" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Yükleniyor...</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function loadMyNews() {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/news/my/news', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                displayMyNews(result.data.news);
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Haberler yüklenirken hata:', error);
+            alert('Haberler yüklenemedi!');
+        } finally {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+    }
+    
+    function displayMyNews(newsList) {
+        const container = document.getElementById('myNewsContainer');
+        
+        if (!newsList || newsList.length === 0) {
+            container.innerHTML = `
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> Henüz haber oluşturmadınız.
+                </div>
+            `;
+            return;
+        }
+        
+        let html = '<div class="row g-4">';
+        newsList.forEach(news => {
+            const statusBadge = news.status === 'published' 
+                ? '<span class="badge bg-success">Yayında</span>' 
+                : '<span class="badge bg-warning">Taslak</span>';
+            
+            html += `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        ${news.image ? `<img src="${news.image}" class="card-img-top" alt="${news.title}">` : ''}
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="badge bg-primary">${news.category}</span>
+                                ${statusBadge}
+                            </div>
+                            <h5 class="card-title">${news.title}</h5>
+                            <p class="card-text text-muted">${news.content.substring(0, 100)}...</p>
+                            <div class="d-flex justify-content-between text-muted small">
+                                <span><i class="fas fa-eye"></i> ${news.views} görüntülenme</span>
+                                <span><i class="fas fa-calendar"></i> ${new Date(news.createdAt).toLocaleDateString('tr-TR')}</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex gap-2">
+                                <a href="/news/${news._id}" class="btn btn-sm btn-outline-primary flex-fill">
+                                    <i class="fas fa-eye"></i> Görüntüle
+                                </a>
+                                <button class="btn btn-sm btn-outline-warning" onclick="editNews('${news._id}')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteNews('${news._id}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        html += '</div>';
+        
+        container.innerHTML = html;
+    }
+    
+    function editNews(newsId) {
+        window.location.href = `/news/${newsId}/edit`;
+    }
+    
+    async function deleteNews(newsId) {
+        if (!confirm('Bu haberi silmek istediğinizden emin misiniz?')) return;
+        
+        const token = localStorage.getItem('accessToken');
+        
+        try {
+            const response = await fetch(`/api/news/${newsId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Haber başarıyla silindi!');
+                loadMyNews();
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Haber silinirken hata:', error);
+            alert('Haber silinemedi!');
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadMyNews);
+</script>

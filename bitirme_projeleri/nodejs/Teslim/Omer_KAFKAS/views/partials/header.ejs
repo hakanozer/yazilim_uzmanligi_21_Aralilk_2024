@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top py-2">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/" style="font-size: 1.1rem;">
+            <i class="fas fa-newspaper"></i> NewsHub
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-label="Menüyü aç/kapat" title="Menüyü aç/kapat">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link py-1" href="/" style="font-size: 0.9rem;">Ana Sayfa</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle py-1" href="#" data-bs-toggle="dropdown" style="font-size: 0.9rem;">
+                        Kategoriler
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item py-1" href="/?category=Teknoloji" style="font-size: 0.85rem;">Teknoloji</a></li>
+                        <li><a class="dropdown-item py-1" href="/?category=Spor" style="font-size: 0.85rem;">Spor</a></li>
+                        <li><a class="dropdown-item py-1" href="/?category=Ekonomi" style="font-size: 0.85rem;">Ekonomi</a></li>
+                        <li><a class="dropdown-item py-1" href="/?category=Sağlık" style="font-size: 0.85rem;">Sağlık</a></li>
+                        <li><a class="dropdown-item py-1" href="/?category=Eğitim" style="font-size: 0.85rem;">Eğitim</a></li>
+                        <li><a class="dropdown-item py-1" href="/?category=Gündem" style="font-size: 0.85rem;">Gündem</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <ul class="navbar-nav" id="navbarUser">
+                <!-- JavaScript ile doldurulacak -->
+                <li class="nav-item">
+                    <a class="nav-link py-1" href="/login" style="font-size: 0.9rem;">Giriş Yap</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary btn-sm text-white px-3 py-1" href="/register" style="font-size: 0.85rem;">Kayıt Ol</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Kullanıcı durumuna göre navbar'ı güncelle
+    document.addEventListener('DOMContentLoaded', () => {
+        const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+        const navbarUser = document.getElementById('navbarUser');
+        
+        if (user) {
+            navbarUser.innerHTML = `
+                ${user.role === 'Admin' ? 
+                    '<li class="nav-item"><a class="nav-link py-1" href="/admin" style="font-size: 0.9rem;"><i class="fas fa-shield-alt"></i> Admin</a></li>' : ''}
+                ${(user.role === 'Admin' || user.role === 'Moderator') ? 
+                    '<li class="nav-item"><a class="nav-link py-1" href="/news/create" style="font-size: 0.9rem;"><i class="fas fa-plus"></i> Haber Ekle</a></li>' : ''}
+                ${(user.role === 'Admin' || user.role === 'Moderator') ? 
+                    '<li class="nav-item"><a class="nav-link py-1" href="/my-news" style="font-size: 0.9rem;">Haberlerim</a></li>' : ''}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle py-1" href="#" data-bs-toggle="dropdown" style="font-size: 0.9rem;">
+                        <i class="fas fa-user"></i> ${user.name}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item py-1" href="/profile" style="font-size: 0.85rem;">Profil</a></li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item py-1" href="#" onclick="logout()" style="font-size: 0.85rem;">Çıkış Yap</a></li>
+                    </ul>
+                </li>
+            `;
+        }
+    });
+    
+    function logout() {
+        localStorage.clear();
+        window.location.href = '/login';
+    }
+</script>

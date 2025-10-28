@@ -1,0 +1,24 @@
+<% if (typeof successMessage !== 'undefined' && successMessage) { %>
+    <div class="alert alert-success alert-dismissible fade show m-3" role="alert" id="flashMessage">
+        <i class="fas fa-check-circle"></i> <%= successMessage %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<% } %>
+
+<% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+    <div class="alert alert-danger alert-dismissible fade show m-3" role="alert" id="flashMessage">
+        <i class="fas fa-exclamation-circle"></i> <%= errorMessage %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<% } %>
+
+<script>
+    // Flash mesajını 5 saniye sonra otomatik kapat
+    setTimeout(() => {
+        const flashMsg = document.getElementById('flashMessage');
+        if (flashMsg) {
+            const bsAlert = new bootstrap.Alert(flashMsg);
+            bsAlert.close();
+        }
+    }, 5000);
+</script>

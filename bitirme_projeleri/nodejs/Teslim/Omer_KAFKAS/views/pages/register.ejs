@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - NewsHub</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Logo -->
+            <div class="text-center mb-4">
+                <a href="/" class="text-decoration-none">
+                    <h1 class="text-white fw-bold">
+                        <i class="fas fa-newspaper"></i> NewsHub
+                    </h1>
+                </a>
+            </div>
+            
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-plus fa-3x text-success mb-3"></i>
+                        <h2>Kayıt Ol</h2>
+                        <p class="text-muted">NewsHub'a katılın</p>
+                    </div>
+                    
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Ad Soyad</label>
+                            <input type="text" class="form-control" id="name" required placeholder="Adınız Soyadınız">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required placeholder="ornek@email.com">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Şifre</label>
+                            <input type="password" class="form-control" id="password" required placeholder="En az 6 karakter, 1 rakam">
+                            <small class="text-muted">En az 6 karakter ve bir rakam içermelidir</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="passwordConfirm" class="form-label">Şifre Tekrar</label>
+                            <input type="password" class="form-control" id="passwordConfirm" required placeholder="Şifrenizi tekrar girin">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Rol</label>
+                            <select class="form-select" id="role">
+                                <option value="User">Kullanıcı</option>
+                                <option value="Moderator">Moderator</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success w-100">
+                            <i class="fas fa-user-plus"></i> Kayıt Ol
+                        </button>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <p class="text-center mb-0">
+                        Zaten hesabınız var mı? <a href="/login">Giriş yapın</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function handleRegister(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const passwordConfirm = document.getElementById('passwordConfirm').value;
+        const role = document.getElementById('role').value;
+        const btn = e.target.querySelector('button');
+        
+        if (password !== passwordConfirm) {
+            alert('Şifreler eşleşmiyor!');
+            return;
+        }
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Kayıt yapılıyor...';
+        
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password, role })
+            });
+            
+            const result = await response.json();
+            console.log('Register response:', result); // Debug için
+            
+            if (result.success) {
+                alert('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...');
+                window.location.href = '/login';
+            } else {
+                console.error('Register failed:', result);
+                // Eğer validasyon hataları varsa onları göster
+                if (result.errors && Array.isArray(result.errors)) {
+                    const errorMessages = result.errors.map(err => err.msg).join('\n');
+                    alert('Kayıt Hataları:\n' + errorMessages);
+                } else {
+                    alert(result.message || 'Kayıt başarısız!');
+                }
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-user-plus"></i> Kayıt Ol';
+            }
+        } catch (error) {
+            console.error('Register error:', error);
+            alert('Sunucuya bağlanılamadı! Lütfen sunucunun çalıştığından emin olun.');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-user-plus"></i> Kayıt Ol';
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

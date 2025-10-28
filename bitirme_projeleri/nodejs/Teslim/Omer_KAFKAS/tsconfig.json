@@ -1,0 +1,33 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Environment Settings
+    "module": "commonjs", // ⬅️ Değiştirin
+    "moduleResolution": "node", // ⬅️ Değiştirin
+    "target": "esnext",
+    "types": ["node"],
+    "lib": ["esnext"],
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+
+    // Recommended Options
+    "strict": true,
+    "esModuleInterop": true, // ⬅️ Ekleyin
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "views", "public"]
+}

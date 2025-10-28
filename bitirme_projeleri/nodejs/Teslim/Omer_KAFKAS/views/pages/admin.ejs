@@ -1,0 +1,373 @@
+<div class="container my-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2><i class="fas fa-shield-alt"></i> Admin Panel</h2>
+            <p class="text-muted">Sistem yönetimi ve istatistikler</p>
+        </div>
+    </div>
+
+    <!-- İstatistik Kartları -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-users"></i> Toplam Kullanıcı</h5>
+                    <h2 id="totalUsers" class="display-4">-</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-newspaper"></i> Toplam Haber</h5>
+                    <h2 id="totalNews" class="display-4">-</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-comments"></i> Toplam Yorum</h5>
+                    <h2 id="totalComments" class="display-4">-</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-4" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#users">
+                <i class="fas fa-users"></i> Kullanıcılar
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#news">
+                <i class="fas fa-newspaper"></i> Haberler
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Kullanıcılar Tab -->
+        <div id="users" class="tab-pane fade show active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="mb-0">Kullanıcı Yönetimi</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="userSearch" class="form-control form-control-sm" placeholder="İsim veya email ile ara...">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="usersTable">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Haberler Tab -->
+        <div id="news" class="tab-pane fade">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="mb-0">Haber Yönetimi</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="newsSearch" class="form-control form-control-sm" placeholder="Başlık ile ara...">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="newsTable">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+    
+    const token = localStorage.getItem('accessToken');
+    
+    if (!token) {
+        alert('Lütfen giriş yapın!');
+        window.location.href = '/login';
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        loadDashboard();
+        loadUsers();
+        
+        // Tab değiştiğinde ilgili veriyi yükle
+        document.querySelector('a[href="#news"]').addEventListener('click', () => {
+            loadNews();
+        });
+        
+        // Arama
+        let userSearchTimeout;
+        document.getElementById('userSearch').addEventListener('input', (e) => {
+            clearTimeout(userSearchTimeout);
+            userSearchTimeout = setTimeout(() => {
+                loadUsers(1, e.target.value);
+            }, 500);
+        });
+        
+        let newsSearchTimeout;
+        document.getElementById('newsSearch').addEventListener('input', (e) => {
+            clearTimeout(newsSearchTimeout);
+            newsSearchTimeout = setTimeout(() => {
+                loadNews(1, e.target.value);
+            }, 500);
+        });
+    });
+    
+    async function loadDashboard() {
+        try {
+            const response = await fetch('/api/admin/dashboard', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                document.getElementById('totalUsers').textContent = result.data.stats.totalUsers;
+                document.getElementById('totalNews').textContent = result.data.stats.totalNews;
+                document.getElementById('totalComments').textContent = result.data.stats.totalComments;
+            }
+        } catch (error) {
+            console.error('Dashboard yükleme hatası:', error);
+        }
+    }
+    
+    async function loadUsers(page = 1, search = '') {
+        try {
+            const response = await fetch(`/api/admin/users?page=${page}&limit=10&search=${search}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                displayUsers(result.data.users);
+            } else {
+                if (response.status === 403) {
+                    alert('Bu sayfaya erişim yetkiniz yok!');
+                    window.location.href = '/';
+                }
+            }
+        } catch (error) {
+            console.error('Kullanıcılar yükleme hatası:', error);
+        }
+    }
+    
+    function displayUsers(users) {
+        const container = document.getElementById('usersTable');
+        
+        if (users.length === 0) {
+            container.innerHTML = '<p class="text-muted">Kullanıcı bulunamadı.</p>';
+            return;
+        }
+        
+        container.innerHTML = `
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Kayıt Tarihi</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${users.map(user => `
+                            <tr>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>
+                                    <select class="form-select form-select-sm" onchange="changeUserRole('${user._id}', this.value)">
+                                        <option value="User" ${user.role === 'User' ? 'selected' : ''}>User</option>
+                                        <option value="Moderator" ${user.role === 'Moderator' ? 'selected' : ''}>Moderator</option>
+                                        <option value="Admin" ${user.role === 'Admin' ? 'selected' : ''}>Admin</option>
+                                    </select>
+                                </td>
+                                <td>${new Date(user.createdAt).toLocaleDateString('tr-TR')}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteUser('${user._id}', '${user.name}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+    
+    async function changeUserRole(userId, newRole) {
+        if (!confirm(`Kullanıcı rolünü ${newRole} olarak değiştirmek istediğinizden emin misiniz?`)) {
+            loadUsers(); // Değişiklik iptal edilirse listeyi yenile
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/admin/users/${userId}/role`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ role: newRole })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Rol başarıyla güncellendi!');
+                loadUsers();
+            } else {
+                alert(result.message);
+                loadUsers();
+            }
+        } catch (error) {
+            console.error('Rol güncelleme hatası:', error);
+            alert('Rol güncellenirken hata oluştu!');
+            loadUsers();
+        }
+    }
+    
+    async function deleteUser(userId, userName) {
+        if (!confirm(`${userName} kullanıcısını ve tüm içeriklerini silmek istediğinizden emin misiniz?`)) {
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/admin/users/${userId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Kullanıcı başarıyla silindi!');
+                loadUsers();
+                loadDashboard();
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Kullanıcı silme hatası:', error);
+            alert('Kullanıcı silinirken hata oluştu!');
+        }
+    }
+    
+    async function loadNews(page = 1, search = '') {
+        try {
+            const response = await fetch(`/api/admin/news?page=${page}&limit=10&search=${search}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                displayNews(result.data.news);
+            }
+        } catch (error) {
+            console.error('Haberler yükleme hatası:', error);
+        }
+    }
+    
+    function displayNews(news) {
+        const container = document.getElementById('newsTable');
+        
+        if (news.length === 0) {
+            container.innerHTML = '<p class="text-muted">Haber bulunamadı.</p>';
+            return;
+        }
+        
+        container.innerHTML = `
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Başlık</th>
+                            <th>Kategori</th>
+                            <th>Yazar</th>
+                            <th>Görüntülenme</th>
+                            <th>Tarih</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${news.map(item => `
+                            <tr>
+                                <td>${item.title}</td>
+                                <td><span class="badge bg-secondary">${item.category}</span></td>
+                                <td>${item.author?.name || 'Anonim'}</td>
+                                <td><i class="fas fa-eye"></i> ${item.views || 0}</td>
+                                <td>${new Date(item.createdAt).toLocaleDateString('tr-TR')}</td>
+                                <td>
+                                    <a href="/news/${item._id}" class="btn btn-sm btn-info" target="_blank">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <button class="btn btn-sm btn-danger" onclick="deleteNews('${item._id}', '${item.title}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+    
+    async function deleteNews(newsId, newsTitle) {
+        if (!confirm(`"${newsTitle}" haberini ve tüm yorumlarını silmek istediğinizden emin misiniz?`)) {
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/admin/news/${newsId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Haber başarıyla silindi!');
+                loadNews();
+                loadDashboard();
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Haber silme hatası:', error);
+            alert('Haber silinirken hata oluştu!');
+        }
+    }
+    
+    // Global scope'a fonksiyonları ekle (inline event handlers için)
+    window.changeUserRole = changeUserRole;
+    window.deleteUser = deleteUser;
+    window.deleteNews = deleteNews;
+})(); // IIFE sonu
+</script>
