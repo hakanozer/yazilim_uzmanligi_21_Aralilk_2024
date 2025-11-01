@@ -34,27 +34,30 @@ Titan, modern fitness takibi için geliştirilmiş güçlü bir RESTful API'dir.
 - **Swagger/Swashbuckle**: API dokümantasyonu
 
 ## 📁 Proje Yapısı
+
+```text
 Titan/
 ├── Controllers/           # API Controller'ları
 │   ├── UserController.cs     # Kullanıcı yönetimi
 │   ├── ActivityController.cs # Aktivite yönetimi
 │   └── AimController.cs      # Hedef yönetimi
-├── Models/               # Veritabanı modelleri
-│   ├── User.cs              # Kullanıcı modeli
-│   ├── Activity.cs          # Aktivite modeli
-│   └── Aim.cs               # Hedef modeli
-├── Dto/                  # Data Transfer Objects
-│   └── UserDto/             # Kullanıcı DTO'ları
-├── Services/             # İş mantığı servisleri
-│   └── UserService.cs       # Kullanıcı servisi
-├── Utils/                # Yardımcı sınıflar
+├── Models/                # Veritabanı modelleri
+│   ├── User.cs             # Kullanıcı modeli
+│   ├── Activity.cs         # Aktivite modeli
+│   └── Aim.cs              # Hedef modeli
+├── Dto/                   # Data Transfer Objects
+│   └── UserDto/            # Kullanıcı DTO'ları
+├── Services/              # İş mantığı servisleri
+│   └── UserService.cs      # Kullanıcı servisi
+├── Utils/                 # Yardımcı sınıflar
 │   ├── ApplicationDbContext.cs    # Veritabanı context
 │   └── JwtConfigurationExtensions.cs # JWT yapılandırması
-├── Middleware/           # Custom middleware'ler
+├── Middleware/            # Custom middleware'ler
 │   └── GlobalExceptionHandler.cs  # Global hata yönetimi
-├── Mappings/             # AutoMapper profilleri
-│   └── AppProfile.cs        # Mapping yapılandırması
-└── Migrations/           # EF Core migration'ları
+├── Mappings/              # AutoMapper profilleri
+│   └── AppProfile.cs         # Mapping yapılandırması
+└── Migrations/            # EF Core migration'ları 
+```
 
 ## 🚀 Kurulum ve Çalıştırma
 
