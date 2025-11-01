@@ -38,7 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Rest API v1");
-        options.RoutePrefix = string.Empty; // http://localhost:5185
+        options.RoutePrefix = string.Empty; // http://localhost:5235
     });
 }
 
