@@ -32,8 +32,11 @@ namespace RestApi.Controllers
         }
 
         [HttpGet("all")]
+        [Authorize]
         public List<Service> GetAllService()
         {
+            var id = User.FindFirst("id")?.Value;
+            Console.WriteLine("id: " + id);
             return _categoryService.GetAllService();
         }
 

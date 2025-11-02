@@ -54,7 +54,8 @@ namespace RestApi.Services
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                         {
-                            new Claim(ClaimTypes.Name, existingUser.Email)
+                            new Claim(ClaimTypes.Name, existingUser.Email),
+                            new Claim("id", existingUser.Id.ToString()),
                         }),
                         Expires = DateTime.UtcNow.AddHours(ExpiresTime),
                         SigningCredentials = new SigningCredentials(
