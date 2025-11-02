@@ -27,6 +27,12 @@ namespace RestApi.Utils
                     .WithMany()
                     .HasForeignKey(a => a.StaffId)
                     .OnDelete(DeleteBehavior.Restrict);
+                        
+                modelBuilder.Entity<Appointment>()
+                    .HasOne(a => a.Service)
+                    .WithMany()
+                    .HasForeignKey(a => a.ServiceId)
+                    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

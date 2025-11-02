@@ -11,8 +11,8 @@ using RestApi.Utils;
 namespace RestApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251026110144_AppTables2")]
-    partial class AppTables2
+    [Migration("20251102073715_AppTables3")]
+    partial class AppTables3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace RestApi.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<long>("StaffId")
                         .HasColumnType("INTEGER");
 
@@ -42,6 +45,8 @@ namespace RestApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Aid");
+
+                    b.HasIndex("ServiceId");
 
                     b.HasIndex("StaffId");
 
@@ -117,6 +122,12 @@ namespace RestApi.Migrations
 
             modelBuilder.Entity("RestApi.Models.Appointment", b =>
                 {
+                    b.HasOne("RestApi.Models.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("RestApi.Models.User", "Staff")
                         .WithMany()
                         .HasForeignKey("StaffId")
@@ -128,6 +139,8 @@ namespace RestApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Service");
 
                     b.Navigation("Staff");
 

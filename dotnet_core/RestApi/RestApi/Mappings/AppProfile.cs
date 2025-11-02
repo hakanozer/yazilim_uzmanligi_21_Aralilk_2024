@@ -2,6 +2,7 @@ using AutoMapper;
 using RestApi.Models;
 using RestApi.Dto.UserDto;
 using RestApi.Dto.ServiceDto;
+using RestApi.Dto.AppointmentDto;
 
 namespace RestApi.Mappings
 {
@@ -16,6 +17,9 @@ namespace RestApi.Mappings
 
             // Service
             CreateMap<ServiceAddDto, Service>();
+
+            // Appointment
+            CreateMap<AppointmentAddDto, Appointment>();
         }
     }
 }

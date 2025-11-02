@@ -27,14 +27,15 @@ namespace RestApi.Models
         public long StaffId { get; set; }
         public User Staff { get; set; } // Navigation property
 
-        [Required]
+        [ForeignKey("Service")]
+        public int ServiceId { get; set; }
+        public Service Service { get; set; } // Navigation property
+
         public DateTimeOffset AppointmentDate { get; set; }
 
-        [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
 
-        [Required]
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 
     }
