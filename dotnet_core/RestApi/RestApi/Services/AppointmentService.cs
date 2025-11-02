@@ -57,6 +57,5 @@ namespace RestApi.Services
             return appointment;
         }
 
-
     }
 }
