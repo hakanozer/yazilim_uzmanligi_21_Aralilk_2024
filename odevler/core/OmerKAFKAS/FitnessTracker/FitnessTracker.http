@@ -1,0 +1,55 @@
+@FitnessTracker_HostAddress = http://localhost:5210
+
+### Register a new user
+POST {{FitnessTracker_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com"
+}
+
+### Login with user
+POST {{FitnessTracker_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### Get all users (requires authentication)
+GET {{FitnessTracker_HostAddress}}/api/user
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### Create a workout (requires authentication)
+POST {{FitnessTracker_HostAddress}}/api/workout
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+  "type": "Running",
+  "durationMinutes": 30,
+  "date": "2025-11-01T10:00:00Z"
+}
+
+### Get all workouts (requires authentication)
+GET {{FitnessTracker_HostAddress}}/api/workout
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### Create a goal (requires authentication)
+POST {{FitnessTracker_HostAddress}}/api/goal
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN_HERE
+
+{
+  "description": "Run 5km in under 25 minutes",
+  "targetDate": "2025-12-01T00:00:00Z",
+  "isCompleted": false
+}
+
+### Get all goals (requires authentication)
+GET {{FitnessTracker_HostAddress}}/api/goal
+Authorization: Bearer YOUR_TOKEN_HERE
+
+###
