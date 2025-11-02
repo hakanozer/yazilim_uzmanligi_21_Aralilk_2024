@@ -22,6 +22,7 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 // Scoped Services
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<AppointmentService>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(AppProfile));
