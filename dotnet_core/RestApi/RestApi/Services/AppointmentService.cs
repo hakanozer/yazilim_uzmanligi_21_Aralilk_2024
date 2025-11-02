@@ -20,33 +20,43 @@ namespace RestApi.Services
             _mapper = mapper;
         }
 
-        public object Add(AppointmentAddDto appointmentAddDto, string? UserId)
+        public object Add(AppointmentAddDto appointmentAddDto, string? userId)
         {
+            if (string.IsNullOrEmpty(userId) || !long.TryParse(userId, out var userIdValue))
+                return "Kullanıcı ID geçersiz.";
+
             var appointment = _mapper.Map<Appointment>(appointmentAddDto);
-            appointment.UserId = Convert.ToInt64(UserId);
-            var serviceTime = _dbContext.Services.FirstOrDefault(item => item.Sid == appointmentAddDto.ServiceId)?.DurationMinute;
+            appointment.UserId = userIdValue;
+
+            var serviceTime = _dbContext.Services
+                .FirstOrDefault(item => item.Sid == appointmentAddDto.ServiceId)
+                ?.DurationMinute;
+
+            if (serviceTime == null)
+                return "Servis süresi bulunamadı.";
+
             var appointDate = appointment.AppointmentDate;
             var addServiceTimeAppointDate = appointDate.AddMinutes(Convert.ToDouble(serviceTime));
 
-            // Time Appoint Controller
             var timeControl = _dbContext.Appointments.FirstOrDefault(
                 item =>
-                item.StaffId == appointment.StaffId &&
-                item.AppointmentDate >= appointDate &&
-                item.AppointmentDate <= addServiceTimeAppointDate
+                    item.StaffId == appointment.StaffId &&
+                    item.AppointmentDate >= appointDate &&
+                    item.AppointmentDate <= addServiceTimeAppointDate
             );
 
-            if (timeControl == null)
+            if (timeControl != null)
             {
-                // kullanıcıya tahine en yakın 5 adet boşta bulunan önerilerde bulun
+                // önümüzdeki yada varsa bir önceki 1 veya 2 Gün içinde uygun olan 5 adet öneride bulun
                 return "Şu an müsaitlik yok";
-            }else
-            {
-                _dbContext.Appointments.Add(appointment);
-                _dbContext.SaveChanges();
-                return appointment;
             }
+                
+
+            _dbContext.Appointments.Add(appointment);
+            _dbContext.SaveChanges();
+            return appointment;
         }
+
 
     }
 }

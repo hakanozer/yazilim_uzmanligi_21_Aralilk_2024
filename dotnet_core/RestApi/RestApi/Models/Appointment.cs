@@ -31,7 +31,7 @@ namespace RestApi.Models
         public int ServiceId { get; set; }
         public Service Service { get; set; } // Navigation property
 
-        public DateTimeOffset AppointmentDate { get; set; }
+        public DateTime AppointmentDate { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;

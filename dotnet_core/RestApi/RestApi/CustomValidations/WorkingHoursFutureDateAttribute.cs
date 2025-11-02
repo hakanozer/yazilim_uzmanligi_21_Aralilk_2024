@@ -20,8 +20,8 @@ namespace RestApi.CustomValidations
         if (value == null)
             return ValidationResult.Success;
 
-        var date = (DateTimeOffset)value;
-        var now = DateTimeOffset.Now;
+        var date = (DateTime)value;
+        var now = DateTime.Now;
 
         // Geçmiş tarih kontrolü
         if (date < now)

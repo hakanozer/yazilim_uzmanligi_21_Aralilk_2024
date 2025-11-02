@@ -18,7 +18,7 @@ namespace RestApi.Dto.AppointmentDto
 
         [Required]
         [WorkingHoursFutureDate]
-        public DateTimeOffset AppointmentDate { get; set; }
+        public DateTime AppointmentDate { get; set; }
 
     }
 }
