@@ -19,75 +19,93 @@ namespace RestApi.Services
 
         /// Aynı gün + 2 gün penceresinde, en fazla 5 uygun randevu başlangıç saati üretir.
         /// İstenen servis süresine göre slotları 15 dk adımlarla tarar ve çakışma olmayanları döndürür.
+        // Bellek içi çakışma kontrolünde kullanılacak net tip
+        private sealed class ApptItem
+        {
+            public DateTime AppointmentDate { get; set; }
+            public int ServiceId { get; set; }
+        }
+
         public List<DateTime> RePlan(RestApi.Dto.AppointmentDto.AppointmentAddDto dto)
         {
-            // Servis süreleri sözlüğü (anahtar: Service.Sid) — randevu sürelerini hesaplamak için gerekli
-            var serviceDurations = _dbContext.Services
-                .AsNoTracking()
-                .Select(s => new { s.Sid, s.DurationMinute })
-                .ToDictionary(s => s.Sid, s => s.DurationMinute);
-        
-            // İstenen servis süresi (dakika) — bilinmiyorsa varsayılan 30 dk kullanılır
-            var requestedDuration = serviceDurations.TryGetValue(dto.ServiceId, out var dur) ? dur : 30;
-        
-            // Arama penceresi: kullanıcının istediği günün 00:00'ından başlayıp +2 gün
+            // Zaman penceresi: kullanıcının istediği gün (00:00) + 2 gün
             var windowStart = new DateTime(dto.AppointmentDate.Year, dto.AppointmentDate.Month, dto.AppointmentDate.Day, 0, 0, 0);
             var windowEnd = windowStart.AddDays(2);
-        
-            // Mevcut randevuları belleğe al: ilgili personelin, aralık içinde olan tüm randevuları
-            var existing = _dbContext.Appointments
+
+            // 1) DB: Pencere içindeki randevuları tek seferde çek (AsNoTracking)
+            var existingInWindow = _dbContext.Appointments
                 .Where(a =>
                     a.StaffId == dto.StaffId &&
                     a.AppointmentDate >= windowStart &&
                     a.AppointmentDate < windowEnd)
-                .Select(a => new { a.AppointmentDate, a.ServiceId })
+                .Select(a => new ApptItem { AppointmentDate = a.AppointmentDate, ServiceId = a.ServiceId })
                 .AsNoTracking()
                 .ToList();
-        
-            // Öneri biriktirici ve tarama adımı (dakika cinsinden)
+
+            // Slot tarama aralığı (dakika)
+            const int step = 15;
+
+            // 2) DB: Yalnızca gereken servis sürelerini çek (mevcut + istenen servis)
+            var neededServiceIds = existingInWindow
+                .Select(a => a.ServiceId)
+                .Append(dto.ServiceId)
+                .Distinct()
+                .ToList();
+
+            var serviceDurations = _dbContext.Services
+                .Where(s => neededServiceIds.Contains(s.Sid))
+                .AsNoTracking()
+                .Select(s => new { s.Sid, s.DurationMinute })
+                .ToDictionary(s => s.Sid, s => s.DurationMinute);
+
+            // İstenen servis süresi yoksa varsayılan 30 dk kullan
+            var requestedDuration = serviceDurations.TryGetValue(dto.ServiceId, out var dur) ? dur : 30;
+
+            // CPU optimizasyonu: randevuları gün bazında gruplandır (slot kontrolünde filtreleme hızlı olur)
+            var existingByDay = existingInWindow
+                .GroupBy(a => a.AppointmentDate.Date)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            // Öneri listesi
             var resultSlots = new List<DateTime>();
-            const int step = 15; // dk — slot tarama aralığı
-        
-            // Aralık içindeki her günü, en fazla 5 öneri bulunana kadar dolaş
+
+            // Bellekte slot taraması (09:00–17:00), en fazla 5 öneri
             for (var day = windowStart; day < windowEnd && resultSlots.Count < 5; day = day.AddDays(1))
             {
-                // Çalışma saatleri: 09:00–18:00
+                var dayKey = day.Date;
+                var dayAppointments = existingByDay.TryGetValue(dayKey, out var list) ? list : new List<ApptItem>();
+
                 var slotStart = new DateTime(day.Year, day.Month, day.Day, 9, 0, 0);
-                var workEnd = new DateTime(day.Year, day.Month, day.Day, 18, 0, 0);
-        
-                // 'requestedDuration' süresinde kayan bir pencere ile uygun slotları tara
+                var workEnd = new DateTime(day.Year, day.Month, day.Day, 17, 0, 0);
+
                 while (slotStart.AddMinutes(requestedDuration) <= workEnd && resultSlots.Count < 5)
                 {
                     var slotEnd = slotStart.AddMinutes(requestedDuration);
-        
-                    // Çakışma kontrolü: slotStart < mevcutBitiş VE slotEnd > mevcutBaşlangıç ise çakışır
-                    var conflict = existing.Any(appt =>
+
+                    // Bellekte çakışma kontrolü: slotStart < apptEnd && slotEnd > apptStart
+                    var conflict = dayAppointments.Any(appt =>
                     {
                         var apptDuration = serviceDurations.TryGetValue(appt.ServiceId, out var d) ? d : requestedDuration;
                         var apptEnd = appt.AppointmentDate.AddMinutes(apptDuration);
                         return slotStart < apptEnd && slotEnd > appt.AppointmentDate;
                     });
-        
-                    // Çakışma yoksa öneriye ekle
+
                     if (!conflict)
                     {
                         resultSlots.Add(slotStart);
                     }
-        
-                    // Bir sonraki aday slota ilerle
+
                     slotStart = slotStart.AddMinutes(step);
                 }
             }
-        
-            // Gözlemlenebilirlik için: üretilen önerileri logla
-            // _logger.LogInformation(
-            //     "RePlan suggestions for StaffId {StaffId}, ServiceId {ServiceId}: {Suggestions}",
-            //     dto.StaffId,
-            //     dto.ServiceId,
-            //     string.Join(", ", resultSlots.Select(x => x.ToString("yyyy-MM-dd HH:mm")))
-            // );
-        
-            // En fazla 5 uygun başlangıç zamanını döndür
+
+            _logger.LogInformation(
+                "RePlan suggestions for StaffId {StaffId}, ServiceId {ServiceId}: {Suggestions}",
+                dto.StaffId,
+                dto.ServiceId,
+                string.Join(", ", resultSlots.Select(x => x.ToString("yyyy-MM-dd HH:mm")))
+            );
+
             return resultSlots;
         }
     }
