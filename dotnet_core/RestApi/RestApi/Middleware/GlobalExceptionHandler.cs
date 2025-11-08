@@ -51,10 +51,10 @@ namespace RestApi.Middleware
                 );
 
             // Kullanıcıya Detay Verme
-            var statusCode = StatusCodes.Status500InternalServerError;
+            var statusCode = StatusCodes.Status400BadRequest;
             var response = new
             {
-                error = message,
+                error = exception.Message,
                 code = statusCode,
                 timestamp = DateTime.UtcNow
             };
