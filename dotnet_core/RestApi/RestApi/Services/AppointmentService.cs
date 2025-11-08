@@ -28,7 +28,7 @@ namespace RestApi.Services
         public object Add(AppointmentAddDto appointmentAddDto, string? userId)
         {
 
-            long userIdValue = AppointmentDataControl( appointmentAddDto, userId);
+            long userIdValue = AppointmentDataControl(appointmentAddDto, userId);
             var appointment = _mapper.Map<Appointment>(appointmentAddDto);
             appointment.UserId = userIdValue;
 
@@ -179,11 +179,65 @@ namespace RestApi.Services
             );
             if (staffUser == null)
                 throw new BadHttpRequestException("Böyle bir uzman yok!");
-            
+
             // uzman kendisi mi?    
             if (staffUser.Id == userIdValue)
                 throw new BadHttpRequestException("Kendinize randevu alamazsınız!");
             return userIdValue;
         }
+
+        public object ListUpcomingByStaff(string? userId)
+        {
+            if (string.IsNullOrEmpty(userId) || !long.TryParse(userId, out var staffId))
+                throw new BadHttpRequestException("Kullanıcı ID geçersiz!");
+
+            var now = DateTime.Now;
+            var appointments = _dbContext.Appointments
+            .Include(a => a.Service)
+            .Include(a => a.User)
+            .Where(a => a.StaffId == staffId && a.AppointmentDate > now)
+            .OrderBy(a => a.AppointmentDate)
+            .Select(a => new
+            {
+                a.Aid,
+                a.AppointmentDate,
+                a.Status,
+                Service = new
+                {
+                    a.Service.Sid,
+                    a.Service.Name,
+                    a.Service.Detail,
+                    a.Service.DurationMinute,
+                    a.Service.Price
+                },
+                User = new
+                {
+                    a.User.Id,
+                    a.User.FirstName,
+                    a.User.LastName,
+                    a.User.Email
+                }
+            })
+            .ToList();
+            return appointments;
+        }
+
+
+        public object AppointmentChangeStatus(string? userId, AppointmentStatusChangeDto appointmentStatusChangeDto)
+        {
+            if (string.IsNullOrEmpty(userId) || !long.TryParse(userId, out var staffId))
+                throw new BadHttpRequestException("Kullanıcı ID geçersiz!");
+
+            var appointment = _dbContext.Appointments.FirstOrDefault(item =>
+                item.StaffId == staffId &&
+                item.Aid == appointmentStatusChangeDto.AppointmentId
+            ) ?? throw new BadHttpRequestException("Kullanıcı ID geçersiz yada Yetki hatası!");
+
+            appointment.Status = appointmentStatusChangeDto.Status;
+            _dbContext.SaveChanges();
+
+            return appointment;
+        }
+
     }
 }
