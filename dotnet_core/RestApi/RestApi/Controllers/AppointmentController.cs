@@ -24,5 +24,16 @@ namespace RestApi.Controllers
             var appointment = _appointmentService.Add(appointmentAddDto, UserId);
             return Ok(appointment);
         }
+
+        [HttpGet("list")]
+        [Authorize(Roles = "Staff")]
+        public ActionResult AppointmentList()
+        {
+            var UserId = User.FindFirst("id")?.Value;
+            Console.WriteLine(UserId);
+            // bu UserId aslında uzman idsidir. Staff'a ait güncel randevuları listeleyeceğiz,
+            // bu listeleme sırasında şimdiki tarihten sonraki randevular gelmelidir.
+            return Ok();
+        }
     }
 }
