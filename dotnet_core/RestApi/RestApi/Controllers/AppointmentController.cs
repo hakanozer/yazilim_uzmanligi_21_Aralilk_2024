@@ -40,10 +40,18 @@ namespace RestApi.Controllers
         public ActionResult ChangeStatus(AppointmentStatusChangeDto appointmentStatusChangeDto)
         {
             var UserId = User.FindFirst("id")?.Value;
-            var statusObj =_appointmentService.AppointmentChangeStatus(UserId, appointmentStatusChangeDto);
+            var statusObj = _appointmentService.AppointmentChangeStatus(UserId, appointmentStatusChangeDto);
             return Ok(statusObj);
         }
 
+        [HttpGet("userList")]
+        [Authorize]
+        public ActionResult AppointmentUserList()
+        {
+            var UserId = User.FindFirst("id")?.Value;
+            var appointments = _appointmentService.AppointmentUserList(UserId);
+            return Ok(appointments);
+        }
 
     }
 }

@@ -174,7 +174,7 @@ namespace RestApi.Services
                 throw new BadHttpRequestException("Kullanıcı ID geçersiz!");
 
             // uzman kontolü
-            var staffUser = _dbContext.Users.FirstOrDefault(item =>
+            var staffUser = _dbContext.Users.FirstOrDefault(item => 
                 item.Role.Contains("Staff") && item.Id == appointmentAddDto.StaffId
             );
             if (staffUser == null)
@@ -237,6 +237,46 @@ namespace RestApi.Services
             _dbContext.SaveChanges();
 
             return appointment;
+        }
+
+        public object AppointmentUserList(string? userId)
+        {
+            if (string.IsNullOrEmpty(userId) || !long.TryParse(userId, out var userID))
+                throw new BadHttpRequestException("Kullanıcı ID geçersiz!");
+
+            var now = DateTime.Now;
+            var appointments = _dbContext.Appointments
+            .Include(a => a.Service)
+            .Include(a => a.Staff)
+            .Where(a => a.UserId == userID && a.AppointmentDate > now)
+            .OrderBy(a => a.AppointmentDate)
+            .Select(a => new
+            {
+                a.Aid,
+                a.AppointmentDate,
+                a.Status,
+                Service = new
+                {
+                    a.Service.Sid,
+                    a.Service.Name,
+                    a.Service.Detail,
+                    a.Service.DurationMinute,
+                    a.Service.Price
+                },
+                Staff = new
+                {
+                    a.Staff.Id,
+                    a.Staff.FirstName,
+                    a.Staff.LastName,
+                    a.Staff.Email,
+                }
+            })
+            .ToList();
+            if (appointments.Count == 0)
+            {
+                return new { Message = "Güncel Randevunuz Yok!" };
+            }
+            return appointments;
         }
 
     }
