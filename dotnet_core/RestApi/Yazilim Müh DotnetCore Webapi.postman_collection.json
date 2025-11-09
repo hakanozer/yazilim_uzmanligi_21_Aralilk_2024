@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "22fb7724-2f06-4f61-a6ec-7dc211c6e253",
+		"name": "Yazilim Müh DotnetCore Webapi",
+		"description": "Swagger UI: [http://localhost:5235/](http://localhost:5185/)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1939021",
+		"_collection_link": "https://bold-sunset-964485.postman.co/workspace/Hakan---Workspace~34994f6e-e462-402e-8160-d96185a22bd7/collection/1939021-22fb7724-2f06-4f61-a6ec-7dc211c6e253?action=share&source=collection_link&creator=1939021"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"ali@mail.com\",\n    \"Password\": \"aA12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/login",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"FirstName\": \"Kaan\",\n    \"LastName\": \"Bilirler\",\n    \"Email\": \"kaan@mail.com\",\n    \"Password\": \"aA12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}user/register",
+							"host": [
+								"{{url}}user"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Service Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Saç Boyama\",\n    \"Detail\": \"Saç Boyama Tek Renk\",\n    \"DurationMinute\": 60,\n    \"Price\": 300\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}Service/add",
+							"host": [
+								"{{url}}Service"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Service All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\": \"Saç Sakal\",\n    \"Detail\": \"Saç Sakal Kesim fön Bedava\",\n    \"DurationMinute\": 60,\n    \"Price\": 250\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}Service/all",
+							"host": [
+								"{{url}}Service"
+							],
+							"path": [
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "Appointment Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ServiceId\": 1,\n    \"StaffId\": 5,\n    \"AppointmentDate\": \"2025-11-08T13:30:00+03:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}appointment/add",
+							"host": [
+								"{{url}}appointment"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}appointment/list",
+							"host": [
+								"{{url}}appointment"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment User List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}appointment/userList",
+							"host": [
+								"{{url}}appointment"
+							],
+							"path": [
+								"userList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Appointment Change Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"AppointmentId\": 3,\n    \"Status\": \"Approved\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}appointment/changeStatus",
+							"host": [
+								"{{url}}appointment"
+							],
+							"path": [
+								"changeStatus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFsaUBtYWlsLmNvbSIsImlkIjoiMSIsInJvbGUiOiJVc2VyIiwibmJmIjoxNzYyNjc1NzY1LCJleHAiOjE3NjI2NzkzNjUsImlhdCI6MTc2MjY3NTc2NX0.1HzY9BxKA-mT-PFHsvuPkHgJ-yxFL7Ls-z0W3KkiabI",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:5235/api/"
+		}
+	]
+}
