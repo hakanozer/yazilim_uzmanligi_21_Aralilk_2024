@@ -1,0 +1,46 @@
+﻿@page
+@using MVC.Pages.Account
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4 text-center">Kayıt Ol</h2>
+
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+            {
+                <div class="alert alert-danger">
+                    <div asp-validation-summary="All"></div>
+                </div>
+            }
+
+            <form method="post" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label asp-for="RegisterDto.Name" class="form-label">Name</label>
+                    <input asp-for="RegisterDto.Name" class="form-control" autocomplete="given-name" />
+                    <span asp-validation-for="RegisterDto.Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="RegisterDto.Surname" class="form-label">Surname</label>
+                    <input asp-for="RegisterDto.Surname" class="form-control" autocomplete="family-name" />
+                    <span asp-validation-for="RegisterDto.Surname" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="RegisterDto.Email" class="form-label">Email</label>
+                    <input asp-for="RegisterDto.Email" class="form-control" autocomplete="email" />
+                    <span asp-validation-for="RegisterDto.Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="RegisterDto.Password" class="form-label">Password</label>
+                    <input asp-for="RegisterDto.Password" type="password" class="form-control" autocomplete="new-password" />
+                    <span asp-validation-for="RegisterDto.Password" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+</div>
