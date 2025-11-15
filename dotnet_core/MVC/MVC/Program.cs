@@ -1,7 +1,12 @@
+using MVC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Add DI
+builder.Services.AddScoped<IndexService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MVC.Services;
 
 namespace MVC.Pages
 {
@@ -12,6 +13,12 @@ namespace MVC.Pages
         [BindProperty]
          public string Password { get; set; } = string.Empty;
 
+        private readonly IndexService _indexService;
+         public IndexModel(IndexService indexService)
+        {
+            _indexService = indexService;
+        }
+
         public void OnGet()
         {
             Console.WriteLine("Razor Pages Login GET");
@@ -19,8 +26,7 @@ namespace MVC.Pages
 
         public IActionResult OnPost()
         {
-            Console.WriteLine("Razor Pages Login POST");
-            Console.WriteLine(Username);
+            _indexService.UserLogin(Username, Password);
             return Page();
         }
 
