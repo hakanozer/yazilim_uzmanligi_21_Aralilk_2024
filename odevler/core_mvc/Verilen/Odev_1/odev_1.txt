@@ -1,0 +1,7 @@
+SQLite Veritabanı bağlantısı,
+Register Bölümü - http://localhost:5147/Account/Register
+	// Modelleme
+	// Benzersiz Email
+	// Validations - DTO - Mapper
+	// Password - Hash
+	Name, Surname, Email, Password
