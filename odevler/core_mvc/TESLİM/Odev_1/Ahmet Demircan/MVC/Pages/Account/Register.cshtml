@@ -1,0 +1,26 @@
+﻿@page
+@model MVC.Pages.Account.RegisterModel
+@{
+    ViewData["PageTitle"] = "Register";
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <h2>Register</h2>
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <input name="Input.FullName" class="form-control" placeholder="FullName" required />
+            </div>
+            <div class="mb-3">
+                <input name="Input.Email" class="form-control" placeholder="Email" required />
+            </div>
+            <div class="mb-3">
+                <input name="Input.Password" type="password" class="form-control" placeholder="Password" required />
+            </div>
+            <button class="btn btn-success">Register</button>
+        </form>    
+    </div>
+    <div class="col-sm-4"></div>
+</div>
