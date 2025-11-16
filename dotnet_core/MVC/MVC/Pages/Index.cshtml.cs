@@ -13,10 +13,10 @@ namespace MVC.Pages
         [BindProperty]
          public string Password { get; set; } = string.Empty;
 
-        private readonly IndexService _indexService;
-         public IndexModel(IndexService indexService)
+        private readonly UserService _userService;
+         public IndexModel(UserService userService)
         {
-            _indexService = indexService;
+            _userService = userService;
         }
 
         public void OnGet()
@@ -26,7 +26,7 @@ namespace MVC.Pages
 
         public IActionResult OnPost()
         {
-            _indexService.UserLogin(Username, Password);
+            _userService.UserLogin(Username, Password);
             return Page();
         }
 
