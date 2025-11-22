@@ -19,8 +19,14 @@ namespace MVC.Services
             _mapper = mapper;
         }
 
-        public void UserLogin(string UserName, string Password)
+        public User? UserLogin(string Email, string Password)
         {
+            var user =  _dbContext.Users.SingleOrDefault(u => u.Email == Email);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(Password, user.Password))
+            {
+                return null;
+            }
+            return user;
         }
 
         public User UserRegister(UserRegisterDto userRegisterDto)

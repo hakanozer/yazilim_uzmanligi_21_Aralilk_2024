@@ -1,3 +1,7 @@
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MVC.Services;
@@ -8,7 +12,7 @@ namespace MVC.Pages
     {
 
         [BindProperty]
-        public string Username { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
 
         [BindProperty]
          public string Password { get; set; } = string.Empty;
@@ -24,10 +28,29 @@ namespace MVC.Pages
             Console.WriteLine("Razor Pages Login GET");
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            _userService.UserLogin(Username, Password);
-            return Page();
+            var user = _userService.UserLogin(Email, Password);
+            if (user != null) {
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role)
+                };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                
+                HttpContext.Session.SetString("Email", user.Email);
+                HttpContext.Session.SetString("Role", user.Role);
+
+                return RedirectToPage("/Dashboard");
+            } else {
+                ModelState.AddModelError(string.Empty, "E-mail or Password is incorrect.");
+                return Page();
+            }
         }
 
     }

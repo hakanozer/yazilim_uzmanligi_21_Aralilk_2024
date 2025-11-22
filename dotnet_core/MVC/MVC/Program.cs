@@ -1,3 +1,5 @@
+using System.Net;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MVC.Dto.Mappings;
 using MVC.Middleware;
@@ -22,6 +24,18 @@ builder.Services.AddRazorPages();
 // Add DI
 builder.Services.AddSingleton<AsyncLogService>();
 builder.Services.AddScoped<UserService>();
+
+// Session ve Cookies AddAuthorization
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    });
+builder.Services.AddSession();    
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionLoggingMiddleware>();
@@ -31,6 +45,8 @@ app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

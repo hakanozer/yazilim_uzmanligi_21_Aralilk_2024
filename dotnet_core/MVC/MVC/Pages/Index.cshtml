@@ -8,10 +8,24 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <h2>Login</h2>
+        @if (ModelState.IsValid == false)
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry modelState in ModelState.Values)
+                    {
+                        @foreach (var error in modelState.Errors)
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
         <form method="post">
             @Html.AntiForgeryToken()
             <div class="mb-3">
-                <input name="Username" class="form-control" placeholder="Username" />
+                <input name="Email" class="form-control" placeholder="Email" />
             </div>
             <div class="mb-3">
                 <input name="Password" type="password" class="form-control" placeholder="Password" />
