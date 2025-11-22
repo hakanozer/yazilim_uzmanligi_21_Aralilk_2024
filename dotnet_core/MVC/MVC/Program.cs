@@ -22,16 +22,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<UserService>();
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
-}
-else
-{
-    app.UseExceptionHandler("/Error");
-    //app.UseDeveloperExceptionPage();
-}
+app.UseExceptionHandler("/Error");
 app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
 
 app.UseHttpsRedirection();
