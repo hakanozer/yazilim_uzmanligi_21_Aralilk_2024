@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Text;
 
 namespace MVC.Pages
 {
@@ -8,35 +9,56 @@ namespace MVC.Pages
         public bool ShowDetails { get; set; }
         public string Message { get; set; } = "";
         public string StackTrace { get; set; } = "";
-        public int? StatusCode { get; set; }
+        public new int? StatusCode { get; set; }
 
         public void OnGet(int? code = null)
         {
-            StatusCode = code;
-
-            // Exception yakala
-            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-
-            if (exceptionFeature != null)
-            {
-                ShowDetails = true;
-                Message = exceptionFeature.Error.Message;
-                StackTrace = exceptionFeature.Error.StackTrace;
-                return;
-            }
-
-            // Exception yok = Status Code hatası
-            if (code != null)
-            {
-                ShowDetails = true;
-                Message = $"HTTP Hatası: {code}";
-                StackTrace = "Bu bir exception değil, HTTP status hatasıdır.";
-            }
+            HandleError(code);
         }
 
         public void OnPost(int? code = null)
         {
-            OnGet(code);
+            HandleError(code);
+        }
+
+        private void HandleError(int? code)
+        {
+            StatusCode = code;
+
+            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            if (exceptionFeature != null)
+            {
+                // Full inner exception yapısını çıkar
+                Message = BuildFullExceptionMessage(exceptionFeature.Error);
+                StackTrace = exceptionFeature.Error.ToString(); // Tüm iç stack trace zinciri
+                ShowDetails = true;
+                return;
+            }
+
+            if (code != null)
+            {
+                ShowDetails = true;
+                Message = $"HTTP Error: {code}";
+                StackTrace = "No exception was thrown. This is a status code error.";
+            }
+        }
+
+        private string BuildFullExceptionMessage(Exception ex)
+        {
+            StringBuilder sb = new();
+
+            sb.AppendLine($"[Exception] {ex.GetType().Name}: {ex.Message}");
+
+            var inner = ex.InnerException;
+            while (inner != null)
+            {
+                sb.AppendLine();
+                sb.AppendLine($"[Inner Exception] {inner.GetType().Name}: {inner.Message}");
+                inner = inner.InnerException;
+            }
+
+            return sb.ToString();
         }
     }
 }

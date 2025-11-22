@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MVC.Dto.Mappings;
+using MVC.Middleware;
 using MVC.Services;
 using MVC.Utils;
 
@@ -19,8 +20,11 @@ builder.Services.AddAutoMapper(typeof(AppProfile));
 builder.Services.AddRazorPages();
 
 // Add DI
+builder.Services.AddSingleton<AsyncLogService>();
 builder.Services.AddScoped<UserService>();
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionLoggingMiddleware>();
 
 app.UseExceptionHandler("/Error");
 app.UseStatusCodePagesWithReExecute("/Error", "?code={0}");
