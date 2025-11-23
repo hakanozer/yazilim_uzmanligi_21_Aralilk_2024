@@ -32,11 +32,13 @@
                     <li><a class="dropdown-item" href="#">Action</a></li>
                     <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" onclick="return logoutConfirm()" href="/Index?handler=Logout">Logout</a></li>
                 </ul>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                @if (User.Identity != null) {
+                    <a class="nav-link disabled" aria-disabled="true">Sn. @User.Identity.Name</a>
+                }
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -48,5 +50,15 @@
     </nav>
         @RenderBody()
     </div>
+
+    <script>
+        function logoutConfirm() {
+            const result = confirm("Are you sure you want to logout?");
+            if (result) {
+                return true;
+            }
+            return false;
+        }
+    </script>
 </body>
 </html>

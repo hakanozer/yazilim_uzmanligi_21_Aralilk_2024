@@ -32,11 +32,12 @@ namespace MVC.Pages
         {
             var user = _userService.UserLogin(Email, Password);
             if (user != null) {
-
+                var fullName = $"{user.FirstName} {user.LastName}";
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, fullName),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -51,6 +52,14 @@ namespace MVC.Pages
                 ModelState.AddModelError(string.Empty, "E-mail or Password is incorrect.");
                 return Page();
             }
+        }
+
+        // /Index?handler=Logout
+        public async Task<IActionResult> OnGetLogout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Index"); 
         }
 
     }
