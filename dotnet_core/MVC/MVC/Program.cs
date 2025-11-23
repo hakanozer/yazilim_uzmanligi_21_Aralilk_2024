@@ -24,6 +24,7 @@ builder.Services.AddRazorPages();
 // Add DI
 builder.Services.AddSingleton<AsyncLogService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ContactsService>();
 
 // Session ve Cookies AddAuthorization
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
