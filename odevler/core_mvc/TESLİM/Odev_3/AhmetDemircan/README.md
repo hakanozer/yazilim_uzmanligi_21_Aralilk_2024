@@ -30,7 +30,7 @@
 **Ekran Görseli**
 - Aşağıdaki görsel, 404 sayfasının temsili görünümünü yansıtır:
 
-![404 Görseli](https://images5.alphacoders.com/883/883492.jpg)
+![404 Görseli](img/404sayfası.png )
 
 **Notlar**
 - `asp-for` ile form alanlarına manuel `value` eklemeyin; TagHelper mevcut veriyi ve POST sonrası kullanıcı girişini otomatik yönetir.
