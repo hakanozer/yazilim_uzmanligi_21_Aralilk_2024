@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Authorization;
 using MVC.Models;
 using MVC.Services;
 using System.Threading.Tasks;
+using Ganss.Xss;
 
 namespace MVC.Pages
 {
     [Authorize(Roles = "User")]
     public class DashboardModel : PageModel
     {
+        private readonly HtmlSanitizer _sanitizer = new();
+
         [BindProperty]
         public Contact Contacts { get; set; } = new();
 
@@ -33,6 +36,7 @@ namespace MVC.Pages
             {
                 return Page();
             }
+            Contacts.Name = _sanitizer.Sanitize(Contacts.Name);
             await _contactsService.AddContact(Contacts);
             return RedirectToPage("/Dashboard");       
         }
