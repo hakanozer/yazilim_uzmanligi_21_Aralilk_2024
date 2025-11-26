@@ -1,0 +1,51 @@
+@page "{id:int}"
+@model MVC.Pages.ContactsUpdateModel
+@{
+    ViewData["PageTitle"] = "Update Contact";
+    Layout = "_LayoutAuth";
+}
+
+
+<h3>Contacts Update</h3>
+
+<form method="post"> 
+    
+    <input type="hidden" asp-for="Contacts.Id" />
+
+    @Html.AntiForgeryToken()
+
+    @if (!ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
+    <div class="row mb-3">
+        <div class="col">
+            <input asp-for="Contacts.Name" type="text" class="form-control" placeholder="Name">
+        </div>
+        <div class="col">
+            <input asp-for="Contacts.Email" type="text" class="form-control" placeholder="Email">
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <input asp-for="Contacts.Phone" type="text" class="form-control" placeholder="Phone">
+        </div>
+        <div class="col">
+            <input asp-for="Contacts.Company" type="text" class="form-control" placeholder="Company">
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-success btn-sm">Update Contact</button>
+</form>
