@@ -1,0 +1,70 @@
+﻿@page
+@model MVC.Pages.DashboardModel
+@{
+    ViewData["PageTitle"] = "Dashboard";
+    Layout = "_LayoutAuth";
+}
+<h3>Contacts Control</h3>
+<form action="/Dashboard?handler=ContactsAdd" method="post">
+    @Html.AntiForgeryToken()
+    @if (ModelState.IsValid == false)
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry modelState in ModelState.Values)
+                    {
+                        @foreach (var error in modelState.Errors)
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+        <div class="row mb-3">
+            <div class="col">
+                <input name="Contacts.Name" type="text" class="form-control" placeholder="Name">
+            </div>
+            <div class="col">
+                <input name="Contacts.Email" type="text" class="form-control" placeholder="Email">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <input name="Contacts.Phone" type="text" class="form-control" placeholder="Phone">
+            </div>
+            <div class="col">
+                <input name="Contacts.Company" type="text" class="form-control" placeholder="Company">
+            </div>
+        </div>
+    
+    <button type="submit" class="btn btn-success btn-sm">Add Contact</button>
+</form>
+
+
+<table class="table table-hover mt-4">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    @foreach (MVC.Models.Contact contact in Model.ContactsList)
+    {
+        <tr>
+            <th scope="row">@contact.Id</th>
+            <td>@Html.Raw(contact.Name)</td>
+            <td>@contact.Email</td>
+            <td>
+                <a href="/Dashboard?handler=ContactsDelete&id=@contact.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash3"></i></a>
+                <a href="/ContactsUpdate/@contact.Id" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+            </td>
+        </tr>
+    }
+    
+  </tbody>
+</table>

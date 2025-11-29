@@ -1,0 +1,41 @@
+﻿@page "{code?}"
+@model MVC.Pages.ErrorModel
+@{
+    ViewData["PageTitle"] = "Error";
+    Layout = "_Layout";
+}
+
+@if (Model.ShowDetails)
+{
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="d-flex align-items-start bg-white border rounded shadow-sm p-4">
+                    <div class="flex-shrink-0 me-3">
+                        <svg width="48" height="48" viewBox="0 0 16 16" class="bi bi-exclamation-triangle-fill text-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.964 0L.165 13.233c-.457.778.091 1.767.982 1.767h13.706c.89 0 1.438-.99.982-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>
+                    </div>
+                    <div class="w-100">
+                        <div class="d-flex align-items-start">
+                            <div>
+                                <h3 class="h5 mb-1 text-danger">Beklenmeyen bir hata oluştu</h3>
+                                <p class="mb-2 text-muted">Aşağıda hata ile ilgili detaylar gösterilmektedir. Geliştirme veya hata ayıklama amacıyla kullanın.</p>
+                            </div>
+                            <div class="ms-auto">
+                                <a href="~/" class="btn btn-outline-secondary btn-sm">Ana sayfaya dön</a>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="alert alert-light border-start border-3 border-danger p-3 mb-0">
+                                <small class="text-muted">Hata mesajı ve yığın izleme (stack trace) aşağıdadır.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>@Model.Message</h2>
+    <pre>@Model.StackTrace</pre>
+}
