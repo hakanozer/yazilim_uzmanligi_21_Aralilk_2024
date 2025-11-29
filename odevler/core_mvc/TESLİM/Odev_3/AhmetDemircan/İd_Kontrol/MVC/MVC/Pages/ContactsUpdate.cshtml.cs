@@ -61,10 +61,13 @@ namespace MVC.Pages
                 return StatusCode(403);
             }
 
-            // Preserve the UserId
-            Contacts.UserId = intUserId;
-
-            await _contactsService.UpdateContactAsync(Contacts);
+            // Update properties
+            originalContact.Name = Contacts.Name;
+            originalContact.Email = Contacts.Email;
+            originalContact.Phone = Contacts.Phone;
+            originalContact.Company = Contacts.Company;
+            
+            await _contactsService.UpdateContactAsync(originalContact);
             return RedirectToPage("/Dashboard");
         }
     }
