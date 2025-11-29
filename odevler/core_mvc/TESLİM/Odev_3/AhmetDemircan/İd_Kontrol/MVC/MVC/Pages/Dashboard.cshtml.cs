@@ -49,8 +49,25 @@ namespace MVC.Pages
 
         public async Task<IActionResult> OnGetContactsDelete(int id)
         {
+            var userId = User.FindFirst("UserId")?.Value;
+            var intUserId = int.Parse(userId ?? "0");
+
+            // Security check: Ensure the contact belongs to the current user
+            var contact = await _contactsService.GetContactByIdAsync(id);
+
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            if (contact.UserId != intUserId)
+            {
+                return StatusCode(403);
+            }
+
             await _contactsService.DeleteContactAsync(id);
             return RedirectToPage("/Dashboard");
+
         }
         
     }
