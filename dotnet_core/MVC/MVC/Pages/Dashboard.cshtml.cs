@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 using MVC.Models;
 using MVC.Services;
-using System.Threading.Tasks;
 using Ganss.Xss;
 
 namespace MVC.Pages
@@ -27,7 +26,9 @@ namespace MVC.Pages
 
         public async Task OnGetAsync()
         {
-            ContactsList = await _contactsService.GetAllContactsAsync();
+            var userId = User.FindFirst("UserId")?.Value;
+            var intUserId = int.Parse(userId ?? "0");
+            ContactsList = await _contactsService.GetAllContactsAsync(intUserId);
         }
 
         public async Task<IActionResult> OnPostContactsAdd()

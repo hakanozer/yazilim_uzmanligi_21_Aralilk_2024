@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC.Models;
 using MVC.Utils;
@@ -23,9 +24,9 @@ namespace MVC.Services
             return contact;
         }
 
-        public async Task<List<Contact>> GetAllContactsAsync()
+        public async Task<List<Contact>> GetAllContactsAsync(int intUserId)
         {
-            return await _db.Contacts.ToListAsync();
+            return await _db.Contacts.Where(c => c.UserId == intUserId).ToListAsync();
         }
 
         // delete contact by id
@@ -39,6 +40,11 @@ namespace MVC.Services
             _db.Contacts.Remove(contact);
             await _db.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<Contact?> GetContactByIdAsync(int id)
+        {
+            return await _db.Contacts.FindAsync(id);
         }
         
     }

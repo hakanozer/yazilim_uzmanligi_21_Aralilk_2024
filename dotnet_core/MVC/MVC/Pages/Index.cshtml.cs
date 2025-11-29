@@ -35,7 +35,7 @@ namespace MVC.Pages
                 var fullName = $"{user.FirstName} {user.LastName}";
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim("UserId", user.Id.ToString()),
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Name, fullName),
                     new Claim(ClaimTypes.Role, user.Role)

@@ -25,6 +25,9 @@ namespace MVC.Models
         [StringLength(150)]
         public string Company { get; set; } = string.Empty;
 
+        [Required]
+        public int UserId { get; set; }
+
         [DataType(DataType.DateTime)]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
