@@ -44,7 +44,9 @@ namespace MVC.Pages
 
         public async Task<IActionResult> OnGetContactsDelete(int id)
         {
-            await _contactsService.DeleteContactAsync(id);
+            var userId = User.FindFirst("UserId")?.Value;
+            var intUserId = int.Parse(userId ?? "0");
+            await _contactsService.DeleteContactAsync(id, intUserId);
             return RedirectToPage("/Dashboard");
         }
         

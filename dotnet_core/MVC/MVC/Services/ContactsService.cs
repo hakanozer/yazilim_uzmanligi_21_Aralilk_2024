@@ -30,9 +30,9 @@ namespace MVC.Services
         }
 
         // delete contact by id
-        public async Task<bool> DeleteContactAsync(int id)
+        public async Task<bool> DeleteContactAsync(int id, int intUserId)
         {
-            var contact = await _db.Contacts.FindAsync(id);
+            var contact = await _db.Contacts.Where(c => c.Id == id && c.UserId == intUserId).FirstOrDefaultAsync();
             if (contact == null)
             {
                 return false;
@@ -42,9 +42,26 @@ namespace MVC.Services
             return true;
         }
 
-        public async Task<Contact?> GetContactByIdAsync(int id)
+        public async Task<Contact?> GetContactByIdAsync(int id, int intUserId)
         {
-            return await _db.Contacts.FindAsync(id);
+            return await _db.Contacts.Where(c => c.Id == id && c.UserId == intUserId).FirstOrDefaultAsync();
+        }
+
+        // UpdateContactAsync params Contact contact
+        public async Task<bool> UpdateContactAsync(Contact contact)
+        {
+            var existingContact = await _db.Contacts.Where(c => c.Id == contact.Id && c.UserId == contact.UserId).FirstOrDefaultAsync();
+            if (existingContact == null)
+            {
+                return false;
+            }
+            existingContact.Name = contact.Name;
+            existingContact.Email = contact.Email;
+            existingContact.Phone = contact.Phone;
+            existingContact.Company = contact.Company;
+            _db.Contacts.Update(existingContact);
+            await _db.SaveChangesAsync();
+            return true;
         }
         
     }

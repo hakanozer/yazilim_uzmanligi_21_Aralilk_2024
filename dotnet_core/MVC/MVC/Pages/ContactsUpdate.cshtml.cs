@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MVC.Models;
@@ -17,9 +18,35 @@ namespace MVC.Pages
             _contactsService = contactsService;
         }
 
-        public void OnGet(int id)
+        public async Task OnGet(int id)
         {
-            Console.WriteLine($"Contact ID to update: {id}");           
+            var userId = User.FindFirst("UserId")?.Value;
+            var intUserId = int.Parse(userId ?? "0");
+            var contact = await _contactsService.GetContactByIdAsync(id, intUserId);
+            if (contact != null)
+            {
+                Contacts = contact;
+            }
+            else
+            {
+                Response.Redirect("/Dashboard");
+            }
+        }
+
+        // Post method to update contact
+        public async Task<IActionResult> OnPostSingleContactUpdate()
+        {
+            Console.WriteLine("OnPost", Contacts.Name);
+            /*
+            Console.WriteLine("OnPostContactsUpdate called");
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            await _contactsService.UpdateContactAsync(Contacts);
+            return RedirectToPage("/Dashboard");
+            */
+            return RedirectToPage("/Dashboard");
         }
     }
 }
