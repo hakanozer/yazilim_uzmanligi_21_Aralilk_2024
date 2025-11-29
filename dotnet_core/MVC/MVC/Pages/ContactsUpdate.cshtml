@@ -7,7 +7,7 @@
 
 
 <h3>Contacts Update</h3>
-<form action="/ContactsUpdateModel/@Model.Contacts.Id?handler=SingleContactUpdate" method="post">
+<form method="post" action="@Model.Contacts.Id?handler=SingleContactUpdate">
     @Html.AntiForgeryToken()
     @if (ModelState.IsValid == false)
         {

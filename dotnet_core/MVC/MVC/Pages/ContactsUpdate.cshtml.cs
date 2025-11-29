@@ -34,18 +34,17 @@ namespace MVC.Pages
         }
 
         // Post method to update contact
-        public async Task<IActionResult> OnPostSingleContactUpdate()
+        public async Task<IActionResult> OnPostSingleContactUpdate(int id)
         {
-            Console.WriteLine("OnPost", Contacts.Name);
-            /*
-            Console.WriteLine("OnPostContactsUpdate called");
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            Contacts.Id = id;
+            var userId = User.FindFirst("UserId")?.Value;
+            var intUserId = int.Parse(userId ?? "0");
+            Contacts.UserId = intUserId;
             await _contactsService.UpdateContactAsync(Contacts);
-            return RedirectToPage("/Dashboard");
-            */
             return RedirectToPage("/Dashboard");
         }
     }
