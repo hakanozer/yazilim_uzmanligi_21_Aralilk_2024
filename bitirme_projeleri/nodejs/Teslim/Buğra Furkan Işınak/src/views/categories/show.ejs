@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori: <%= category.name %> - BFItalks</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-newspaper me-2"></i>BFItalks
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Ana Sayfa
+                </a>
+                <a class="nav-link" href="/articles">
+                    <i class="fas fa-newspaper me-1"></i>Haberler
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-gradient" style="background: linear-gradient(135deg, <%= category.color %>20, <%= category.color %>40);">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="category-icon me-4">
+                            <i class="<%= category.icon || 'fas fa-tag' %>" style="font-size: 4rem; color: <%= category.color %>;"></i>
+                        </div>
+                        <div>
+                            <h1 class="display-4 fw-bold mb-2" style="color: <%= category.color %>;"><%= category.name %></h1>
+                            <p class="lead mb-0"><%= category.description || 'Bu kategorideki en güncel haberler' %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-end">
+                    <div class="category-stats">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <h3 class="fw-bold" id="articleCount">-</h3>
+                                <small class="text-muted">Haber</small>
+                            </div>
+                            <div class="col-6">
+                                <h3 class="fw-bold" id="viewCount">-</h3>
+                                <small class="text-muted">Görüntülenme</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- Filter and Sort -->
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="d-flex gap-3 align-items-center">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-filter me-2"></i>Filtrele
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="filterArticles('all')">Tümü</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filterArticles('featured')">Öne Çıkan</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filterArticles('recent')">En Yeni</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-sort me-2"></i>Sırala
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="sortArticles('newest')">En Yeni</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortArticles('popular')">En Popüler</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortArticles('views')">En Çok Görüntülenen</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-end">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="viewMode" id="gridView" autocomplete="off" checked>
+                    <label class="btn btn-outline-secondary" for="gridView">
+                        <i class="fas fa-th"></i>
+                    </label>
+                    <input type="radio" class="btn-check" name="viewMode" id="listView" autocomplete="off">
+                    <label class="btn btn-outline-secondary" for="listView">
+                        <i class="fas fa-list"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Articles Grid -->
+        <div class="row" id="articlesList">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Yükleniyor...</span>
+                </div>
+                <p class="mt-3">Haberler yükleniyor...</p>
+            </div>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-4" id="loadMoreContainer" style="display: none;">
+            <button class="btn btn-primary btn-lg" onclick="loadMoreArticles()">
+                <i class="fas fa-plus me-2"></i>Daha Fazla Yükle
+            </button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <script>
+        let currentPage = 1;
+        let allArticles = [];
+        let filteredArticles = [];
+
+        $(document).ready(function() {
+            loadCategoryArticles();
+            loadCategoryStats();
+            
+            // View mode change
+            $('input[name="viewMode"]').change(function() {
+                displayArticles(filteredArticles);
+            });
+        });
+
+        function loadCategoryArticles() {
+            $.ajax({
+                url: `/api/articles?category=${encodeURIComponent('<%= category._id %>')}&limit=20&page=${currentPage}`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        if (currentPage === 1) {
+                            allArticles = response.data.articles;
+                        } else {
+                            allArticles = [...allArticles, ...response.data.articles];
+                        }
+                        
+                        filteredArticles = [...allArticles];
+                        displayArticles(filteredArticles);
+                        
+                        // Show load more button if there are more articles
+                        if (response.data.articles.length === 20) {
+                            $('#loadMoreContainer').show();
+                        } else {
+                            $('#loadMoreContainer').hide();
+                        }
+                    } else {
+                        showNoArticles();
+                    }
+                },
+                error: function() {
+                    $('#articlesList').html(`
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Haberler yüklenirken hata oluştu.
+                        </div>
+                    `);
+                }
+            });
+        }
+
+        function loadCategoryStats() {
+            $.ajax({
+                url: `/api/articles?category=${encodeURIComponent('<%= category._id %>')}&limit=100`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const articles = response.data.articles;
+                        $('#articleCount').text(articles.length);
+                        
+                        const totalViews = articles.reduce((sum, article) => sum + (article.views || 0), 0);
+                        $('#viewCount').text(totalViews);
+                    }
+                }
+            });
+        }
+
+        function displayArticles(articles) {
+            if (articles.length === 0) {
+                showNoArticles();
+                return;
+            }
+
+            const isGridView = $('#gridView').is(':checked');
+            let html = '';
+            
+            if (isGridView) {
+                html = '<div class="row">';
+                articles.forEach(article => {
+                    html += createArticleCard(article);
+                });
+                html += '</div>';
+            } else {
+                articles.forEach(article => {
+                    html += createArticleListItem(article);
+                });
+            }
+            
+            $('#articlesList').html(html);
+        }
+
+        function createArticleCard(article) {
+            return `
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        ${article.coverImage ? `
+                            <img src="${article.coverImage}" class="card-img-top" alt="${article.title}" style="height: 200px; object-fit: cover;">
+                        ` : ''}
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="badge" style="background-color: <%= category.color %>; color: white;">
+                                    <i class="<%= category.icon || 'fas fa-tag' %> me-1"></i>
+                                    <%= category.name %>
+                                </span>
+                                ${article.featured ? '<span class="badge bg-warning"><i class="fas fa-star me-1"></i>Öne Çıkan</span>' : ''}
+                            </div>
+                            <h5 class="card-title">${article.title}</h5>
+                            <p class="card-text text-muted">${article.excerpt}</p>
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-user me-1"></i>${article.author.firstName} ${article.author.lastName}
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i>${new Date(article.createdAt).toLocaleDateString('tr-TR')}
+                                    </small>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <small class="text-muted">
+                                        <i class="fas fa-eye me-1"></i>${article.views || 0} görüntülenme
+                                    </small>
+                                    <a href="/articles/${article._id}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>Oku
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createArticleListItem(article) {
+            return `
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        ${article.coverImage ? `
+                            <div class="col-md-3">
+                                <img src="${article.coverImage}" class="img-fluid rounded-start" alt="${article.title}" style="height: 150px; object-fit: cover; width: 100%;">
+                            </div>
+                        ` : ''}
+                        <div class="col-md-${article.coverImage ? '9' : '12'}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <span class="badge" style="background-color: <%= category.color %>; color: white;">
+                                        <i class="<%= category.icon || 'fas fa-tag' %> me-1"></i>
+                                        <%= category.name %>
+                                    </span>
+                                    ${article.featured ? '<span class="badge bg-warning"><i class="fas fa-star me-1"></i>Öne Çıkan</span>' : ''}
+                                </div>
+                                <h5 class="card-title">${article.title}</h5>
+                                <p class="card-text">${article.excerpt}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex gap-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-user me-1"></i>${article.author.firstName} ${article.author.lastName}
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>${new Date(article.createdAt).toLocaleDateString('tr-TR')}
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-eye me-1"></i>${article.views || 0} görüntülenme
+                                        </small>
+                                    </div>
+                                    <a href="/articles/${article._id}" class="btn btn-primary">
+                                        <i class="fas fa-arrow-right me-1"></i>Oku
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showNoArticles() {
+            $('#articlesList').html(`
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-newspaper text-muted" style="font-size: 4rem;"></i>
+                    <h4 class="text-muted mt-3">Bu kategoride henüz haber bulunmuyor</h4>
+                    <p class="text-muted">Yeni haberler eklendiğinde burada görünecek.</p>
+                </div>
+            `);
+        }
+
+        function filterArticles(filter) {
+            switch(filter) {
+                case 'featured':
+                    filteredArticles = allArticles.filter(article => article.featured);
+                    break;
+                case 'recent':
+                    filteredArticles = allArticles.filter(article => {
+                        const articleDate = new Date(article.createdAt);
+                        const weekAgo = new Date();
+                        weekAgo.setDate(weekAgo.getDate() - 7);
+                        return articleDate > weekAgo;
+                    });
+                    break;
+                default:
+                    filteredArticles = [...allArticles];
+            }
+            displayArticles(filteredArticles);
+        }
+
+        function sortArticles(sort) {
+            switch(sort) {
+                case 'newest':
+                    filteredArticles.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    break;
+                case 'popular':
+                    filteredArticles.sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0));
+                    break;
+                case 'views':
+                    filteredArticles.sort((a, b) => (b.views || 0) - (a.views || 0));
+                    break;
+            }
+            displayArticles(filteredArticles);
+        }
+
+        function loadMoreArticles() {
+            currentPage++;
+            loadCategoryArticles();
+        }
+    </script>
+</body>
+</html>

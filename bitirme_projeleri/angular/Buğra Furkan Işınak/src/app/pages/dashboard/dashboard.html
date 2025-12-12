@@ -1,0 +1,136 @@
+<app-bar></app-bar>
+
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">LMS Dashboard</h1>
+    </div>
+  </div>
+  @if (isLoading) {
+    <div class="d-flex justify-content-center py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Yükleniyor...</span>
+      </div>
+    </div>
+  } @else {
+    <!-- İstatistik Kartları -->
+    <div class="row mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4 class="card-title">Toplam Kurslar</h4>
+                <h2>{{totalProducts}}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="bi bi-book fs-1"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <div class="card bg-success text-white">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4 class="card-title">Toplam Öğrenciler</h4>
+                <h2>{{totalUsers}}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="bi bi-people fs-1"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <div class="card bg-info text-white">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4 class="card-title">Toplam Yorumlar</h4>
+                <h2>{{totalComments}}</h2>
+              </div>
+              <div class="align-self-center">
+                <i class="bi bi-chat-dots fs-1"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Son Eklenen Kurslar -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Son Eklenen Kurslar</h5>
+            <a [routerLink]="['/products']" class="btn btn-sm btn-outline-primary">Tümünü Gör</a>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              @for (product of recentProducts; track $index) {
+                <div class="col-md-4 mb-3">
+                  <div class="card h-100">
+                    <img [src]="product.thumbnail" class="card-img-top" style="height: 200px; object-fit: cover;" [alt]="product.title">
+                    <div class="card-body">
+                      <h6 class="card-title">{{product.title}}</h6>
+                      <p class="card-text text-muted small">{{product.description | slice:0:100}}...</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-warning text-dark">{{product.price}}₺</span>
+                        <a [routerLink]="['/product-detail', product.id]" class="btn btn-sm btn-primary">Detay</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Son Kayıt Olan Öğrenciler -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Son Kayıt Olan Öğrenciler</h5>
+             <a [routerLink]="['/users']" class="btn btn-sm btn-outline-success">Tümünü Gör</a>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Profil</th>
+                    <th>Ad Soyad</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (user of recentUsers; track $index) {
+                    <tr>
+                      <td>
+                        <img [src]="user.profile" class="img-thumbnail rounded-circle" width="40" height="40" [alt]="user.name">
+                      </td>
+                      <td>{{user.name}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.phone}}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

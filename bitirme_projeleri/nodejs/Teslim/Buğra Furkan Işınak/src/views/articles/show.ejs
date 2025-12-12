@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= article.title %> - BFItalks</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <meta name="description" content="<%= article.excerpt %>">
+    <meta name="keywords" content="<%= article.tags.join(', ') %>">
+    <meta name="author" content="<%= article.author.firstName %> <%= article.author.lastName %>">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<%= article.title %>">
+    <meta property="og:description" content="<%= article.excerpt %>">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="<%= protocol %>://<%= host %><%= originalUrl %>">
+    <meta property="og:image" content="<%= article.coverImage || '/images/default-article.jpg' %>">
+</head>
+<body class="bg-light">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-newspaper me-2"></i>BFItalks
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Ana Sayfa
+                </a>
+                <a class="nav-link" href="/articles">
+                    <i class="fas fa-newspaper me-1"></i>Haberler
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Article Header -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <!-- Category Badge -->
+                        <div class="mb-3">
+                            <span class="badge" style="background-color: <%= article.category.color %>; color: white;">
+                                <i class="<%= article.category.icon || 'fas fa-tag' %> me-1"></i>
+                                <%= article.category.name %>
+                            </span>
+                            <% if (article.featured) { %>
+                                <span class="badge bg-warning ms-2">
+                                    <i class="fas fa-star me-1"></i>Öne Çıkan
+                                </span>
+                            <% } %>
+                        </div>
+                        
+                        <!-- Article Title -->
+                        <h1 class="display-5 fw-bold mb-3"><%= article.title %></h1>
+                        
+                        <!-- Article Meta -->
+                        <div class="d-flex flex-wrap align-items-center text-muted mb-4">
+                            <div class="me-4">
+                                <i class="fas fa-user me-1"></i>
+                                <span><%= article.author.firstName %> <%= article.author.lastName %></span>
+                            </div>
+                            <div class="me-4">
+                                <i class="fas fa-calendar me-1"></i>
+                                <span><%= new Date(article.publishedAt || article.createdAt).toLocaleDateString('tr-TR') %></span>
+                            </div>
+                            <div class="me-4">
+                                <i class="fas fa-eye me-1"></i>
+                                <span><%= article.views %> görüntülenme</span>
+                            </div>
+                            <div class="me-4">
+                                <i class="fas fa-clock me-1"></i>
+                                <span><%= Math.ceil(article.content.length / 200) %> dk okuma</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Article Excerpt -->
+                        <div class="lead mb-4">
+                            <%= article.excerpt %>
+                        </div>
+                        
+                        <!-- Cover Image -->
+                        <% if (article.coverImage) { %>
+                            <div class="mb-4">
+                                <img src="<%= article.coverImage %>" class="img-fluid rounded" alt="<%= article.title %>">
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Article Content -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="article-content">
+                            <%= article.content.replace(/\n/g, '<br>') %>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article Tags -->
+                <% if (article.tags && article.tags.length > 0) { %>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h6 class="mb-3"><i class="fas fa-tags me-2"></i>Etiketler</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                <% article.tags.forEach(tag => { %>
+                                    <span class="badge bg-secondary"><%= tag %></span>
+                                <% }); %>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+
+                <!-- Article Actions -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-primary" onclick="likeArticle('<%= article._id %>')">
+                                    <i class="fas fa-thumbs-up me-2"></i>
+                                    <span id="likeCount"><%= article.likes ? article.likes.length : 0 %></span>
+                                </button>
+                                <button class="btn btn-outline-secondary" onclick="shareArticle()">
+                                    <i class="fas fa-share me-2"></i>Paylaş
+                                </button>
+                            </div>
+                            <div>
+                                <a href="/articles" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i>Tüm Haberlere Dön
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-comments me-2"></i>Yorumlar</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Add Comment Form -->
+                        <div class="mb-4" id="commentFormContainer">
+                            <form id="commentForm">
+                                <div class="mb-3">
+                                    <label for="commentContent" class="form-label">Yorumunuz</label>
+                                    <textarea class="form-control" id="commentContent" rows="3" placeholder="Yorumunuzu yazın..." required></textarea>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane me-2"></i>Yorum Yap
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Comments List -->
+                        <div id="commentsSection">
+                            <div class="text-center py-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Yükleniyor...</span>
+                                </div>
+                                <p class="mt-2">Yorumlar yükleniyor...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Related Articles -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-newspaper me-2"></i>İlgili Haberler</h5>
+                    </div>
+                    <div class="card-body" id="relatedArticles">
+                        <div class="text-center py-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Yükleniyor...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Articles -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="<%= article.category.icon || 'fas fa-tag' %> me-2" style="color: <%= article.category.color %>"></i>
+                            <%= article.category.name %> Kategorisinden
+                        </h5>
+                    </div>
+                    <div class="card-body" id="categoryArticles">
+                        <div class="text-center py-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Yükleniyor...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- Theme Script -->
+        <script src="/js/theme.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            loadComments();
+            loadRelatedArticles();
+            loadCategoryArticles();
+            
+            // Comment form submission
+            $('#commentForm').submit(function(e) {
+                e.preventDefault();
+                submitComment();
+            });
+        });
+
+        function loadComments() {
+            $.ajax({
+                url: `/api/comments/article/<%= article._id %>`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success' && response.data.comments.length > 0) {
+                        displayComments(response.data.comments);
+                    } else {
+                        $('#commentsSection').html(`
+                            <div class="text-center py-4">
+                                <i class="fas fa-comments text-muted" style="font-size: 2rem;"></i>
+                                <p class="text-muted mt-3">Henüz yorum yapılmamış.</p>
+                            </div>
+                        `);
+                    }
+                },
+                error: function() {
+                    $('#commentsSection').html(`
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Yorumlar yüklenirken hata oluştu.
+                        </div>
+                    `);
+                }
+            });
+        }
+
+        function displayComments(comments) {
+            let html = '';
+            comments.forEach(comment => {
+                html += `
+                    <div class="border-bottom pb-3 mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fas fa-user-circle me-2" style="font-size: 1.5rem; color: #6c757d;"></i>
+                            <div>
+                                <strong>${comment.author.firstName} ${comment.author.lastName}</strong>
+                                <small class="text-muted ms-2">${new Date(comment.createdAt).toLocaleDateString('tr-TR')}</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">${comment.content}</p>
+                    </div>
+                `;
+            });
+            $('#commentsSection').html(html);
+        }
+
+        function loadRelatedArticles() {
+            $.ajax({
+                url: `/api/articles?category=<%= article.category._id %>&limit=5`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        displayRelatedArticles(response.data.articles);
+                    }
+                }
+            });
+        }
+
+        function displayRelatedArticles(articles) {
+            if (articles.length === 0) {
+                $('#relatedArticles').html('<p class="text-muted">İlgili haber bulunamadı.</p>');
+                return;
+            }
+
+            let html = '';
+            articles.forEach(article => {
+                if (article._id !== '<%= article._id %>') {
+                    html += `
+                        <div class="mb-3">
+                            <h6><a href="/articles/${article._id}" class="text-decoration-none">${article.title}</a></h6>
+                            <small class="text-muted">${new Date(article.createdAt).toLocaleDateString('tr-TR')}</small>
+                        </div>
+                    `;
+                }
+            });
+            $('#relatedArticles').html(html);
+        }
+
+        function loadCategoryArticles() {
+            $.ajax({
+                url: `/api/articles?category=<%= article.category._id %>&limit=3`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        displayCategoryArticles(response.data.articles);
+                    }
+                }
+            });
+        }
+
+        function displayCategoryArticles(articles) {
+            if (articles.length === 0) {
+                $('#categoryArticles').html('<p class="text-muted">Bu kategoride haber bulunamadı.</p>');
+                return;
+            }
+
+            let html = '';
+            articles.forEach(article => {
+                if (article._id !== '<%= article._id %>') {
+                    html += `
+                        <div class="mb-3">
+                            <h6><a href="/articles/${article._id}" class="text-decoration-none">${article.title}</a></h6>
+                            <small class="text-muted">${new Date(article.createdAt).toLocaleDateString('tr-TR')}</small>
+                        </div>
+                    `;
+                }
+            });
+            $('#categoryArticles').html(html);
+        }
+
+        function likeArticle(articleId) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Beğenmek için giriş yapmalısınız.');
+                return;
+            }
+
+            $.ajax({
+                url: `/api/articles/${articleId}/like`,
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#likeCount').text(response.data.article.likes.length);
+                    }
+                },
+                error: function() {
+                    alert('Beğeni işlemi başarısız.');
+                }
+            });
+        }
+
+        function shareArticle() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '<%= article.title %>',
+                    text: '<%= article.excerpt %>',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Link kopyalandı!');
+                });
+            }
+        }
+
+        function submitComment() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Yorum yapmak için giriş yapmalısınız.');
+                window.location.href = '/auth/login';
+                return;
+            }
+
+            const content = $('#commentContent').val().trim();
+            if (!content) {
+                alert('Lütfen yorumunuzu yazın.');
+                return;
+            }
+
+            $.ajax({
+                url: '/api/comments',
+                method: 'POST',
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: JSON.stringify({
+                    content: content,
+                    article: '<%= article._id %>'
+                }),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#commentContent').val('');
+                        loadComments(); // Reload comments
+                        alert('Yorumunuz başarıyla eklendi!');
+                    }
+                },
+                error: function(xhr) {
+                    const error = xhr.responseJSON;
+                    alert(error.message || 'Yorum eklenirken hata oluştu.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

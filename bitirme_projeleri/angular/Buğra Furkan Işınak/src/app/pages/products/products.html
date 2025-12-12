@@ -1,0 +1,173 @@
+<div class="d-flex">
+  <h2>Kurslar</h2>
+  @if((user$ | async)?.role == 'admin' || (user$ | async)?.role == 'instructor' ) {
+  <button (click)="openPopupClick(true)" class="btn btn-light btn-sm" style="margin-left: 5px;">Kurs Ekle</button>
+  }
+</div>
+
+<nav>
+  <ul class="pagination pagination-sm justify-content-end">
+    @for (item of pages; track $index) {
+      @if(item == current_page) {
+        <li class="page-item active"><a [routerLink]="['/products']" [queryParams]="{page: item}" class="page-link">{{item}}</a></li>
+      }@else {
+        <li class="page-item"><a [routerLink]="['/products']" [queryParams]="{page: item}" class="page-link">{{item}}</a></li>
+      }
+    }
+  </ul>
+</nav>
+
+@if (isLoading === true) {
+<div class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+}
+@if(user$ | async) {
+ <div class="row">
+@for (item of productArr; track $index) {
+  <app-product-item [user]="user$ | async" [item]="item" class="col-sm-4"></app-product-item>
+}
+
+</div>
+}
+<nav aria-label="Kurs sayfaları">
+  <ul class="pagination pagination-sm justify-content-end">
+    <!-- Önceki -->
+    <li class="page-item" [class.disabled]="current_page === 1">
+      <a class="page-link" href="#" (click)="changePage(current_page - 1, $event)">«</a>
+    </li>
+
+    <!-- Sayfa numaraları -->
+    @for (item of pages; track $index) {
+      {{item}} {{ current_page}}
+      <li class="page-item" [class.active]="item === current_page">
+        <a class="page-link" href="#" (click)="changePage(item, $event)">{{ item }}</a>
+      </li>
+    }
+
+    <!-- Sonraki -->
+    <li class="page-item" [class.disabled]="current_page === pageInfo.total_pages">
+      <a class="page-link" href="#" (click)="changePage(current_page + 1, $event)">»</a>
+    </li>
+  </ul>
+</nav>
+
+
+@if(openPopup === true) {
+<div id="popupOverlay" class="overlay-container show">
+  <div class="popup-box popup-large">
+    <h2 style="color: green;">Kurs Ekle</h2>
+    <form class="form-container">
+
+      <!-- Başlık -->
+      <label class="form-label" for="name">Başlık:</label>
+      <input class="form-input" type="text" [(ngModel)]="product.title"
+             placeholder="Kurs Adını Girin"
+             id="name" name="name" required>
+
+      <!-- Açıklama -->
+      <label class="form-label" for="description">Açıklama:</label>
+      <textarea class="form-input" [(ngModel)]="product.description"
+                placeholder="Kurs açıklamasını girin"
+                id="description" name="description" required></textarea>
+
+      <!-- Fiyat -->
+      <label class="form-label" for="price">Fiyat:</label>
+      <input class="form-input" type="number" [(ngModel)]="product.price"
+             placeholder="Kurs Fiyatını Girin"
+             id="price" name="price" required>
+
+      <!-- İndirim -->
+      <label class="form-label" for="discountPercentage">İndirim (%):</label>
+      <input class="form-input" type="number" step="0.1" [(ngModel)]="product.discountPercentage"
+             placeholder="İndirim yüzdesi"
+             id="discountPercentage" name="discountPercentage">
+
+      <!-- Popülerlik -->
+      <label class="form-label" for="rating">Popülerlik:</label>
+      <input class="form-input" type="number" [(ngModel)]="product.rating"
+             placeholder="Kurs Popülerliğini Girin"
+             id="rating" name="rating" required>
+
+      <!-- Stock -->
+      <label class="form-label" for="stock">Stok:</label>
+      <input class="form-input" type="number" [(ngModel)]="product.stock"
+             placeholder="Kurs Stok Miktarını Girin"
+             id="stock" name="stock" required>
+
+      <!-- Marka -->
+      <label class="form-label" for="brand">Marka:</label>
+      <input class="form-input" type="text" [(ngModel)]="product.brand"
+             placeholder="Marka girin"
+             id="brand" name="brand">
+
+      <!-- SKU -->
+      <label class="form-label" for="sku">SKU:</label>
+      <input class="form-input" type="text" [(ngModel)]="product.sku"
+             placeholder="SKU girin"
+             id="sku" name="sku">
+
+      <!-- Minimum Sipariş -->
+      <label class="form-label" for="minimumOrderQuantity">Minimum Sipariş:</label>
+      <input class="form-input" type="number" [(ngModel)]="product.minimumOrderQuantity"
+             id="minimumOrderQuantity" name="minimumOrderQuantity">
+
+      <!-- Resimler -->
+      <label class="form-label" for="images">Resimler (virgülle ayır):</label>
+      <input class="form-input" type="text"
+             [(ngModel)]="imagesString"
+             (change)="onImagesChange($event)"
+             placeholder="https://... , https://..."
+             id="images" name="images">
+
+      <!-- Kategoriler -->
+      <div class="mb-3">
+        <label class="form-label">Etiketler</label>
+        @for (category of categories; track $index) {
+          <div class="form-check">
+            <input class="form-check-input"
+                   type="checkbox"
+                   [id]="'cat-' + $index"
+                   [value]="category"
+                   (change)="onCategoryChange($event)">
+            <label class="form-check-label" [for]="'cat-' + $index">
+              {{ category }}
+            </label>
+          </div>
+        }
+      </div>
+
+      <!-- Dersler -->
+      <div class="mb-3">
+        <label class="form-label">Dersler</label>
+        @for (lesson of lessons; track $index) {
+          <div class="mb-2 border p-2 rounded text-start">
+            <label>Ders Adı</label>
+            <input class="form-input" type="text"
+                   [(ngModel)]="lesson.lesson_name"
+                   [name]="'lesson_name_' + $index"
+                   placeholder="Ders adı" required>
+
+            <label>İçerik</label>
+            <textarea class="form-input"
+                      [(ngModel)]="lesson.lesson_content"
+                      [name]="'lesson_content_' + $index"
+                      placeholder="Ders içeriği"></textarea>
+
+            <button type="button" class="btn btn-danger btn-sm mt-2"
+                    (click)="removeLesson($index)">Sil</button>
+          </div>
+        }
+        <button type="button" class="btn btn-primary btn-sm mt-2"
+                (click)="addLesson()">+ Ders Ekle</button>
+      </div>
+
+      <button (click)="addCourse()" class="btn-submit" type="submit">
+        Kurs Oluştur
+      </button>
+    </form>
+
+    <button class="btn-close-popup" (click)="togglePopup()">Close</button>
+  </div>
+</div>
+}

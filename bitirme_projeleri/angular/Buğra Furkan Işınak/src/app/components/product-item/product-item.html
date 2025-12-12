@@ -1,0 +1,21 @@
+@if (item) {
+  <div class="card mb-3">
+    @if (item.images && item.images.length > 0) {
+      <img [src]="item.images[0]" class="card-img-top" alt="...">
+    }
+    <div class="card-body">
+      <h6 class="card-title">{{item.title}}</h6>
+      <p class="card-text">{{item.price}} ₺</p>
+      <a [routerLink]="['/product-detail', item.id]" class="btn btn-outline-secondary">Detay</a>
+
+  @if ((user.role === 'student' || user.role === 'admin') && !isEnrolled(item.id, user)) {
+    <a (click)="joinCourse(item, user)" class="btn btn-outline-secondary">Kurs'a Katıl</a>
+  }
+  @if ((user.role === 'student' || user.role === 'admin') && isEnrolled(item.id, user)) {
+    <a (click)="removeCourse(item, user)" class="btn btn-outline-secondary">Kurs'tan Çık</a>
+  }
+
+
+    </div>
+  </div>
+}

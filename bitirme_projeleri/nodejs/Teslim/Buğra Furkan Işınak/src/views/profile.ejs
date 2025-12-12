@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - BFItalks</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-newspaper me-2"></i>BFItalks
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Ana Sayfa
+                </a>
+                <a class="nav-link" href="/articles">
+                    <i class="fas fa-newspaper me-1"></i>Haberler
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                    <!-- Profile Card -->
+                    <div class="card mb-4" style="background-color: var(--bg-card); border: 1px solid var(--border-primary);">
+                        <div class="card-body text-center" style="background-color: var(--bg-card); color: var(--text-primary);">
+                        <div class="mb-3">
+                            <div class="profile-avatar mx-auto mb-3 position-relative">
+                                <div id="profileImageContainer" class="rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background-color: #f8f9fa; border: 3px solid #dee2e6;">
+                                    <img id="profileImage" src="" alt="Profil Resmi" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; display: none;">
+                                    <i id="defaultAvatar" class="fas fa-user" style="font-size: 2rem; color: #6c757d;"></i>
+                                </div>
+                                <button class="btn btn-sm btn-primary position-absolute bottom-0 end-0 rounded-circle" onclick="changeProfileImage()" style="width: 30px; height: 30px; padding: 0;">
+                                    <i class="fas fa-camera" style="font-size: 12px;"></i>
+                                </button>
+                                <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="uploadProfileImage()">
+                            </div>
+                            <h4 id="userName">Kullanıcı Adı</h4>
+                            <p class="text-muted" id="userEmail">user@example.com</p>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" onclick="editProfile()">
+                                <i class="fas fa-edit me-2"></i>Profili Düzenle
+                            </button>
+                            <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#passwordModal">
+                                <i class="fas fa-key me-2"></i>Şifre Değiştir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Card -->
+                <div class="card" style="background-color: var(--bg-card); border: 1px solid var(--border-primary);">
+                    <div class="card-header" style="background-color: var(--bg-tertiary); color: var(--text-primary);">
+                        <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>İstatistikler</h5>
+                    </div>
+                    <div class="card-body" style="background-color: var(--bg-card); color: var(--text-primary);">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <h4 class="text-primary" id="articleCount">0</h4>
+                                <small class="text-muted">Haberlerim</small>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="text-success" id="commentCount">0</h4>
+                                <small class="text-muted">Yorumlarım</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <!-- Profile Tabs -->
+                <div class="card" style="background-color: var(--bg-card); border: 1px solid var(--border-primary);">
+                    <div class="card-header" style="background-color: var(--bg-tertiary); color: var(--text-primary);">
+                        <ul class="nav nav-tabs card-header-tabs" id="profileTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="articles-tab" data-bs-toggle="tab" data-bs-target="#articles" type="button" role="tab">
+                                    <i class="fas fa-newspaper me-2"></i>Haberlerim
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab">
+                                    <i class="fas fa-comments me-2"></i>Yorumlarım
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">
+                                    <i class="fas fa-cog me-2"></i>Ayarlar
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card-body" style="background-color: var(--bg-card); color: var(--text-primary);">
+                        <div class="tab-content" id="profileTabContent">
+                            <!-- Articles Tab -->
+                            <div class="tab-pane fade show active" id="articles" role="tabpanel">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5>Haberlerim</h5>
+                                    <a href="/articles/new" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-plus me-2"></i>Yeni Haber
+                                    </a>
+                                </div>
+                                <div id="userArticles">
+                                    <div class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Yükleniyor...</span>
+                                        </div>
+                                        <p class="mt-2">Haberler yükleniyor...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comments Tab -->
+                            <div class="tab-pane fade" id="comments" role="tabpanel">
+                                <h5>Yorumlarım</h5>
+                                <div id="userComments">
+                                    <div class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Yükleniyor...</span>
+                                        </div>
+                                        <p class="mt-2">Yorumlar yükleniyor...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Settings Tab -->
+                            <div class="tab-pane fade" id="settings" role="tabpanel">
+                                <h5>Hesap Ayarları</h5>
+                                <form id="profileForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="firstName" class="form-label">Ad</label>
+                                            <input type="text" class="form-control" id="firstName" name="firstName">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lastName" class="form-label">Soyad</label>
+                                            <input type="text" class="form-control" id="lastName" name="lastName">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">E-posta</label>
+                                        <input type="email" class="form-control" id="email" name="email" readonly>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="bio" class="form-label">Biyografi</label>
+                                        <textarea class="form-control" id="bio" name="bio" rows="3"></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>Kaydet
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal fade" id="passwordModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-key me-2"></i>Şifre Değiştir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="passwordForm">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Mevcut Şifre</label>
+                            <input type="password" class="form-control" id="currentPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Yeni Şifre</label>
+                            <input type="password" class="form-control" id="newPassword" required minlength="8">
+                            <div class="form-text">En az 8 karakter olmalıdır.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Yeni Şifre Tekrar</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" onclick="changePassword()">
+                        <i class="fas fa-save me-2"></i>Şifreyi Değiştir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            loadUserProfile();
+            loadUserArticles();
+            loadUserComments();
+            
+            // Load profile image from localStorage if available
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.profilePicture && user.profilePicture !== '/images/avatars/default-avatar.png') {
+                $('#profileImage').attr('src', user.profilePicture).show();
+                $('#defaultAvatar').hide();
+            }
+            
+            // Profile form submission
+            $('#profileForm').submit(function(e) {
+                e.preventDefault();
+                updateProfile();
+            });
+        });
+
+        function loadUserProfile() {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const token = localStorage.getItem('token');
+            
+            if (!user._id || !token) {
+                window.location.href = '/auth/login';
+                return;
+            }
+            
+            // Update profile info
+            $('#userName').text(`${user.firstName} ${user.lastName}`);
+            $('#userEmail').text(user.email);
+            $('#firstName').val(user.firstName);
+            $('#lastName').val(user.lastName);
+            $('#email').val(user.email);
+            $('#bio').val(user.bio || '');
+        }
+
+        function loadUserArticles() {
+            const token = localStorage.getItem('token');
+            
+            $.ajax({
+                url: '/api/articles?author=' + JSON.parse(localStorage.getItem('user'))._id,
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        displayUserArticles(response.data.articles);
+                        $('#articleCount').text(response.data.articles.length);
+                    }
+                },
+                error: function() {
+                    $('#userArticles').html(`
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Haberler yüklenirken hata oluştu.
+                        </div>
+                    `);
+                }
+            });
+        }
+
+        function loadUserComments() {
+            const token = localStorage.getItem('token');
+            const userId = JSON.parse(localStorage.getItem('user'))._id;
+            
+            $.ajax({
+                url: `/api/comments/user/${userId}`,
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        displayUserComments(response.data.comments);
+                        $('#commentCount').text(response.data.comments.length);
+                    }
+                },
+                error: function() {
+                    $('#userComments').html(`
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Yorumlar yüklenirken hata oluştu.
+                        </div>
+                    `);
+                }
+            });
+        }
+
+        function displayUserArticles(articles) {
+            if (articles.length === 0) {
+                $('#userArticles').html(`
+                    <div class="text-center py-4">
+                        <i class="fas fa-newspaper text-muted" style="font-size: 3rem;"></i>
+                        <p class="text-muted mt-3">Henüz haber yazmadınız.</p>
+                        <a href="/articles/new" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>İlk Haberinizi Yazın
+                        </a>
+                    </div>
+                `);
+                return;
+            }
+
+            let html = '<div class="row">';
+            articles.forEach(article => {
+                html += `
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">${article.title}</h6>
+                                <p class="card-text text-muted small">${article.excerpt}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar me-1"></i>${new Date(article.createdAt).toLocaleDateString('tr-TR')}
+                                    </small>
+                                    <div>
+                                        <span class="badge ${article.isPublished ? 'bg-success' : 'bg-warning'}">
+                                            ${article.isPublished ? 'Yayında' : 'Taslak'}
+                                        </span>
+                                        ${article.featured ? '<span class="badge bg-primary ms-1">Öne Çıkan</span>' : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            $('#userArticles').html(html);
+        }
+
+        function displayUserComments(comments) {
+            if (comments.length === 0) {
+                $('#userComments').html(`
+                    <div class="text-center py-4">
+                        <i class="fas fa-comments text-muted" style="font-size: 3rem;"></i>
+                        <p class="text-muted mt-3">Henüz yorum yapmadınız.</p>
+                    </div>
+                `);
+                return;
+            }
+
+            let html = '';
+            comments.forEach(comment => {
+                html += `
+                    <div class="border-bottom pb-3 mb-3">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h6 class="mb-1">${comment.article.title}</h6>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>${new Date(comment.createdAt).toLocaleDateString('tr-TR')}
+                                </small>
+                            </div>
+                            <a href="/articles/${comment.article._id}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-arrow-right me-1"></i>Haberi Gör
+                            </a>
+                        </div>
+                        <p class="mb-0">${comment.content}</p>
+                    </div>
+                `;
+            });
+            $('#userComments').html(html);
+        }
+
+        function updateProfile() {
+            const token = localStorage.getItem('token');
+            const formData = {
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                bio: $('#bio').val()
+            };
+
+            $.ajax({
+                url: '/api/users/profile',
+                method: 'PUT',
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Update localStorage
+                        const user = JSON.parse(localStorage.getItem('user'));
+                        user.firstName = formData.firstName;
+                        user.lastName = formData.lastName;
+                        user.bio = formData.bio;
+                        localStorage.setItem('user', JSON.stringify(user));
+                        
+                        // Update display
+                        $('#userName').text(`${user.firstName} ${user.lastName}`);
+                        
+                        alert('Profil güncellendi!');
+                    }
+                },
+                error: function(xhr) {
+                    const error = xhr.responseJSON;
+                    alert(error.message || 'Profil güncellenirken hata oluştu.');
+                }
+            });
+        }
+
+        function editProfile() {
+            $('#settings-tab').click();
+        }
+
+        function changePassword() {
+            const currentPassword = $('#currentPassword').val();
+            const newPassword = $('#newPassword').val();
+            const confirmPassword = $('#confirmPassword').val();
+            
+            if (newPassword !== confirmPassword) {
+                alert('Yeni şifreler eşleşmiyor.');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                alert('Yeni şifre en az 8 karakter olmalıdır.');
+                return;
+            }
+            
+            const token = localStorage.getItem('token');
+            
+            $.ajax({
+                url: '/api/users/change-password',
+                method: 'PUT',
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: JSON.stringify({
+                    currentPassword,
+                    newPassword
+                }),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert('Şifre başarıyla değiştirildi!');
+                        $('#passwordModal').modal('hide');
+                        $('#passwordForm')[0].reset();
+                    }
+                },
+                error: function(xhr) {
+                    const error = xhr.responseJSON;
+                    alert(error.message || 'Şifre değiştirilirken hata oluştu.');
+                }
+            });
+        }
+
+        function changeProfileImage() {
+            $('#imageInput').click();
+        }
+
+        function uploadProfileImage() {
+            const file = $('#imageInput')[0].files[0];
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                alert('Lütfen sadece resim dosyası seçin.');
+                return;
+            }
+
+            // Validate file size (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Dosya boyutu 5MB\'dan küçük olmalıdır.');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('profilePicture', file);
+            
+            const token = localStorage.getItem('token');
+            
+            // Show loading state
+            const uploadBtn = document.querySelector('button[onclick="changeProfileImage()"]');
+            const originalText = uploadBtn.innerHTML;
+            uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            uploadBtn.disabled = true;
+            
+            $.ajax({
+                url: '/api/users/profile-image',
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Update the image source with the new URL
+                        $('#profileImage').attr('src', response.data.profilePicture);
+                        $('#profileImage').show();
+                        $('#defaultAvatar').hide();
+                        
+                        // Update localStorage user data
+                        const user = JSON.parse(localStorage.getItem('user') || '{}');
+                        user.profilePicture = response.data.profilePicture;
+                        localStorage.setItem('user', JSON.stringify(user));
+                        
+                        alert('Profil resmi başarıyla güncellendi!');
+                    }
+                },
+                error: function(xhr) {
+                    const error = xhr.responseJSON;
+                    alert(error.message || 'Resim yüklenirken hata oluştu.');
+                },
+                complete: function() {
+                    // Reset button state
+                    uploadBtn.innerHTML = originalText;
+                    uploadBtn.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

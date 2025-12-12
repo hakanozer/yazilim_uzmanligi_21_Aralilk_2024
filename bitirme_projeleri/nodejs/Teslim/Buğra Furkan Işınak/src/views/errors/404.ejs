@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Bulunamadı - BFItalks</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-newspaper me-2"></i>BFItalks
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Ana Sayfa
+                </a>
+                <a class="nav-link" href="/articles">
+                    <i class="fas fa-newspaper me-1"></i>Haberler
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 404 Error Section -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 text-center">
+                <div class="error-page">
+                    <!-- 404 Icon -->
+                    <div class="error-icon mb-4">
+                        <i class="fas fa-exclamation-triangle text-warning" style="font-size: 8rem;"></i>
+                    </div>
+
+                    <!-- Error Message -->
+                    <h1 class="display-1 fw-bold text-primary mb-3">404</h1>
+                    <h2 class="h3 mb-4">Sayfa Bulunamadı</h2>
+                    <p class="lead text-muted mb-5">
+                        Aradığınız sayfa mevcut değil veya taşınmış olabilir. 
+                        Lütfen URL'yi kontrol edin veya ana sayfaya dönün.
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="/" class="btn btn-primary btn-lg">
+                            <i class="fas fa-home me-2"></i>Ana Sayfaya Dön
+                        </a>
+                        <a href="/articles" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-newspaper me-2"></i>Haberleri Görüntüle
+                        </a>
+                    </div>
+
+                    <!-- Search Box -->
+                    <div class="mt-5">
+                        <h5 class="mb-3">Aradığınızı bulamadınız mı?</h5>
+                        <form class="d-flex justify-content-center" action="/articles" method="GET">
+                            <div class="input-group" style="max-width: 400px;">
+                                <input type="text" class="form-control" name="search" placeholder="Haber ara..." aria-label="Search">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Popular Links -->
+                    <div class="mt-5">
+                        <h6 class="text-muted mb-3">Popüler Sayfalar</h6>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <a href="/" class="btn btn-sm btn-outline-secondary">Ana Sayfa</a>
+                            <a href="/articles" class="btn btn-sm btn-outline-secondary">Tüm Haberler</a>
+                            <a href="/auth/login" class="btn btn-sm btn-outline-secondary">Giriş Yap</a>
+                            <a href="/auth/register" class="btn btn-sm btn-outline-secondary">Kayıt Ol</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-newspaper me-2"></i>Habercilik.com</h5>
+                    <p class="text-muted">Türkiye'nin en güncel haber platformu</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">&copy; 2024 Habercilik.com. Tüm hakları saklıdır.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</body>
+</html>

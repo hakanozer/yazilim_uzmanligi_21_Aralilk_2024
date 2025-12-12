@@ -1,0 +1,143 @@
+{
+  "users": [
+    {
+      "email": "admin@mail.com",
+      "password": "$2a$10$zn8iKi6V7IBBIu2Uazj/XeOlxyh0YrxATbgt.RlKJT/ZkdvAugKmi",
+      "name": "Admin Account",
+      "role": "user",
+      "courses": [],
+      "id": 1
+    },
+    {
+      "email": "furkandeneme@mail.com",
+      "password": "$2a$10$SCTjwO2bxFITztDSAX2z1.Khddf0Rap5rJBpruiy5nDD8uNpzzA/C",
+      "name": "Furkan Deneme",
+      "role": "user",
+      "courses": [],
+      "id": 2
+    },
+    {
+      "email": "deneme@mail.com",
+      "password": "$2a$10$.tVdsZ2EecZi37p3uWVCE.qo3oZ6o3tT75kLVbRP1FEC3wtcBDcQm",
+      "name": "Deneme Deneme",
+      "role": "user",
+      "courses": [
+        {
+          "id": 1,
+          "title": "Python Deneme"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "email": "alibilir@mail.com",
+      "password": "$2a$10$bWEqAwAlgvycWF275662X.EQuiDquxa2m8TgQLHGGkyocCFjVT.Pa",
+      "name": "Ali Bilir",
+      "role": "admin",
+      "courses": [
+        {
+          "id": 1,
+          "title": "Python Deneme"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "email": "denemefurkan@mail.com",
+      "password": "$2a$10$jkIxgSMqR8tZbBhAkLVefueNGu6z8WNm4gUbpttx9d5.IhXY0xuDe",
+      "name": "Deneme Furkan",
+      "role": "student",
+      "courses": [],
+      "id": 5
+    },
+    {
+      "email": "furkan.isinak@mail.com",
+      "password": "$2a$10$0OqNJ4kSXgZyRfNAg2ocC.XiDqBHn4lpnaoP2EuCCCE50xU6KyPfW",
+      "name": "Furkan Işınak",
+      "role": "student",
+      "courses": [
+        {
+          "id": 1,
+          "title": "Python Deneme"
+        }
+      ],
+      "lessons": [],
+      "id": 6
+    },
+    {
+      "email": "furkan.isinak2@mail.com",
+      "password": "$2a$10$84Oe/wOSWHqYTZ.vRqYgQO1leQS.pE5MDEtmMCAZr52AYkwue.S0a",
+      "name": "Furkan Işınak2",
+      "role": "student",
+      "courses": [
+        {
+          "id": 1,
+          "title": "Python Deneme"
+        }
+      ],
+      "lessons": [
+        {
+          "id": 1758920874952,
+          "lesson_name": "Giriş Seviyesi Python #1",
+          "lesson_content": "Bu eğitimimizde giriş seviyesi python dili eğitimi verilecektir."
+        }
+      ],
+      "id": 7
+    }
+  ],
+  "products": [
+    {
+      "title": "Python Deneme",
+      "description": "Python deneme",
+      "price": 1155,
+      "discountPercentage": 15,
+      "rating": 5,
+      "stock": 1,
+      "brand": "Furkan Yayınları",
+      "sku": "FY-Python1",
+      "minimumOrderQuantity": 1,
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png",
+        "https://careers.smartosc.com/wp-content/uploads/2023/12/python3.png"
+      ],
+      "lessons": [
+        {
+          "id": 1758920874952,
+          "lesson_name": "Giriş Seviyesi Python #1",
+          "lesson_content": "Bu eğitimimizde giriş seviyesi python dili eğitimi verilecektir."
+        }
+      ],
+      "tags": [
+        "python"
+      ],
+      "id": 1
+    }
+  ],
+  "comments": [
+    {
+      "body": "Gerçekten muhteşem bir eğitim. BAYILDIM!!!!",
+      "post_id": 1,
+      "userId": 4,
+      "name": "Ali Bilir",
+      "email": "alibilir@mail.com",
+      "id": 1
+    },
+    {
+      "body": "INANAMIYORUM! KURS SONRASI ADETA PYTHON CANAVARI OLDUM💯💯💯",
+      "post_id": 1,
+      "userId": 4,
+      "name": "Ali Bilir",
+      "email": "alibilir@mail.com",
+      "id": 2
+    },
+    {
+      "body": "🤭🤭🤭",
+      "post_id": 1,
+      "userId": 4,
+      "name": "Ali Bilir",
+      "email": "alibilir@mail.com",
+      "id": 3
+    }
+  ],
+  "newsletter": []
+}

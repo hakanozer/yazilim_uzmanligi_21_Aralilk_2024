@@ -1,0 +1,4 @@
+/* Sadece footer'daki nav-link'lerin rengini siyah yapar */
+footer .nav-link {
+    color: #000 !important;
+}

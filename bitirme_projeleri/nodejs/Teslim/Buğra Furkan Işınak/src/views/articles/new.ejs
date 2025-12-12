@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Haber - BFItalks</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-newspaper me-2"></i>BFItalks
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Ana Sayfa
+                </a>
+                <a class="nav-link" href="/articles">
+                    <i class="fas fa-newspaper me-1"></i>Haberler
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="fas fa-plus me-2"></i>Yeni Haber Oluştur</h2>
+                    <a href="/articles" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Geri Dön
+                    </a>
+                </div>
+
+                <!-- Article Form -->
+                <div class="card">
+                    <div class="card-body">
+                        <form id="articleForm">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <label for="articleTitle" class="form-label">Haber Başlığı *</label>
+                                        <input type="text" class="form-control" id="articleTitle" name="title" required>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="articleExcerpt" class="form-label">Haber Özeti *</label>
+                                        <textarea class="form-control" id="articleExcerpt" name="excerpt" rows="3" required></textarea>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="articleContent" class="form-label">Haber İçeriği *</label>
+                                        <textarea class="form-control" id="articleContent" name="content" rows="10" required minlength="100" placeholder="Haber içeriğinizi buraya yazın... (En az 100 karakter gerekli)"></textarea>
+                                        <div class="form-text">
+                                            <span id="contentCount">0</span>/100 karakter (minimum 100 karakter gerekli)
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="articleCategory" class="form-label">Kategori *</label>
+                                        <select class="form-select" id="articleCategory" name="category" required>
+                                            <option value="">Kategori Seçin</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="articleTags" class="form-label">Etiketler</label>
+                                        <input type="text" class="form-control" id="articleTags" name="tags" placeholder="etiket1, etiket2, etiket3">
+                                        <div class="form-text">Etiketleri virgülle ayırın</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="articleCoverImage" class="form-label">Kapak Resmi URL</label>
+                                        <input type="url" class="form-control" id="articleCoverImage" name="coverImage" placeholder="https://example.com/image.jpg">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="articleFeatured" name="featured">
+                                            <label class="form-check-label" for="articleFeatured">
+                                                Öne Çıkan Haber
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="articlePublished" name="isPublished">
+                                            <label class="form-check-label" for="articlePublished">
+                                                Hemen Yayınla
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" class="btn btn-secondary" onclick="window.history.back()">
+                                    <i class="fas fa-times me-2"></i>İptal
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" id="saveDraft">
+                                    <i class="fas fa-save me-2"></i>Taslak Olarak Kaydet
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-2"></i>Yayınla
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Check if user is logged in
+            if (!localStorage.getItem('token')) {
+                alert('Bu sayfayı kullanmak için giriş yapmanız gerekiyor.');
+                window.location.href = '/auth/login';
+                return;
+            }
+            
+            loadCategories();
+            
+            // Character count for content
+            $('#articleContent').on('input', function() {
+                const length = $(this).val().length;
+                $('#contentCount').text(length);
+                
+                if (length < 100) {
+                    $('#contentCount').removeClass('text-success').addClass('text-danger');
+                } else {
+                    $('#contentCount').removeClass('text-danger').addClass('text-success');
+                }
+            });
+            
+            // Form submission
+            $('#articleForm').submit(function(e) {
+                e.preventDefault();
+                saveArticle(true);
+            });
+            
+            // Save as draft
+            $('#saveDraft').click(function() {
+                saveArticle(false);
+            });
+        });
+
+        function loadCategories() {
+            $.ajax({
+                url: '/api/categories',
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const select = $('#articleCategory');
+                        select.empty();
+                        select.append('<option value="">Kategori Seçin</option>');
+                        
+                        response.data.categories.forEach(category => {
+                            select.append(`
+                                <option value="${category._id}">
+                                    <i class="${category.icon || 'fas fa-tag'}" style="color: ${category.color}"></i> ${category.name}
+                                </option>
+                            `);
+                        });
+                    }
+                },
+                error: function() {
+                    alert('Kategoriler yüklenirken hata oluştu.');
+                }
+            });
+        }
+
+        function saveArticle(publish) {
+            const formData = {
+                title: $('#articleTitle').val(),
+                excerpt: $('#articleExcerpt').val(),
+                content: $('#articleContent').val(),
+                category: $('#articleCategory').val(),
+                tags: $('#articleTags').val().split(',').map(tag => tag.trim()).filter(tag => tag),
+                coverImage: $('#articleCoverImage').val(),
+                featured: $('#articleFeatured').is(':checked'),
+                isPublished: publish ? $('#articlePublished').is(':checked') : false
+            };
+
+            // Validation
+            if (!formData.title || !formData.excerpt || !formData.content || !formData.category) {
+                alert('Lütfen tüm gerekli alanları doldurun.');
+                return;
+            }
+            
+            if (formData.content.length < 100) {
+                alert('Haber içeriği en az 100 karakter olmalıdır. Şu anda ' + formData.content.length + ' karakter.');
+                return;
+            }
+
+            $.ajax({
+                url: '/api/articles',
+                method: 'POST',
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert(publish ? 'Haber yayınlandı!' : 'Haber taslak olarak kaydedildi!');
+                        window.location.href = '/articles';
+                    }
+                },
+                error: function(xhr) {
+                    const error = xhr.responseJSON;
+                    let errorMessage = 'Haber kaydedilirken hata oluştu.';
+                    
+                    if (xhr.status === 401) {
+                        errorMessage = 'Giriş yapmanız gerekiyor. Lütfen önce giriş yapın.';
+                        window.location.href = '/auth/login';
+                        return;
+                    } else if (xhr.status === 403) {
+                        errorMessage = 'Bu işlem için yetkiniz yok. Yazar veya admin olmanız gerekiyor.';
+                    } else if (error && error.message) {
+                        errorMessage = error.message;
+                    }
+                    
+                    alert(errorMessage);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

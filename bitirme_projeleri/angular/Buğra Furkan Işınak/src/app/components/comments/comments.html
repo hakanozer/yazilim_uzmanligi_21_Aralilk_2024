@@ -1,0 +1,38 @@
+<div class="mt-3"></div>
+
+@if (loading) {
+<div class="d-flex justify-content-center mt-3 mb-3">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+}
+
+<div class="mt-3">
+    <h4>Yorum Ekle</h4>
+    <form (ngSubmit)="addComment()" #commentForm="ngForm">
+        <div class="mb-3">
+            <label for="body" class="form-label">Yorum</label>
+            <textarea class="form-control" id="body" rows="3" required [(ngModel)]="newComment.body" name="body"></textarea>
+            @if (commentForm.submitted && commentForm.controls['body'].invalid) {
+                <div class="text-danger">
+                    Yorum zorunludur.
+                </div>
+            }
+        </div>
+        <button type="submit" class="btn btn-primary" >Gönder</button>
+    </form>
+</div>
+
+<div class="m-4">
+
+@for (item of commentArr; track $index) {
+    <div class="card mb-2">
+        <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{item.email}}</h6>
+            <p class="card-text">{{item.body}}</p>
+        </div>
+    </div>
+}
+</div>

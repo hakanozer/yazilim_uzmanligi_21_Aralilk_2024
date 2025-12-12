@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori Yönetimi - BFItalks</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-newspaper me-2"></i>BFItalks
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/admin">
+                    <i class="fas fa-cog me-1"></i>Admin Panel
+                </a>
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home me-1"></i>Ana Sayfa
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2><i class="fas fa-tags me-2"></i>Kategori Yönetimi</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                        <i class="fas fa-plus me-2"></i>Yeni Kategori
+                    </button>
+                </div>
+
+                <!-- Categories List -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>İkon</th>
+                                        <th>Ad</th>
+                                        <th>Açıklama</th>
+                                        <th>Renk</th>
+                                        <th>Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoriesTable">
+                                    <!-- Categories will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal fade" id="categoryModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoryModalTitle">Yeni Kategori</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="categoryForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="categoryName" class="form-label">Kategori Adı *</label>
+                                <input type="text" class="form-control" id="categoryName" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="categoryColor" class="form-label">Renk *</label>
+                                <input type="color" class="form-control form-control-color" id="categoryColor" name="color" value="#007bff" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="categoryDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="categoryDescription" name="description" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="categoryIcon" class="form-label">İkon</label>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <select class="form-select" id="categoryIcon" name="icon">
+                                        <option value="">İkon Seçin</option>
+                                        <option value="fas fa-laptop">💻 Teknoloji</option>
+                                        <option value="fas fa-futbol">⚽ Spor</option>
+                                        <option value="fas fa-chart-line">📈 Ekonomi</option>
+                                        <option value="fas fa-heart">❤️ Sağlık</option>
+                                        <option value="fas fa-graduation-cap">🎓 Eğitim</option>
+                                        <option value="fas fa-car">🚗 Otomotiv</option>
+                                        <option value="fas fa-home">🏠 Emlak</option>
+                                        <option value="fas fa-plane">✈️ Seyahat</option>
+                                        <option value="fas fa-utensils">🍽️ Yemek</option>
+                                        <option value="fas fa-music">🎵 Müzik</option>
+                                        <option value="fas fa-film">🎬 Sinema</option>
+                                        <option value="fas fa-gamepad">🎮 Oyun</option>
+                                        <option value="fas fa-palette">🎨 Sanat</option>
+                                        <option value="fas fa-book">📚 Kitap</option>
+                                        <option value="fas fa-newspaper">📰 Haber</option>
+                                        <option value="fas fa-globe">🌍 Dünya</option>
+                                        <option value="fas fa-star">⭐ Popüler</option>
+                                        <option value="fas fa-fire">🔥 Trend</option>
+                                        <option value="fas fa-bolt">⚡ Hızlı</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center">
+                                        <i id="iconPreview" class="fas fa-laptop me-2" style="font-size: 1.5rem;"></i>
+                                        <span id="iconText">Önizleme</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" id="saveCategory">
+                        <i class="fas fa-save me-2"></i>Kaydet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <script>
+        let editingCategoryId = null;
+
+        $(document).ready(function() {
+            loadCategories();
+            
+            // Icon preview
+            $('#categoryIcon').change(function() {
+                const iconClass = $(this).val();
+                if (iconClass) {
+                    $('#iconPreview').attr('class', iconClass);
+                } else {
+                    $('#iconPreview').attr('class', 'fas fa-laptop');
+                }
+            });
+            
+            // Save category
+            $('#saveCategory').click(function() {
+                saveCategory();
+            });
+        });
+
+        function loadCategories() {
+            $.ajax({
+                url: '/api/categories',
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        displayCategories(response.data.categories);
+                    }
+                },
+                error: function() {
+                    alert('Kategoriler yüklenirken hata oluştu.');
+                }
+            });
+        }
+
+        function displayCategories(categories) {
+            const tbody = $('#categoriesTable');
+            tbody.empty();
+            
+            categories.forEach(category => {
+                const row = `
+                    <tr>
+                        <td><i class="${category.icon || 'fas fa-tag'}" style="color: ${category.color}"></i></td>
+                        <td>${category.name}</td>
+                        <td>${category.description || '-'}</td>
+                        <td>
+                            <span class="badge" style="background-color: ${category.color}">
+                                ${category.color}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-${category.isActive ? 'success' : 'danger'}">
+                                ${category.isActive ? 'Aktif' : 'Pasif'}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-2" onclick="editCategory('${category._id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCategory('${category._id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+        }
+
+        function saveCategory() {
+            const formData = {
+                name: $('#categoryName').val(),
+                description: $('#categoryDescription').val(),
+                color: $('#categoryColor').val(),
+                icon: $('#categoryIcon').val()
+            };
+
+            const url = editingCategoryId ? `/api/categories/${editingCategoryId}` : '/api/categories';
+            const method = editingCategoryId ? 'PUT' : 'POST';
+
+            $.ajax({
+                url: url,
+                method: method,
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#categoryModal').modal('hide');
+                        loadCategories();
+                        resetForm();
+                        alert(editingCategoryId ? 'Kategori güncellendi!' : 'Kategori oluşturuldu!');
+                    }
+                },
+                error: function(xhr) {
+                    const error = xhr.responseJSON;
+                    alert(error.message || 'Kategori kaydedilirken hata oluştu.');
+                }
+            });
+        }
+
+        function editCategory(categoryId) {
+            $.ajax({
+                url: `/api/categories/${categoryId}`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const category = response.data.category;
+                        editingCategoryId = categoryId;
+                        
+                        $('#categoryModalTitle').text('Kategori Düzenle');
+                        $('#categoryName').val(category.name);
+                        $('#categoryDescription').val(category.description);
+                        $('#categoryColor').val(category.color);
+                        $('#categoryIcon').val(category.icon);
+                        $('#iconPreview').attr('class', category.icon || 'fas fa-laptop');
+                        
+                        $('#categoryModal').modal('show');
+                    }
+                },
+                error: function() {
+                    alert('Kategori bilgileri alınırken hata oluştu.');
+                }
+            });
+        }
+
+        function deleteCategory(categoryId) {
+            if (confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')) {
+                $.ajax({
+                    url: `/api/categories/${categoryId}`,
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            loadCategories();
+                            alert('Kategori silindi!');
+                        }
+                    },
+                    error: function(xhr) {
+                        const error = xhr.responseJSON;
+                        alert(error.message || 'Kategori silinirken hata oluştu.');
+                    }
+                });
+            }
+        }
+
+        function resetForm() {
+            editingCategoryId = null;
+            $('#categoryModalTitle').text('Yeni Kategori');
+            $('#categoryForm')[0].reset();
+            $('#categoryColor').val('#007bff');
+            $('#iconPreview').attr('class', 'fas fa-laptop');
+        }
+    </script>
+</body>
+</html>
