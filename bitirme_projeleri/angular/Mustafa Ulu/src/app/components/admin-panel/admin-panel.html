@@ -1,0 +1,198 @@
+<mat-toolbar color="primary" class="toolbar">
+  <div class="toolbar__left">
+    <mat-icon>admin_panel_settings</mat-icon>
+
+    <div class="toolbar__titles">
+      <div class="toolbar__title">Admin Panel</div>
+      <div class="toolbar__subtitle">Ders ekle / sil ve kurs içeriklerini yönet</div>
+    </div>
+  </div>
+
+  <span class="spacer"></span>
+
+  <button mat-stroked-button class="toolbar__btn" type="button" (click)="openCreateCourse()">
+    <mat-icon>add</mat-icon>
+    Kurs Oluştur
+  </button>
+
+  <a mat-stroked-button class="toolbar__btn" routerLink="/courses">
+    <mat-icon>arrow_back</mat-icon>
+    Kurslara dön
+  </a>
+
+  <button mat-flat-button color="warn" class="toolbar__btn" type="button" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Çıkış
+  </button>
+</mat-toolbar>
+
+<div class="page">
+  <div class="container">
+    <div class="grid">
+      <!-- SOL: Ders ekle -->
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Ders Ekle</mat-card-title>
+          <mat-card-subtitle>Önce kurs seç, sonra ders bilgilerini gir.</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="content">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Kurs seç</mat-label>
+
+            <mat-select
+              [(ngModel)]="selectedCourseId"
+              (selectionChange)="loadLessons()"
+              panelClass="course-select-panel"
+            >
+              <mat-option [value]="0">Seçiniz</mat-option>
+              <mat-option *ngFor="let c of courses" [value]="c.id">
+                {{ c.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-stroked-button
+            color="warn"
+            class="w-100"
+            type="button"
+            (click)="confirmDeleteCourse()"
+            [disabled]="selectedCourseId === 0 || isDeletingCourse"
+          >
+            <mat-icon>delete</mat-icon>
+            Seçili Kursu Sil
+          </button>
+
+          <mat-divider></mat-divider>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Ders başlığı</mat-label>
+            <input
+              matInput
+              [(ngModel)]="newLessonTitle"
+              placeholder="Örn: Angular Guards - Rol bazlı erişim"
+              [disabled]="selectedCourseId === 0 || isSaving"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Video URL</mat-label>
+            <input
+              matInput
+              [(ngModel)]="newLessonVideoUrl"
+              placeholder="https://..."
+              [disabled]="selectedCourseId === 0 || isSaving"
+            />
+            <mat-hint>Örn: YouTube / Vimeo linki</mat-hint>
+          </mat-form-field>
+
+          <div class="actions">
+            <button
+              mat-flat-button
+              color="accent"
+              type="button"
+              (click)="createLesson()"
+              [disabled]="
+                selectedCourseId === 0 ||
+                !newLessonTitle.trim() ||
+                !newLessonVideoUrl.trim() ||
+                isSaving
+              "
+            >
+              <mat-icon>add</mat-icon>
+              Ders Ekle
+            </button>
+
+            <button mat-stroked-button type="button" (click)="clearForm()" [disabled]="isSaving">
+              <mat-icon>restart_alt</mat-icon>
+              Temizle
+            </button>
+          </div>
+
+          <div class="info" *ngIf="selectedCourseId === 0">
+            <mat-icon>info</mat-icon>
+            Ders eklemek için bir kurs seçmelisin.
+          </div>
+
+          <div class="saving" *ngIf="isSaving">
+            <mat-progress-spinner mode="indeterminate" diameter="20"></mat-progress-spinner>
+            <span>Kaydediliyor...</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- SAĞ: Ders listesi -->
+      <mat-card class="card">
+        <mat-card-header class="listHeader">
+          <div>
+            <mat-card-title>Dersler</mat-card-title>
+            <mat-card-subtitle>
+              <ng-container *ngIf="selectedCourseId !== 0; else selectCourseText">
+                Seçili kursun dersleri listeleniyor.
+              </ng-container>
+              <ng-template #selectCourseText>Kurs seçmeden dersleri göremezsin.</ng-template>
+            </mat-card-subtitle>
+          </div>
+
+          <span class="spacer"></span>
+
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="loadLessons()"
+            [disabled]="selectedCourseId === 0 || isLoading"
+            title="Yenile"
+          >
+            <mat-icon>refresh</mat-icon>
+            Yenile
+          </button>
+        </mat-card-header>
+
+        <mat-card-content class="content">
+          <div class="loading" *ngIf="isLoading">
+            <mat-progress-spinner mode="indeterminate" diameter="28"></mat-progress-spinner>
+            <span>Dersler yükleniyor...</span>
+          </div>
+
+          <div class="empty" *ngIf="!isLoading && selectedCourseId !== 0 && lessons.length === 0">
+            <mat-icon>inbox</mat-icon>
+            <div>
+              <div class="empty__title">Henüz ders yok</div>
+              <div class="empty__sub">Soldan yeni ders ekleyebilirsin.</div>
+            </div>
+          </div>
+
+          <mat-list *ngIf="!isLoading && lessons.length > 0">
+            <mat-list-item *ngFor="let l of lessons" class="lessonItem">
+              <mat-icon matListIcon>play_circle</mat-icon>
+
+              <div class="lessonText">
+                <div class="lessonTitle">{{ l.title }}</div>
+                <div class="lessonUrl">
+                  <a [href]="l.videoUrl" target="_blank" rel="noopener">{{ l.videoUrl }}</a>
+                </div>
+              </div>
+
+              <button
+                mat-icon-button
+                color="warn"
+                type="button"
+                (click)="confirmDeleteLesson(l.id, l.title)"
+                [disabled]="deletingLessonId === l.id"
+                title="Sil"
+              >
+                <mat-icon *ngIf="deletingLessonId !== l.id">delete</mat-icon>
+                <mat-progress-spinner
+                  *ngIf="deletingLessonId === l.id"
+                  mode="indeterminate"
+                  diameter="18"
+                ></mat-progress-spinner>
+              </button>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

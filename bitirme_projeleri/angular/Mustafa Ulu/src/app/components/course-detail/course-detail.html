@@ -1,0 +1,230 @@
+<ng-container *ngIf="course; else loadingTpl">
+  <!-- Üst kart -->
+  <mat-card class="hero">
+    <mat-card-content class="hero__content">
+      <div class="hero__left">
+        <mat-chip-set>
+          <mat-chip>
+            <mat-icon>school</mat-icon>
+            Kurs
+          </mat-chip>
+
+          <mat-chip *ngIf="role === 'student'">
+            <mat-icon>person</mat-icon>
+            Student
+          </mat-chip>
+
+          <mat-chip *ngIf="role === 'instructor'">
+            <mat-icon>shield</mat-icon>
+            Instructor
+          </mat-chip>
+        </mat-chip-set>
+
+        <h2 class="hero__title">{{ course.title }}</h2>
+        <p class="hero__desc">{{ course.description }}</p>
+
+        <div class="hero__meta">
+          <mat-icon>comment</mat-icon>
+          <span>{{ comments.length }} yorum</span>
+        </div>
+      </div>
+
+      <div class="hero__right">
+        <!-- öğrenci kayıt değilse -->
+        <mat-card class="notice" *ngIf="role === 'student' && !isEnrolled">
+          <mat-card-content class="notice__content">
+            <mat-icon color="warn">info</mat-icon>
+            <div>
+              <div class="notice__title">Kayıt yok</div>
+              <div class="notice__sub">Dersleri görmek ve yorum yapmak için kaydolmalısın.</div>
+            </div>
+
+            <span class="spacer"></span>
+
+            <button mat-flat-button color="primary" (click)="enroll()" [disabled]="isEnrolling">
+              <mat-icon>how_to_reg</mat-icon>
+              Kursa Kaydol
+            </button>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- öğrenci kayıtlıysa -->
+        <mat-card class="notice" *ngIf="role === 'student' && isEnrolled">
+          <mat-card-content class="notice__content">
+            <mat-icon color="primary">check_circle</mat-icon>
+            <div>
+              <div class="notice__title">Kayıt aktif</div>
+              <div class="notice__sub">Dersleri izleyebilir ve yorum yapabilirsin.</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- instructor -->
+        <mat-card class="notice" *ngIf="role === 'instructor'">
+          <mat-card-content class="notice__content">
+            <mat-icon color="primary">verified</mat-icon>
+            <div>
+              <div class="notice__title">Instructor</div>
+              <div class="notice__sub">Dersler ve yorumlar görünür.</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- DERSLER -->
+  <mat-card class="card" style="margin-top: 14px;">
+    <mat-card-header>
+      <mat-card-title>Ders İçeriği</mat-card-title>
+      <mat-card-subtitle>
+        <ng-container *ngIf="role === 'instructor' || isEnrolled; else lockedTpl">
+          Bu kursa ait dersler listeleniyor.
+        </ng-container>
+        <ng-template #lockedTpl>Dersleri görmek için kaydolmalısın.</ng-template>
+      </mat-card-subtitle>
+
+      <span class="spacer"></span>
+
+      <button mat-stroked-button (click)="loadLessons()" [disabled]="isLoadingLessons">
+        <mat-icon>refresh</mat-icon>
+        Yenile
+      </button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="isLoadingLessons" class="loadingRow">
+        <mat-progress-spinner mode="indeterminate" diameter="26"></mat-progress-spinner>
+        <span>Dersler yükleniyor...</span>
+      </div>
+
+      <div *ngIf="!isLoadingLessons && (role === 'instructor' || isEnrolled) && lessons.length === 0" class="emptyRow">
+        <mat-icon>inbox</mat-icon>
+        <div>
+          <div class="emptyTitle">Henüz ders yok</div>
+          <div class="emptySub">Instructor admin panelden ders ekleyebilir.</div>
+        </div>
+      </div>
+
+      <mat-list *ngIf="!isLoadingLessons && (role === 'instructor' || isEnrolled) && lessons.length > 0">
+        <mat-list-item *ngFor="let l of lessons">
+          <mat-icon matListItemIcon>play_circle</mat-icon>
+
+          <div matListItemTitle>{{ l.title }}</div>
+          <div matListItemLine>
+            <a [href]="l.videoUrl" target="_blank" rel="noopener">{{ l.videoUrl }}</a>
+          </div>
+
+          <a mat-stroked-button color="primary" [href]="l.videoUrl" target="_blank" rel="noopener" matListItemMeta>
+            <mat-icon>open_in_new</mat-icon>
+            İzle
+          </a>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- YORUM ALANI + YORUMLAR -->
+  <div class="grid" style="margin-top: 14px;">
+    <!-- öğrenci yorum -->
+    <mat-card class="card" *ngIf="role === 'student' && isEnrolled">
+      <mat-card-header>
+        <mat-card-title>Yorum Yap</mat-card-title>
+        <mat-card-subtitle>Saygılı ve kısa tut.</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Yorum</mat-label>
+          <textarea
+            matInput
+            rows="5"
+            maxlength="500"
+            [(ngModel)]="newComment"
+            placeholder="Yorum yaz..."
+          ></textarea>
+          <mat-hint align="end">{{ newComment.length }}/500</mat-hint>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-flat-button color="primary" (click)="addComment()" [disabled]="isSending || !newComment.trim()">
+            <mat-icon>send</mat-icon>
+            Gönder
+          </button>
+
+          <button mat-stroked-button type="button" (click)="newComment=''" [disabled]="isSending">
+            <mat-icon>restart_alt</mat-icon>
+            Temizle
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- instructor öğrenci değilse bilgi -->
+    <mat-card class="card" *ngIf="role === 'student' && !isEnrolled">
+      <mat-card-header>
+        <mat-card-title>Yorum Yap</mat-card-title>
+        <mat-card-subtitle>Kayıt olmadan yorum yapamazsın.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="mutedRow">
+          <mat-icon color="warn">lock</mat-icon>
+          <span>Önce kursa kaydol.</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Yorumlar</mat-card-title>
+
+        <span class="spacer"></span>
+
+        <button mat-stroked-button (click)="loadComments()" [disabled]="isLoadingComments">
+          <mat-icon>refresh</mat-icon>
+          Yenile
+        </button>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div *ngIf="isLoadingComments" class="loadingRow">
+          <mat-progress-spinner mode="indeterminate" diameter="26"></mat-progress-spinner>
+          <span>Yorumlar yükleniyor...</span>
+        </div>
+
+        <div *ngIf="!isLoadingComments && comments.length === 0" class="emptyRow">
+          Henüz yorum yok.
+        </div>
+
+        <mat-list *ngIf="!isLoadingComments && comments.length > 0">
+          <mat-list-item *ngFor="let c of comments">
+            <mat-icon matListItemIcon>person</mat-icon>
+
+            <div matListItemTitle>
+              <b>{{ c.userName }}</b> • {{ c.date }}
+            </div>
+            <div matListItemLine>{{ c.text }}</div>
+
+            <button
+              mat-icon-button
+              color="warn"
+              *ngIf="canDelete(c)"
+              (click)="confirmDelete(c.id, c.userName)"
+              matListItemMeta
+              title="Sil"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-container>
+
+<ng-template #loadingTpl>
+  <div style="display:flex; gap:10px; align-items:center; padding:18px;">
+    <mat-progress-spinner mode="indeterminate" diameter="28"></mat-progress-spinner>
+    <span>Kurs yükleniyor...</span>
+  </div>
+</ng-template>

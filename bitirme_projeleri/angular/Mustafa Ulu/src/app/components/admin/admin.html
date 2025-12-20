@@ -1,0 +1,57 @@
+<div class="admin-page">
+  <mat-toolbar color="primary" class="admin-toolbar">
+    <div class="brand">
+      <mat-icon aria-hidden="true">school</mat-icon>
+      <span>Admin Panel</span>
+    </div>
+
+    <span class="spacer"></span>
+
+    <a mat-button routerLink="/courses">
+      <mat-icon aria-hidden="true">menu_book</mat-icon>
+      Kurslar
+    </a>
+
+    <button mat-raised-button color="accent" (click)="logout()">
+      <mat-icon aria-hidden="true">logout</mat-icon>
+      Çıkış Yap
+    </button>
+  </mat-toolbar>
+
+  <main class="admin-content">
+    <mat-card class="admin-card">
+      <mat-card-header>
+        <mat-card-title>Yönetim Paneli</mat-card-title>
+        <mat-card-subtitle>
+          Bu sayfa sadece <b>instructor</b> rolüne açıktır.
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <div class="info">
+          <mat-icon aria-hidden="true">verified_user</mat-icon>
+          <div>
+            <div class="info-title">Erişim Doğrulandı</div>
+            <div class="info-desc">
+              Buradan kurs ve ders yönetimi gibi işlemleri yapabilirsin.
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a mat-stroked-button color="primary" routerLink="/courses">
+            <mat-icon aria-hidden="true">arrow_back</mat-icon>
+            Kurslara Dön
+          </a>
+
+          <button mat-flat-button color="warn" (click)="logout()">
+            <mat-icon aria-hidden="true">logout</mat-icon>
+            Çıkış Yap
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </main>
+</div>

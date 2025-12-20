@@ -1,0 +1,60 @@
+<div class="page">
+  <div class="headerPanel">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+      <mat-icon>school</mat-icon>
+
+      <div>
+        <div style="font-size:22px; font-weight:800; line-height:1.1;">Kurslar</div>
+        <div style="opacity:.85;">Kataloğu keşfet, detaylara gir</div>
+      </div>
+
+      <span style="flex:1;"></span>
+
+      <button mat-stroked-button (click)="load()">
+        <mat-icon>refresh</mat-icon>
+        Yenile
+      </button>
+    </div>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Ara</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput [(ngModel)]="q" placeholder="Ara" />
+    </mat-form-field>
+
+    <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+      <div class="glass" style="display:flex; gap:10px; align-items:center; padding:10px 12px;">
+        <mat-icon>format_list_bulleted</mat-icon>
+        <div><b>Toplam:</b> {{ courses.length }}</div>
+      </div>
+
+      <div class="glass" style="display:flex; gap:10px; align-items:center; padding:10px 12px;">
+        <mat-icon>filter_alt</mat-icon>
+        <div><b>Görünen:</b> {{ filtered.length }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <mat-card class="courseCard" *ngFor="let c of filtered">
+      <mat-card-content>
+        <h3 class="courseTitle">{{ c.title }}</h3>
+
+        <div style="opacity:.8; font-weight:700; margin-top:6px;">Kurs açıklaması</div>
+        <div class="courseSub">{{ c.description }}</div>
+
+        <div class="cardActions">
+          <a mat-stroked-button [routerLink]="['/course', c.id]">
+            <mat-icon>open_in_new</mat-icon>
+            Detay
+          </a>
+
+          <a mat-flat-button color="primary" [routerLink]="['/course', c.id]">
+            <mat-icon>play_arrow</mat-icon>
+            Başla
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

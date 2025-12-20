@@ -1,0 +1,83 @@
+<div class="page">
+  <mat-card class="registerCard">
+    <mat-card-header>
+      <mat-card-title>Kayıt Ol</mat-card-title>
+      <mat-card-subtitle>Yeni hesap oluştur</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="content">
+      <div class="error" *ngIf="error">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ error }}</span>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Ad Soyad</mat-label>
+        <mat-icon matPrefix>badge</mat-icon>
+        <input
+          matInput
+          [(ngModel)]="name"
+          placeholder="Ad Soyad"
+          [disabled]="loading"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email</mat-label>
+        <mat-icon matPrefix>mail</mat-icon>
+        <input
+          matInput
+          [(ngModel)]="email"
+          type="email"
+          placeholder="Email"
+          autocomplete="off"
+          [disabled]="loading"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Şifre</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input
+          matInput
+          [(ngModel)]="password"
+          type="password"
+          placeholder="Şifre"
+          autocomplete="new-password"
+          [disabled]="loading"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rol</mat-label>
+        <mat-icon matPrefix>manage_accounts</mat-icon>
+        <mat-select [(ngModel)]="role" [disabled]="loading">
+          <mat-option value="student">student</mat-option>
+          <mat-option value="instructor">instructor</mat-option>
+        </mat-select>
+        <mat-hint>Instructor seçersen Admin Panel erişimi olur.</mat-hint>
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="registerBtn"
+        (click)="register()"
+        [disabled]="loading || !name.trim() || !email.trim() || !password.trim()"
+      >
+        <mat-progress-spinner
+          *ngIf="loading"
+          diameter="18"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+        <span *ngIf="!loading">Kayıt Ol</span>
+        <span *ngIf="loading">Kayıt yapılıyor...</span>
+      </button>
+
+      <div class="footer">
+        <span>Zaten hesabın var mı?</span>
+        <a routerLink="/login">Giriş Yap</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

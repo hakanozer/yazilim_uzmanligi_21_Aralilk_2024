@@ -1,0 +1,172 @@
+/* Material theme importların varsa burada kalsın (varsa silme)
+@use '@angular/material' as mat;
+... theme config ...
+*/
+
+:root {
+  --bg-0: #0b1020;
+  --bg-1: #0f1b3a;
+  --bg-2: #142a5c;
+
+  --glass: rgba(255, 255, 255, 0.06);
+  --stroke: rgba(255, 255, 255, 0.14);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Modern renkli arka plan */
+  background:
+    radial-gradient(1100px 650px at 12% 12%, rgba(0, 190, 255, 0.26), transparent 60%),
+    radial-gradient(900px 520px at 85% 18%, rgba(138, 43, 226, 0.24), transparent 55%),
+    radial-gradient(900px 520px at 55% 95%, rgba(0, 255, 170, 0.14), transparent 60%),
+    linear-gradient(135deg, var(--bg-0) 0%, var(--bg-1) 40%, var(--bg-2) 100%);
+  background-attachment: fixed;
+
+  color: rgba(255, 255, 255, 0.92);
+}
+
+a {
+  color: inherit;
+}
+
+/* Ortak glass sınıfı */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+}
+
+/* Card radius biraz modern olsun */
+.mat-mdc-card {
+  border-radius: 18px !important;
+}
+
+/* =========================================
+   ANGULAR MATERIAL (MDC) FORM-FIELD FIX
+   Label / value üst üste binmesini düzeltir
+   ========================================= */
+
+.mat-mdc-form-field {
+  display: block !important;
+  width: 100% !important;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-infix {
+  min-height: 56px !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+
+.mat-mdc-floating-label,
+.mat-mdc-input-element,
+.mat-mdc-select-value,
+.mat-mdc-form-field-hint,
+.mat-mdc-select-value-text {
+  line-height: 1.2 !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  height: auto !important;
+  align-items: center !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  min-height: 18px !important;
+}
+
+.mdc-text-field {
+  box-sizing: border-box !important;
+}
+
+.mat-mdc-select-trigger {
+  align-items: center !important;
+  min-height: 24px !important;
+}
+
+/* =========================================
+   MAT-SELECT PANEL FIX
+   Açılan liste okunaklı + yüksekliği sınırlı
+   ========================================= */
+
+.cdk-overlay-container {
+  z-index: 2000 !important;
+}
+
+.course-select-panel.mat-mdc-select-panel {
+  background: #0f1b3a !important;
+  color: #ffffff !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45) !important;
+  border-radius: 12px !important;
+
+  max-height: 240px !important;
+  overflow: auto !important;
+}
+
+.course-select-panel .mat-mdc-option {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.course-select-panel .mat-mdc-option:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+}
+
+.course-select-panel .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(0, 190, 255, 0.28) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+/* Select seçili değer ekstra net */
+.mat-mdc-select-value-text {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+/* =========================================
+   MAT-DIALOG FIX
+   "Oluştur" butonu (mat-dialog-actions) görünmüyorsa
+   ========================================= */
+
+/* Dialog container'ı görünür yap + metin rengi */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-radius: 16px !important;
+  overflow: visible !important;
+}
+
+/* Dialog içeriği çok uzayıp actions'ı itiyorsa */
+.mat-mdc-dialog-content,
+.mdc-dialog__content {
+  max-height: 65vh !important;
+  overflow: auto !important;
+}
+
+/* Asıl kritik: actions/footer görünürlüğü */
+.mat-mdc-dialog-actions,
+.mdc-dialog__actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  padding: 12px 24px 18px !important;
+  overflow: visible !important;
+}
+
+/* Overlay bazen düşük z-index'te kalır; garantiye al */
+.cdk-overlay-container {
+  z-index: 3000 !important;
+}
+

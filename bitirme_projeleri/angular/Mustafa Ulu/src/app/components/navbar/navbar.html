@@ -1,0 +1,56 @@
+<mat-toolbar color="primary" class="navbar">
+  <!-- Sol taraf -->
+  <div class="left">
+    <mat-icon class="logo">school</mat-icon>
+
+    <a mat-button routerLink="/courses">
+      <mat-icon>menu_book</mat-icon>
+      Kurslar
+    </a>
+
+    <a
+      mat-button
+      routerLink="/my-courses"
+      *ngIf="isLoggedIn"
+    >
+      <mat-icon>bookmark</mat-icon>
+      Kurslarım
+    </a>
+
+    <!-- Sadece instructor görsün -->
+    <a
+      mat-button
+      routerLink="/admin"
+      *ngIf="isLoggedIn && role === 'instructor'"
+    >
+      <mat-icon>admin_panel_settings</mat-icon>
+      Admin
+    </a>
+  </div>
+
+  <span class="spacer"></span>
+
+  <!-- Sağ taraf -->
+  <div class="right">
+    <!-- Giriş yapılmadıysa -->
+    <ng-container *ngIf="!isLoggedIn">
+      <a mat-stroked-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+        Giriş Yap
+      </a>
+
+      <a mat-flat-button color="accent" routerLink="/register">
+        <mat-icon>person_add</mat-icon>
+        Kayıt Ol
+      </a>
+    </ng-container>
+
+    <!-- Giriş yapıldıysa -->
+    <ng-container *ngIf="isLoggedIn">
+      <button mat-stroked-button color="warn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Çıkış
+      </button>
+    </ng-container>
+  </div>
+</mat-toolbar>

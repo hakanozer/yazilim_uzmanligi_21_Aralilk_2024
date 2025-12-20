@@ -1,0 +1,58 @@
+:host {
+  display: block;
+}
+
+.page {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.registerCard {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 16px;
+}
+
+.content {
+  display: grid;
+  gap: 14px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.registerBtn {
+  margin-top: 6px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(244, 67, 54, 0.1);
+  color: #b71c1c;
+  font-weight: 500;
+}
+
+.footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+
+  a {
+    font-weight: 800;
+    text-decoration: none;
+  }
+}

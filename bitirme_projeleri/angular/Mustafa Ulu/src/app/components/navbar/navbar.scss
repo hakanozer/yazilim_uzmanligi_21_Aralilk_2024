@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  margin-right: 4px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Mobilde yazıları biraz sadeleştirmek için */
+@media (max-width: 720px) {
+  a mat-icon,
+  button mat-icon {
+    margin-right: 0;
+  }
+
+  a span,
+  button span {
+    display: none;
+  }
+}

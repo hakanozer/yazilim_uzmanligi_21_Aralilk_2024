@@ -1,0 +1,115 @@
+:host {
+  display: block;
+}
+
+/* Kart içindeki içeriklerin üst üste binmemesi için */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Form-field'lar kesin genişlik alsın */
+.w-100 {
+  width: 100%;
+}
+
+/* Card header yazılarını düzgün satır yüksekliği ile göster */
+mat-card-title,
+mat-card-subtitle {
+  line-height: 1.3;
+  white-space: normal;
+}
+
+/* Butonlar yan yana ise taşmasın */
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  flex: 1 1 160px;
+}
+
+/* Liste header düzeni */
+.listHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Ders satırı: ikon + yazı + sil butonu düzgün hizalansın */
+.lessonItem {
+  align-items: center;
+}
+
+.lessonText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.lessonTitle {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.lessonUrl a {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Info ve loading satırları */
+.info,
+.loading,
+.saving,
+.empty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.3;
+}
+
+.empty__title {
+  font-weight: 700;
+}
+
+.empty__sub {
+  opacity: 0.85;
+}
+
+/* --- KRİTİK KISIM: Material MDC form-field yükseklik/line-height fix --- */
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+/* Input/select iç yüksekliği ezilmesin */
+:host ::ng-deep .mat-mdc-form-field-infix {
+  min-height: 48px;         /* çakışmayı bitiren ana hamle */
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* Label/value/hint satır yüksekliği */
+:host ::ng-deep .mat-mdc-floating-label,
+:host ::ng-deep .mat-mdc-form-field-input-control,
+:host ::ng-deep .mat-mdc-select-value,
+:host ::ng-deep .mat-mdc-form-field-hint {
+  line-height: 1.2 !important;
+}
+
+/* Hint alanı da sıkışmasın */
+:host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  min-height: 18px;
+}
+
+/* Eğer globalde input font-size çok oynandıysa bunu sabitle */
+:host ::ng-deep .mat-mdc-form-field input,
+:host ::ng-deep .mat-mdc-select-value-text {
+  font-size: 14px;
+}

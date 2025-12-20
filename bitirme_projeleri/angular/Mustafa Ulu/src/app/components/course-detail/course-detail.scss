@@ -1,0 +1,166 @@
+:host {
+  display: block;
+  padding: 16px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.hero {
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.hero__content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .hero__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero__title {
+  margin: 8px 0 6px;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero__desc {
+  margin: 0;
+  opacity: 0.85;
+  line-height: 1.45;
+}
+
+.hero__meta {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.85;
+}
+
+.chipRow {
+  margin-bottom: 4px;
+}
+
+.notice {
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.notice.ok {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.notice.muted {
+  opacity: 0.9;
+}
+
+.notice__content {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.notice__title {
+  font-weight: 800;
+}
+
+.notice__sub {
+  opacity: 0.85;
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  border-radius: 16px;
+}
+
+.content {
+  display: grid;
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.inlineLoading,
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.9;
+}
+
+.listHeader {
+  align-items: center;
+}
+
+.empty {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.03);
+
+  .empty__title {
+    font-weight: 800;
+  }
+
+  .empty__sub {
+    opacity: 0.85;
+    font-size: 12.5px;
+  }
+}
+
+.commentItem {
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.commentTitle {
+  font-weight: 700;
+}
+
+.commentText {
+  white-space: pre-wrap;
+  opacity: 0.9;
+}
+
+.dot {
+  margin: 0 6px;
+  opacity: 0.5;
+}
+
+.date {
+  opacity: 0.75;
+  font-weight: 500;
+}

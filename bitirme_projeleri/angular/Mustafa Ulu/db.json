@@ -1,0 +1,171 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Ahmet Yılmaz",
+      "email": "ahmet@example.com",
+      "password": "1234",
+      "role": "student"
+    },
+    {
+      "id": "2",
+      "name": "Ayşe Demir",
+      "email": "ayse@example.com",
+      "password": "abcd",
+      "role": "instructor"
+    },
+    {
+      "id": "579a",
+      "name": "sa",
+      "email": "sasaa",
+      "password": "sasa",
+      "role": "student"
+    },
+    {
+      "id": "44fd",
+      "name": "Mustafa ulu",
+      "email": "mustafa@example.com",
+      "password": "123456",
+      "role": "student"
+    }
+  ],
+  "courses": [
+    {
+      "id": "1",
+      "title": "Angular Başlangıç",
+      "description": "Temel Angular",
+      "instructorId": 2
+    },
+    {
+      "id": "2",
+      "title": "TypeScript",
+      "description": "TS temelleri",
+      "instructorId": 2
+    },
+    {
+      "id": "ae47",
+      "title": "Bir deneme sınıfı",
+      "description": "......"
+    },
+    {
+      "id": "c386",
+      "title": "C++",
+      "description": "Bu dersimizin içeriği başlangıç seviye c++ dır.",
+      "instructorId": 2
+    },
+    {
+      "id": "33bd",
+      "title": "scss",
+      "description": "scss nedir",
+      "instructorId": 2
+    }
+  ],
+  "lessons": [
+    {
+      "id": "89f0",
+      "courseId": 1,
+      "title": "Deneme deri",
+      "videoUrl": "https://youtu.be/Ata9cSC2WpM?si=_2SoJU6AG-HHHIBU"
+    },
+    {
+      "id": "8e02",
+      "courseId": "ae47",
+      "title": "Müzik",
+      "videoUrl": "https://youtu.be/ZAfAud_M_mg?si=CRGzqzAXCg11ykFS"
+    },
+    {
+      "id": "6cd0",
+      "courseId": "c386",
+      "title": "C++ Başlangıç",
+      "videoUrl": "https://www.youtube.com/watch?v=Hz6Sug8fbH4"
+    },
+    {
+      "id": "502c",
+      "courseId": "1",
+      "title": "Rol bazlı",
+      "videoUrl": "https://www.youtube.com/watch?v=N2UOAFmE06Q"
+    },
+    {
+      "id": "3cef",
+      "courseId": "2",
+      "title": "Type script nedir?",
+      "videoUrl": "https://www.youtube.com/watch?v=r9AdqzqUvrc"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "eb33",
+      "userId": 1,
+      "courseId": 1,
+      "createdAt": "2025-12-13T01:34:03.336Z"
+    },
+    {
+      "id": "1f0a",
+      "userId": 1,
+      "courseId": 2,
+      "createdAt": "2025-12-13T01:34:09.291Z"
+    },
+    {
+      "id": "f729",
+      "userId": 1,
+      "courseId": "ae47",
+      "createdAt": "2025-12-13T12:38:47.820Z"
+    },
+    {
+      "id": "3e4a",
+      "userId": 1,
+      "courseId": "c386",
+      "createdAt": "2025-12-13T21:27:32.655Z"
+    },
+    {
+      "id": "3e19",
+      "userId": 1,
+      "courseId": "33bd",
+      "createdAt": "2025-12-20T00:28:08.552Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "4891",
+      "courseId": 1,
+      "userId": 2,
+      "text": "sa",
+      "date": "2025-12-13"
+    },
+    {
+      "id": "88cb",
+      "courseId": 1,
+      "userId": 1,
+      "text": "Harika",
+      "date": "2025-12-13"
+    },
+    {
+      "id": "4456",
+      "courseId": 2,
+      "userId": 1,
+      "text": "mükemmel",
+      "date": "2025-12-13"
+    },
+    {
+      "id": "ac21",
+      "courseId": 2,
+      "userId": 1,
+      "text": "merhaba",
+      "date": "2025-12-13"
+    },
+    {
+      "id": "ee91",
+      "courseId": "ae47",
+      "userId": 1,
+      "text": "Selamlarr",
+      "date": "2025-12-13"
+    },
+    {
+      "id": "5f1e",
+      "courseId": "1",
+      "userId": 1,
+      "text": "Muazzamdı.",
+      "date": "2025-12-13"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+<mat-toolbar color="primary" class="toolbar">
+  <div class="toolbar__left">
+    <mat-icon>school</mat-icon>
+    <div class="toolbar__titles">
+      <div class="toolbar__title">Kayıtlı Kurslarım</div>
+      <div class="toolbar__subtitle">Kayıt olduğun kurslara hızlı erişim</div>
+    </div>
+  </div>
+
+  <span class="spacer"></span>
+
+  <a mat-stroked-button routerLink="/courses">
+    <mat-icon>arrow_back</mat-icon>
+    Kurslara dön
+  </a>
+</mat-toolbar>
+
+<div class="page">
+  <!-- Loading -->
+  <mat-card class="card" *ngIf="isLoading">
+    <mat-card-content class="loading">
+      <mat-progress-spinner diameter="26" mode="indeterminate"></mat-progress-spinner>
+      <span>Kurslar yükleniyor...</span>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Empty -->
+  <mat-card class="card" *ngIf="!isLoading && courses.length === 0">
+    <mat-card-content class="empty">
+      <mat-icon>bookmark_border</mat-icon>
+      <div>
+        <div class="empty__title">Henüz kayıtlı kurs yok</div>
+        <div class="empty__sub">Kurslar sayfasından bir kursa kaydolabilirsin.</div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <a mat-flat-button color="primary" routerLink="/courses">
+        <mat-icon>explore</mat-icon>
+        Kursları keşfet
+      </a>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Grid -->
+  <div class="grid" *ngIf="!isLoading && courses.length > 0">
+    <mat-card class="courseCard" *ngFor="let course of courses">
+      <mat-card-header>
+        <mat-card-title class="courseTitle">{{ course.title }}</mat-card-title>
+        <mat-card-subtitle>Kayıtlı kurs</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+       <p class="courseDesc" *ngIf="course.description">
+  {{ course.description }}
+</p>
+
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <a mat-stroked-button [routerLink]="['/course', course.id]">
+          <mat-icon>open_in_new</mat-icon>
+          Detay
+        </a>
+
+        <a mat-flat-button color="primary" [routerLink]="['/course', course.id]">
+          <mat-icon>play_arrow</mat-icon>
+          Devam Et
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
