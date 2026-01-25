@@ -1,4 +1,4 @@
-namespace Days_19.Models
+namespace Days_18.Models
 {
     public struct CityContact
     {

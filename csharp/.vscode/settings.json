@@ -1,3 +1,7 @@
 {
+<<<<<<< Updated upstream
     "dotnet.defaultSolution": "Days_20_t.sln"
+=======
+    "dotnet.defaultSolution": "Days_19.sln"
+>>>>>>> Stashed changes
 }
