@@ -1,0 +1,17 @@
+<%- include("../partials/header", { title: "Home", user }) %>
+
+<div class="card">
+  <h2>NewsHub</h2>
+  <p class="muted">EJS + Session akışı. API tarafı JWT ile devam.</p>
+
+  <% if (!user) { %>
+    <p>
+      <a class="btn2" style="padding:10px 14px;border-radius:10px;display:inline-block;text-decoration:none" href="/login">Login</a>
+      <a class="btn2" style="padding:10px 14px;border-radius:10px;display:inline-block;text-decoration:none" href="/register">Register</a>
+    </p>
+  <% } else { %>
+    <p>Dashboard’a gidebilirsin: <a href="/dashboard">/dashboard</a></p>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

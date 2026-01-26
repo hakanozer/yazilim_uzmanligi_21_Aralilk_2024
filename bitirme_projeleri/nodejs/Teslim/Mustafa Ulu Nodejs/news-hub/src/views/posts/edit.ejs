@@ -1,0 +1,28 @@
+<%- include("../partials/header", { title: "Edit Post", user }) %>
+
+<div class="card">
+  <h2>Edit Post</h2>
+
+  <% if (error) { %>
+    <div class="error"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="/posts/<%= post._id %>/edit">
+    <div style="margin-bottom:10px">
+      <label>Title</label>
+      <input name="title" required minlength="3" maxlength="120" value="<%= post.title %>" />
+    </div>
+
+    <div style="margin-bottom:10px">
+      <label>Content</label>
+      <textarea name="content" required minlength="10" rows="10"
+        style="width:100%;padding:10px;border:1px solid #d7dbe7;border-radius:10px"><%= post.content %></textarea>
+    </div>
+
+    <button class="btn" type="submit">Save</button>
+    <a class="btn2" style="margin-left:8px;padding:10px 14px;border-radius:10px;text-decoration:none"
+       href="/posts/<%= post._id %>">Cancel</a>
+  </form>
+</div>
+
+<%- include("../partials/footer") %>

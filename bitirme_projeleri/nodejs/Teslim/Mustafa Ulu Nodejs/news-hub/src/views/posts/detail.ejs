@@ -1,0 +1,125 @@
+<%- include("../partials/header", { user, title: title || (post && post.title) || "Post Detail" }) %>
+
+<style>
+  .container{max-width:960px;margin:24px auto;padding:0 16px}
+  .card{background:#fff;border:1px solid #e7e7e7;border-radius:14px;padding:20px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+  .muted{color:#666}
+  .title{font-size:28px;font-weight:700;margin:0 0 8px}
+  .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 14px}
+  .pill{font-size:12px;padding:6px 10px;border-radius:999px;background:#f3f4f6;border:1px solid #e5e7eb}
+  .content{white-space:pre-wrap;line-height:1.65;margin-top:10px}
+  .divider{height:1px;background:#efefef;margin:18px 0}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid transparent;text-decoration:none;cursor:pointer;font-weight:600}
+  .btn-primary{background:#111827;color:#fff}
+  .btn-primary:hover{filter:brightness(1.05)}
+  .btn-outline{background:#fff;border-color:#d1d5db;color:#111827}
+  .btn-outline:hover{background:#f9fafb}
+  .btn-danger{background:#ef4444;color:#fff}
+  .btn-danger:hover{filter:brightness(1.05)}
+  .commentBox{display:flex;gap:10px;align-items:flex-start}
+  .input{width:100%;padding:12px 12px;border:1px solid #d1d5db;border-radius:12px;outline:none}
+  .input:focus{border-color:#9ca3af}
+  .commentList{display:flex;flex-direction:column;gap:10px}
+  .comment{border:1px solid #eee;border-radius:12px;padding:12px 14px;background:#fff}
+  .commentTop{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+  .commentAuthor{font-weight:700}
+  .commentMeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .commentText{margin-top:8px;white-space:pre-wrap;line-height:1.5}
+  .link{color:#2563eb;text-decoration:none}
+  .link:hover{text-decoration:underline}
+</style>
+
+<div class="container">
+  <div class="card">
+
+    <!-- Header / Title -->
+    <h1 class="title"><%= post.title %></h1>
+
+    <div class="meta">
+      <span class="pill">
+        Author:
+        <%= post.author?.name || "Unknown" %>
+      </span>
+
+      <span class="pill">
+        <%= new Date(post.createdAt).toLocaleString("tr-TR") %>
+      </span>
+
+      <% if (user?.role === "admin") { %>
+        <span class="pill">Admin</span>
+      <% } %>
+    </div>
+
+    <!-- Actions (TEK SET) -->
+    <% const canManage = (isOwner || user?.role === "admin"); %>
+    <% if (canManage) { %>
+      <div class="actions" style="margin-top:10px;">
+        <a class="btn btn-outline" href="/posts/<%= post._id %>/edit">Edit Post</a>
+        <a class="btn btn-danger" href="/posts/<%= post._id %>/delete"
+           onclick="return confirm('Bu post silinsin mi?');">
+          Delete Post
+        </a>
+      </div>
+    <% } %>
+
+    <div class="divider"></div>
+
+    <!-- Content -->
+    <div class="content"><%= post.content %></div>
+
+    <div class="divider"></div>
+
+    <!-- Comments -->
+    <h2 style="margin:0 0 10px;font-size:20px;font-weight:800;">Comments</h2>
+
+    <!-- Add comment -->
+    <form class="commentBox" method="POST" action="/posts/<%= post._id %>/comments">
+      <input class="input" name="content" placeholder="Write a comment..." required />
+      <button class="btn btn-primary" type="submit">Add Comment</button>
+    </form>
+
+    <div style="height:14px;"></div>
+
+    <div class="commentList">
+      <% if (!comments || comments.length === 0) { %>
+        <div class="muted">Henüz yorum yok.</div>
+      <% } else { %>
+        <% comments.forEach(function(c){ %>
+          <div class="comment">
+            <div class="commentTop">
+              <div class="commentMeta">
+                <span class="commentAuthor"><%= c.author?.name || "Unknown" %></span>
+                <span class="muted">• <%= new Date(c.createdAt).toLocaleString("tr-TR") %></span>
+                <% if (c.author?.role === "admin") { %>
+                  <span class="pill">admin</span>
+                <% } %>
+              </div>
+
+              <!-- Delete comment (admin || post owner || comment owner) -->
+              <% 
+                const isAdmin = user?.role === "admin";
+                const isPostOwner = isOwner;
+                const isCommentOwner = (c.author?._id?.toString?.() === user?.id);
+                const canDeleteComment = isAdmin || isPostOwner || isCommentOwner;
+              %>
+
+              <% if (canDeleteComment) { %>
+                <a class="link"
+                   href="/posts/<%= post._id %>/comments/<%= c._id %>/delete"
+                   onclick="return confirm('Yorum silinsin mi?');">
+                  Delete
+                </a>
+              <% } %>
+            </div>
+
+            <div class="commentText"><%= c.content %></div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title || "NewsHub" %></title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f6f7fb}
+    .container{max-width:920px;margin:0 auto;padding:24px}
+    .card{background:#fff;border:1px solid #e6e8ef;border-radius:12px;padding:18px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    input{padding:10px;border:1px solid #d7dbe7;border-radius:10px;width:100%}
+    button{padding:10px 14px;border:0;border-radius:10px;cursor:pointer}
+    .btn{background:#111;color:#fff}
+    .btn2{background:#eaeefb}
+    .nav{display:flex;gap:10px;margin-bottom:14px;align-items:center}
+    .nav a{color:#111;text-decoration:none;font-weight:600}
+    .muted{color:#6b7280}
+    .error{background:#fff0f0;border:1px solid #ffd0d0;padding:10px;border-radius:10px;color:#b00020}
+    .ok{background:#f0fff4;border:1px solid #c6f6d5;padding:10px;border-radius:10px;color:#116329}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <a href="/">Home</a>
+      <a href="/dashboard">Dashboard</a>
+      <% if (user) { %>
+        <span class="muted">|</span>
+        <span class="muted"><%= user.email %> (<%= user.role %>)</span>
+        <a href="/logout" style="margin-left:auto;">Logout</a>
+      <% } else { %>
+        <a href="/login" style="margin-left:auto;">Login</a>
+        <a href="/register">Register</a>
+      <% } %>
+    </div>
+<% if (user && user.role === "admin") { %>
+  <a href="/admin">Admin</a>
+<% } %>

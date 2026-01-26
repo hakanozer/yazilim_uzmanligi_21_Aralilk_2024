@@ -1,0 +1,32 @@
+<%- include("../partials/header", { title: "Register", user }) %>
+
+<div class="card">
+  <h2>Register</h2>
+
+  <% if (error) { %>
+    <div class="error"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="/register">
+    <div class="row">
+      <div style="flex:1;min-width:260px">
+        <label>Name</label>
+        <input name="name" type="text" placeholder="Mustafa" required />
+      </div>
+      <div style="flex:1;min-width:260px">
+        <label>Email</label>
+        <input name="email" type="email" placeholder="test@test.com" required />
+      </div>
+      <div style="flex:1;min-width:260px">
+        <label>Password</label>
+        <input name="password" type="password" placeholder="******" required />
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <button class="btn" type="submit">Create account</button>
+      <a class="btn2" style="padding:10px 14px;border-radius:10px;display:inline-block;text-decoration:none" href="/login">Login</a>
+    </div>
+  </form>
+</div>
+
+<%- include("../partials/footer") %>

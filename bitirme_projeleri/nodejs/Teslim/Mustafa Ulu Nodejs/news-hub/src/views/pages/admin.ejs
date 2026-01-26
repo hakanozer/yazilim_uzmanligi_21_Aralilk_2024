@@ -1,0 +1,52 @@
+<%- include("../partials/header", { title: "Admin", user }) %>
+
+<div class="card">
+  <h2>Admin Panel</h2>
+  <p class="muted">Bu sayfa sadece admin kullanıcılar içindir.</p>
+
+  <h3>Users</h3>
+
+  <% if (!users || users.length === 0) { %>
+    <p class="muted">Kullanıcı yok.</p>
+  <% } else { %>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <% users.forEach(u => { %>
+        <div class="card" style="padding:12px">
+          <div><b>Name:</b> <%= u.name || "-" %></div>
+          <div><b>Email:</b> <%= u.email %></div>
+          <div><b>Role:</b> <%= u.role || "user" %></div>
+          <div class="muted" style="font-size:12px"><b>Id:</b> <%= u._id %></div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <hr style="margin:18px 0;border:none;border-top:1px solid #e6e8ef" />
+
+  <h3>All Posts</h3>
+
+  <% if (!posts || posts.length === 0) { %>
+    <p class="muted">Post yok.</p>
+  <% } else { %>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <% posts.forEach(p => { %>
+        <div class="card" style="padding:12px">
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center">
+            <div>
+              <div style="font-weight:700"><%= p.title %></div>
+              <div class="muted" style="font-size:12px">
+                Author: <%= p.author?.name || p.author?.email || "Unknown" %> |
+                <%= new Date(p.createdAt).toLocaleString() %>
+              </div>
+            </div>
+            <a class="btn2" style="padding:8px 12px;border-radius:10px;text-decoration:none" href="/posts/<%= p._id %>">
+              Open
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

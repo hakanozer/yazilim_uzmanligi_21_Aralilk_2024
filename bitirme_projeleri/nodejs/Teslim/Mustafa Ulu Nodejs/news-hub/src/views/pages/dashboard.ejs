@@ -1,0 +1,45 @@
+<%- include("../partials/header", { title: "Dashboard", user }) %>
+
+<div class="card">
+  <h2>Dashboard</h2>
+  <p class="muted">Bu sayfa session ile korunuyor.</p>
+
+  <div class="ok">
+    <div><b>UserId:</b> <%= user.id %></div>
+    <div><b>Email:</b> <%= user.email %></div>
+    <div><b>Role:</b> <%= user.role %></div>
+    <% if (user.name) { %>
+      <div><b>Name:</b> <%= user.name %></div>
+    <% } %>
+  </div>
+
+  <div style="margin-top:16px">
+    <a class="btn2" style="padding:10px 14px;border-radius:10px;display:inline-block;text-decoration:none" href="/posts/new">
+      + New Post
+    </a>
+  </div>
+
+  <h3 style="margin-top:16px">My Posts</h3>
+
+  <% if (!posts || posts.length === 0) { %>
+    <p class="muted">Henüz post yok.</p>
+  <% } else { %>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <% posts.forEach(p => { %>
+        <div class="card" style="padding:12px">
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center">
+            <div>
+              <div style="font-weight:700"><%= p.title %></div>
+              <div class="muted" style="font-size:12px"><%= new Date(p.createdAt).toLocaleString() %></div>
+            </div>
+            <a class="btn2" style="padding:8px 12px;border-radius:10px;text-decoration:none" href="/posts/<%= p._id %>">
+              Open
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

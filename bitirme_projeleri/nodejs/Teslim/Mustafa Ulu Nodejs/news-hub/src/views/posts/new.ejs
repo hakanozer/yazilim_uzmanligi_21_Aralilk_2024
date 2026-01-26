@@ -1,0 +1,26 @@
+<%- include("../partials/header", { title: "New Post", user }) %>
+
+<div class="card">
+  <h2>New Post</h2>
+
+  <% if (error) { %>
+    <div class="error"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="/posts/new">
+    <div style="margin-bottom:10px">
+      <label>Title</label>
+      <input name="title" required minlength="3" maxlength="120" />
+    </div>
+
+    <div style="margin-bottom:10px">
+      <label>Content</label>
+      <textarea name="content" required minlength="10" rows="8"
+        style="width:100%;padding:10px;border:1px solid #d7dbe7;border-radius:10px"></textarea>
+    </div>
+
+    <button class="btn" type="submit">Create</button>
+  </form>
+</div>
+
+<%- include("../partials/footer") %>
